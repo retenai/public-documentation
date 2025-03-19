@@ -37,8 +37,17 @@ Documentación sobre los diferentes tipos de eventos del sistema:
 ## Comenzando
 
 1. Revisa la estructura general en la sección de [Entidades](entities/README.md)
-2. Explora los diferentes tipos de [Eventos](events/marketing_events.md)
+2. Explora los diferentes tipos de [Eventos](events/README.md)
 3. Consulta los ejemplos de implementación en cada sección
+
+## Entidades Principales
+
+1. [Comercios](entities/commerce/README.md)
+2. [Vendedores](entities/seller/README.md)
+3. [Productos](entities/product/README.md)
+4. [Cupones](entities/coupon/README.md)
+5. [Suscripciones](entities/subscription/README.md)
+6. [Categorías](entities/category/README.md)
 
 ## Contribuir
 
