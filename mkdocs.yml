@@ -54,15 +54,16 @@ markdown_extensions:
 # Navigation
 nav:
   - Inicio: index.md
-  - Entidades:
-    - Resumen: entities/README.md
-    - Clientes: entities/client/README.md
-    - Vendedores: entities/seller/README.md
-    - Productos: entities/product/README.md
-    - Cupones: entities/coupon/README.md
-    - Suscripciones: entities/subscription/README.md
-    - Categorías: entities/category/README.md
-    - Suscripción de Canal: entities/channel_subscription.md
+  - Datos Maestros:
+    - Resumen: master-data/README.md
+    - Categorías: master-data/category/README.md
+    - Clientes: master-data/client/README.md
+    - Cupones: master-data/coupon/README.md
+    - Productos: master-data/product/README.md
+    - Vendedores: master-data/seller/README.md
+  - Tareas:
+    - Resumen: tasks/README.md
+    - Seguimiento: tasks/tracking/README.md
   - Eventos:
     - Resumen: events/README.md
     - Marketing: events/marketing_events.md
@@ -70,8 +71,11 @@ nav:
     - Productos: events/product_events.md
     - Usuario: events/user_events.md
     - Entregas: events/delivery_events.md
-  - Integración:
-    - API de Eventos: integration/events_api.md
+  - Configuraciones:
+    - Resumen: settings/README.md
+    - Asignaciones: settings/assignments/README.md
+    - Rutas: settings/routes/README.md
+    - Suscripciones: settings/subscription/README.md
 
 # Additional settings
 plugins:
