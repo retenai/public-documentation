@@ -36,7 +36,7 @@ Documentación sobre los diferentes tipos de eventos del sistema:
 
 ## Comenzando
 
-1. Revisa la estructura general en la sección de [Entidades](properties.md)
+1. Revisa la estructura general en la sección de [Entidades](entities/README.md)
 2. Explora los diferentes tipos de [Eventos](events/marketing_events.md)
 3. Consulta los ejemplos de implementación en cada sección
 

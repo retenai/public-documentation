@@ -4,9 +4,12 @@ site_author: Reten Team
 
 # Repository
 repo_name: reten-docs
-repo_url: https://github.com/retenai/reten-docs
+repo_url: https://github.com/retenai/public-documentation
+edit_uri: edit/main/docs/
 
-# Configuration
+# Documentation and theme
+site_dir: public
+docs_dir: docs
 theme:
   name: material
   language: es
@@ -52,13 +55,13 @@ markdown_extensions:
 nav:
   - Inicio: index.md
   - Entidades:
-    - Resumen: properties.md
-    - Comercios: properties/commerce.md
-    - Vendedores: properties/seller.md
-    - Productos: properties/product.md
-    - Cupones: properties/coupon.md
-    - Suscripción Canales: properties/channel_subscription.md
-    - Categorías: properties/category.md
+    - Resumen: entities/README.md
+    - Comercios: entities/commerce/README.md
+    - Vendedores: entities/seller/README.md
+    - Productos: entities/product/README.md
+    - Cupones: entities/coupon/README.md
+    - Suscripciones: entities/subscription/README.md
+    - Categorías: entities/category/README.md
   - Eventos:
     - Marketing: events/marketing_events.md
     - Ventas: events/sales_events.md
