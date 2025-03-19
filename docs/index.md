@@ -10,11 +10,11 @@ La documentación está organizada en las siguientes secciones principales:
 
 Información fundamental del negocio:
 
-- **[Categorías](entities/category/README.md)**: Clasificación jerárquica de productos
-- **[Clientes](entities/client/README.md)**: Establecimientos comerciales y sus características
-- **[Cupones](entities/coupon/README.md)**: Sistema de promociones y descuentos
-- **[Productos](entities/product/README.md)**: Catálogo de productos y sus atributos
-- **[Vendedores](entities/seller/README.md)**: Usuarios del sistema y sus permisos
+- **[Categorías](master-data/category/README.md)**: Clasificación jerárquica de productos
+- **[Clientes](master-data/client/README.md)**: Establecimientos comerciales y sus características
+- **[Cupones](master-data/coupon/README.md)**: Sistema de promociones y descuentos
+- **[Productos](master-data/product/README.md)**: Catálogo de productos y sus atributos
+- **[Vendedores](master-data/seller/README.md)**: Usuarios del sistema y sus permisos
 
 ### Tareas
 
@@ -50,7 +50,7 @@ Ajustes y preferencias del sistema:
 
 ## Comenzando
 
-1. Familiarízate con los [Datos Maestros](entities/README.md) de tu negocio
+1. Familiarízate con los [Datos Maestros](master-data/README.md) de tu negocio
 2. Configura las [Suscripciones](settings/subscription/README.md) del sistema
 3. Aprende sobre el sistema de [Tareas](tasks/README.md)
 4. Comprende los [Eventos](events/README.md) disponibles
