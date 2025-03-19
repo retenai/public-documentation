@@ -9,7 +9,6 @@ Las suscripciones representan la configuración de comunicación y notificacione
   // Identificadores
   "subscription_id": "string",  // Identificador único de la suscripción (not null)
   "user_id": "string",         // Identificador del usuario (not null)
-  "data_object_id": "string",  // ID del objeto de datos (not null)
 
   // Información del canal
   "channel": {
@@ -29,16 +28,14 @@ Las suscripciones representan la configuración de comunicación y notificacione
     "support": "boolean"       // Comunicaciones de soporte
   },
 
-  // Configuración de frecuencia
-  "frequency": {
-    "type": "string",          // Tipo de frecuencia (immediate, daily, weekly, custom)
+  // Configuración de disponibilidad
+  "availability": {
     "time_zone": "string",     // Zona horaria del usuario
     "working_hours": [{        // Intervalos de disponibilidad para contacto
       "start": "string",       // Hora de inicio (HH:mm)
       "end": "string",         // Hora de fin (HH:mm)
       "days": ["string"]       // Días de la semana aplicables (MON, TUE, WED, THU, FRI, SAT, SUN)
-    }],
-    "custom_schedule": {}      // Configuración personalizada de horarios
+    }]
   },
 
   // Metadatos de verificación
@@ -115,8 +112,7 @@ Las suscripciones representan la configuración de comunicación y notificacione
     "notifications": true,
     "orders": true
   },
-  "frequency": {
-    "type": "daily",
+  "availability": {
     "time_zone": "America/Santiago"
   }
 }
@@ -136,8 +132,7 @@ Las suscripciones representan la configuración de comunicación y notificacione
     "orders": true,
     "support": true
   },
-  "frequency": {
-    "type": "immediate",
+  "availability": {
     "time_zone": "America/Santiago",
     "working_hours": [{
       "start": "22:00",
