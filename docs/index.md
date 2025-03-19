@@ -10,7 +10,7 @@ La documentación está organizada en las siguientes secciones principales:
 
 Documentación detallada sobre las estructuras de datos principales del sistema:
 
-- **[Comercios](entities/commerce/README.md)**: Establecimientos comerciales y sus características
+- **[Clientes](entities/client/README.md)**: Establecimientos comerciales y sus características
 - **[Vendedores](entities/seller/README.md)**: Usuarios del sistema y sus permisos
 - **[Productos](entities/product/README.md)**: Catálogo de productos y sus atributos
 - **[Cupones](entities/coupon/README.md)**: Sistema de promociones y descuentos

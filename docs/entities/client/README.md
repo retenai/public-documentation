@@ -1,6 +1,6 @@
-# Comercios
+# Clientes
 
-Los comercios son los establecimientos o negocios que interactúan con la plataforma Reten. Esta entidad almacena toda la información relevante sobre los clientes comerciales.
+Los clientes son los establecimientos, negocios o personas que interactúan con la plataforma Reten. Esta entidad almacena toda la información relevante sobre los clientes.
 
 ## Estructura de Datos
 
@@ -11,7 +11,7 @@ Los comercios son los establecimientos o negocios que interactúan con la plataf
   "external_id": "string",       // Identificador externo del cliente
 
   // Información básica
-  "name": "string",              // Nombre del comercio
+  "name": "string",              // Nombre del cliente
   
   // Marcas temporales
   "created_at": "timestamp",     // Fecha de creación en sistema cliente (not null)
@@ -22,22 +22,21 @@ Los comercios son los establecimientos o negocios que interactúan con la plataf
   "set_up_date": "timestamp",    // Fecha de configuración inicial
 
   // Ubicación
-  "country": "string",           // País del comercio
+  "country": "string",           // País del cliente
 
-  // Información de contacto
+  // Información de contacto y personas relacionadas
   "contacts": [{
-    "email": "string",
-    "phone": "string",
-    "type": "string"            // primary, secondary, billing, etc.
+    "email": "string",           // Correo electrónico
+    "phone": "string",           // Número telefónico
+    "type": "string",            // primary, secondary, billing, etc.
+    "personal_info": {           // Información personal del contacto
+      "first_name": "string",    // Nombre
+      "last_name": "string",     // Apellido
+      "country": "string",       // País de residencia
+      "date_of_birth": "timestamp", // Fecha de nacimiento
+      "role": "string"           // Rol en la organización (CEO, gerente, dueño, etc.)
+    }
   }],
-
-  // Información personal
-  "personal_info": {
-    "first_name": "string",
-    "last_name": "string",
-    "country": "string",
-    "date_of_birth": "timestamp"
-  },
 
   // Direcciones
   "addresses": [{
@@ -88,10 +87,10 @@ Los comercios son los establecimientos o negocios que interactúan con la plataf
 
 ### Información Básica
 
-| Campo   | Tipo   | Requerido | Descripción                          |
-| ------- | ------ | --------- | ------------------------------------ |
-| name    | string | Sí        | Nombre comercial del establecimiento |
-| country | string | No        | País donde opera el comercio         |
+| Campo   | Tipo   | Requerido | Descripción                 |
+| ------- | ------ | --------- | --------------------------- |
+| name    | string | Sí        | Nombre del cliente          |
+| country | string | No        | País donde opera el cliente |
 
 ### Marcas Temporales
 
@@ -106,20 +105,38 @@ Los comercios son los establecimientos o negocios que interactúan con la plataf
 
 ### Contactos
 
-Los contactos se manejan como un array para permitir múltiples puntos de contacto:
+Los contactos se manejan como un array para permitir múltiples personas relacionadas con el cliente. Para clientes que son personas naturales, la lista contendrá un único contacto.
 
-| Campo | Tipo   | Descripción                               |
-| ----- | ------ | ----------------------------------------- |
-| email | string | Dirección de correo electrónico           |
-| phone | string | Número telefónico                         |
-| type  | string | Tipo de contacto (primary, billing, etc.) |
+| Campo         | Tipo   | Descripción                               |
+| ------------- | ------ | ----------------------------------------- |
+| email         | string | Dirección de correo electrónico           |
+| phone         | string | Número telefónico                         |
+| type          | string | Tipo de contacto (primary, billing, etc.) |
+| personal_info | object | Información personal del contacto         |
+
+**Información Personal del Contacto:**
+| Campo         | Tipo      | Descripción            |
+| ------------- | --------- | ---------------------- |
+| first_name    | string    | Nombre del contacto    |
+| last_name     | string    | Apellido del contacto  |
+| country       | string    | País de residencia     |
+| date_of_birth | timestamp | Fecha de nacimiento    |
+| role          | string    | Rol en la organización |
 
 **Tipos de Contacto Válidos:**
-- `primary`: Contacto principal
+- `primary`: Contacto principal (requerido)
 - `billing`: Contacto de facturación
 - `technical`: Contacto técnico
 - `marketing`: Contacto de marketing
 - `support`: Contacto de soporte
+
+**Roles Comunes:**
+- `owner`: Dueño o propietario
+- `ceo`: Director ejecutivo
+- `manager`: Gerente
+- `administrator`: Administrador
+- `employee`: Empleado
+- `representative`: Representante legal
 
 ### Direcciones
 
@@ -148,7 +165,7 @@ Las direcciones se manejan como un array para permitir múltiples ubicaciones:
 
 ### Grupos y Clasificaciones
 
-Los grupos permiten categorizar y segmentar comercios:
+Los grupos permiten categorizar y segmentar clientes:
 
 ```json
 {
@@ -215,31 +232,38 @@ Los grupos permiten categorizar y segmentar comercios:
    - Los atributos deben ser válidos para el tipo de grupo
 
 3. **Atributos**
-   - Las claves de atributos deben ser únicas por comercio
+   - Las claves de atributos deben ser únicas por cliente
    - Los valores deben corresponder al tipo esperado
 
 ## Ejemplos de Uso
 
-### Comercio Básico
+### Cliente Persona Natural
 
 ```json
 {
   "user_id": "COM_001",
   "external_id": "CLIENT_123",
-  "name": "Minimarket Don José",
+  "name": "José Pérez",
   "created_at": "2024-03-19T10:00:00Z",
   "sign_up_date": "2024-03-19T10:00:00Z",
   "country": "CL",
   "contacts": [{
     "type": "primary",
-    "email": "jose@minimarket.cl",
-    "phone": "+56912345678"
+    "email": "jose.perez@email.com",
+    "phone": "+56912345678",
+    "personal_info": {
+      "first_name": "José",
+      "last_name": "Pérez",
+      "country": "CL",
+      "date_of_birth": "1980-05-15T00:00:00Z",
+      "role": "owner"
+    }
   }],
   "addresses": [{
-    "type": "store",
-    "name": "Tienda Principal",
-    "street": "Av. Providencia",
-    "number": "1234",
+    "type": "home",
+    "name": "Casa",
+    "street": "Los Alerces",
+    "number": "123",
     "city": "Santiago",
     "region": "Metropolitana",
     "is_default": true
@@ -247,38 +271,48 @@ Los grupos permiten categorizar y segmentar comercios:
 }
 ```
 
-### Comercio con Múltiples Ubicaciones
+### Cliente Empresa con Múltiples Contactos
 
 ```json
 {
   "user_id": "COM_002",
   "name": "Supermercados El Sol",
-  "addresses": [{
-    "type": "store",
-    "name": "Sucursal Centro",
-    "street": "Estado",
-    "number": "100",
-    "city": "Santiago",
-    "is_default": true
+  "contacts": [{
+    "type": "primary",
+    "email": "gerencia@elsol.cl",
+    "phone": "+56922334455",
+    "personal_info": {
+      "first_name": "María",
+      "last_name": "González",
+      "country": "CL",
+      "role": "ceo"
+    }
   }, {
-    "type": "warehouse",
-    "name": "Bodega Principal",
-    "street": "Los Industriales",
-    "number": "500",
-    "city": "Santiago",
-    "is_default": false
+    "type": "billing",
+    "email": "finanzas@elsol.cl",
+    "phone": "+56922334456",
+    "personal_info": {
+      "first_name": "Juan",
+      "last_name": "Silva",
+      "country": "CL",
+      "role": "administrator"
+    }
   }, {
-    "type": "office",
-    "name": "Oficinas Administrativas",
-    "street": "Apoquindo",
-    "number": "3000",
-    "city": "Santiago",
-    "is_default": false
-  }]
+    "type": "technical",
+    "email": "sistemas@elsol.cl",
+    "phone": "+56922334457",
+    "personal_info": {
+      "first_name": "Pedro",
+      "last_name": "Rojas",
+      "country": "CL",
+      "role": "manager"
+    }
+  }],
+  // ... resto de la información ...
 }
 ```
 
-### Comercio con Clasificaciones Complejas
+### Cliente con Clasificaciones Complejas
 
 ```json
 {

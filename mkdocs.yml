@@ -56,7 +56,7 @@ nav:
   - Inicio: index.md
   - Entidades:
     - Resumen: entities/README.md
-    - Comercios: entities/commerce/README.md
+    - Clientes: entities/client/README.md
     - Vendedores: entities/seller/README.md
     - Productos: entities/product/README.md
     - Cupones: entities/coupon/README.md

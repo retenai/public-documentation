@@ -12,7 +12,7 @@ Todas las entidades comparten:
 
 ## Catálogo de Entidades
 
-### [Comercios](./commerce/README.md)
+### [Clientes](./client/README.md)
 Establecimientos comerciales que interactúan con la plataforma.
 - Información de contacto y ubicación
 - Grupos y clasificaciones
