@@ -33,6 +33,10 @@
          <lastmod>2025-03-19</lastmod>
     </url>
     <url>
+         <loc>https://retenai.github.io/public-documentation/entities/subscription/</loc>
+         <lastmod>2025-03-19</lastmod>
+    </url>
+    <url>
          <loc>https://retenai.github.io/public-documentation/events/</loc>
          <lastmod>2025-03-19</lastmod>
     </url>
@@ -54,6 +58,10 @@
     </url>
     <url>
          <loc>https://retenai.github.io/public-documentation/events/user_events/</loc>
+         <lastmod>2025-03-19</lastmod>
+    </url>
+    <url>
+         <loc>https://retenai.github.io/public-documentation/integration/events_api/</loc>
          <lastmod>2025-03-19</lastmod>
     </url>
 </urlset>

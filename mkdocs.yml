@@ -62,12 +62,16 @@ nav:
     - Cupones: entities/coupon/README.md
     - Suscripciones: entities/subscription/README.md
     - Categorías: entities/category/README.md
+    - Suscripción de Canal: entities/channel_subscription.md
   - Eventos:
+    - Resumen: events/README.md
     - Marketing: events/marketing_events.md
     - Ventas: events/sales_events.md
     - Productos: events/product_events.md
     - Usuario: events/user_events.md
     - Entregas: events/delivery_events.md
+  - Integración:
+    - API de Eventos: integration/events_api.md
 
 # Additional settings
 plugins:
