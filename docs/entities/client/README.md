@@ -207,21 +207,25 @@ Los grupos permiten categorizar y segmentar clientes:
 ### Validaciones Generales
 
 1. **Identificadores**
-   - `user_id` debe ser único en todo el sistema
-   - `external_id` debe ser único por cliente
 
-2. **Fechas**
+- `user_id` debe ser único en todo el sistema
+- `external_id` debe ser único por cliente
+
+1. **Fechas**
+
    - `created_at` no puede ser posterior a `updated_at`
    - `sign_up_date` no puede ser posterior a `set_up_date`
    - Todas las fechas deben ser válidas y en formato ISO 8601
 
-3. **Contactos**
+2. **Contactos**
+
    - Debe existir al menos un contacto de tipo `primary`
    - Los emails deben ser únicos dentro del array de contactos
    - Los emails deben tener formato válido
    - Los teléfonos deben tener formato válido según el país
 
-4. **Direcciones**
+3. **Direcciones**
+
    - Debe existir al menos una dirección marcada como `is_default: true`
    - Las coordenadas geográficas deben ser válidas si se proporcionan
    - Los tipos de dirección deben ser valores predefinidos

@@ -248,7 +248,7 @@ Los vendedores pueden tener múltiples comercios asociados, y esta relación se 
 
 ## Validaciones
 
-### Validaciones Generales
+### Validaciones Generales 
 
 1. **Identificadores**
    - `seller_id` debe ser único en todo el sistema

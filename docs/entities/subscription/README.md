@@ -33,10 +33,11 @@ Las suscripciones representan la configuración de comunicación y notificacione
   "frequency": {
     "type": "string",          // Tipo de frecuencia (immediate, daily, weekly, custom)
     "time_zone": "string",     // Zona horaria del usuario
-    "quiet_hours": {           // Horas de no disturbar
+    "working_hours": [{        // Intervalos de disponibilidad para contacto
       "start": "string",       // Hora de inicio (HH:mm)
-      "end": "string"          // Hora de fin (HH:mm)
-    },
+      "end": "string",         // Hora de fin (HH:mm)
+      "days": ["string"]       // Días de la semana aplicables (MON, TUE, WED, THU, FRI, SAT, SUN)
+    }],
     "custom_schedule": {}      // Configuración personalizada de horarios
   },
 
@@ -90,7 +91,7 @@ Las suscripciones representan la configuración de comunicación y notificacione
 
 3. **Frecuencia**
    - Zona horaria válida
-   - Horas de quiet_hours en formato válido
+   - Horas de working_hours en formato válido
    - Configuración custom_schedule válida según tipo
 
 4. **Verificación**
@@ -138,10 +139,11 @@ Las suscripciones representan la configuración de comunicación y notificacione
   "frequency": {
     "type": "immediate",
     "time_zone": "America/Santiago",
-    "quiet_hours": {
+    "working_hours": [{
       "start": "22:00",
-      "end": "08:00"
-    }
+      "end": "08:00",
+      "days": ["MON", "TUE", "WED", "THU", "FRI"]
+    }]
   }
 }
 ```
@@ -161,4 +163,4 @@ Las suscripciones representan la configuración de comunicación y notificacione
 3. **Control de Frecuencia**
    - Respetar zona horaria del usuario
    - Consolidación de mensajes según frecuencia
-   - Manejo de excepciones en quiet_hours 
+   - Manejo de excepciones en working_hours 
