@@ -138,6 +138,7 @@ Los productos representan los artículos comercializados a través de la platafo
 | additional_images | array  | Colección de imágenes adicionales |
 
 **Estructura de Imágenes Adicionales:**
+
 - `url`: URL de la imagen
 - `description`: Descripción de la imagen
 - `type`: Tipo de imagen (producto, lifestyle, etc.)
@@ -157,6 +158,7 @@ Los productos representan los artículos comercializados a través de la platafo
 ### Composición
 
 **Pack:**
+
 - `is_pack`: Indica si es un pack
 - `units_per_pack`: Cantidad de unidades por pack
 - `unit_type`: Tipo de unidad
@@ -164,6 +166,7 @@ Los productos representan los artículos comercializados a través de la platafo
 - `unit_measure`: Unidad de medida
 
 **Combo:**
+
 - `is_combo`: Indica si es un combo
 - `combo_type`: Tipo de combo
 - `is_configurable`: Permite configuración

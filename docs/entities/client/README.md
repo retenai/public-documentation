@@ -115,6 +115,7 @@ Los contactos se manejan como un array para permitir múltiples personas relacio
 | personal_info | object | Información personal del contacto         |
 
 **Información Personal del Contacto:**
+
 | Campo         | Tipo      | Descripción            |
 | ------------- | --------- | ---------------------- |
 | first_name    | string    | Nombre del contacto    |
@@ -124,6 +125,7 @@ Los contactos se manejan como un array para permitir múltiples personas relacio
 | role          | string    | Rol en la organización |
 
 **Tipos de Contacto Válidos:**
+
 - `primary`: Contacto principal (requerido)
 - `billing`: Contacto de facturación
 - `technical`: Contacto técnico
@@ -131,6 +133,7 @@ Los contactos se manejan como un array para permitir múltiples personas relacio
 - `support`: Contacto de soporte
 
 **Roles Comunes:**
+
 - `owner`: Dueño o propietario
 - `ceo`: Director ejecutivo
 - `manager`: Gerente
@@ -157,6 +160,7 @@ Las direcciones se manejan como un array para permitir múltiples ubicaciones:
 | is_default  | boolean | Indica si es la dirección principal |
 
 **Tipos de Dirección Válidos:**
+
 - `billing`: Dirección de facturación
 - `shipping`: Dirección de envío
 - `warehouse`: Almacén o bodega
@@ -192,6 +196,7 @@ Los grupos permiten categorizar y segmentar clientes:
 ```
 
 **Tipos de Grupo Comunes:**
+
 - `channel`: Canal de ventas
 - `segment`: Segmentación de mercado
 - `territory`: División territorial

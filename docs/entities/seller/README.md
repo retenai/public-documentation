@@ -126,6 +126,7 @@ Los vendedores son los usuarios del CPG (Consumer Packaged Goods) que interactú
 | status       | string | Sí        | Estado actual del vendedor     |
 
 **Estados Válidos del Vendedor:**
+
 - `active`: Vendedor activo
 - `inactive`: Vendedor inactivo temporalmente
 - `suspended`: Cuenta suspendida
@@ -142,6 +143,7 @@ Los vendedores son los usuarios del CPG (Consumer Packaged Goods) que interactú
 | last_login   | timestamp | No        | Último acceso al sistema         |
 
 **Roles Comunes:**
+
 - `sales_rep`: Vendedor de campo
 - `supervisor`: Supervisor de ventas
 - `manager`: Gerente de territorio
@@ -162,6 +164,7 @@ Las asignaciones definen las áreas de responsabilidad del vendedor:
 | is_active  | boolean   | Estado actual            |
 
 **Tipos de Asignación:**
+
 - `territory`: Territorio geográfico
 - `route`: Ruta de visita
 - `portfolio`: Portafolio de productos
