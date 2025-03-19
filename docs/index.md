@@ -6,20 +6,26 @@ Bienvenido a la documentación técnica de Reten. Esta documentación está dise
 
 La documentación está organizada en las siguientes secciones principales:
 
-### Entidades
+### Datos Maestros
 
-Documentación detallada sobre las estructuras de datos principales del sistema:
+Información fundamental del negocio:
 
-- **[Clientes](entities/client/README.md)**: Establecimientos comerciales y sus características
-- **[Vendedores](entities/seller/README.md)**: Usuarios del sistema y sus permisos
-- **[Productos](entities/product/README.md)**: Catálogo de productos y sus atributos
-- **[Cupones](entities/coupon/README.md)**: Sistema de promociones y descuentos
-- **[Suscripciones](entities/subscription/README.md)**: Gestión de comunicaciones
 - **[Categorías](entities/category/README.md)**: Clasificación jerárquica de productos
+- **[Clientes](entities/client/README.md)**: Establecimientos comerciales y sus características
+- **[Cupones](entities/coupon/README.md)**: Sistema de promociones y descuentos
+- **[Productos](entities/product/README.md)**: Catálogo de productos y sus atributos
+- **[Vendedores](entities/seller/README.md)**: Usuarios del sistema y sus permisos
+
+### Tareas
+
+Sistema de gestión de actividades comerciales:
+
+- **[Tareas](tasks/README.md)**: Instrucciones y momentos oportunos para contactar clientes
+- **[Seguimiento](tasks/tracking/README.md)**: Estado y progreso de tareas
 
 ### Eventos
 
-Documentación sobre los diferentes tipos de eventos del sistema:
+Registro de actividades del sistema:
 
 - **[Marketing](events/marketing_events.md)**: Eventos relacionados con campañas y comunicaciones
 - **[Ventas](events/sales_events.md)**: Eventos del proceso de venta
@@ -27,18 +33,27 @@ Documentación sobre los diferentes tipos de eventos del sistema:
 - **[Usuario](events/user_events.md)**: Eventos de interacción de usuarios
 - **[Entregas](events/delivery_events.md)**: Eventos del proceso de entrega
 
+### Configuraciones
+
+Ajustes y preferencias del sistema:
+
+- **[Asignaciones](settings/assignments/README.md)**: Relaciones entre vendedores y clientes
+- **[Rutas](settings/routes/README.md)**: Programación de visitas a clientes
+- **[Suscripciones](settings/subscription/README.md)**: Gestión de comunicaciones
+
 ## Características Principales
 
-- **Documentación Completa**: Cada entidad y evento está documentado con ejemplos y casos de uso
+- **Documentación Completa**: Cada sección está documentada con ejemplos y casos de uso
 - **Validaciones**: Incluye reglas de validación y restricciones de datos
 - **Ejemplos**: Código de ejemplo para implementaciones comunes
 - **Guías**: Instrucciones paso a paso para integraciones
 
 ## Comenzando
 
-1. Revisa la estructura general en la sección de [Entidades](entities/README.md)
-2. Explora los diferentes tipos de [Eventos](events/README.md)
-3. Consulta los ejemplos de implementación en cada sección
+1. Familiarízate con los [Datos Maestros](entities/README.md) de tu negocio
+2. Configura las [Suscripciones](settings/subscription/README.md) del sistema
+3. Aprende sobre el sistema de [Tareas](tasks/README.md)
+4. Comprende los [Eventos](events/README.md) disponibles
 
 ## Contribuir
 
