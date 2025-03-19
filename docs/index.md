@@ -10,12 +10,12 @@ La documentación está organizada en las siguientes secciones principales:
 
 Documentación detallada sobre las estructuras de datos principales del sistema:
 
-- **[Comercios](properties/commerce.md)**: Establecimientos comerciales y sus características
-- **[Vendedores](properties/seller.md)**: Usuarios del sistema y sus permisos
-- **[Productos](properties/product.md)**: Catálogo de productos y sus atributos
-- **[Cupones](properties/coupon.md)**: Sistema de promociones y descuentos
-- **[Suscripción Canales](properties/channel_subscription.md)**: Gestión de comunicaciones
-- **[Categorías](properties/category.md)**: Clasificación jerárquica de productos
+- **[Comercios](entities/commerce/README.md)**: Establecimientos comerciales y sus características
+- **[Vendedores](entities/seller/README.md)**: Usuarios del sistema y sus permisos
+- **[Productos](entities/product/README.md)**: Catálogo de productos y sus atributos
+- **[Cupones](entities/coupon/README.md)**: Sistema de promociones y descuentos
+- **[Suscripciones](entities/subscription/README.md)**: Gestión de comunicaciones
+- **[Categorías](entities/category/README.md)**: Clasificación jerárquica de productos
 
 ### Eventos
 
@@ -39,15 +39,6 @@ Documentación sobre los diferentes tipos de eventos del sistema:
 1. Revisa la estructura general en la sección de [Entidades](entities/README.md)
 2. Explora los diferentes tipos de [Eventos](events/README.md)
 3. Consulta los ejemplos de implementación en cada sección
-
-## Entidades Principales
-
-1. [Comercios](entities/commerce/README.md)
-2. [Vendedores](entities/seller/README.md)
-3. [Productos](entities/product/README.md)
-4. [Cupones](entities/coupon/README.md)
-5. [Suscripciones](entities/subscription/README.md)
-6. [Categorías](entities/category/README.md)
 
 ## Contribuir
 

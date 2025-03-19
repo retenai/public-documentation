@@ -1,80 +1,59 @@
-# Eventos en Reten
+# Eventos
 
-Este directorio contiene la documentación detallada de todos los eventos que pueden ser enviados a Reten.
+Los eventos en Reten representan acciones y cambios significativos que ocurren en el sistema. Cada tipo de evento tiene su propia estructura y propósito específico.
 
-## Estructura General de Eventos
+## Tipos de Eventos
 
-Todos los eventos en Reten comparten la siguiente estructura base:
+### [Marketing](./marketing_events.md)
+Eventos relacionados con campañas y comunicaciones:
+- Envío de comunicaciones
+- Respuestas y engagement
+- Seguimiento de campañas
+
+### [Ventas](./sales_events.md)
+Eventos del proceso de venta:
+- Creación de órdenes
+- Confirmaciones de pago
+- Estados de transacción
+
+### [Productos](./product_events.md)
+Eventos relacionados con productos:
+- Actualizaciones de catálogo
+- Cambios de precio
+- Gestión de inventario
+
+### [Usuario](./user_events.md)
+Eventos de interacción de usuarios:
+- Registro y autenticación
+- Actualizaciones de perfil
+- Preferencias y configuraciones
+
+### [Entregas](./delivery_events.md)
+Eventos del proceso de entrega:
+- Estados de envío
+- Confirmaciones de entrega
+- Incidencias logísticas
+
+## Estructura General
+
+Todos los eventos comparten una estructura base:
 
 ```json
 {
-  "event_id": "string",         // Identificador único del evento
-  "event_type": "string",       // Tipo de evento (ver categorías)
-  "event_date": "timestamp",    // Fecha y hora del evento
-  "user_id": "string",         // ID del usuario que realizó la acción
-  "_created_at": "timestamp",   // Fecha de creación en Reten
-  "_updated_at": "timestamp",   // Fecha de última actualización en Reten
-  "data_object_id": "string",   // ID del objeto relacionado
-  "attributes": [{             // Atributos adicionales del evento
-    "key": "string",
-    "value": "string"
-  }]
+  "event_id": "string",        // Identificador único del evento
+  "event_type": "string",      // Tipo de evento
+  "timestamp": "string",       // Fecha y hora del evento
+  "source": "string",          // Origen del evento
+  "data": {},                  // Datos específicos del evento
+  "metadata": {}               // Metadatos adicionales
 }
 ```
 
-## Categorías de Eventos
+## Consumo de Eventos
 
-1. [Eventos de Venta](./sales_events.md)
-   - Eventos relacionados con el proceso de compra
-   - Tracking de carrito
-   - Procesos de checkout y pago
+Los eventos pueden ser consumidos a través de:
+- Webhooks
+- API REST
+- Streaming en tiempo real
 
-2. [Eventos de Producto](./product_events.md)
-   - Visualizaciones
-   - Interacciones
-   - Impresiones
-
-3. [Eventos de Usuario](./user_events.md)
-   - Creación de cuenta
-   - Autorizaciones
-   - Login/Logout
-
-4. [Eventos de Entrega](./delivery_events.md)
-   - Confirmaciones
-   - Estados de envío
-   - Tracking
-
-5. [Eventos de Marketing](./marketing_events.md)
-   - Suscripciones
-   - Interacciones con campañas
-   - Respuestas a comunicaciones
-
-## Convenciones de Nomenclatura
-
-### Tipos de Evento
-- Los tipos de evento deben estar en `snake_case`
-- Deben ser descriptivos y seguir el formato `objeto_accion`
-- Ejemplos: `cart_started`, `product_viewed`, `order_confirmed`
-
-### Atributos
-- Las claves de atributos deben estar en `snake_case`
-- Los valores deben seguir el tipo de dato especificado
-- Fechas en formato ISO 8601
-- Montos en números decimales (float64)
-
-## Validación de Eventos
-
-Cada evento pasa por un proceso de validación que verifica:
-1. Estructura correcta según el tipo de evento
-2. Presencia de campos requeridos
-3. Tipos de datos correctos
-4. Valores dentro de rangos permitidos
-
-## Integración
-
-Para enviar eventos a Reten, consulta la [documentación de integración](../integration/events_api.md) que incluye:
-- Endpoints de la API
-- Autenticación
-- Manejo de errores
-- Rate limits
-- Ejemplos de implementación 
+Para más detalles sobre la integración con eventos, consulta la [documentación de la API de eventos](../integration/events_api.md). 
