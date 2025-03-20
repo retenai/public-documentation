@@ -24,15 +24,6 @@ Establecimientos comerciales que interactúan con la plataforma.
 - Datos de facturación y entrega
 
 
-### [Vendedores](./seller/README.md)
-
-Usuarios del CPG que gestionan las relaciones comerciales.
-
-- Roles y permisos
-- Información de acceso
-- Asignaciones y territorios
-
-
 ### [Productos](./product/README.md)
 
 Catálogo de productos disponibles para comercialización.
@@ -42,13 +33,22 @@ Catálogo de productos disponibles para comercialización.
 - Configuraciones específicas
 
 
-### [Transacciones](./transactions/README.md)
+### [Categorías](./category/README.md)
 
-Registro de operaciones comerciales realizadas.
+Estructura jerárquica para la organización de productos.
 
-- Detalles de la compra
-- Información de pago
-- Estado y seguimiento
+- Jerarquía y relaciones
+- Atributos por nivel
+- Metadatos de clasificación
+
+
+### [Vendedores](./seller/README.md)
+
+Usuarios del CPG que gestionan las relaciones comerciales.
+
+- Roles y permisos
+- Información de acceso
+- Asignaciones y territorios
 
 
 ### [Cupones](./coupon/README.md)
@@ -60,6 +60,15 @@ Mecanismos de promoción y descuento.
 - Restricciones de uso
 
 
+### [Transacciones](./transactions/README.md)
+
+Registro de operaciones comerciales realizadas.
+
+- Detalles de la compra
+- Información de pago
+- Estado y seguimiento
+
+
 ### [Suscripciones](./subscription/README.md)
 
 Configuraciones de comunicación y notificaciones.
@@ -67,15 +76,6 @@ Configuraciones de comunicación y notificaciones.
 - Preferencias por canal
 - Estados y configuraciones
 - Gestión de consentimientos
-
-
-### [Categorías](./category/README.md)
-
-Estructura jerárquica para la organización de productos.
-
-- Jerarquía y relaciones
-- Atributos por nivel
-- Metadatos de clasificación
 
 
 ## Convenciones Generales
