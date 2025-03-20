@@ -109,29 +109,29 @@ Las transacciones representan las compras realizadas por los clientes en el sist
 
 ## Validaciones
 
-1. **Identificadores**
+### Identificadores
 
-   - `transaction_id` debe ser único en todo el sistema
-   - `client_id` debe corresponder a un cliente existente
-   - `seller_id` debe corresponder a un vendedor existente
+- `transaction_id` debe ser único en todo el sistema
+- `client_id` debe corresponder a un cliente existente
+- `seller_id` debe corresponder a un vendedor existente
 
-2. **Fechas**
+### Fechas
 
-   - `created_at` no puede ser posterior a `updated_at`
-   - `transaction_date` debe ser una fecha válida
+- `created_at` no puede ser posterior a `updated_at`
+- `transaction_date` debe ser una fecha válida
 
-3. **Items**
+### Items
 
-   - Debe existir al menos un item
-   - Los productos deben existir en el catálogo
-   - Cantidades y precios deben ser positivos
-   - El total debe corresponder a la suma de items
+- Debe existir al menos un item
+- Los productos deben existir en el catálogo
+- Cantidades y precios deben ser positivos
+- El total debe corresponder a la suma de items
 
-4. **Totales**
+### Totales
 
-   - Los totales deben ser consistentes con los items
-   - Los descuentos deben ser válidos según las reglas de negocio
-   - Los impuestos deben calcularse correctamente
+- Los totales deben ser consistentes con los items
+- Los descuentos deben ser válidos según las reglas de negocio
+- Los impuestos deben calcularse correctamente
 
 ## Ejemplos
 
