@@ -10,52 +10,13 @@ Las transacciones representan las compras realizadas por los clientes en el sist
   "transaction_id": "string",    // Identificador único de la transacción (not null)
   "client_id": "string",         // ID del cliente que realizó la compra (not null)
   "seller_id": "string",         // ID del vendedor asociado (not null)
-  "external_id": "string",       // Identificador externo de la transacción
-  "event_id": "string",          // ID del evento asociado (not null)
 
   // Información temporal
   "created_at": "timestamp",     // Fecha de creación (not null)
   "updated_at": "timestamp",     // Última actualización
   "_created_at": "timestamp",    // Fecha de creación en Reten
   "_updated_at": "timestamp",    // Última actualización en Reten
-  "unix_updated_at": "number",   // Timestamp Unix de última actualización
   "transaction_date": "timestamp", // Fecha de la transacción (not null)
-  
-  // Atributos temporales
-  "time_attributes": {
-    "year": "number",
-    "month": "number",
-    "day": "number",
-    "hour": "number",
-    "minute": "number",
-    "time_zone": "string",
-    "week_day": "number",
-    "day_of_year": "number",
-    "week_of_month": "number",
-    "week_of_year": "number",
-    "month_start_date": "string",
-    "month_end_date": "string",
-    "week_start_date": "string",
-    "week_end_date": "string",
-    "quarter_start_date": "string",
-    "quarter_end_date": "string",
-    "daily_cohort": "number",
-    "weekly_cohort": "number",
-    "monthly_cohort": "number",
-    "quarterly_cohort": "number",
-    "yearly_cohort": "number",
-    "daily_cohort_date": "timestamp",
-    "weekly_cohort_date": "timestamp",
-    "monthly_cohort_date": "timestamp",
-    "quarterly_cohort_date": "timestamp",
-    "yearly_cohort_date": "timestamp",
-    "calendar_fiscal_config_id": "string",
-    "fiscal_year": "number",
-    "fiscal_month": "number",
-    "fiscal_month_date": "timestamp",
-    "fiscal_period_start": "timestamp",
-    "fiscal_period_end": "timestamp"
-  },
 
   // Detalles de la transacción
   "items": [{
@@ -175,20 +136,55 @@ Las transacciones representan las compras realizadas por los clientes en el sist
   "transaction_id": "TRX_001",
   "client_id": "CLIENT_123",
   "seller_id": "SELLER_456",
+  "event_id": "EVENT_789",
   "transaction_date": "2024-03-19T10:00:00Z",
   "items": [{
     "product_id": "PROD_789",
+    "item_id": "ITEM_001",
+    "name": "Producto A",
+    "category": "Categoría 1",
     "quantity": 2,
     "unit_price": 100.00,
-    "total_price": 200.00
+    "total_price": 200.00,
+    "attributes": []
   }],
-  "subtotal": 200.00,
-  "discount_total": 0,
-  "tax_total": 38.00,
-  "total": 238.00,
+  "pricing": {
+    "net_amount": 200.00,
+    "final_amount": 238.00,
+    "discount_amount": 0,
+    "shipping_amount": 0,
+    "tax_amount": 38.00
+  },
+  "shipping_address": {
+    "name": "Juan Pérez",
+    "street": "Av. Principal",
+    "number": "123",
+    "dept_number": "",
+    "city": "Santiago",
+    "commune": "Las Condes",
+    "region": "Metropolitana",
+    "lat": "-33.4189",
+    "long": "-70.6412"
+  },
+  "billing_address": {
+    "name": "Juan Pérez",
+    "street": "Av. Principal",
+    "number": "123",
+    "dept_number": "",
+    "city": "Santiago",
+    "commune": "Las Condes",
+    "region": "Metropolitana",
+    "lat": "-33.4189",
+    "long": "-70.6412"
+  },
   "status": "completed",
-  "payment_status": "paid",
-  "payment_method": "credit_card"
+  "payment_details": {
+    "method": "credit_card",
+    "amount": 238.00,
+    "status": "paid",
+    "date": "2024-03-19T10:00:00Z"
+  },
+  "attributes": []
 }
 ```
 
@@ -199,25 +195,61 @@ Las transacciones representan las compras realizadas por los clientes en el sist
   "transaction_id": "TRX_002",
   "client_id": "CLIENT_123",
   "seller_id": "SELLER_456",
+  "event_id": "EVENT_790",
   "transaction_date": "2024-03-19T11:00:00Z",
   "items": [{
     "product_id": "PROD_789",
+    "item_id": "ITEM_002",
+    "name": "Producto A",
+    "category": "Categoría 1",
     "quantity": 1,
     "unit_price": 100.00,
     "total_price": 100.00,
+    "attributes": [],
     "discount": {
       "coupon_id": "COUPON_001",
       "amount": 20.00,
       "type": "percentage"
     }
   }],
-  "subtotal": 100.00,
-  "discount_total": 20.00,
-  "tax_total": 15.20,
-  "total": 95.20,
+  "pricing": {
+    "net_amount": 100.00,
+    "final_amount": 95.20,
+    "discount_amount": 20.00,
+    "shipping_amount": 0,
+    "tax_amount": 15.20
+  },
+  "shipping_address": {
+    "name": "Juan Pérez",
+    "street": "Av. Principal",
+    "number": "123",
+    "dept_number": "",
+    "city": "Santiago",
+    "commune": "Las Condes",
+    "region": "Metropolitana",
+    "lat": "-33.4189",
+    "long": "-70.6412"
+  },
+  "billing_address": {
+    "name": "Juan Pérez",
+    "street": "Av. Principal",
+    "number": "123",
+    "dept_number": "",
+    "city": "Santiago",
+    "commune": "Las Condes",
+    "region": "Metropolitana",
+    "lat": "-33.4189",
+    "long": "-70.6412"
+  },
   "status": "completed",
-  "payment_status": "paid",
-  "payment_method": "cash"
+  "coupon_code": "DESCUENTO20",
+  "payment_details": {
+    "method": "cash",
+    "amount": 95.20,
+    "status": "paid",
+    "date": "2024-03-19T11:00:00Z"
+  },
+  "attributes": []
 }
 ```
 
