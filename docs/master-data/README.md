@@ -11,6 +11,8 @@ Todas las entidades comparten:
 - Extensibilidad mediante atributos personalizados
 - Campos de auditoría y metadatos
 
+Para asegurar la consistencia en la documentación y estructura de las entidades, se proporciona una [plantilla](./_template.md) que debe seguirse al crear nuevas entidades master-data.
+
 ## Catálogo de Entidades
 
 ### [Clientes](./client/README.md)
@@ -38,6 +40,15 @@ Catálogo de productos disponibles para comercialización.
 - Información básica y precios
 - Categorías y atributos
 - Configuraciones específicas
+
+
+### [Transacciones](./transactions/README.md)
+
+Registro de operaciones comerciales realizadas.
+
+- Detalles de la compra
+- Información de pago
+- Estado y seguimiento
 
 
 ### [Cupones](./coupon/README.md)
