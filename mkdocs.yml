@@ -92,6 +92,4 @@ plugins:
       arguments:
         securityLevel: loose
         theme: default
-
-extra_javascript:
-  - https://unpkg.com/mermaid@10.9.0/dist/mermaid.min.js 
+      javascript: https://unpkg.com/mermaid@10.9.0/dist/mermaid.min.js 
