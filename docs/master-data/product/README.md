@@ -303,24 +303,26 @@ Los productos representan los artículos comercializados a través de la platafo
 
 ### Gestión de Inventario
 
-1. **Control de Stock**
+#### Control de Stock
    - Actualización en tiempo real
    - Reserva de inventario
    - Alertas de stock bajo
 
-2. **Precios y Promociones**
+#### Precios y Promociones
    - Historial de precios
    - Reglas de descuento
    - Precios por volumen
 
 ### Optimización
 
-1. **Búsqueda y Filtrado**
+#### Búsqueda y Filtrado
+
    - Índices por categoría
    - Búsqueda por atributos
    - Filtros dinámicos
 
-2. **Caché**
+#### Caché
+
    - Información básica en caché
    - Invalidación selectiva
    - Precarga de imágenes
@@ -329,7 +331,7 @@ Los productos representan los artículos comercializados a través de la platafo
 
 ### APIs
 
-1. **Endpoints Principales**
+#### Endpoints Principales
    ```
    GET    /api/v1/products/{product_id}
    POST   /api/v1/products
@@ -338,7 +340,7 @@ Los productos representan los artículos comercializados a través de la platafo
    DELETE /api/v1/products/{product_id}
    ```
 
-2. **Endpoints de Relación**
+#### Endpoints de Relación
    ```
    GET    /api/v1/products/{product_id}/categories
    GET    /api/v1/products/{product_id}/media
@@ -347,13 +349,15 @@ Los productos representan los artículos comercializados a través de la platafo
 
 ### Webhooks
 
-1. **Eventos Disponibles**
+#### Eventos Disponibles
+
    - `product.created`
    - `product.updated`
    - `product.status_changed`
    - `product.stock_updated`
 
-2. **Formato de Payload**
+#### Formato de Payload
+
    ```json
    {
      "event": "product.stock_updated",
@@ -371,17 +375,20 @@ Los productos representan los artículos comercializados a través de la platafo
 
 ## Preguntas Frecuentes
 
-1. **¿Cómo manejar variantes de productos?**
+**¿Cómo manejar variantes de productos?**
+
    - Usar productos relacionados
    - Mantener atributos específicos
    - Vincular SKUs relacionados
 
-2. **¿Cómo gestionar cambios de precio?**
+**¿Cómo gestionar cambios de precio?**
+
    - Mantener historial de precios
    - Programar cambios futuros
    - Notificar a stakeholders
 
-3. **¿Cómo manejar productos descontinuados?**
+**¿Cómo manejar productos descontinuados?**
+
    - Mantener registro histórico
    - Sugerir alternativas
    - Gestionar inventario remanente 

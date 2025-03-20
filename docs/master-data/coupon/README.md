@@ -71,6 +71,7 @@ Los tipos de beneficio disponibles son:
 Cada tipo de regla se almacena como un campo de tipo `JSON` en la base de datos, lo que permite una estructura flexible y consultas eficientes:
 
 ### Reglas de Categoría
+
 ```json
 {
   "included_categories": ["category_1", "category_2"],
@@ -79,6 +80,7 @@ Cada tipo de regla se almacena como un campo de tipo `JSON` en la base de datos,
 ```
 
 ### Reglas de Tiempo
+
 ```json
 {
   "days": ["MONDAY", "TUESDAY"],
@@ -88,6 +90,7 @@ Cada tipo de regla se almacena como un campo de tipo `JSON` en la base de datos,
 ```
 
 ### Reglas de Ubicación
+
 ```json
 {
   "territories": ["SANTIAGO", "VALPARAISO"],
@@ -96,6 +99,7 @@ Cada tipo de regla se almacena como un campo de tipo `JSON` en la base de datos,
 ```
 
 ### Reglas de Producto
+
 ```json
 {
   "included_products": ["SKU1", "SKU2"],
@@ -105,6 +109,7 @@ Cada tipo de regla se almacena como un campo de tipo `JSON` en la base de datos,
 ```
 
 ### Reglas de Combo
+
 ```json
 {
   "required_combinations": [{
@@ -115,6 +120,7 @@ Cada tipo de regla se almacena como un campo de tipo `JSON` en la base de datos,
 ```
 
 ### Reglas de Usuario
+
 ```json
 {
   "customer_types": ["NEW", "PREMIUM"],
@@ -123,6 +129,7 @@ Cada tipo de regla se almacena como un campo de tipo `JSON` en la base de datos,
 ```
 
 ### Reglas de Orden
+
 ```json
 {
   "min_items": 2,
@@ -195,6 +202,7 @@ WHERE id = 'COUPON1';
 | description  | string | No        | Descripción del cupón |
 
 **Estados Válidos del Cupón:**
+
 - `active`: Cupón activo y disponible
 - `inactive`: Cupón temporalmente desactivado
 - `expired`: Cupón expirado
@@ -209,6 +217,7 @@ WHERE id = 'COUPON1';
 | minimum_purchase | number | Monto mínimo de compra requerido |
 
 **Tipos de Beneficio:**
+
 - `percentage`: Descuento porcentual
 - `fixed_amount`: Descuento de monto fijo
 - `free_shipping`: Envío gratis
@@ -218,32 +227,37 @@ WHERE id = 'COUPON1';
 
 ### Validaciones Generales
 
-1. **Identificadores**
-   - `coupon_id` debe ser único en todo el sistema
-   - `code` debe ser único y alfanumérico
-   - `code` debe ser fácil de recordar y usar
+#### Identificadores
 
-2. **Vigencia**
-   - `start_date` debe ser anterior a `end_date`
-   - Fechas deben estar en formato ISO 8601
-   - Zona horaria debe ser válida
+- `coupon_id` debe ser único en todo el sistema
+- `code` debe ser único y alfanumérico
+- `code` debe ser fácil de recordar y usar
 
-3. **Límites de Uso**
-   - `max_uses` debe ser mayor a cero
-   - `uses_per_user` debe ser menor o igual a `max_uses`
-   - `minimum_purchase` debe ser mayor a cero
+#### Vigencia
+
+- `start_date` debe ser anterior a `end_date`
+- Fechas deben estar en formato ISO 8601
+- Zona horaria debe ser válida
+
+#### Límites de Uso
+
+- `max_uses` debe ser mayor a cero
+- `uses_per_user` debe ser menor o igual a `max_uses`
+- `minimum_purchase` debe ser mayor a cero
 
 ### Validaciones de Negocio
 
-1. **Beneficios**
-   - Porcentajes deben estar entre 0 y 100
-   - Montos fijos deben ser positivos
-   - Moneda debe ser válida
+#### Beneficios
 
-2. **Condiciones**
-   - Métodos de pago deben existir
-   - Territorios deben ser válidos
-   - Horarios deben ser coherentes
+- Porcentajes deben estar entre 0 y 100
+- Montos fijos deben ser positivos
+- Moneda debe ser válida
+
+#### Condiciones
+
+- Métodos de pago deben existir
+- Territorios deben ser válidos
+- Horarios deben ser coherentes
 
 ## Ejemplos de Uso
 
@@ -402,17 +416,20 @@ POST   /api/v1/coupons/{code}/apply
 
 ## Preguntas Frecuentes
 
-1. **¿Cómo manejar cupones expirados?**
+**¿Cómo manejar cupones expirados?**
+
    - Mantener registro histórico
    - Notificar a usuarios afectados
    - Sugerir alternativas válidas
 
-2. **¿Cómo gestionar conflictos entre cupones?**
+**¿Cómo gestionar conflictos entre cupones?**
+
    - Definir reglas de precedencia
    - Establecer compatibilidad
    - Mostrar mejor opción al usuario
 
-3. **¿Cómo prevenir el abuso de cupones?**
+**¿Cómo prevenir el abuso de cupones?**
+
    - Validar límites estrictamente
    - Implementar detección de fraude
    - Monitorear patrones de uso 

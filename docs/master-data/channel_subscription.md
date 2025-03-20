@@ -101,32 +101,32 @@ Los tipos de canal disponibles son:
 
 ### Validaciones Generales
 
-### Identificadores
+#### Identificadores
 
 - `subscription_id` debe ser único
 - `user_id` debe corresponder a un usuario existente
 - `identifier` debe ser válido según el tipo de canal
 
-### Canal
+#### Canal
 
 - Email debe ser válido
 - Número de teléfono en formato internacional
 - Token de push debe ser válido
 
-### Preferencias
+#### Preferencias
 
 - Al menos una preferencia debe estar activa
 - Combinaciones válidas según tipo de canal
 
 ### Validaciones de Negocio
 
-### Verificación
+#### Verificación
 
 - Canales críticos deben estar verificados
 - Período máximo entre verificaciones
 - Límite de intentos de verificación
 
-### Frecuencia
+#### Frecuencia
 
 - Horarios en formato válido
 - Zona horaria válida
@@ -206,13 +206,13 @@ Los tipos de canal disponibles son:
 
 ### Gestión de Verificación
 
-### Métodos de Verificación
+#### Métodos de Verificación
 
 - Link de verificación por email
 - Código OTP por SMS/WhatsApp
 - Confirmación doble opt-in
 
-### Proceso de Verificación
+#### Proceso de Verificación
 
 - Envío de código/link
 - Validación de respuesta
@@ -221,13 +221,13 @@ Los tipos de canal disponibles son:
 
 ### Optimización
 
-### Caché
+#### Caché
 
 - Preferencias activas
 - Estados de verificación
 - Estadísticas de uso
 
-### Agrupación
+#### Agrupación
 
 - Mensajes por frecuencia
 - Respeto de quiet hours
@@ -237,7 +237,7 @@ Los tipos de canal disponibles son:
 
 ### APIs
 
-### Endpoints Principales
+#### Endpoints Principales
 
 ```
 GET    /api/v1/subscriptions/{subscription_id}
@@ -246,7 +246,7 @@ PUT    /api/v1/subscriptions/{subscription_id}
 DELETE /api/v1/subscriptions/{subscription_id}
 ```
 
-### Endpoints de Verificación
+#### Endpoints de Verificación
 
 ```
 POST   /api/v1/subscriptions/{subscription_id}/verify
@@ -255,7 +255,7 @@ POST   /api/v1/subscriptions/{subscription_id}/resend-verification
 
 ### Webhooks
 
-### Eventos Disponibles
+#### Eventos Disponibles
 
 - `subscription.created`
 - `subscription.verified`
@@ -263,7 +263,25 @@ POST   /api/v1/subscriptions/{subscription_id}/resend-verification
 - `subscription.deleted`
 - `subscription.blocked`
 
-### Formato de Payload
+#### Formato de Payload
+   ```json
+   {
+     "event": "subscription.verified",
+     "timestamp": "2024-03-19T14:30:00Z",
+     "data": {
+       "subscription_id": "string",
+       "user_id": "string",
+       "channel": {
+         "type": "string",
+         "identifier": "string"
+       },
+       "verification": {
+         "method": "string",
+         "timestamp": "string"
+       }
+     }
+   }
+   ```
 
 ## Preguntas Frecuentes
 

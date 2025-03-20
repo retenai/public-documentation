@@ -77,19 +77,19 @@ Las categorías permiten organizar y clasificar productos de manera jerárquica 
 
 ### Validaciones Generales
 
-### Identificadores
+#### Identificadores
 
 - `category_id` debe ser único
 - `parent_id` debe existir si no es categoría raíz
 - `slug` debe ser único dentro del mismo nivel
 
-### Jerarquía
+#### Jerarquía
 
 - No se permiten ciclos en la estructura
 - Máximo 5 niveles de profundidad
 - Una categoría no puede ser su propio ancestro
 
-### Metadatos
+#### Metadatos
 
 - `level` debe ser consistente con la posición en la jerarquía
 - `path` debe incluir todos los ancestros en orden
@@ -97,19 +97,19 @@ Las categorías permiten organizar y clasificar productos de manera jerárquica 
 
 ### Validaciones de Negocio
 
-### Visibilidad
+#### Visibilidad
 
 - Categorías padres visibles si tienen hijos visibles
 - Categorías con productos deben ser visibles
 - Categorías ocultas no aparecen en navegación
 
-### SEO
+#### SEO
 
 - URLs amigables sin caracteres especiales
 - Títulos y descripciones con longitud adecuada
 - Keywords relevantes y no duplicados
 
-### Tags
+#### Tags
 
 - Sin caracteres especiales
 - Longitud máxima de 50 caracteres por tag
@@ -176,13 +176,13 @@ Las categorías permiten organizar y clasificar productos de manera jerárquica 
 
 ### Gestión de Jerarquía
 
-### Actualización de Metadatos
+#### Actualización de Metadatos
 
 - Recalcular `level` y `path` al mover categorías
 - Actualizar `is_leaf` al agregar/eliminar hijos
 - Mantener consistencia de `has_products`
 
-### Ordenamiento
+#### Ordenamiento
 
 - Por `position` dentro del mismo nivel
 - Por `display_name` si no hay posición
@@ -190,13 +190,13 @@ Las categorías permiten organizar y clasificar productos de manera jerárquica 
 
 ### Optimización
 
-### Caché
+#### Caché
 
 - Árbol de categorías completo
 - Rutas de navegación frecuentes
 - Conteos de productos
 
-### Consultas
+#### Consultas
 
 - Índices por `parent_id` y `path`
 - Materializar rutas completas
@@ -206,7 +206,7 @@ Las categorías permiten organizar y clasificar productos de manera jerárquica 
 
 ### APIs
 
-### Endpoints Principales
+#### Endpoints Principales
 
 ```
 GET    /api/v1/categories
@@ -216,7 +216,7 @@ PUT    /api/v1/categories/{category_id}
 DELETE /api/v1/categories/{category_id}
 ```
 
-### Endpoints de Jerarquía
+#### Endpoints de Jerarquía
 
 ```
 GET    /api/v1/categories/{category_id}/children
@@ -226,14 +226,14 @@ POST   /api/v1/categories/{category_id}/move
 
 ### Webhooks
 
-### Eventos Disponibles
+#### Eventos Disponibles
 
 - `category.created`
 - `category.updated`
 - `category.deleted`
 - `category.moved`
 
-### Formato de Payload
+#### Formato de Payload
 
 ```json
 {
@@ -251,17 +251,20 @@ POST   /api/v1/categories/{category_id}/move
 
 ## Preguntas Frecuentes
 
-1. **¿Cómo manejar la eliminación de categorías?**
+**¿Cómo manejar la eliminación de categorías?**
+
    - Verificar productos asociados
    - Opción de mover productos
    - Mantener historial para URLs
 
-2. **¿Cómo gestionar URLs amigables?**
+**¿Cómo gestionar URLs amigables?**
+
    - Generación automática desde nombre
    - Validación de unicidad
    - Redirecciones 301 para cambios
 
-3. **¿Cómo optimizar la navegación?**
+**¿Cómo optimizar la navegación?**
+
    - Precarga de rutas comunes
    - Caché de árbol de categorías
    - Paginación de productos 

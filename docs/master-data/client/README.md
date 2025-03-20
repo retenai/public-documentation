@@ -362,13 +362,13 @@ Los grupos permiten categorizar y segmentar clientes:
 
 ### Gestión de Cambios
 
-### Actualización de Datos
+#### Actualización de Datos
 
 - `_updated_at` se actualiza automáticamente
 - Los cambios en arrays deben mantener la integridad
 - Se debe mantener historial de cambios importantes
 
-### Sincronización
+#### Sincronización
 
 - Los cambios deben propagarse a sistemas integrados
 - Se deben manejar conflictos de actualización
@@ -376,13 +376,13 @@ Los grupos permiten categorizar y segmentar clientes:
 
 ### Consideraciones de Seguridad
 
-### Datos Sensibles
+#### Datos Sensibles
 
 - Información personal debe estar encriptada
 - Acceso controlado a datos financieros
 - Logs de auditoría para cambios sensibles
 
-### Compliance
+#### Compliance
 
 - Cumplimiento con regulaciones locales
 - Manejo de consentimientos y permisos
@@ -390,13 +390,13 @@ Los grupos permiten categorizar y segmentar clientes:
 
 ### Optimización
 
-### Indexación
+#### Indexación
 
 - Índices en campos de búsqueda frecuente
 - Índices compuestos para queries comunes
 - Optimización de búsqueda por geolocalización
 
-### Caché
+#### Caché
 
 - Cacheo de datos frecuentemente accedidos
 - Invalidación selectiva de caché
@@ -406,7 +406,7 @@ Los grupos permiten categorizar y segmentar clientes:
 
 ### APIs
 
-### Endpoints Principales
+#### Endpoints Principales
 
 ```
 GET    /api/v1/commerces/{user_id}
@@ -416,7 +416,7 @@ PATCH  /api/v1/commerces/{user_id}
 DELETE /api/v1/commerces/{user_id}
 ```
 
-### Endpoints de Relación
+#### Endpoints de Relación
 
 ```
 GET    /api/v1/commerces/{user_id}/contacts
@@ -426,14 +426,14 @@ GET    /api/v1/commerces/{user_id}/groups
 
 ### Webhooks
 
-### Eventos Disponibles
+#### Eventos Disponibles
 
 - `commerce.created`
 - `commerce.updated`
 - `commerce.deleted`
 - `commerce.status_changed`
 
-### Formato de Payload
+#### Formato de Payload
 
 ```json
 {
@@ -452,17 +452,20 @@ GET    /api/v1/commerces/{user_id}/groups
 
 ## Preguntas Frecuentes
 
-1. **¿Cómo manejar múltiples nombres comerciales?**
+**¿Cómo manejar múltiples nombres comerciales?**
+
    - Usar el campo `name` para el nombre principal
    - Usar atributos para nombres alternativos
    - Mantener histórico de cambios de nombre
 
-2. **¿Cómo gestionar fusiones de comercios?**
+**¿Cómo gestionar fusiones de comercios?**
+
    - Mantener ambos registros activos
    - Usar referencias cruzadas en `miscellaneous_id`
    - Documentar la relación en atributos
 
-3. **¿Cómo manejar diferentes zonas horarias?**
+**¿Cómo manejar diferentes zonas horarias?**
+
    - Almacenar todas las fechas en UTC
    - Incluir zona horaria en configuración del comercio
    - Convertir fechas en la capa de presentación 
