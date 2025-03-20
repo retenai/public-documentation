@@ -11,37 +11,114 @@ Las transacciones representan las compras realizadas por los clientes en el sist
   "client_id": "string",         // ID del cliente que realizó la compra (not null)
   "seller_id": "string",         // ID del vendedor asociado (not null)
   "external_id": "string",       // Identificador externo de la transacción
+  "event_id": "string",          // ID del evento asociado (not null)
 
   // Información temporal
   "created_at": "timestamp",     // Fecha de creación (not null)
   "updated_at": "timestamp",     // Última actualización
   "_created_at": "timestamp",    // Fecha de creación en Reten
   "_updated_at": "timestamp",    // Última actualización en Reten
+  "unix_updated_at": "number",   // Timestamp Unix de última actualización
   "transaction_date": "timestamp", // Fecha de la transacción (not null)
+  
+  // Atributos temporales
+  "time_attributes": {
+    "year": "number",
+    "month": "number",
+    "day": "number",
+    "hour": "number",
+    "minute": "number",
+    "time_zone": "string",
+    "week_day": "number",
+    "day_of_year": "number",
+    "week_of_month": "number",
+    "week_of_year": "number",
+    "month_start_date": "string",
+    "month_end_date": "string",
+    "week_start_date": "string",
+    "week_end_date": "string",
+    "quarter_start_date": "string",
+    "quarter_end_date": "string",
+    "daily_cohort": "number",
+    "weekly_cohort": "number",
+    "monthly_cohort": "number",
+    "quarterly_cohort": "number",
+    "yearly_cohort": "number",
+    "daily_cohort_date": "timestamp",
+    "weekly_cohort_date": "timestamp",
+    "monthly_cohort_date": "timestamp",
+    "quarterly_cohort_date": "timestamp",
+    "yearly_cohort_date": "timestamp",
+    "calendar_fiscal_config_id": "string",
+    "fiscal_year": "number",
+    "fiscal_month": "number",
+    "fiscal_month_date": "timestamp",
+    "fiscal_period_start": "timestamp",
+    "fiscal_period_end": "timestamp"
+  },
 
   // Detalles de la transacción
   "items": [{
     "product_id": "string",      // ID del producto
+    "item_id": "string",         // ID único del item
+    "name": "string",            // Nombre del producto
+    "category": "string",        // Categoría del producto
     "quantity": "number",        // Cantidad
     "unit_price": "number",      // Precio unitario
     "total_price": "number",     // Precio total
+    "attributes": [{             // Atributos del item
+      "key": "string",
+      "value": "string"
+    }],
     "discount": {
       "coupon_id": "string",     // ID del cupón aplicado
       "amount": "number",        // Monto del descuento
-      "type": "string"          // Tipo de descuento (percentage, fixed)
+      "type": "string"           // Tipo de descuento (percentage, fixed)
     }
   }],
 
-  // Totales
-  "subtotal": "number",          // Subtotal sin descuentos
-  "discount_total": "number",    // Total de descuentos
-  "tax_total": "number",         // Total de impuestos
-  "total": "number",             // Total final
+  // Precios y totales
+  "pricing": {
+    "net_amount": "number",      // Monto neto
+    "final_amount": "number",    // Monto final
+    "discount_amount": "number", // Monto total de descuentos
+    "shipping_amount": "number", // Costo de envío
+    "tax_amount": "number"      // Monto de impuestos
+  },
 
-  // Estado
+  // Direcciones
+  "shipping_address": {
+    "name": "string",           // Nombre del destinatario
+    "street": "string",         // Calle
+    "number": "string",         // Número
+    "dept_number": "string",    // Número de departamento
+    "city": "string",           // Ciudad
+    "commune": "string",        // Comuna
+    "region": "string",         // Región
+    "lat": "string",           // Latitud
+    "long": "string"           // Longitud
+  },
+  "billing_address": {
+    "name": "string",           // Nombre para facturación
+    "street": "string",         // Calle
+    "number": "string",         // Número
+    "dept_number": "string",    // Número de departamento
+    "city": "string",           // Ciudad
+    "commune": "string",        // Comuna
+    "region": "string",         // Región
+    "lat": "string",           // Latitud
+    "long": "string"           // Longitud
+  },
+
+  // Estado y pago
   "status": "string",            // Estado de la transacción
-  "payment_status": "string",    // Estado del pago
-  "payment_method": "string",    // Método de pago
+  "coupon_code": "string",       // Código de cupón aplicado
+  "payment_details": {
+    "method": "string",          // Método de pago
+    "amount": "number",          // Monto del pago
+    "status": "string",          // Estado del pago
+    "date": "timestamp"         // Fecha del pago
+  },
 
   // Metadatos
   "notes": "string",             // Notas adicionales
