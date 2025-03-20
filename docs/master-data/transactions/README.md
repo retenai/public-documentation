@@ -94,12 +94,14 @@ Las transacciones representan las compras realizadas por los clientes en el sist
 ## Estados Válidos
 
 ### Estado de Transacción
+
 - `completed`: Transacción completada
 - `cancelled`: Transacción cancelada
 - `pending`: Pendiente de confirmación
 - `rejected`: Transacción rechazada
 
 ### Estado de Pago
+
 - `paid`: Pago completado
 - `pending`: Pago pendiente
 - `failed`: Pago fallido
@@ -108,21 +110,25 @@ Las transacciones representan las compras realizadas por los clientes en el sist
 ## Validaciones
 
 1. **Identificadores**
+
    - `transaction_id` debe ser único en todo el sistema
    - `client_id` debe corresponder a un cliente existente
    - `seller_id` debe corresponder a un vendedor existente
 
 2. **Fechas**
+
    - `created_at` no puede ser posterior a `updated_at`
    - `transaction_date` debe ser una fecha válida
 
 3. **Items**
+
    - Debe existir al menos un item
    - Los productos deben existir en el catálogo
    - Cantidades y precios deben ser positivos
    - El total debe corresponder a la suma de items
 
 4. **Totales**
+
    - Los totales deben ser consistentes con los items
    - Los descuentos deben ser válidos según las reglas de negocio
    - Los impuestos deben calcularse correctamente
@@ -300,11 +306,13 @@ Las transacciones representan las compras realizadas por los clientes en el sist
 ### Gestión de Estados
 
 1. **Transiciones de Estado**
+
    - Las transiciones deben seguir un flujo definido
    - Ciertos estados son terminales
    - Se debe mantener historial de cambios
 
 2. **Validaciones de Estado**
+
    - Validar permisos para cambios de estado
    - Verificar condiciones necesarias
    - Mantener consistencia con otros sistemas
@@ -312,11 +320,13 @@ Las transacciones representan las compras realizadas por los clientes en el sist
 ### Cálculos y Totales
 
 1. **Cálculo de Descuentos**
+
    - Aplicar reglas de descuento en orden
    - Validar límites y restricciones
    - Considerar descuentos especiales
 
 2. **Cálculo de Impuestos**
+
    - Aplicar tasas según región
    - Considerar exenciones
    - Manejar redondeos
@@ -326,6 +336,7 @@ Las transacciones representan las compras realizadas por los clientes en el sist
 ### APIs
 
 1. **Endpoints Principales**
+
    ```
    GET    /api/v1/transactions/{transaction_id}
    POST   /api/v1/transactions
@@ -334,6 +345,7 @@ Las transacciones representan las compras realizadas por los clientes en el sist
    ```
 
 2. **Endpoints de Relación**
+
    ```
    GET    /api/v1/clients/{client_id}/transactions
    GET    /api/v1/sellers/{seller_id}/transactions
@@ -342,12 +354,14 @@ Las transacciones representan las compras realizadas por los clientes en el sist
 ### Webhooks
 
 1. **Eventos Disponibles**
+
    - `transaction.created`
    - `transaction.updated`
    - `transaction.status_changed`
    - `transaction.payment_status_changed`
 
 2. **Formato de Payload**
+
    ```json
    {
      "event": "transaction.status_changed",
@@ -363,16 +377,19 @@ Las transacciones representan las compras realizadas por los clientes en el sist
 ## Preguntas Frecuentes
 
 1. **¿Cómo manejar devoluciones?**
+
    - Crear una transacción de tipo devolución
    - Referenciar la transacción original
    - Actualizar inventarios y estados
 
 2. **¿Cómo gestionar pagos parciales?**
+
    - Registrar cada pago individualmente
    - Mantener estado actualizado
    - Calcular saldo pendiente
 
 3. **¿Cómo asegurar consistencia?**
+
    - Usar transacciones de base de datos
    - Implementar mecanismos de retry
    - Mantener logs de auditoría 
