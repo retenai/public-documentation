@@ -53,20 +53,24 @@ Registro de actividades que retroalimentan al sistema para futuras iteraciones:
 
 Para implementar Reten de manera efectiva, sigue estos pasos:
 
-1. **Configura tus Datos Maestros**
+**Configura tus Datos Maestros**
+
    - Define tus [Categorías](master-data/category/README.md) y [Productos](master-data/product/README.md)
    - Registra tus [Clientes](master-data/client/README.md) y [Vendedores](master-data/seller/README.md)
 
-2. **Establece las Configuraciones**
+**Establece las Configuraciones**
+
    - Define las [Asignaciones](settings/assignments/README.md) entre vendedores y clientes
    - Configura las [Rutas](settings/routes/README.md) de visita
    - Gestiona las [Suscripciones](settings/subscription/README.md)
 
-3. **Gestiona las Tareas**
+**Gestiona las Tareas**
+
    - Comprende el sistema de [Tareas](tasks/README.md)
    - Implementa el [Seguimiento](tasks/tracking/README.md)
 
-4. **Monitorea los Eventos**
+**Monitorea los Eventos**
+
    - Integra los [Eventos](events/README.md) relevantes para tu negocio
    - Utiliza la información para optimizar el sistema
 
