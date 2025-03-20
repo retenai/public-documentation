@@ -56,7 +56,8 @@ Los clientes son los establecimientos, negocios o personas que interactúan con 
   // Atributos personalizados
   "attributes": [{
     "key": "string",
-    "value": "string"
+    "value": "string",
+    "type": "string"    // Tipo de valor (string, number, date, boolean)
   }],
 
   // Grupos y clasificaciones
@@ -64,7 +65,8 @@ Los clientes son los establecimientos, negocios o personas que interactúan con 
     "group_type": "string",
     "attributes": [{
       "key": "string",
-      "value": "string"
+      "value": "string",
+      "type": "string"    // Tipo de valor (string, number, date, boolean)
     }]
   }],
 

@@ -87,7 +87,8 @@ Los vendedores son los usuarios del CPG (Consumer Packaged Goods) que interactú
   // Atributos personalizados
   "attributes": [{
     "key": "string",
-    "value": "string"
+    "value": "string",
+    "type": "string"    // Tipo de valor (string, number, date, boolean)
   }],
 
   // Relaciones Comerciales
@@ -100,7 +101,8 @@ Los vendedores son los usuarios del CPG (Consumer Packaged Goods) que interactú
     "assignment_type": "string",  // Tipo de asignación (direct, inherited, temporary)
     "attributes": [{              // Atributos específicos de la relación
       "key": "string",
-      "value": "string"
+      "value": "string",
+      "type": "string"    // Tipo de valor (string, number, date, boolean)
     }]
   }]
 }
@@ -188,7 +190,8 @@ Los vendedores pueden tener múltiples comercios asociados, y esta relación se 
     "assignment_type": "string",  // Tipo de asignación (direct, inherited, temporary)
     "attributes": [{              // Atributos específicos de la relación
       "key": "string",
-      "value": "string"
+      "value": "string",
+      "type": "string"    // Tipo de valor (string, number, date, boolean)
     }]
   }]
 }
@@ -230,7 +233,8 @@ Los vendedores pueden tener múltiples comercios asociados, y esta relación se 
     "assignment_type": "direct",
     "attributes": [{
       "key": "visit_frequency",
-      "value": "weekly"
+      "value": "weekly",
+      "type": "string"
     }]
   }, {
     "commerce_id": "COMM_456",
@@ -240,7 +244,8 @@ Los vendedores pueden tener múltiples comercios asociados, y esta relación se 
     "assignment_type": "inherited",
     "attributes": [{
       "key": "backup_reason",
-      "value": "territory_overlap"
+      "value": "territory_overlap",
+      "type": "string"
     }]
   }]
 }
@@ -370,10 +375,12 @@ Los vendedores pueden tener múltiples comercios asociados, y esta relación se 
   }],
   "attributes": [{
     "key": "specialty",
-    "value": "new_business"
+    "value": "new_business",
+    "type": "string"
   }, {
     "key": "certification_level",
-    "value": "advanced"
+    "value": "advanced",
+    "type": "string"
   }]
 }
 ```

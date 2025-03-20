@@ -100,7 +100,7 @@ Los productos representan los artículos comercializados a través de la platafo
   "attributes": [{
     "key": "string",
     "value": "string",
-    "type": "string",
+    "type": "string",    // Tipo de valor (string, number, date, boolean)
     "unit": "string",
     "group": "string"
   }]

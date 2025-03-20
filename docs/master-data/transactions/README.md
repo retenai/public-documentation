@@ -17,7 +17,8 @@ Las transacciones representan las compras realizadas por los clientes en el sist
     "platform": "string",        // Plataforma específica (ej: website, android_app, ios_app, mercadolibre)
     "attributes": [{             // Atributos adicionales del origen
       "key": "string",
-      "value": "string"
+      "value": "string",
+      "type": "string"    // Tipo de valor (string, number, date, boolean)
     }]
   },
   "attribution": {
@@ -25,7 +26,8 @@ Las transacciones representan las compras realizadas por los clientes en el sist
     "entity_id": "string",       // ID de la entidad a la que se atribuye (seller_id, agent_id, etc)
     "attributes": [{             // Atributos adicionales de la atribución
       "key": "string",
-      "value": "string"
+      "value": "string",
+      "type": "string"    // Tipo de valor (string, number, date, boolean)
     }]
   },
 
@@ -47,7 +49,8 @@ Las transacciones representan las compras realizadas por los clientes en el sist
     "total_price": "number",     // Precio total
     "attributes": [{             // Atributos del item
       "key": "string",
-      "value": "string"
+      "value": "string",
+      "type": "string"    // Tipo de valor (string, number, date, boolean)
     }],
     "discount": {
       "coupon_id": "string",     // ID del cupón aplicado
@@ -104,7 +107,8 @@ Las transacciones representan las compras realizadas por los clientes en el sist
   "tags": ["string"],           // Etiquetas para categorización
   "attributes": [{               // Atributos personalizados
     "key": "string",
-    "value": "string"
+    "value": "string",
+    "type": "string"    // Tipo de valor (string, number, date, boolean)
   }]
 }
 ```
