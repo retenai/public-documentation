@@ -96,16 +96,14 @@ Los productos representan los artículos comercializados a través de la platafo
     "unit_of_measure": "string"
   },
 
-  // Atributos flexibles
-  "flexible_attributes": {
-    "attributes": [{
-      "key": "string",
-      "value": "string",
-      "type": "string",
-      "unit": "string",
-      "group": "string"
-    }]
-  }
+  // Atributos personalizados
+  "attributes": [{
+    "key": "string",
+    "value": "string",
+    "type": "string",
+    "unit": "string",
+    "group": "string"
+  }]
 }
 ```
 
@@ -235,7 +233,19 @@ Los productos representan los artículos comercializados a través de la platafo
     "base_price": 15000,
     "currency": "CLP",
     "unit_of_measure": "galón"
-  }
+  },
+  "attributes": [{
+    "key": "coverage",
+    "value": "12",
+    "type": "numeric",
+    "unit": "m2/L",
+    "group": "technical"
+  }, {
+    "key": "finish",
+    "value": "matte",
+    "type": "string",
+    "group": "appearance"
+  }]
 }
 ```
 
@@ -254,48 +264,28 @@ Los productos representan los artículos comercializados a través de la platafo
   "composition": {
     "is_pack": true,
     "pack_details": {
-      "units_per_pack": 4,
+      "units_per_pack": 3,
       "unit_type": "galón",
       "unit_size": 1,
       "unit_measure": "galón"
-    },
-    "display_unit": "pack"
+    }
   },
   "commercial": {
-    "base_price": 50000,
+    "base_price": 40000,
     "currency": "CLP",
     "unit_of_measure": "pack"
-  }
-}
-```
-
-### Producto con Atributos Flexibles
-
-```json
-{
-  "product_id": "PROD_003",
-  "sku": "SKU789",
-  "name": {
-    "display_name": "Pintura Especializada",
-    "short_name": "Pintura Especial",
-    "slug": "pintura-especializada",
-    "short_description": "Pintura de alta calidad para aplicaciones especiales"
   },
-  "flexible_attributes": {
-    "attributes": [{
-      "key": "rendimiento",
-      "value": "12",
-      "type": "number",
-      "unit": "m2/l",
-      "group": "technical"
-    }, {
-      "key": "tiempo_secado",
-      "value": "2",
-      "type": "number",
-      "unit": "horas",
-      "group": "application"
-    }]
-  }
+  "attributes": [{
+    "key": "color_family",
+    "value": "neutrals",
+    "type": "string",
+    "group": "appearance"
+  }, {
+    "key": "recommended_use",
+    "value": "living_spaces",
+    "type": "string",
+    "group": "application"
+  }]
 }
 ```
 
@@ -304,11 +294,13 @@ Los productos representan los artículos comercializados a través de la platafo
 ### Gestión de Inventario
 
 #### Control de Stock
+
    - Actualización en tiempo real
    - Reserva de inventario
    - Alertas de stock bajo
 
 #### Precios y Promociones
+
    - Historial de precios
    - Reglas de descuento
    - Precios por volumen
