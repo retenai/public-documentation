@@ -16,5 +16,8 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
+      - name: Clean build directories
+        run: |
+          rm -rf public/ site/
       - name: Deploy documentation
-        run: mkdocs gh-deploy --force 
+        run: mkdocs gh-deploy --force --clean 
