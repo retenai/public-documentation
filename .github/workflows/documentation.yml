@@ -6,18 +6,28 @@ on:
 permissions:
   contents: write
 jobs:
-  deploy:
+  pages-build-deployment:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
         with:
           python-version: '3.x'
-      - name: Install dependencies
+      
+      - name: Build
         run: |
           pip install -r requirements.txt
-      - name: Clean build directories
+          mkdocs build --clean
+      
+      - name: Report build status
         run: |
-          rm -rf public/ site/
-      - name: Deploy documentation
-        run: mkdocs gh-deploy --force --clean 
+          if [ -d "public" ]; then
+            echo "Documentation built successfully"
+          else
+            echo "Documentation build failed"
+            exit 1
+          fi
+      
+      - name: Deploy to GitHub Pages
+        run: |
+          mkdocs gh-deploy --force 
