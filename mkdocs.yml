@@ -60,6 +60,7 @@ nav:
     - Clientes: master-data/client/README.md
     - Cupones: master-data/coupon/README.md
     - Productos: master-data/product/README.md
+    - Transacciones: master-data/transactions/README.md
     - Vendedores: master-data/seller/README.md
   - Tareas:
     - Resumen: tasks/README.md

@@ -14,6 +14,7 @@ Información fundamental del negocio:
 - **[Clientes](master-data/client/README.md)**: Establecimientos comerciales y sus características
 - **[Cupones](master-data/coupon/README.md)**: Sistema de promociones y descuentos
 - **[Productos](master-data/product/README.md)**: Catálogo de productos y sus atributos
+- **[Transacciones](master-data/transactions/README.md)**: Compras realizadas por los clientes
 - **[Vendedores](master-data/seller/README.md)**: Usuarios del sistema y sus permisos
 
 ### Tareas
