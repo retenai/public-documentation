@@ -87,7 +87,11 @@ plugins:
   - search
   - minify:
       minify_html: true
-  - mermaid2
+  - mermaid2:
+      version: 10.9.0
+      arguments:
+        securityLevel: loose
+        theme: default
 
 extra_javascript:
-  - https://unpkg.com/mermaid@9.4.0/dist/mermaid.min.js 
+  - https://unpkg.com/mermaid@10.9.0/dist/mermaid.min.js 
