@@ -101,31 +101,36 @@ Los tipos de canal disponibles son:
 
 ### Validaciones Generales
 
-1. **Identificadores**
-   - `subscription_id` debe ser único
-   - `user_id` debe corresponder a un usuario existente
-   - `identifier` debe ser válido según el tipo de canal
+### Identificadores
 
-2. **Canal**
-   - Email debe ser válido
-   - Número de teléfono en formato internacional
-   - Token de push debe ser válido
+- `subscription_id` debe ser único
+- `user_id` debe corresponder a un usuario existente
+- `identifier` debe ser válido según el tipo de canal
 
-3. **Preferencias**
-   - Al menos una preferencia debe estar activa
-   - Combinaciones válidas según tipo de canal
+### Canal
+
+- Email debe ser válido
+- Número de teléfono en formato internacional
+- Token de push debe ser válido
+
+### Preferencias
+
+- Al menos una preferencia debe estar activa
+- Combinaciones válidas según tipo de canal
 
 ### Validaciones de Negocio
 
-1. **Verificación**
-   - Canales críticos deben estar verificados
-   - Período máximo entre verificaciones
-   - Límite de intentos de verificación
+### Verificación
 
-2. **Frecuencia**
-   - Horarios en formato válido
-   - Zona horaria válida
-   - Quiet hours coherentes
+- Canales críticos deben estar verificados
+- Período máximo entre verificaciones
+- Límite de intentos de verificación
+
+### Frecuencia
+
+- Horarios en formato válido
+- Zona horaria válida
+- Quiet hours coherentes
 
 ## Ejemplos
 

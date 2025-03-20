@@ -248,41 +248,47 @@ Los vendedores pueden tener múltiples comercios asociados, y esta relación se 
 
 ## Validaciones
 
-### Validaciones Generales 
+### Validaciones Generales
 
-1. **Identificadores**
-   - `seller_id` debe ser único en todo el sistema
-   - `external_id` debe ser único por cliente
-   - `employee_id` debe ser único dentro del CPG
+### Identificadores
 
-2. **Información Personal**
-   - Nombres y apellidos no pueden estar vacíos
-   - El email principal debe ser corporativo
-   - El formato de teléfono debe ser válido
+- `seller_id` debe ser único en todo el sistema
+- `external_id` debe ser único por cliente
+- `employee_id` debe ser único dentro del CPG
 
-3. **Acceso**
-   - Username debe ser único
-   - Password debe cumplir política de seguridad
-   - Roles deben ser válidos y activos
+### Información Personal
+
+- Nombres y apellidos no pueden estar vacíos
+- El email principal debe ser corporativo
+- El formato de teléfono debe ser válido
+
+### Acceso
+
+- Username debe ser único
+- Password debe cumplir política de seguridad
+- Roles deben ser válidos y activos
 
 ### Validaciones de Negocio
 
-1. **Asignaciones**
-   - No puede haber solapamiento de territorios
-   - Fechas de inicio deben ser válidas
-   - Debe haber al menos una asignación activa
+### Asignaciones
 
-2. **Jerarquía**
-   - El supervisor debe existir y estar activo
-   - No pueden existir ciclos en la jerarquía
-   - Niveles deben ser consistentes
+- No puede haber solapamiento de territorios
+- Fechas de inicio deben ser válidas
+- Debe haber al menos una asignación activa
 
-3. **Relaciones Comerciales**
-   - Un comercio solo puede tener un vendedor `primary` activo a la vez
-   - Las fechas de relación deben ser válidas y no solaparse para el mismo tipo
-   - Las relaciones `temporary` deben tener fecha de término
-   - El `assignment_type` debe ser consistente con el tipo de relación
-   - Las relaciones heredadas deben corresponder con la jerarquía territorial
+### Jerarquía
+
+- El supervisor debe existir y estar activo
+- No pueden existir ciclos en la jerarquía
+- Niveles deben ser consistentes
+
+### Relaciones Comerciales
+
+- Un comercio solo puede tener un vendedor `primary` activo a la vez
+- Las fechas de relación deben ser válidas y no solaparse para el mismo tipo
+- Las relaciones `temporary` deben tener fecha de término
+- El `assignment_type` debe ser consistente con el tipo de relación
+- Las relaciones heredadas deben corresponder con la jerarquía territorial
 
 ## Ejemplos de Uso
 

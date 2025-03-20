@@ -218,32 +218,37 @@ WHERE id = 'COUPON1';
 
 ### Validaciones Generales
 
-1. **Identificadores**
-   - `coupon_id` debe ser único en todo el sistema
-   - `code` debe ser único y alfanumérico
-   - `code` debe ser fácil de recordar y usar
+### Identificadores
 
-2. **Vigencia**
-   - `start_date` debe ser anterior a `end_date`
-   - Fechas deben estar en formato ISO 8601
-   - Zona horaria debe ser válida
+- `coupon_id` debe ser único en todo el sistema
+- `code` debe ser único y alfanumérico
+- `code` debe ser fácil de recordar y usar
 
-3. **Límites de Uso**
-   - `max_uses` debe ser mayor a cero
-   - `uses_per_user` debe ser menor o igual a `max_uses`
-   - `minimum_purchase` debe ser mayor a cero
+### Vigencia
+
+- `start_date` debe ser anterior a `end_date`
+- Fechas deben estar en formato ISO 8601
+- Zona horaria debe ser válida
+
+### Límites de Uso
+
+- `max_uses` debe ser mayor a cero
+- `uses_per_user` debe ser menor o igual a `max_uses`
+- `minimum_purchase` debe ser mayor a cero
 
 ### Validaciones de Negocio
 
-1. **Beneficios**
-   - Porcentajes deben estar entre 0 y 100
-   - Montos fijos deben ser positivos
-   - Moneda debe ser válida
+### Beneficios
 
-2. **Condiciones**
-   - Métodos de pago deben existir
-   - Territorios deben ser válidos
-   - Horarios deben ser coherentes
+- Porcentajes deben estar entre 0 y 100
+- Montos fijos deben ser positivos
+- Moneda debe ser válida
+
+### Condiciones
+
+- Métodos de pago deben existir
+- Territorios deben ser válidos
+- Horarios deben ser coherentes
 
 ## Ejemplos de Uso
 

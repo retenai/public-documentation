@@ -77,38 +77,44 @@ Las categorías permiten organizar y clasificar productos de manera jerárquica 
 
 ### Validaciones Generales
 
-1. **Identificadores**
-   - `category_id` debe ser único
-   - `parent_id` debe existir si no es categoría raíz
-   - `slug` debe ser único dentro del mismo nivel
+### Identificadores
 
-2. **Jerarquía**
-   - No se permiten ciclos en la estructura
-   - Máximo 5 niveles de profundidad
-   - Una categoría no puede ser su propio ancestro
+- `category_id` debe ser único
+- `parent_id` debe existir si no es categoría raíz
+- `slug` debe ser único dentro del mismo nivel
 
-3. **Metadatos**
-   - `level` debe ser consistente con la posición en la jerarquía
-   - `path` debe incluir todos los ancestros en orden
-   - `position` debe ser único dentro del mismo nivel y padre
+### Jerarquía
+
+- No se permiten ciclos en la estructura
+- Máximo 5 niveles de profundidad
+- Una categoría no puede ser su propio ancestro
+
+### Metadatos
+
+- `level` debe ser consistente con la posición en la jerarquía
+- `path` debe incluir todos los ancestros en orden
+- `position` debe ser único dentro del mismo nivel y padre
 
 ### Validaciones de Negocio
 
-1. **Visibilidad**
-   - Categorías padres visibles si tienen hijos visibles
-   - Categorías con productos deben ser visibles
-   - Categorías ocultas no aparecen en navegación
+### Visibilidad
 
-2. **SEO**
-   - URLs amigables sin caracteres especiales
-   - Títulos y descripciones con longitud adecuada
-   - Keywords relevantes y no duplicados
+- Categorías padres visibles si tienen hijos visibles
+- Categorías con productos deben ser visibles
+- Categorías ocultas no aparecen en navegación
 
-3. **Tags**
-   - Sin caracteres especiales
-   - Longitud máxima de 50 caracteres por tag
-   - Máximo 20 tags por categoría
-   - No duplicados dentro de la misma categoría
+### SEO
+
+- URLs amigables sin caracteres especiales
+- Títulos y descripciones con longitud adecuada
+- Keywords relevantes y no duplicados
+
+### Tags
+
+- Sin caracteres especiales
+- Longitud máxima de 50 caracteres por tag
+- Máximo 20 tags por categoría
+- No duplicados dentro de la misma categoría
 
 ## Ejemplos
 

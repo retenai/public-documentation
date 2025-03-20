@@ -206,43 +206,46 @@ Los grupos permiten categorizar y segmentar clientes:
 
 ### Validaciones Generales
 
-1. **Identificadores**
+### Identificadores
 
 - `user_id` debe ser único en todo el sistema
 - `external_id` debe ser único por cliente
 
-1. **Fechas**
+### Fechas
 
-   - `created_at` no puede ser posterior a `updated_at`
-   - `sign_up_date` no puede ser posterior a `set_up_date`
-   - Todas las fechas deben ser válidas y en formato ISO 8601
+- `created_at` no puede ser posterior a `updated_at`
+- `sign_up_date` no puede ser posterior a `set_up_date`
+- Todas las fechas deben ser válidas y en formato ISO 8601
 
-2. **Contactos**
+### Contactos
 
-   - Debe existir al menos un contacto de tipo `primary`
-   - Los emails deben ser únicos dentro del array de contactos
-   - Los emails deben tener formato válido
-   - Los teléfonos deben tener formato válido según el país
+- Debe existir al menos un contacto de tipo `primary`
+- Los emails deben ser únicos dentro del array de contactos
+- Los emails deben tener formato válido
+- Los teléfonos deben tener formato válido según el país
 
-3. **Direcciones**
+### Direcciones
 
-   - Debe existir al menos una dirección marcada como `is_default: true`
-   - Las coordenadas geográficas deben ser válidas si se proporcionan
-   - Los tipos de dirección deben ser valores predefinidos
+- Debe existir al menos una dirección marcada como `is_default: true`
+- Las coordenadas geográficas deben ser válidas si se proporcionan
+- Los tipos de dirección deben ser valores predefinidos
 
 ### Validaciones de Negocio
 
-1. **Configuración Inicial**
-   - `set_up_date` solo se establece cuando se completan todos los campos requeridos
-   - La configuración requiere al menos una dirección y un contacto válidos
+### Configuración Inicial
 
-2. **Grupos**
-   - Los `group_type` deben corresponder a tipos predefinidos
-   - Los atributos deben ser válidos para el tipo de grupo
+- `set_up_date` solo se establece cuando se completan todos los campos requeridos
+- La configuración requiere al menos una dirección y un contacto válidos
 
-3. **Atributos**
-   - Las claves de atributos deben ser únicas por cliente
-   - Los valores deben corresponder al tipo esperado
+### Grupos
+
+- Los `group_type` deben corresponder a tipos predefinidos
+- Los atributos deben ser válidos para el tipo de grupo
+
+### Atributos
+
+- Las claves de atributos deben ser únicas por cliente
+- Los valores deben corresponder al tipo esperado
 
 ## Ejemplos de Uso
 
