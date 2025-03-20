@@ -11,6 +11,24 @@ Las transacciones representan las compras realizadas por los clientes en el sist
   "client_id": "string",         // ID del cliente que realizó la compra (not null)
   "seller_id": "string",         // ID del vendedor asociado (not null)
 
+  // Origen y atribución
+  "origin": {
+    "channel": "string",         // Canal de venta (ej: web, app, marketplace, pos)
+    "platform": "string",        // Plataforma específica (ej: website, android_app, ios_app, mercadolibre)
+    "attributes": [{             // Atributos adicionales del origen
+      "key": "string",
+      "value": "string"
+    }]
+  },
+  "attribution": {
+    "type": "string",            // Tipo de atribución (seller, agent, self_service)
+    "entity_id": "string",       // ID de la entidad a la que se atribuye (seller_id, agent_id, etc)
+    "attributes": [{             // Atributos adicionales de la atribución
+      "key": "string",
+      "value": "string"
+    }]
+  },
+
   // Información temporal
   "created_at": "timestamp",     // Fecha de creación (not null)
   "updated_at": "timestamp",     // Última actualización
@@ -115,6 +133,16 @@ Las transacciones representan las compras realizadas por los clientes en el sist
 - `client_id` debe corresponder a un cliente existente
 - `seller_id` debe corresponder a un vendedor existente
 
+### Origen
+
+- `channel` debe ser uno de los valores permitidos: `web`, `app`, `marketplace`, `pos`, `call_center`, `whatsapp`
+- `platform` debe ser consistente con el canal seleccionado
+
+### Atribución
+
+- `type` debe ser uno de: `seller`, `agent`, `self_service`
+- `entity_id` debe estar presente y ser válido si `type` no es `self_service`
+
 ### Fechas
 
 - `created_at` no puede ser posterior a `updated_at`
@@ -142,6 +170,21 @@ Las transacciones representan las compras realizadas por los clientes en el sist
   "transaction_id": "TRX_001",
   "client_id": "CLIENT_123",
   "seller_id": "SELLER_456",
+  "origin": {
+    "channel": "web",
+    "platform": "website",
+    "attributes": []
+  },
+  "attribution": {
+    "type": "seller",
+    "entity_id": "SELLER_456",
+    "attributes": [
+      {
+        "key": "conversion_type",
+        "value": "assisted"
+      }
+    ]
+  },
   "created_at": "2024-03-19T10:00:00Z",
   "updated_at": "2024-03-19T10:00:00Z",
   "_created_at": "2024-03-19T10:00:00Z",
@@ -301,6 +344,82 @@ Las transacciones representan las compras realizadas por los clientes en el sist
 }
 ```
 
+#### Transacción de Autoservicio Web
+
+```json
+{
+  "transaction_id": "TRX_005",
+  "client_id": "CLIENT_123",
+  "seller_id": "SELLER_456",
+  "origin": {
+    "channel": "web",
+    "platform": "website",
+    "attributes": []
+  },
+  "attribution": {
+    "type": "self_service",
+    "entity_id": null,
+    "attributes": []
+  },
+  "items": [{
+    "product_id": "PROD_789",
+    "name": "Producto A",
+    "quantity": 1,
+    "unit_price": 100.00,
+    "total_price": 100.00
+  }],
+  "pricing": {
+    "net_amount": 100.00,
+    "final_amount": 119.00,
+    "tax_amount": 19.00
+  },
+  "status": "completed"
+}
+```
+
+#### Transacción por Call Center
+
+```json
+{
+  "transaction_id": "TRX_006",
+  "client_id": "CLIENT_123",
+  "seller_id": "SELLER_456",
+  "origin": {
+    "channel": "call_center",
+    "platform": "genesys",
+    "attributes": [
+      {
+        "key": "call_id",
+        "value": "CALL_123"
+      }
+    ]
+  },
+  "attribution": {
+    "type": "agent",
+    "entity_id": "AGENT_789",
+    "attributes": [
+      {
+        "key": "shift",
+        "value": "morning"
+      }
+    ]
+  },
+  "items": [{
+    "product_id": "PROD_789",
+    "name": "Producto A",
+    "quantity": 1,
+    "unit_price": 100.00,
+    "total_price": 100.00
+  }],
+  "pricing": {
+    "net_amount": 100.00,
+    "final_amount": 119.00,
+    "tax_amount": 19.00
+  },
+  "status": "completed"
+}
+```
+
 ## Notas de Implementación
 
 ### Gestión de Estados
@@ -330,6 +449,20 @@ Las transacciones representan las compras realizadas por los clientes en el sist
 - Aplicar tasas según región
 - Considerar exenciones
 - Manejar redondeos
+
+### Gestión de Origen y Atribución
+
+#### Origen
+
+- El origen debe capturarse lo más temprano posible en el flujo
+- Para canales digitales, asegurar la correcta propagación de UTMs
+- En integraciones con marketplaces, mapear correctamente los campos propios de cada plataforma
+
+#### Atribución
+
+- La atribución puede ser asignada automáticamente según reglas de negocio
+- Considerar casos de reasignación y mantener historial
+- Implementar reglas de comisión según tipo de atribución
 
 ## Integración con Otros Sistemas
 
