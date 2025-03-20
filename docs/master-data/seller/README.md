@@ -89,21 +89,6 @@ Los vendedores son los usuarios del CPG (Consumer Packaged Goods) que interactú
     "key": "string",
     "value": "string",
     "type": "string"    // Tipo de valor (string, number, date, boolean)
-  }],
-
-  // Relaciones Comerciales
-  "commerce_relationships": [{
-    "commerce_id": "string",      // ID del comercio
-    "relationship_type": "string", // Tipo de relación (primary, secondary, temporary)
-    "start_date": "timestamp",    // Fecha de inicio de la relación
-    "end_date": "timestamp",      // Fecha de término (si aplica)
-    "is_active": "boolean",       // Estado actual de la relación
-    "assignment_type": "string",  // Tipo de asignación (direct, inherited, temporary)
-    "attributes": [{              // Atributos específicos de la relación
-      "key": "string",
-      "value": "string",
-      "type": "string"    // Tipo de valor (string, number, date, boolean)
-    }]
   }]
 }
 ```
@@ -173,84 +158,6 @@ Las asignaciones definen las áreas de responsabilidad del vendedor:
 - `channel`: Canal de ventas
 - `segment`: Segmento de clientes
 
-## Relaciones Comerciales
-
-Los vendedores pueden tener múltiples comercios asociados, y esta relación se gestiona a través de la siguiente estructura:
-
-```json
-{
-  // ... otros campos del vendedor ...
-  
-  "commerce_relationships": [{
-    "commerce_id": "string",      // ID del comercio
-    "relationship_type": "string", // Tipo de relación (primary, secondary, temporary)
-    "start_date": "timestamp",    // Fecha de inicio de la relación
-    "end_date": "timestamp",      // Fecha de término (si aplica)
-    "is_active": "boolean",       // Estado actual de la relación
-    "assignment_type": "string",  // Tipo de asignación (direct, inherited, temporary)
-    "attributes": [{              // Atributos específicos de la relación
-      "key": "string",
-      "value": "string",
-      "type": "string"    // Tipo de valor (string, number, date, boolean)
-    }]
-  }]
-}
-```
-
-### Campos de Relación Comercial
-
-| Campo             | Tipo      | Requerido | Descripción                               |
-| ----------------- | --------- | --------- | ----------------------------------------- |
-| commerce_id       | string    | Sí        | Identificador único del comercio          |
-| relationship_type | string    | Sí        | Tipo de relación con el comercio          |
-| start_date        | timestamp | Sí        | Inicio de la relación                     |
-| end_date          | timestamp | No        | Término de la relación                    |
-| is_active         | boolean   | Sí        | Indica si la relación está activa         |
-| assignment_type   | string    | Sí        | Cómo fue asignado el comercio al vendedor |
-
-### Tipos de Relación
-
-- `primary`: Vendedor principal responsable del comercio
-- `secondary`: Vendedor de apoyo o respaldo
-- `temporary`: Asignación temporal (ej: cubrir vacaciones)
-
-### Tipos de Asignación
-
-- `direct`: Asignado directamente al vendedor
-- `inherited`: Heredado por jerarquía territorial
-- `temporary`: Asignación temporal por necesidad específica
-
-### Ejemplo de Relación Comercial
-
-```json
-{
-  "seller_id": "SELLER_001",
-  "commerce_relationships": [{
-    "commerce_id": "COMM_123",
-    "relationship_type": "primary",
-    "start_date": "2024-01-01T00:00:00Z",
-    "is_active": true,
-    "assignment_type": "direct",
-    "attributes": [{
-      "key": "visit_frequency",
-      "value": "weekly",
-      "type": "string"
-    }]
-  }, {
-    "commerce_id": "COMM_456",
-    "relationship_type": "secondary",
-    "start_date": "2024-02-01T00:00:00Z",
-    "is_active": true,
-    "assignment_type": "inherited",
-    "attributes": [{
-      "key": "backup_reason",
-      "value": "territory_overlap",
-      "type": "string"
-    }]
-  }]
-}
-```
-
 ## Validaciones
 
 ### Validaciones Generales
@@ -280,20 +187,13 @@ Los vendedores pueden tener múltiples comercios asociados, y esta relación se 
 - No puede haber solapamiento de territorios
 - Fechas de inicio deben ser válidas
 - Debe haber al menos una asignación activa
+- Las asignaciones de clientes se manejan a través de la entidad Asignaciones
 
 #### Jerarquía
 
 - El supervisor debe existir y estar activo
 - No pueden existir ciclos en la jerarquía
 - Niveles deben ser consistentes
-
-#### Relaciones Comerciales
-
-- Un comercio solo puede tener un vendedor `primary` activo a la vez
-- Las fechas de relación deben ser válidas y no solaparse para el mismo tipo
-- Las relaciones `temporary` deben tener fecha de término
-- El `assignment_type` debe ser consistente con el tipo de relación
-- Las relaciones heredadas deben corresponder con la jerarquía territorial
 
 ## Ejemplos de Uso
 
@@ -435,10 +335,6 @@ DELETE /api/v1/sellers/{seller_id}
 GET    /api/v1/sellers/{seller_id}/assignments
 GET    /api/v1/sellers/{seller_id}/targets
 GET    /api/v1/sellers/{seller_id}/subordinates
-GET    /api/v1/sellers/{seller_id}/commerces
-POST   /api/v1/sellers/{seller_id}/commerces
-DELETE /api/v1/sellers/{seller_id}/commerces/{commerce_id}
-PATCH  /api/v1/sellers/{seller_id}/commerces/{commerce_id}
 ```
 
 ### Webhooks
@@ -449,9 +345,6 @@ PATCH  /api/v1/sellers/{seller_id}/commerces/{commerce_id}
 - `seller.updated`
 - `seller.status_changed`
 - `seller.assignment_changed`
-- `seller.commerce_relationship_created`
-- `seller.commerce_relationship_updated`
-- `seller.commerce_relationship_ended`
 
 #### Formato de Payload
 
@@ -477,27 +370,27 @@ PATCH  /api/v1/sellers/{seller_id}/commerces/{commerce_id}
 ### ¿Cómo manejar cambios de territorio?
 
 - Mantener historial de asignaciones previas
-- Asegurar transición suave de comercios
+- Asegurar transición suave de clientes mediante la entidad Asignaciones
 - Actualizar jerarquías y relaciones heredadas
 - Notificar a todas las partes involucradas
 
 ### ¿Cómo gestionar vendedores temporales?
 
 - Usar `status` y fechas de vigencia
-- Asignar relaciones comerciales como `temporary`
+- Crear asignaciones temporales a través de la entidad Asignaciones
 - Mantener permisos limitados
 - Establecer fecha de término clara
 
 ### ¿Cómo funciona la herencia de territorios?
 
-- Las relaciones se heredan según jerarquía organizacional
+- Las asignaciones se heredan según jerarquía organizacional
 - Los supervisores heredan visibilidad de sus subordinados
 - Las asignaciones heredadas se marcan como `inherited`
 - Se mantiene trazabilidad del origen de la herencia
 
 ### ¿Cómo manejar conflictos de asignación?
 
-- Solo un vendedor puede ser `primary` por comercio
+- Las asignaciones de clientes se gestionan a través de la entidad Asignaciones
 - Priorizar asignaciones directas sobre heredadas
 - Resolver conflictos según jerarquía
 - Documentar razones de cambios
