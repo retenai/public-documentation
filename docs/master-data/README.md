@@ -5,6 +5,7 @@ Las entidades representan los objetos principales del sistema Reten. Cada entida
 ## Características Comunes
 
 Todas las entidades comparten:
+
 - Identificación dual (ID interno Reten y ID externo cliente)
 - Trazabilidad temporal (fechas de creación/actualización)
 - Extensibilidad mediante atributos personalizados
