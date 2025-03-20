@@ -13,40 +13,58 @@ Todas las entidades comparten:
 ## Catálogo de Entidades
 
 ### [Clientes](./client/README.md)
+
 Establecimientos comerciales que interactúan con la plataforma.
+
 - Información de contacto y ubicación
 - Grupos y clasificaciones
 - Datos de facturación y entrega
 
+
 ### [Vendedores](./seller/README.md)
+
 Usuarios del CPG que gestionan las relaciones comerciales.
+
 - Roles y permisos
 - Información de acceso
 - Asignaciones y territorios
 
+
 ### [Productos](./product/README.md)
+
 Catálogo de productos disponibles para comercialización.
+
 - Información básica y precios
 - Categorías y atributos
 - Configuraciones específicas
 
+
 ### [Cupones](./coupon/README.md)
+
 Mecanismos de promoción y descuento.
+
 - Reglas y condiciones
 - Periodos de validez
 - Restricciones de uso
 
+
 ### [Suscripciones](./subscription/README.md)
+
 Configuraciones de comunicación y notificaciones.
+
 - Preferencias por canal
 - Estados y configuraciones
 - Gestión de consentimientos
 
+
 ### [Categorías](./category/README.md)
+
 Estructura jerárquica para la organización de productos.
+
 - Jerarquía y relaciones
 - Atributos por nivel
 - Metadatos de clasificación
+
 
 ## Convenciones Generales
 
@@ -56,4 +74,5 @@ Estructura jerárquica para la organización de productos.
 - Campos requeridos marcados como `not null`
 - Referencias mediante IDs para mantener integridad referencial
 
-Para más detalles sobre cada entidad, consulta su documentación específica en los enlaces proporcionados. 
+
+Para más detalles sobre cada entidad, consulta su documentación específica en los enlaces proporcionados.
