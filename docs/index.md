@@ -4,43 +4,43 @@ Bienvenido a la documentación técnica de Reten. Esta documentación está dise
 
 ## Estructura de la Documentación
 
-La documentación está organizada en las siguientes secciones principales:
+La documentación está organizada siguiendo el flujo natural de implementación y uso del sistema:
 
 ### Datos Maestros
 
-Información fundamental del negocio:
+La base fundamental del sistema que define las entidades principales con las que opera Reten:
 
 - **[Categorías](master-data/category/README.md)**: Clasificación jerárquica de productos
 - **[Clientes](master-data/client/README.md)**: Establecimientos comerciales y sus características
-- **[Cupones](master-data/coupon/README.md)**: Sistema de promociones y descuentos
 - **[Productos](master-data/product/README.md)**: Catálogo de productos y sus atributos
-- **[Transacciones](master-data/transactions/README.md)**: Compras realizadas por los clientes
 - **[Vendedores](master-data/seller/README.md)**: Usuarios del sistema y sus permisos
+- **[Cupones](master-data/coupon/README.md)**: Sistema de promociones y descuentos
+- **[Transacciones](master-data/transactions/README.md)**: Compras realizadas por los clientes
+
+### Configuraciones
+
+Define cómo se relacionan las entidades y habilita la generación automática de tareas:
+
+- **[Asignaciones](settings/assignments/README.md)**: Relaciones entre vendedores y clientes
+- **[Rutas](settings/routes/README.md)**: Programación de visitas a clientes
+- **[Suscripciones](settings/subscription/README.md)**: Gestión de comunicaciones y notificaciones
 
 ### Tareas
 
-Sistema de gestión de actividades comerciales:
+Sistema de gestión de actividades comerciales generadas a partir de las configuraciones:
 
 - **[Tareas](tasks/README.md)**: Instrucciones y momentos oportunos para contactar clientes
 - **[Seguimiento](tasks/tracking/README.md)**: Estado y progreso de tareas
 
 ### Eventos
 
-Registro de actividades del sistema:
+Registro de actividades que retroalimentan al sistema para futuras iteraciones:
 
-- **[Marketing](events/marketing_events.md)**: Eventos relacionados con campañas y comunicaciones
 - **[Ventas](events/sales_events.md)**: Eventos del proceso de venta
+- **[Marketing](events/marketing_events.md)**: Eventos relacionados con campañas y comunicaciones
 - **[Productos](events/product_events.md)**: Eventos relacionados con productos
 - **[Usuario](events/user_events.md)**: Eventos de interacción de usuarios
 - **[Entregas](events/delivery_events.md)**: Eventos del proceso de entrega
-
-### Configuraciones
-
-Ajustes y preferencias del sistema:
-
-- **[Asignaciones](settings/assignments/README.md)**: Relaciones entre vendedores y clientes
-- **[Rutas](settings/routes/README.md)**: Programación de visitas a clientes
-- **[Suscripciones](settings/subscription/README.md)**: Gestión de comunicaciones
 
 ## Características Principales
 
@@ -51,10 +51,24 @@ Ajustes y preferencias del sistema:
 
 ## Comenzando
 
-1. Familiarízate con los [Datos Maestros](master-data/README.md) de tu negocio
-2. Configura las [Suscripciones](settings/subscription/README.md) del sistema
-3. Aprende sobre el sistema de [Tareas](tasks/README.md)
-4. Comprende los [Eventos](events/README.md) disponibles
+Para implementar Reten de manera efectiva, sigue estos pasos:
+
+1. **Configura tus Datos Maestros**
+   - Define tus [Categorías](master-data/category/README.md) y [Productos](master-data/product/README.md)
+   - Registra tus [Clientes](master-data/client/README.md) y [Vendedores](master-data/seller/README.md)
+
+2. **Establece las Configuraciones**
+   - Define las [Asignaciones](settings/assignments/README.md) entre vendedores y clientes
+   - Configura las [Rutas](settings/routes/README.md) de visita
+   - Gestiona las [Suscripciones](settings/subscription/README.md)
+
+3. **Gestiona las Tareas**
+   - Comprende el sistema de [Tareas](tasks/README.md)
+   - Implementa el [Seguimiento](tasks/tracking/README.md)
+
+4. **Monitorea los Eventos**
+   - Integra los [Eventos](events/README.md) relevantes para tu negocio
+   - Utiliza la información para optimizar el sistema
 
 ## Contribuir
 
