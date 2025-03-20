@@ -176,32 +176,37 @@ Los productos representan los artículos comercializados a través de la platafo
 
 ### Validaciones Generales
 
-1. **Identificadores**
-   - `product_id` debe ser único en todo el sistema
-   - `sku` debe ser único por cliente
-   - `gtin` debe ser válido según estándar GS1
+### Identificadores
 
-2. **Información Básica**
-   - `name` no puede estar vacío
-   - `slug` debe ser único y URL-friendly
-   - Descripciones no deben exceder límites de caracteres
+- `product_id` debe ser único en todo el sistema
+- `sku` debe ser único por cliente
+- `gtin` debe ser válido según estándar GS1
 
-3. **Imágenes**
-   - URLs deben ser válidas y accesibles
-   - Posiciones deben ser únicas
-   - Tipos de imagen deben ser válidos
+### Información Básica
+
+- `name` no puede estar vacío
+- `slug` debe ser único y URL-friendly
+- Descripciones no deben exceder límites de caracteres
+
+### Imágenes
+
+- URLs deben ser válidas y accesibles
+- Posiciones deben ser únicas
+- Tipos de imagen deben ser válidos
 
 ### Validaciones de Negocio
 
-1. **Composición**
-   - Si `is_pack` es true, `pack_details` debe estar completo
-   - Si `is_combo` es true, `combo_details` debe estar completo
-   - Componentes deben existir en el catálogo
+### Composición
 
-2. **Categorización**
-   - Categorías deben existir en el maestro
-   - Tags deben ser válidos
-   - Marca debe existir en el maestro
+- Si `is_pack` es true, `pack_details` debe estar completo
+- Si `is_combo` es true, `combo_details` debe estar completo
+- Componentes deben existir en el catálogo
+
+### Categorización
+
+- Categorías deben existir en el maestro
+- Tags deben ser válidos
+- Marca debe existir en el maestro
 
 ## Ejemplos de Uso
 

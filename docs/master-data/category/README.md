@@ -176,70 +176,78 @@ Las categorías permiten organizar y clasificar productos de manera jerárquica 
 
 ### Gestión de Jerarquía
 
-1. **Actualización de Metadatos**
-   - Recalcular `level` y `path` al mover categorías
-   - Actualizar `is_leaf` al agregar/eliminar hijos
-   - Mantener consistencia de `has_products`
+### Actualización de Metadatos
 
-2. **Ordenamiento**
-   - Por `position` dentro del mismo nivel
-   - Por `display_name` si no hay posición
-   - Considerar ordenamiento personalizado por comercio
+- Recalcular `level` y `path` al mover categorías
+- Actualizar `is_leaf` al agregar/eliminar hijos
+- Mantener consistencia de `has_products`
+
+### Ordenamiento
+
+- Por `position` dentro del mismo nivel
+- Por `display_name` si no hay posición
+- Considerar ordenamiento personalizado por comercio
 
 ### Optimización
 
-1. **Caché**
-   - Árbol de categorías completo
-   - Rutas de navegación frecuentes
-   - Conteos de productos
+### Caché
 
-2. **Consultas**
-   - Índices por `parent_id` y `path`
-   - Materializar rutas completas
-   - Precalcular breadcrumbs
+- Árbol de categorías completo
+- Rutas de navegación frecuentes
+- Conteos de productos
+
+### Consultas
+
+- Índices por `parent_id` y `path`
+- Materializar rutas completas
+- Precalcular breadcrumbs
 
 ## Integración con Otros Sistemas
 
 ### APIs
 
-1. **Endpoints Principales**
-   ```
-   GET    /api/v1/categories
-   GET    /api/v1/categories/{category_id}
-   POST   /api/v1/categories
-   PUT    /api/v1/categories/{category_id}
-   DELETE /api/v1/categories/{category_id}
-   ```
+### Endpoints Principales
 
-2. **Endpoints de Jerarquía**
-   ```
-   GET    /api/v1/categories/{category_id}/children
-   GET    /api/v1/categories/{category_id}/ancestors
-   POST   /api/v1/categories/{category_id}/move
-   ```
+```
+GET    /api/v1/categories
+GET    /api/v1/categories/{category_id}
+POST   /api/v1/categories
+PUT    /api/v1/categories/{category_id}
+DELETE /api/v1/categories/{category_id}
+```
+
+### Endpoints de Jerarquía
+
+```
+GET    /api/v1/categories/{category_id}/children
+GET    /api/v1/categories/{category_id}/ancestors
+POST   /api/v1/categories/{category_id}/move
+```
 
 ### Webhooks
 
-1. **Eventos Disponibles**
-   - `category.created`
-   - `category.updated`
-   - `category.deleted`
-   - `category.moved`
+### Eventos Disponibles
 
-2. **Formato de Payload**
-   ```json
-   {
-     "event": "category.moved",
-     "timestamp": "2024-03-19T14:30:00Z",
-     "data": {
-       "category_id": "string",
-       "old_parent_id": "string",
-       "new_parent_id": "string",
-       "old_path": ["string"],
-       "new_path": ["string"]
-     }
-   }
-   ```
+- `category.created`
+- `category.updated`
+- `category.deleted`
+- `category.moved`
+
+### Formato de Payload
+
+```json
+{
+  "event": "category.moved",
+  "timestamp": "2024-03-19T14:30:00Z",
+  "data": {
+    "category_id": "string",
+    "old_parent_id": "string",
+    "new_parent_id": "string",
+    "old_path": ["string"],
+    "new_path": ["string"]
+  }
+}
+```
 
 ## Preguntas Frecuentes
 

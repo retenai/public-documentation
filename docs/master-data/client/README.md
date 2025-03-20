@@ -362,83 +362,93 @@ Los grupos permiten categorizar y segmentar clientes:
 
 ### Gestión de Cambios
 
-1. **Actualización de Datos**
-   - `_updated_at` se actualiza automáticamente
-   - Los cambios en arrays deben mantener la integridad
-   - Se debe mantener historial de cambios importantes
+### Actualización de Datos
 
-2. **Sincronización**
-   - Los cambios deben propagarse a sistemas integrados
-   - Se deben manejar conflictos de actualización
-   - Implementar mecanismos de retry para fallos
+- `_updated_at` se actualiza automáticamente
+- Los cambios en arrays deben mantener la integridad
+- Se debe mantener historial de cambios importantes
+
+### Sincronización
+
+- Los cambios deben propagarse a sistemas integrados
+- Se deben manejar conflictos de actualización
+- Implementar mecanismos de retry para fallos
 
 ### Consideraciones de Seguridad
 
-1. **Datos Sensibles**
-   - Información personal debe estar encriptada
-   - Acceso controlado a datos financieros
-   - Logs de auditoría para cambios sensibles
+### Datos Sensibles
 
-2. **Compliance**
-   - Cumplimiento con regulaciones locales
-   - Manejo de consentimientos y permisos
-   - Retención de datos según normativa
+- Información personal debe estar encriptada
+- Acceso controlado a datos financieros
+- Logs de auditoría para cambios sensibles
+
+### Compliance
+
+- Cumplimiento con regulaciones locales
+- Manejo de consentimientos y permisos
+- Retención de datos según normativa
 
 ### Optimización
 
-1. **Indexación**
-   - Índices en campos de búsqueda frecuente
-   - Índices compuestos para queries comunes
-   - Optimización de búsqueda por geolocalización
+### Indexación
 
-2. **Caché**
-   - Cacheo de datos frecuentemente accedidos
-   - Invalidación selectiva de caché
-   - Estrategias de precarga
+- Índices en campos de búsqueda frecuente
+- Índices compuestos para queries comunes
+- Optimización de búsqueda por geolocalización
+
+### Caché
+
+- Cacheo de datos frecuentemente accedidos
+- Invalidación selectiva de caché
+- Estrategias de precarga
 
 ## Integración con Otros Sistemas
 
 ### APIs
 
-1. **Endpoints Principales**
-   ```
-   GET    /api/v1/commerces/{user_id}
-   POST   /api/v1/commerces
-   PUT    /api/v1/commerces/{user_id}
-   PATCH  /api/v1/commerces/{user_id}
-   DELETE /api/v1/commerces/{user_id}
-   ```
+### Endpoints Principales
 
-2. **Endpoints de Relación**
-   ```
-   GET    /api/v1/commerces/{user_id}/contacts
-   GET    /api/v1/commerces/{user_id}/addresses
-   GET    /api/v1/commerces/{user_id}/groups
-   ```
+```
+GET    /api/v1/commerces/{user_id}
+POST   /api/v1/commerces
+PUT    /api/v1/commerces/{user_id}
+PATCH  /api/v1/commerces/{user_id}
+DELETE /api/v1/commerces/{user_id}
+```
+
+### Endpoints de Relación
+
+```
+GET    /api/v1/commerces/{user_id}/contacts
+GET    /api/v1/commerces/{user_id}/addresses
+GET    /api/v1/commerces/{user_id}/groups
+```
 
 ### Webhooks
 
-1. **Eventos Disponibles**
-   - `commerce.created`
-   - `commerce.updated`
-   - `commerce.deleted`
-   - `commerce.status_changed`
+### Eventos Disponibles
 
-2. **Formato de Payload**
-   ```json
-   {
-     "event": "commerce.updated",
-     "timestamp": "2024-03-19T14:30:00Z",
-     "data": {
-       "user_id": "string",
-       "changes": [{
-         "field": "string",
-         "old_value": "any",
-         "new_value": "any"
-       }]
-     }
-   }
-   ```
+- `commerce.created`
+- `commerce.updated`
+- `commerce.deleted`
+- `commerce.status_changed`
+
+### Formato de Payload
+
+```json
+{
+  "event": "commerce.updated",
+  "timestamp": "2024-03-19T14:30:00Z",
+  "data": {
+    "user_id": "string",
+    "changes": [{
+      "field": "string",
+      "old_value": "any",
+      "new_value": "any"
+    }]
+  }
+}
+```
 
 ## Preguntas Frecuentes
 

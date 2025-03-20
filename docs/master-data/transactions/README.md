@@ -305,74 +305,74 @@ Las transacciones representan las compras realizadas por los clientes en el sist
 
 ### Gestión de Estados
 
-1. **Transiciones de Estado**
+### Transiciones de Estado
 
-   - Las transiciones deben seguir un flujo definido
-   - Ciertos estados son terminales
-   - Se debe mantener historial de cambios
+- Las transiciones deben seguir un flujo definido
+- Ciertos estados son terminales
+- Se debe mantener historial de cambios
 
-2. **Validaciones de Estado**
+### Validaciones de Estado
 
-   - Validar permisos para cambios de estado
-   - Verificar condiciones necesarias
-   - Mantener consistencia con otros sistemas
+- Validar permisos para cambios de estado
+- Verificar condiciones necesarias
+- Mantener consistencia con otros sistemas
 
 ### Cálculos y Totales
 
-1. **Cálculo de Descuentos**
+### Cálculo de Descuentos
 
-   - Aplicar reglas de descuento en orden
-   - Validar límites y restricciones
-   - Considerar descuentos especiales
+- Aplicar reglas de descuento en orden
+- Validar límites y restricciones
+- Considerar descuentos especiales
 
-2. **Cálculo de Impuestos**
+### Cálculo de Impuestos
 
-   - Aplicar tasas según región
-   - Considerar exenciones
-   - Manejar redondeos
+- Aplicar tasas según región
+- Considerar exenciones
+- Manejar redondeos
 
 ## Integración con Otros Sistemas
 
 ### APIs
 
-1. **Endpoints Principales**
+### Endpoints Principales
 
-   ```
-   GET    /api/v1/transactions/{transaction_id}
-   POST   /api/v1/transactions
-   PUT    /api/v1/transactions/{transaction_id}
-   DELETE /api/v1/transactions/{transaction_id}
-   ```
+```
+GET    /api/v1/transactions/{transaction_id}
+POST   /api/v1/transactions
+PUT    /api/v1/transactions/{transaction_id}
+DELETE /api/v1/transactions/{transaction_id}
+```
 
-2. **Endpoints de Relación**
+### Endpoints de Relación
 
-   ```
-   GET    /api/v1/clients/{client_id}/transactions
-   GET    /api/v1/sellers/{seller_id}/transactions
-   ```
+```
+GET    /api/v1/clients/{client_id}/transactions
+GET    /api/v1/sellers/{seller_id}/transactions
+```
 
 ### Webhooks
 
-1. **Eventos Disponibles**
+### Eventos Disponibles
 
-   - `transaction.created`
-   - `transaction.updated`
-   - `transaction.status_changed`
-   - `transaction.payment_status_changed`
+- `transaction.created`
+- `transaction.updated`
+- `transaction.status_changed`
+- `transaction.payment_status_changed`
 
-2. **Formato de Payload**
+### Formato de Payload
 
-   ```json
-   {
-     "event": "transaction.status_changed",
-     "timestamp": "2024-03-19T14:30:00Z",
-     "data": {
-       "transaction_id": "string",
-       "old_status": "string",
-       "new_status": "string"
-     }
-   }
-   ```
+```json
+{
+  "event": "transaction.status_changed",
+  "timestamp": "2024-03-19T14:30:00Z",
+  "data": {
+    "transaction_id": "string",
+    "old_status": "string",
+    "new_status": "string"
+  }
+}
+```
 
 ## Preguntas Frecuentes
 

@@ -382,62 +382,68 @@ Los vendedores pueden tener múltiples comercios asociados, y esta relación se 
 
 ### Gestión de Acceso
 
-1. **Autenticación**
-   - Soporte para múltiples métodos
-   - Integración con SSO corporativo
-   - Políticas de contraseñas
+### Autenticación
 
-2. **Autorización**
-   - Basada en roles y permisos
-   - Herencia de permisos
-   - Restricciones por territorio
+- Soporte para múltiples métodos
+- Integración con SSO corporativo
+- Políticas de contraseñas
+
+### Autorización
+
+- Basada en roles y permisos
+- Herencia de permisos
+- Restricciones por territorio
 
 ### Seguridad
 
-1. **Protección de Datos**
-   - Encriptación de datos sensibles
-   - Auditoría de accesos
-   - Protección contra ataques
+### Protección de Datos
 
-2. **Cumplimiento**
-   - GDPR y normativas locales
-   - Retención de datos
-   - Privacidad por diseño
+- Encriptación de datos sensibles
+- Auditoría de accesos
+- Protección contra ataques
+
+### Cumplimiento
+
+- GDPR y normativas locales
+- Retención de datos
+- Privacidad por diseño
 
 ## Integración con Otros Sistemas
 
 ### APIs
 
-1. **Endpoints Principales**
-   ```
-   GET    /api/v1/sellers/{seller_id}
-   POST   /api/v1/sellers
-   PUT    /api/v1/sellers/{seller_id}
-   PATCH  /api/v1/sellers/{seller_id}
-   DELETE /api/v1/sellers/{seller_id}
-   ```
+### Endpoints Principales
 
-2. **Endpoints de Relación**
-   ```
-   GET    /api/v1/sellers/{seller_id}/assignments
-   GET    /api/v1/sellers/{seller_id}/targets
-   GET    /api/v1/sellers/{seller_id}/subordinates
-   GET    /api/v1/sellers/{seller_id}/commerces
-   POST   /api/v1/sellers/{seller_id}/commerces
-   DELETE /api/v1/sellers/{seller_id}/commerces/{commerce_id}
-   PATCH  /api/v1/sellers/{seller_id}/commerces/{commerce_id}
-   ```
+```
+GET    /api/v1/sellers/{seller_id}
+POST   /api/v1/sellers
+PUT    /api/v1/sellers/{seller_id}
+PATCH  /api/v1/sellers/{seller_id}
+DELETE /api/v1/sellers/{seller_id}
+```
+
+### Endpoints de Relación
+
+```
+GET    /api/v1/sellers/{seller_id}/assignments
+GET    /api/v1/sellers/{seller_id}/targets
+GET    /api/v1/sellers/{seller_id}/subordinates
+GET    /api/v1/sellers/{seller_id}/commerces
+POST   /api/v1/sellers/{seller_id}/commerces
+DELETE /api/v1/sellers/{seller_id}/commerces/{commerce_id}
+PATCH  /api/v1/sellers/{seller_id}/commerces/{commerce_id}
+```
 
 ### Webhooks
 
-1. **Eventos Disponibles**
-   - `seller.created`
-   - `seller.updated`
-   - `seller.status_changed`
-   - `seller.assignment_changed`
-   - `seller.commerce_relationship_created`
-   - `seller.commerce_relationship_updated`
-   - `seller.commerce_relationship_ended`
+### Eventos Disponibles
 
-2. **Formato de Payload**
-   ```
+- `seller.created`
+- `seller.updated`
+- `seller.status_changed`
+- `seller.assignment_changed`
+- `seller.commerce_relationship_created`
+- `seller.commerce_relationship_updated`
+- `seller.commerce_relationship_ended`
+
+### Formato de Payload

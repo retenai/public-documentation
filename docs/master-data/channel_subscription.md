@@ -206,75 +206,64 @@ Los tipos de canal disponibles son:
 
 ### Gestión de Verificación
 
-1. **Métodos de Verificación**
-   - Link de verificación por email
-   - Código OTP por SMS/WhatsApp
-   - Confirmación doble opt-in
+### Métodos de Verificación
 
-2. **Proceso de Verificación**
-   - Envío de código/link
-   - Validación de respuesta
-   - Actualización de estado
-   - Registro de timestamp
+- Link de verificación por email
+- Código OTP por SMS/WhatsApp
+- Confirmación doble opt-in
+
+### Proceso de Verificación
+
+- Envío de código/link
+- Validación de respuesta
+- Actualización de estado
+- Registro de timestamp
 
 ### Optimización
 
-1. **Caché**
-   - Preferencias activas
-   - Estados de verificación
-   - Estadísticas de uso
+### Caché
 
-2. **Agrupación**
-   - Mensajes por frecuencia
-   - Respeto de quiet hours
-   - Priorización de canales
+- Preferencias activas
+- Estados de verificación
+- Estadísticas de uso
+
+### Agrupación
+
+- Mensajes por frecuencia
+- Respeto de quiet hours
+- Priorización de canales
 
 ## Integración con Otros Sistemas
 
 ### APIs
 
-1. **Endpoints Principales**
-   ```
-   GET    /api/v1/subscriptions/{subscription_id}
-   POST   /api/v1/subscriptions
-   PUT    /api/v1/subscriptions/{subscription_id}
-   DELETE /api/v1/subscriptions/{subscription_id}
-   ```
+### Endpoints Principales
 
-2. **Endpoints de Verificación**
-   ```
-   POST   /api/v1/subscriptions/{subscription_id}/verify
-   POST   /api/v1/subscriptions/{subscription_id}/resend-verification
-   ```
+```
+GET    /api/v1/subscriptions/{subscription_id}
+POST   /api/v1/subscriptions
+PUT    /api/v1/subscriptions/{subscription_id}
+DELETE /api/v1/subscriptions/{subscription_id}
+```
+
+### Endpoints de Verificación
+
+```
+POST   /api/v1/subscriptions/{subscription_id}/verify
+POST   /api/v1/subscriptions/{subscription_id}/resend-verification
+```
 
 ### Webhooks
 
-1. **Eventos Disponibles**
-   - `subscription.created`
-   - `subscription.verified`
-   - `subscription.updated`
-   - `subscription.deleted`
-   - `subscription.blocked`
+### Eventos Disponibles
 
-2. **Formato de Payload**
-   ```json
-   {
-     "event": "subscription.verified",
-     "timestamp": "2024-03-19T14:30:00Z",
-     "data": {
-       "subscription_id": "string",
-       "user_id": "string",
-       "channel": {
-         "type": "string",
-         "identifier": "string"
-       },
-       "verification": {
-         "method": "string",
-         "timestamp": "string"
-       }
-     }
-   }
-   ```
+- `subscription.created`
+- `subscription.verified`
+- `subscription.updated`
+- `subscription.deleted`
+- `subscription.blocked`
+
+### Formato de Payload
 
 ## Preguntas Frecuentes
 

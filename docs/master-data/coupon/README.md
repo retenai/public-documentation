@@ -218,37 +218,32 @@ WHERE id = 'COUPON1';
 
 ### Validaciones Generales
 
-### Identificadores
+1. **Identificadores**
+   - `coupon_id` debe ser único en todo el sistema
+   - `code` debe ser único y alfanumérico
+   - `code` debe ser fácil de recordar y usar
 
-- `coupon_id` debe ser único en todo el sistema
-- `code` debe ser único y alfanumérico
-- `code` debe ser fácil de recordar y usar
+2. **Vigencia**
+   - `start_date` debe ser anterior a `end_date`
+   - Fechas deben estar en formato ISO 8601
+   - Zona horaria debe ser válida
 
-### Vigencia
-
-- `start_date` debe ser anterior a `end_date`
-- Fechas deben estar en formato ISO 8601
-- Zona horaria debe ser válida
-
-### Límites de Uso
-
-- `max_uses` debe ser mayor a cero
-- `uses_per_user` debe ser menor o igual a `max_uses`
-- `minimum_purchase` debe ser mayor a cero
+3. **Límites de Uso**
+   - `max_uses` debe ser mayor a cero
+   - `uses_per_user` debe ser menor o igual a `max_uses`
+   - `minimum_purchase` debe ser mayor a cero
 
 ### Validaciones de Negocio
 
-### Beneficios
+1. **Beneficios**
+   - Porcentajes deben estar entre 0 y 100
+   - Montos fijos deben ser positivos
+   - Moneda debe ser válida
 
-- Porcentajes deben estar entre 0 y 100
-- Montos fijos deben ser positivos
-- Moneda debe ser válida
-
-### Condiciones
-
-- Métodos de pago deben existir
-- Territorios deben ser válidos
-- Horarios deben ser coherentes
+2. **Condiciones**
+   - Métodos de pago deben existir
+   - Territorios deben ser válidos
+   - Horarios deben ser coherentes
 
 ## Ejemplos de Uso
 
@@ -331,71 +326,79 @@ WHERE id = 'COUPON1';
 
 ### Gestión de Redenciones
 
-1. **Validación en Tiempo Real**
-   - Verificar vigencia
-   - Validar límites de uso
-   - Comprobar condiciones
+#### Validación en Tiempo Real
 
-2. **Registro de Uso**
-   - Actualizar contadores
-   - Registrar usuario y orden
-   - Mantener historial
+- Verificar vigencia
+- Validar límites de uso
+- Comprobar condiciones
+
+#### Registro de Uso
+
+- Actualizar contadores
+- Registrar usuario y orden
+- Mantener historial
 
 ### Optimización
 
-1. **Caché**
-   - Cachear cupones activos
-   - Invalidar al actualizar
-   - Precalcular elegibilidad
+#### Caché
 
-2. **Búsqueda**
-   - Índices por código
-   - Búsqueda por condiciones
-   - Filtros de vigencia
+- Cachear cupones activos
+- Invalidar al actualizar
+- Precalcular elegibilidad
+
+#### Búsqueda
+
+- Índices por código
+- Búsqueda por condiciones
+- Filtros de vigencia
 
 ## Integración con Otros Sistemas
 
 ### APIs
 
-1. **Endpoints Principales**
-   ```
-   GET    /api/v1/coupons/{coupon_id}
-   POST   /api/v1/coupons
-   PUT    /api/v1/coupons/{coupon_id}
-   PATCH  /api/v1/coupons/{coupon_id}
-   DELETE /api/v1/coupons/{coupon_id}
-   ```
+#### Endpoints Principales
 
-2. **Endpoints de Validación**
-   ```
-   POST   /api/v1/coupons/validate
-   GET    /api/v1/coupons/{code}/check
-   POST   /api/v1/coupons/{code}/apply
-   ```
+```
+GET    /api/v1/coupons/{coupon_id}
+POST   /api/v1/coupons
+PUT    /api/v1/coupons/{coupon_id}
+PATCH  /api/v1/coupons/{coupon_id}
+DELETE /api/v1/coupons/{coupon_id}
+```
+
+#### Endpoints de Validación
+
+```
+POST   /api/v1/coupons/validate
+GET    /api/v1/coupons/{code}/check
+POST   /api/v1/coupons/{code}/apply
+```
 
 ### Webhooks
 
-1. **Eventos Disponibles**
-   - `coupon.created`
-   - `coupon.updated`
-   - `coupon.status_changed`
-   - `coupon.redeemed`
-   - `coupon.depleted`
+#### Eventos Disponibles
 
-2. **Formato de Payload**
-   ```json
-   {
-     "event": "coupon.redeemed",
-     "timestamp": "2024-03-19T14:30:00Z",
-     "data": {
-       "coupon_id": "string",
-       "code": "string",
-       "order_id": "string",
-       "user_id": "string",
-       "discount_amount": "number"
-     }
-   }
-   ```
+- `coupon.created`
+- `coupon.updated`
+- `coupon.status_changed`
+- `coupon.redeemed`
+- `coupon.depleted`
+
+#### Formato de Payload
+
+```json
+{
+  "event": "coupon.redeemed",
+  "timestamp": "2024-03-19T14:30:00Z",
+  "data": {
+    "coupon_id": "string",
+    "code": "string",
+    "order_id": "string",
+    "user_id": "string",
+    "discount_amount": "number"
+  }
+}
+```
 
 ## Preguntas Frecuentes
 
