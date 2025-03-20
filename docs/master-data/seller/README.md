@@ -250,19 +250,19 @@ Los vendedores pueden tener múltiples comercios asociados, y esta relación se 
 
 ### Validaciones Generales
 
-### Identificadores
+#### Identificadores
 
 - `seller_id` debe ser único en todo el sistema
 - `external_id` debe ser único por cliente
 - `employee_id` debe ser único dentro del CPG
 
-### Información Personal
+#### Información Personal
 
 - Nombres y apellidos no pueden estar vacíos
 - El email principal debe ser corporativo
 - El formato de teléfono debe ser válido
 
-### Acceso
+#### Acceso
 
 - Username debe ser único
 - Password debe cumplir política de seguridad
@@ -270,19 +270,19 @@ Los vendedores pueden tener múltiples comercios asociados, y esta relación se 
 
 ### Validaciones de Negocio
 
-### Asignaciones
+#### Asignaciones
 
 - No puede haber solapamiento de territorios
 - Fechas de inicio deben ser válidas
 - Debe haber al menos una asignación activa
 
-### Jerarquía
+#### Jerarquía
 
 - El supervisor debe existir y estar activo
 - No pueden existir ciclos en la jerarquía
 - Niveles deben ser consistentes
 
-### Relaciones Comerciales
+#### Relaciones Comerciales
 
 - Un comercio solo puede tener un vendedor `primary` activo a la vez
 - Las fechas de relación deben ser válidas y no solaparse para el mismo tipo
@@ -382,13 +382,13 @@ Los vendedores pueden tener múltiples comercios asociados, y esta relación se 
 
 ### Gestión de Acceso
 
-### Autenticación
+#### Autenticación
 
 - Soporte para múltiples métodos
 - Integración con SSO corporativo
 - Políticas de contraseñas
 
-### Autorización
+#### Autorización
 
 - Basada en roles y permisos
 - Herencia de permisos
@@ -396,13 +396,13 @@ Los vendedores pueden tener múltiples comercios asociados, y esta relación se 
 
 ### Seguridad
 
-### Protección de Datos
+#### Protección de Datos
 
 - Encriptación de datos sensibles
 - Auditoría de accesos
 - Protección contra ataques
 
-### Cumplimiento
+#### Cumplimiento
 
 - GDPR y normativas locales
 - Retención de datos
@@ -412,7 +412,7 @@ Los vendedores pueden tener múltiples comercios asociados, y esta relación se 
 
 ### APIs
 
-### Endpoints Principales
+#### Endpoints Principales
 
 ```
 GET    /api/v1/sellers/{seller_id}
@@ -422,7 +422,7 @@ PATCH  /api/v1/sellers/{seller_id}
 DELETE /api/v1/sellers/{seller_id}
 ```
 
-### Endpoints de Relación
+#### Endpoints de Relación
 
 ```
 GET    /api/v1/sellers/{seller_id}/assignments
@@ -436,7 +436,7 @@ PATCH  /api/v1/sellers/{seller_id}/commerces/{commerce_id}
 
 ### Webhooks
 
-### Eventos Disponibles
+#### Eventos Disponibles
 
 - `seller.created`
 - `seller.updated`
@@ -446,4 +446,23 @@ PATCH  /api/v1/sellers/{seller_id}/commerces/{commerce_id}
 - `seller.commerce_relationship_updated`
 - `seller.commerce_relationship_ended`
 
-### Formato de Payload
+#### Formato de Payload
+
+```json
+{
+  "event": "seller.status_changed",
+  "timestamp": "2024-03-19T14:30:00Z",
+  "data": {
+    "seller_id": "string",
+    "old_status": "string",
+    "new_status": "string",
+    "reason": "string",
+    "metadata": {
+      "updated_by": "string",
+      "source": "string"
+    }
+  }
+}
+```
+
+## Preguntas Frecuentes
