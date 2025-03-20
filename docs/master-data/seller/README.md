@@ -466,3 +466,31 @@ PATCH  /api/v1/sellers/{seller_id}/commerces/{commerce_id}
 ```
 
 ## Preguntas Frecuentes
+
+### ¿Cómo manejar cambios de territorio?
+
+- Mantener historial de asignaciones previas
+- Asegurar transición suave de comercios
+- Actualizar jerarquías y relaciones heredadas
+- Notificar a todas las partes involucradas
+
+### ¿Cómo gestionar vendedores temporales?
+
+- Usar `status` y fechas de vigencia
+- Asignar relaciones comerciales como `temporary`
+- Mantener permisos limitados
+- Establecer fecha de término clara
+
+### ¿Cómo funciona la herencia de territorios?
+
+- Las relaciones se heredan según jerarquía organizacional
+- Los supervisores heredan visibilidad de sus subordinados
+- Las asignaciones heredadas se marcan como `inherited`
+- Se mantiene trazabilidad del origen de la herencia
+
+### ¿Cómo manejar conflictos de asignación?
+
+- Solo un vendedor puede ser `primary` por comercio
+- Priorizar asignaciones directas sobre heredadas
+- Resolver conflictos según jerarquía
+- Documentar razones de cambios
