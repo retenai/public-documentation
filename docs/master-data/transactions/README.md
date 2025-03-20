@@ -129,24 +129,28 @@ Las transacciones representan las compras realizadas por los clientes en el sist
 
 ## Ejemplos
 
-### Transacción Simple
+### Ejemplo Base (Transacción Completa)
 
 ```json
 {
   "transaction_id": "TRX_001",
   "client_id": "CLIENT_123",
   "seller_id": "SELLER_456",
-  "event_id": "EVENT_789",
+  "created_at": "2024-03-19T10:00:00Z",
+  "updated_at": "2024-03-19T10:00:00Z",
+  "_created_at": "2024-03-19T10:00:00Z",
+  "_updated_at": "2024-03-19T10:00:00Z",
   "transaction_date": "2024-03-19T10:00:00Z",
   "items": [{
     "product_id": "PROD_789",
     "item_id": "ITEM_001",
     "name": "Producto A",
-    "category": "Categoría 1",
+    "category": "Electrónicos",
     "quantity": 2,
     "unit_price": 100.00,
     "total_price": 200.00,
-    "attributes": []
+    "attributes": [],
+    "discount": null
   }],
   "pricing": {
     "net_amount": 200.00,
@@ -159,53 +163,54 @@ Las transacciones representan las compras realizadas por los clientes en el sist
     "name": "Juan Pérez",
     "street": "Av. Principal",
     "number": "123",
-    "dept_number": "",
+    "dept_number": null,
     "city": "Santiago",
     "commune": "Las Condes",
     "region": "Metropolitana",
-    "lat": "-33.4189",
-    "long": "-70.6412"
+    "lat": "-33.4513",
+    "long": "-70.5947"
   },
   "billing_address": {
     "name": "Juan Pérez",
     "street": "Av. Principal",
     "number": "123",
-    "dept_number": "",
+    "dept_number": null,
     "city": "Santiago",
     "commune": "Las Condes",
     "region": "Metropolitana",
-    "lat": "-33.4189",
-    "long": "-70.6412"
+    "lat": "-33.4513",
+    "long": "-70.5947"
   },
   "status": "completed",
+  "coupon_code": null,
   "payment_details": {
     "method": "credit_card",
     "amount": 238.00,
     "status": "paid",
     "date": "2024-03-19T10:00:00Z"
   },
+  "notes": "",
+  "tags": [],
   "attributes": []
 }
 ```
 
-### Transacción con Descuento
+### Ejemplos de Casos Específicos
+
+#### Transacción con Descuento por Cupón
 
 ```json
 {
   "transaction_id": "TRX_002",
   "client_id": "CLIENT_123",
   "seller_id": "SELLER_456",
-  "event_id": "EVENT_790",
   "transaction_date": "2024-03-19T11:00:00Z",
   "items": [{
     "product_id": "PROD_789",
-    "item_id": "ITEM_002",
     "name": "Producto A",
-    "category": "Categoría 1",
     "quantity": 1,
     "unit_price": 100.00,
     "total_price": 100.00,
-    "attributes": [],
     "discount": {
       "coupon_id": "COUPON_001",
       "amount": 20.00,
@@ -216,40 +221,77 @@ Las transacciones representan las compras realizadas por los clientes en el sist
     "net_amount": 100.00,
     "final_amount": 95.20,
     "discount_amount": 20.00,
-    "shipping_amount": 0,
     "tax_amount": 15.20
   },
-  "shipping_address": {
-    "name": "Juan Pérez",
-    "street": "Av. Principal",
-    "number": "123",
-    "dept_number": "",
-    "city": "Santiago",
-    "commune": "Las Condes",
-    "region": "Metropolitana",
-    "lat": "-33.4189",
-    "long": "-70.6412"
-  },
-  "billing_address": {
-    "name": "Juan Pérez",
-    "street": "Av. Principal",
-    "number": "123",
-    "dept_number": "",
-    "city": "Santiago",
-    "commune": "Las Condes",
-    "region": "Metropolitana",
-    "lat": "-33.4189",
-    "long": "-70.6412"
-  },
   "status": "completed",
-  "coupon_code": "DESCUENTO20",
+  "coupon_code": "SUMMER20",
   "payment_details": {
     "method": "cash",
     "amount": 95.20,
-    "status": "paid",
-    "date": "2024-03-19T11:00:00Z"
+    "status": "paid"
+  }
+}
+```
+
+#### Transacción con Múltiples Items
+
+```json
+{
+  "transaction_id": "TRX_003",
+  "client_id": "CLIENT_123",
+  "seller_id": "SELLER_456",
+  "transaction_date": "2024-03-19T12:00:00Z",
+  "items": [
+    {
+      "product_id": "PROD_789",
+      "name": "Producto A",
+      "quantity": 2,
+      "unit_price": 100.00,
+      "total_price": 200.00
+    },
+    {
+      "product_id": "PROD_790",
+      "name": "Producto B",
+      "quantity": 1,
+      "unit_price": 50.00,
+      "total_price": 50.00
+    }
+  ],
+  "pricing": {
+    "net_amount": 250.00,
+    "final_amount": 297.50,
+    "tax_amount": 47.50
   },
-  "attributes": []
+  "status": "completed"
+}
+```
+
+#### Transacción Pendiente de Pago
+
+```json
+{
+  "transaction_id": "TRX_004",
+  "client_id": "CLIENT_123",
+  "seller_id": "SELLER_456",
+  "transaction_date": "2024-03-19T13:00:00Z",
+  "items": [{
+    "product_id": "PROD_789",
+    "name": "Producto A",
+    "quantity": 1,
+    "unit_price": 100.00,
+    "total_price": 100.00
+  }],
+  "pricing": {
+    "net_amount": 100.00,
+    "final_amount": 119.00,
+    "tax_amount": 19.00
+  },
+  "status": "pending",
+  "payment_details": {
+    "method": "bank_transfer",
+    "amount": 119.00,
+    "status": "pending"
+  }
 }
 ```
 
