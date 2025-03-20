@@ -1,4 +1,6 @@
 .venv/
 .venv
 public/
-public 
+public
+site/
+site 
