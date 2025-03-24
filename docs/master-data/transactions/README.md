@@ -7,9 +7,42 @@ Las transacciones representan las compras realizadas por los clientes en el sist
 ```json
 {
   // Identificadores
-  "transaction_id": "string",    // Identificador único de la transacción (not null)
-  "client_id": "string",         // ID del cliente que realizó la compra (not null)
-  "seller_id": "string",         // ID del vendedor asociado (not null)
+  "transaction_id": "string",    // Identificador único interno (not null)
+  "order_id": "string",          // Identificador de la orden asociada (not null)
+  "client_id": "string",         // Identificador del cliente (not null)
+
+  // Información básica
+  "status": "string",            // Estado de la transacción (pending, approved, rejected, cancelled)
+  "amount": {
+    "value": "number",           // Monto de la transacción (not null)
+    "currency": "string"         // Moneda de la transacción (not null)
+  },
+
+  // Detalles de pagos
+  "payments": [{
+    "method": "string",          // Método de pago (credit_card, debit_card, cash, transfer)
+    "provider": "string",        // Proveedor del método de pago
+    "reference": "string",       // Referencia o número de autorización
+    "installments": "number",    // Número de cuotas si aplica
+    "amount": "number",          // Monto del pago
+    "status": "string",          // Estado del pago (paid, pending, failed)
+    "date": "timestamp",         // Fecha del pago
+    "card": {
+      "type": "string",          // Tipo de tarjeta (credit, debit)
+      "brand": "string",         // Marca de la tarjeta
+      "last_digits": "string",   // Últimos 4 dígitos
+      "holder_name": "string"    // Nombre del titular
+    }
+  }],
+
+  // Fechas relevantes
+  "dates": {
+    "order_date": "timestamp",       // Fecha de creación de la orden por el cliente (not null)
+    "transaction_date": "timestamp",  // Fecha de la transacción (not null)
+    "approval_date": "timestamp",     // Fecha de aprobación
+    "rejection_date": "timestamp",    // Fecha de rechazo
+    "cancellation_date": "timestamp"  // Fecha de cancelación
+  },
 
   // Origen y atribución
   "origin": {
@@ -30,13 +63,6 @@ Las transacciones representan las compras realizadas por los clientes en el sist
       "type": "string"    // Tipo de valor (string, number, date, boolean)
     }]
   },
-
-  // Información temporal
-  "created_at": "timestamp",     // Fecha de creación (not null)
-  "updated_at": "timestamp",     // Última actualización
-  "_created_at": "timestamp",    // Fecha de creación en Reten
-  "_updated_at": "timestamp",    // Última actualización en Reten
-  "transaction_date": "timestamp", // Fecha de la transacción (not null)
 
   // Detalles de la transacción
   "items": [{
@@ -93,23 +119,22 @@ Las transacciones representan las compras realizadas por los clientes en el sist
   },
 
   // Estado y pago
-  "status": "string",            // Estado de la transacción
   "coupon_code": "string",       // Código de cupón aplicado
-  "payment_details": {
-    "method": "string",          // Método de pago
-    "amount": "number",          // Monto del pago
-    "status": "string",          // Estado del pago
-    "date": "timestamp"         // Fecha del pago
-  },
 
   // Metadatos
   "notes": "string",             // Notas adicionales
   "tags": ["string"],           // Etiquetas para categorización
-  "attributes": [{               // Atributos personalizados
+
+  // Atributos personalizados
+  "attributes": [{
     "key": "string",
     "value": "string",
     "type": "string"    // Tipo de valor (string, number, date, boolean)
-  }]
+  }],
+
+  // Marcas temporales
+  "created_at": "timestamp",     // Fecha de creación en sistema cliente (not null)
+  "updated_at": "timestamp"      // Fecha de última actualización en sistema cliente
 }
 ```
 
@@ -172,8 +197,37 @@ Las transacciones representan las compras realizadas por los clientes en el sist
 ```json
 {
   "transaction_id": "TRX_001",
+  "order_id": "ORDER_001",
   "client_id": "CLIENT_123",
-  "seller_id": "SELLER_456",
+
+  "status": "completed",
+  "amount": {
+    "value": 238.00,
+    "currency": "CLP"
+  },
+
+  "payments": [{
+    "method": "credit_card",
+    "provider": "transbank",
+    "reference": "1234567890",
+    "installments": 1,
+    "amount": 238.00,
+    "status": "paid",
+    "date": "2024-03-19T10:00:00Z",
+    "card": {
+      "type": "credit",
+      "brand": "visa",
+      "last_digits": "1234",
+      "holder_name": "Juan Pérez"
+    }
+  }],
+
+  "dates": {
+    "order_date": "2024-03-19T09:45:00Z",     // Cliente crea la orden
+    "transaction_date": "2024-03-19T10:00:00Z", // Se procesa el pago
+    "approval_date": "2024-03-19T10:00:00Z"
+  },
+
   "origin": {
     "channel": "web",
     "platform": "website",
@@ -189,11 +243,7 @@ Las transacciones representan las compras realizadas por los clientes en el sist
       }
     ]
   },
-  "created_at": "2024-03-19T10:00:00Z",
-  "updated_at": "2024-03-19T10:00:00Z",
-  "_created_at": "2024-03-19T10:00:00Z",
-  "_updated_at": "2024-03-19T10:00:00Z",
-  "transaction_date": "2024-03-19T10:00:00Z",
+
   "items": [{
     "product_id": "PROD_789",
     "item_id": "ITEM_001",
@@ -205,6 +255,7 @@ Las transacciones representan las compras realizadas por los clientes en el sist
     "attributes": [],
     "discount": null
   }],
+
   "pricing": {
     "net_amount": 200.00,
     "final_amount": 238.00,
@@ -212,6 +263,7 @@ Las transacciones representan las compras realizadas por los clientes en el sist
     "shipping_amount": 0,
     "tax_amount": 38.00
   },
+
   "shipping_address": {
     "name": "Juan Pérez",
     "street": "Av. Principal",
@@ -234,17 +286,14 @@ Las transacciones representan las compras realizadas por los clientes en el sist
     "lat": "-33.4513",
     "long": "-70.5947"
   },
-  "status": "completed",
+
   "coupon_code": null,
-  "payment_details": {
-    "method": "credit_card",
-    "amount": 238.00,
-    "status": "paid",
-    "date": "2024-03-19T10:00:00Z"
-  },
   "notes": "",
   "tags": [],
-  "attributes": []
+  "attributes": [],
+
+  "created_at": "2024-03-19T10:00:00Z",
+  "updated_at": "2024-03-19T10:00:00Z"
 }
 ```
 
@@ -255,11 +304,33 @@ Las transacciones representan las compras realizadas por los clientes en el sist
 ```json
 {
   "transaction_id": "TRX_002",
+  "order_id": "ORDER_002",
   "client_id": "CLIENT_123",
-  "seller_id": "SELLER_456",
-  "transaction_date": "2024-03-19T11:00:00Z",
+
+  "status": "completed",
+  "amount": {
+    "value": 95.20,
+    "currency": "CLP"
+  },
+
+  "payments": [{
+    "method": "cash",
+    "provider": "store",
+    "reference": "STORE_001",
+    "amount": 95.20,
+    "status": "paid",
+    "date": "2024-03-19T11:00:00Z"
+  }],
+
+  "dates": {
+    "order_date": "2024-03-19T10:45:00Z",
+    "transaction_date": "2024-03-19T11:00:00Z",
+    "approval_date": "2024-03-19T11:00:00Z"
+  },
+
   "items": [{
     "product_id": "PROD_789",
+    "item_id": "ITEM_002",
     "name": "Producto A",
     "quantity": 1,
     "unit_price": 100.00,
@@ -270,33 +341,79 @@ Las transacciones representan las compras realizadas por los clientes en el sist
       "type": "percentage"
     }
   }],
+
   "pricing": {
     "net_amount": 100.00,
     "final_amount": 95.20,
     "discount_amount": 20.00,
+    "shipping_amount": 0,
     "tax_amount": 15.20
   },
-  "status": "completed",
+
   "coupon_code": "SUMMER20",
-  "payment_details": {
-    "method": "cash",
-    "amount": 95.20,
-    "status": "paid"
-  }
+  "attributes": [],
+
+  "created_at": "2024-03-19T11:00:00Z",
+  "updated_at": "2024-03-19T11:00:00Z"
 }
 ```
 
-#### Transacción con Múltiples Items
+#### Transacción con Múltiples Pagos
 
 ```json
 {
   "transaction_id": "TRX_003",
+  "order_id": "ORDER_003",
   "client_id": "CLIENT_123",
-  "seller_id": "SELLER_456",
-  "transaction_date": "2024-03-19T12:00:00Z",
+
+  "status": "completed",
+  "amount": {
+    "value": 297.50,
+    "currency": "CLP"
+  },
+
+  "payments": [
+    {
+      "method": "credit_card",
+      "provider": "transbank",
+      "reference": "1234567891",
+      "installments": 1,
+      "amount": 200.00,
+      "status": "paid",
+      "date": "2024-03-19T12:00:00Z",
+      "card": {
+        "type": "credit",
+        "brand": "visa",
+        "last_digits": "1234",
+        "holder_name": "Juan Pérez"
+      }
+    },
+    {
+      "method": "debit_card",
+      "provider": "transbank",
+      "reference": "1234567892",
+      "amount": 97.50,
+      "status": "paid",
+      "date": "2024-03-19T12:00:00Z",
+      "card": {
+        "type": "debit",
+        "brand": "maestro",
+        "last_digits": "5678",
+        "holder_name": "Juan Pérez"
+      }
+    }
+  ],
+
+  "dates": {
+    "order_date": "2024-03-19T11:45:00Z",
+    "transaction_date": "2024-03-19T12:00:00Z",
+    "approval_date": "2024-03-19T12:00:00Z"
+  },
+
   "items": [
     {
       "product_id": "PROD_789",
+      "item_id": "ITEM_003",
       "name": "Producto A",
       "quantity": 2,
       "unit_price": 100.00,
@@ -304,18 +421,26 @@ Las transacciones representan las compras realizadas por los clientes en el sist
     },
     {
       "product_id": "PROD_790",
+      "item_id": "ITEM_004",
       "name": "Producto B",
       "quantity": 1,
       "unit_price": 50.00,
       "total_price": 50.00
     }
   ],
+
   "pricing": {
     "net_amount": 250.00,
     "final_amount": 297.50,
+    "discount_amount": 0,
+    "shipping_amount": 0,
     "tax_amount": 47.50
   },
-  "status": "completed"
+
+  "attributes": [],
+
+  "created_at": "2024-03-19T12:00:00Z",
+  "updated_at": "2024-03-19T12:00:00Z"
 }
 ```
 
@@ -324,27 +449,50 @@ Las transacciones representan las compras realizadas por los clientes en el sist
 ```json
 {
   "transaction_id": "TRX_004",
+  "order_id": "ORDER_004",
   "client_id": "CLIENT_123",
-  "seller_id": "SELLER_456",
-  "transaction_date": "2024-03-19T13:00:00Z",
+
+  "status": "pending",
+  "amount": {
+    "value": 119.00,
+    "currency": "CLP"
+  },
+
+  "payments": [{
+    "method": "bank_transfer",
+    "provider": "banco_chile",
+    "reference": "TRANSFER_001",
+    "amount": 119.00,
+    "status": "pending",
+    "date": "2024-03-19T13:00:00Z"
+  }],
+
+  "dates": {
+    "order_date": "2024-03-19T12:45:00Z",
+    "transaction_date": "2024-03-19T13:00:00Z"
+  },
+
   "items": [{
     "product_id": "PROD_789",
+    "item_id": "ITEM_005",
     "name": "Producto A",
     "quantity": 1,
     "unit_price": 100.00,
     "total_price": 100.00
   }],
+
   "pricing": {
     "net_amount": 100.00,
     "final_amount": 119.00,
+    "discount_amount": 0,
+    "shipping_amount": 0,
     "tax_amount": 19.00
   },
-  "status": "pending",
-  "payment_details": {
-    "method": "bank_transfer",
-    "amount": 119.00,
-    "status": "pending"
-  }
+
+  "attributes": [],
+
+  "created_at": "2024-03-19T13:00:00Z",
+  "updated_at": "2024-03-19T13:00:00Z"
 }
 ```
 
@@ -353,8 +501,37 @@ Las transacciones representan las compras realizadas por los clientes en el sist
 ```json
 {
   "transaction_id": "TRX_005",
+  "order_id": "ORDER_005",
   "client_id": "CLIENT_123",
-  "seller_id": "SELLER_456",
+
+  "status": "completed",
+  "amount": {
+    "value": 119.00,
+    "currency": "CLP"
+  },
+
+  "payments": [{
+    "method": "credit_card",
+    "provider": "transbank",
+    "reference": "1234567893",
+    "installments": 1,
+    "amount": 119.00,
+    "status": "paid",
+    "date": "2024-03-19T14:00:00Z",
+    "card": {
+      "type": "credit",
+      "brand": "mastercard",
+      "last_digits": "9012",
+      "holder_name": "Juan Pérez"
+    }
+  }],
+
+  "dates": {
+    "order_date": "2024-03-19T13:45:00Z",
+    "transaction_date": "2024-03-19T14:00:00Z",
+    "approval_date": "2024-03-19T14:00:00Z"
+  },
+
   "origin": {
     "channel": "web",
     "platform": "website",
@@ -365,19 +542,28 @@ Las transacciones representan las compras realizadas por los clientes en el sist
     "entity_id": null,
     "attributes": []
   },
+
   "items": [{
     "product_id": "PROD_789",
+    "item_id": "ITEM_006",
     "name": "Producto A",
     "quantity": 1,
     "unit_price": 100.00,
     "total_price": 100.00
   }],
+
   "pricing": {
     "net_amount": 100.00,
     "final_amount": 119.00,
+    "discount_amount": 0,
+    "shipping_amount": 0,
     "tax_amount": 19.00
   },
-  "status": "completed"
+
+  "attributes": [],
+
+  "created_at": "2024-03-19T14:00:00Z",
+  "updated_at": "2024-03-19T14:00:00Z"
 }
 ```
 
@@ -386,8 +572,37 @@ Las transacciones representan las compras realizadas por los clientes en el sist
 ```json
 {
   "transaction_id": "TRX_006",
+  "order_id": "ORDER_006",
   "client_id": "CLIENT_123",
-  "seller_id": "SELLER_456",
+
+  "status": "completed",
+  "amount": {
+    "value": 119.00,
+    "currency": "CLP"
+  },
+
+  "payments": [{
+    "method": "credit_card",
+    "provider": "transbank",
+    "reference": "1234567894",
+    "installments": 1,
+    "amount": 119.00,
+    "status": "paid",
+    "date": "2024-03-19T15:00:00Z",
+    "card": {
+      "type": "credit",
+      "brand": "visa",
+      "last_digits": "3456",
+      "holder_name": "Juan Pérez"
+    }
+  }],
+
+  "dates": {
+    "order_date": "2024-03-19T14:45:00Z",
+    "transaction_date": "2024-03-19T15:00:00Z",
+    "approval_date": "2024-03-19T15:00:00Z"
+  },
+
   "origin": {
     "channel": "call_center",
     "platform": "genesys",
@@ -408,19 +623,28 @@ Las transacciones representan las compras realizadas por los clientes en el sist
       }
     ]
   },
+
   "items": [{
     "product_id": "PROD_789",
+    "item_id": "ITEM_007",
     "name": "Producto A",
     "quantity": 1,
     "unit_price": 100.00,
     "total_price": 100.00
   }],
+
   "pricing": {
     "net_amount": 100.00,
     "final_amount": 119.00,
+    "discount_amount": 0,
+    "shipping_amount": 0,
     "tax_amount": 19.00
   },
-  "status": "completed"
+
+  "attributes": [],
+
+  "created_at": "2024-03-19T15:00:00Z",
+  "updated_at": "2024-03-19T15:00:00Z"
 }
 ```
 

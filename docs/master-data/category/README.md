@@ -35,9 +35,16 @@ Las categorías permiten organizar y clasificar productos de manera jerárquica 
     "canonical_url": "string"  // URL canónica
   },
 
+  // Atributos personalizados
+  "attributes": [{
+    "key": "string",
+    "value": "string",
+    "type": "string"          // Tipo de valor (string, number, date, boolean)
+  }],
+
   // Marcas temporales
   "created_at": "timestamp",   // Fecha de creación (not null)
-  "updated_at": "timestamp",   // Última actualización (not null)
+  "updated_at": "timestamp"    // Última actualización (not null)
 }
 ```
 

@@ -1,47 +1,86 @@
 # [Nombre de la Entidad]
 
-[Descripción breve de la entidad y su propósito en el sistema Reten. Explicar qué representa y su importancia.]
+## Descripción
+
+[Descripción detallada de la entidad y su propósito]
 
 ## Estructura de Datos
 
 ```json
 {
   // Identificadores
-  "[entity]_id": "string",      // Identificador principal (not null)
-  "external_id": "string",      // Identificador externo del cliente
-  
+  "entity_id": "string",        // Identificador único interno (not null)
+
   // Información básica
   "name": {
     "display_name": "string",   // Nombre para mostrar (not null)
     "short_name": "string",     // Nombre corto (opcional)
     // ... otros campos de nombre según necesidad
   },
-  
-  // Marcas temporales
-  "created_at": "timestamp",   // Fecha de creación (not null)
-  "updated_at": "timestamp",   // Fecha de última actualización (not null)
 
-  // Estado
-  "status": "string",           // Estado actual de la entidad
-  "is_active": "boolean",       // Indicador de estado activo
+  // [Otros campos específicos de la entidad]
+  // ...
 
   // Atributos personalizados
   "attributes": [{
-    "key": "string",
-    "value": "string",
-    "type": "string"           // Tipo de valor (string, number, date, boolean)
-  }]
+    "key": "string",           // Nombre del atributo
+    "value": "string",         // Valor del atributo
+    "type": "string"          // Tipo de valor (string, number, date, boolean)
+  }],
+
+  // Marcas temporales
+  "created_at": "timestamp",   // Fecha de creación en sistema cliente (not null)
+  "updated_at": "timestamp"    // Fecha de última actualización en sistema cliente
 }
 ```
+
+## Reglas de Validación
+
+- `entity_id`: Identificador único, no puede ser nulo
+- `name.display_name`: Requerido, máximo 100 caracteres
+- `name.slug`: Requerido, solo letras minúsculas, números y guiones
+- `name.description`: Opcional, máximo 500 caracteres
+- `attributes`: Array opcional de atributos personalizados
+- `created_at`: Requerido, formato ISO 8601
+- `updated_at`: Opcional, formato ISO 8601
+
+## Ejemplos
+
+### Ejemplo Básico
+
+```json
+{
+  "entity_id": "ent_01H9RKX7NGT9PX1PJRW1MT2K5W",
+  "name": {
+    "display_name": "Ejemplo Básico",
+    "slug": "ejemplo-basico",
+    "description": "Un ejemplo básico de la entidad"
+  },
+  "attributes": [{
+    "key": "color",
+    "value": "blue",
+    "type": "string"
+  }],
+  "created_at": "2023-08-01T14:30:00Z",
+  "updated_at": "2023-08-01T14:30:00Z"
+}
+```
+
+### Ejemplo Completo
+
+[Agregar un ejemplo más completo con todos los campos posibles]
+
+## Notas Adicionales
+
+[Cualquier información adicional relevante sobre la entidad]
 
 ## Campos Detallados
 
 ### Identificadores
 
-| Campo       | Tipo   | Requerido | Descripción                             |
-| ----------- | ------ | --------- | --------------------------------------- |
-| [entity]_id | string | Sí        | Identificador único en Reten            |
-| external_id | string | No        | Identificador en el sistema del cliente |
+| Campo     | Tipo   | Requerido | Descripción                  |
+| --------- | ------ | --------- | ---------------------------- |
+| entity_id | string | Sí        | Identificador único en Reten |
 
 ### Información Básica
 
@@ -61,8 +100,7 @@
 ### Validaciones Generales
 
 #### Identificadores
-- `[entity]_id` debe ser único en todo el sistema
-- `external_id` debe ser único por cliente
+- `entity_id` debe ser único en todo el sistema
 
 #### Fechas
 - `created_at` no puede ser posterior a `updated_at`
@@ -82,9 +120,12 @@
 
 ```json
 {
-  "[entity]_id": "EX_001",
-  "name": "Ejemplo Básico",
-  "description": "Un ejemplo básico de la entidad",
+  "entity_id": "EX_001",
+  "name": {
+    "display_name": "Ejemplo Básico",
+    "slug": "ejemplo-basico",
+    "description": "Un ejemplo básico de la entidad"
+  },
   "status": "active",
   "created_at": "2024-03-19T10:00:00Z",
   "updated_at": "2024-03-19T10:00:00Z"
@@ -95,9 +136,12 @@
 
 ```json
 {
-  "example_id": "EX_002",
-  "name": "Ejemplo con Atributos",
-  "description": "Un ejemplo con atributos personalizados",
+  "entity_id": "EX_002",
+  "name": {
+    "display_name": "Ejemplo con Atributos",
+    "slug": "ejemplo-con-atributos",
+    "description": "Un ejemplo con atributos personalizados"
+  },
   "status": "active",
   "attributes": [{
     "key": "color",
@@ -147,11 +191,11 @@
 
 #### Endpoints Principales
 ```
-GET    /api/v1/[entities]/{[entity]_id}
+GET    /api/v1/[entities]/{entity_id}
 POST   /api/v1/[entities]
-PUT    /api/v1/[entities]/{[entity]_id}
-PATCH  /api/v1/[entities]/{[entity]_id}
-DELETE /api/v1/[entities]/{[entity]_id}
+PUT    /api/v1/[entities]/{entity_id}
+PATCH  /api/v1/[entities]/{entity_id}
+DELETE /api/v1/[entities]/{entity_id}
 ```
 
 ### Webhooks
@@ -168,7 +212,7 @@ DELETE /api/v1/[entities]/{[entity]_id}
   "event": "[entity].updated",
   "timestamp": "2024-03-19T14:30:00Z",
   "data": {
-    "[entity]_id": "string",
+    "entity_id": "string",
     "changes": [{
       "field": "string",
       "old_value": "any",

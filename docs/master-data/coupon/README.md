@@ -9,7 +9,6 @@ Los cupones representan los descuentos y promociones que pueden ser aplicados a 
   // Identificadores
   "coupon_id": "string",        // Identificador único del cupón (not null)
   "code": "string",             // Código del cupón para uso del cliente (not null)
-  "external_id": "string",      // Identificador externo del cliente
 
   // Información básica
   "name": {
@@ -49,9 +48,16 @@ Los cupones representan los descuentos y promociones que pueden ser aplicados a 
     "custom_rules": JSON       // Reglas personalizadas
   },
 
+  // Atributos personalizados
+  "attributes": [{
+    "key": "string",
+    "value": "string",
+    "type": "string"          // Tipo de valor (string, number, date, boolean)
+  }],
+
   // Marcas temporales
   "created_at": "timestamp",    // Fecha de creación (not null)
-  "updated_at": "timestamp",    // Última actualización (not null)
+  "updated_at": "timestamp"     // Última actualización (not null)
 }
 ```
 

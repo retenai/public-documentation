@@ -19,9 +19,7 @@ Los vendedores son los usuarios del CPG (Consumer Packaged Goods) que interactú
   },
   "status": "string",            // Estado del vendedor (active, inactive, suspended, terminated)
   
-  // Marcas temporales
-  "created_at": "timestamp",     // Fecha de creación en sistema cliente (not null)
-  "updated_at": "timestamp",     // Fecha de última actualización en sistema cliente
+  // Fechas relevantes
   "hire_date": "timestamp",      // Fecha de contratación (not null)
   "termination_date": "timestamp", // Fecha de término si aplica
 
@@ -55,7 +53,11 @@ Los vendedores son los usuarios del CPG (Consumer Packaged Goods) que interactú
     "key": "string",
     "value": "string",
     "type": "string"    // Tipo de valor (string, number, date, boolean)
-  }]
+  }],
+
+  // Marcas temporales
+  "created_at": "timestamp",     // Fecha de creación en sistema cliente (not null)
+  "updated_at": "timestamp"      // Fecha de última actualización en sistema cliente
 }
 ```
 

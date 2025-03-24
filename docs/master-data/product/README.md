@@ -19,10 +19,6 @@ Los productos representan los artículos comercializados a través de la platafo
     "short_description": "string", // Descripción corta del producto
     "description": "string"      // Descripción detallada del producto
   },
-  
-  // Marcas temporales
-  "created_at": "timestamp",   // Fecha de creación (not null)
-  "updated_at": "timestamp",   // Última actualización (not null)
 
   // Imágenes
   "images": {
@@ -101,7 +97,11 @@ Los productos representan los artículos comercializados a través de la platafo
     "type": "string",    // Tipo de valor (string, number, date, boolean)
     "unit": "string",
     "group": "string"
-  }]
+  }],
+
+  // Marcas temporales
+  "created_at": "timestamp",   // Fecha de creación (not null)
+  "updated_at": "timestamp"    // Última actualización (not null)
 }
 ```
 
