@@ -136,7 +136,8 @@ Las categorías permiten organizar y clasificar productos de manera jerárquica 
   "seo": {
     "title": "Pinturas y Recubrimientos | Reten",
     "description": "Encuentra todo tipo de pinturas y recubrimientos para tus proyectos",
-    "keywords": ["pinturas", "recubrimientos", "pintura interior", "pintura exterior"]
+    "keywords": ["pinturas", "recubrimientos", "pintura interior", "pintura exterior"],
+    "canonical_url": "https://reten.app/categorias/pinturas"
   }
 }
 ```
@@ -163,7 +164,8 @@ Las categorías permiten organizar y clasificar productos de manera jerárquica 
   "seo": {
     "title": "Pinturas Látex Interior y Exterior | Reten",
     "description": "Amplia selección de pinturas látex para interiores y exteriores",
-    "keywords": ["pintura látex", "látex interior", "látex exterior"]
+    "keywords": ["pintura látex", "látex interior", "látex exterior"],
+    "canonical_url": "https://reten.app/categorias/pinturas/pinturas-latex"
   }
 }
 ```
