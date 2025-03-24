@@ -8,8 +8,10 @@ Los productos representan los artículos comercializados a través de la platafo
 {
   // Identificadores
   "product_id": "string",        // Identificador único del producto (not null)
-  "sku": "string",              // Stock Keeping Unit, código único de producto para gestión de inventario (not null)
-  "gtin": "string",             // Global Trade Item Number (código de barras)
+  "product_identifiers": {
+    "sku": "string",            // Stock Keeping Unit, código único de producto para gestión de inventario (not null)
+    "gtin": "string"            // Global Trade Item Number (código de barras)
+  },
 
   // Información básica
   "name": {
@@ -34,13 +36,21 @@ Los productos representan los artículos comercializados a través de la platafo
   },
 
   // Categorización
-  "categorization": {
-    "category": "string",
-    "subcategories": ["string"],
-    "tags": ["string"],
-    "brand": "string",
-    "collection": "string"
-  },
+  "categories": [{
+    "category_id": "string",     // Referencia al ID de la categoría
+    "is_primary": "boolean",     // Indica si es la categoría principal del producto
+    "attributes": [{            // Atributos específicos de la relación producto-categoría
+      "key": "string",
+      "value": "string",
+      "type": "string"
+    }]
+  }],
+
+  // Información de marca
+  "brand": "string",       // Identificador de la marca
+
+  // Tags para búsqueda y filtrado
+  "tags": ["string"],     // Lista de etiquetas para búsqueda y categorización adicional
 
   // Características físicas
   "physical": {
@@ -83,20 +93,11 @@ Los productos representan los artículos comercializados a través de la platafo
     "display_unit": "string"
   },
 
-  // Información comercial
-  "commercial": {
-    "base_price": "number",
-    "currency": "string",
-    "unit_of_measure": "string"
-  },
-
   // Atributos personalizados
   "attributes": [{
     "key": "string",
     "value": "string",
-    "type": "string",    // Tipo de valor (string, number, date, boolean)
-    "unit": "string",
-    "group": "string"
+    "type": "string"    // Tipo de valor (string, number, date, boolean)
   }],
 
   // Marcas temporales
@@ -143,13 +144,17 @@ Los productos representan los artículos comercializados a través de la platafo
 
 ### Categorización
 
-| Campo         | Tipo   | Descripción                        |
-| ------------- | ------ | ---------------------------------- |
-| category      | string | Categoría principal                |
-| subcategories | array  | Lista de subcategorías             |
-| tags          | array  | Etiquetas para búsqueda y filtrado |
-| brand         | string | Marca del producto                 |
-| collection    | string | Colección o línea de productos     |
+| Campo       | Tipo    | Descripción                                             |
+| ----------- | ------- | ------------------------------------------------------- |
+| category_id | string  | Referencia al ID de la categoría                        |
+| is_primary  | boolean | Indica si es la categoría principal                     |
+| attributes  | array   | Atributos específicos de la relación producto-categoría |
+
+### Tags
+
+| Campo | Tipo     | Requerido | Descripción                                       |
+| ----- | -------- | --------- | ------------------------------------------------- |
+| tags  | string[] | No        | Lista de etiquetas para búsqueda y categorización |
 
 ### Composición
 
@@ -211,7 +216,10 @@ Los productos representan los artículos comercializados a través de la platafo
 ```json
 {
   "product_id": "PROD_001",
-  "sku": "SKU123",
+  "product_identifiers": {
+    "sku": "SKU123",
+    "gtin": null
+  },
   "name": {
     "display_name": "Pintura Látex Premium",
     "short_name": "Látex Premium",
@@ -222,27 +230,29 @@ Los productos representan los artículos comercializados a través de la platafo
     "main_image_url": "https://example.com/images/main.jpg",
     "thumbnail_url": "https://example.com/images/thumb.jpg"
   },
-  "categorization": {
-    "category": "Pinturas",
-    "subcategories": ["Interior", "Látex"],
-    "brand": "Premium Paints"
-  },
-  "commercial": {
-    "base_price": 15000,
-    "currency": "CLP",
-    "unit_of_measure": "galón"
-  },
+  "categories": [{
+    "category_id": "CAT_001",
+    "is_primary": true,
+    "attributes": [{
+      "key": "coverage",
+      "value": "12",
+      "type": "numeric"
+    }, {
+      "key": "finish",
+      "value": "matte",
+      "type": "string"
+    }]
+  }],
+  "brand": "BRD_001",
+  "tags": ["pintura", "latex", "interior", "premium"],
   "attributes": [{
     "key": "coverage",
     "value": "12",
-    "type": "numeric",
-    "unit": "m2/L",
-    "group": "technical"
+    "type": "numeric"
   }, {
     "key": "finish",
     "value": "matte",
-    "type": "string",
-    "group": "appearance"
+    "type": "string"
   }]
 }
 ```
@@ -252,7 +262,10 @@ Los productos representan los artículos comercializados a través de la platafo
 ```json
 {
   "product_id": "PROD_002",
-  "sku": "PACK456",
+  "product_identifiers": {
+    "sku": "PACK456",
+    "gtin": null
+  },
   "name": {
     "display_name": "Pack Pintura Interior",
     "short_name": "Pack Pintura",
@@ -268,117 +281,29 @@ Los productos representan los artículos comercializados a través de la platafo
       "unit_measure": "galón"
     }
   },
-  "commercial": {
-    "base_price": 40000,
-    "currency": "CLP",
-    "unit_of_measure": "pack"
-  },
+  "categories": [{
+    "category_id": "CAT_002",
+    "is_primary": true,
+    "attributes": [{
+      "key": "color_family",
+      "value": "neutrals",
+      "type": "string"
+    }, {
+      "key": "recommended_use",
+      "value": "living_spaces",
+      "type": "string"
+    }]
+  }],
+  "brand": "BRD_002",
+  "tags": ["pack", "pintura", "interior", "combo"],
   "attributes": [{
     "key": "color_family",
     "value": "neutrals",
-    "type": "string",
-    "group": "appearance"
+    "type": "string"
   }, {
     "key": "recommended_use",
     "value": "living_spaces",
-    "type": "string",
-    "group": "application"
+    "type": "string"
   }]
 }
 ```
-
-## Notas de Implementación
-
-### Gestión de Inventario
-
-#### Control de Stock
-
-   - Actualización en tiempo real
-   - Reserva de inventario
-   - Alertas de stock bajo
-
-#### Precios y Promociones
-
-   - Historial de precios
-   - Reglas de descuento
-   - Precios por volumen
-
-### Optimización
-
-#### Búsqueda y Filtrado
-
-   - Índices por categoría
-   - Búsqueda por atributos
-   - Filtros dinámicos
-
-#### Caché
-
-   - Información básica en caché
-   - Invalidación selectiva
-   - Precarga de imágenes
-
-## Integración con Otros Sistemas
-
-### APIs
-
-#### Endpoints Principales
-   ```
-   GET    /api/v1/products/{product_id}
-   POST   /api/v1/products
-   PUT    /api/v1/products/{product_id}
-   PATCH  /api/v1/products/{product_id}
-   DELETE /api/v1/products/{product_id}
-   ```
-
-#### Endpoints de Relación
-   ```
-   GET    /api/v1/products/{product_id}/categories
-   GET    /api/v1/products/{product_id}/media
-   GET    /api/v1/products/{product_id}/related
-   ```
-
-### Webhooks
-
-#### Eventos Disponibles
-
-   - `product.created`
-   - `product.updated`
-   - `product.status_changed`
-   - `product.stock_updated`
-
-#### Formato de Payload
-
-   ```json
-   {
-     "event": "product.stock_updated",
-     "timestamp": "2024-03-19T14:30:00Z",
-     "data": {
-       "product_id": "string",
-       "changes": [{
-         "field": "stock_level",
-         "old_value": 100,
-         "new_value": 95
-       }]
-     }
-   }
-   ```
-
-## Preguntas Frecuentes
-
-**¿Cómo manejar variantes de productos?**
-
-   - Usar productos relacionados
-   - Mantener atributos específicos
-   - Vincular SKUs relacionados
-
-**¿Cómo gestionar cambios de precio?**
-
-   - Mantener historial de precios
-   - Programar cambios futuros
-   - Notificar a stakeholders
-
-**¿Cómo manejar productos descontinuados?**
-
-   - Mantener registro histórico
-   - Sugerir alternativas
-   - Gestionar inventario remanente 
