@@ -7,8 +7,7 @@ Los clientes son los establecimientos, negocios o personas que interactúan con 
 ```json
 {
   // Identificadores
-  "user_id": "string",           // Identificador principal (not null)
-  "external_id": "string",       // Identificador externo del cliente
+  "client_id": "string",           // Identificador principal (not null)
 
   // Información básica
   "name": "string",              // Nombre del cliente
@@ -16,10 +15,12 @@ Los clientes son los establecimientos, negocios o personas que interactúan con 
   // Marcas temporales
   "created_at": "timestamp",     // Fecha de creación en sistema cliente (not null)
   "updated_at": "timestamp",     // Fecha de última actualización en sistema cliente
-  "_created_at": "timestamp",    // Fecha de creación en Reten
-  "_updated_at": "timestamp",    // Fecha de última actualización en Reten
-  "sign_up_date": "timestamp",   // Fecha de registro (not null)
-  "set_up_date": "timestamp",    // Fecha de configuración inicial
+
+  // Fechas relevantes
+  "dates": {
+    "sign_up": "timestamp",      // Fecha de registro (not null)
+    "set_up": "timestamp",       // Fecha de configuración inicial
+  },
 
   // Ubicación
   "country": "string",           // País del cliente
@@ -82,10 +83,9 @@ Los clientes son los establecimientos, negocios o personas que interactúan con 
 
 ### Identificadores
 
-| Campo       | Tipo   | Requerido | Descripción                             |
-| ----------- | ------ | --------- | --------------------------------------- |
-| user_id     | string | Sí        | Identificador único en Reten            |
-| external_id | string | No        | Identificador en el sistema del cliente |
+| Campo     | Tipo   | Requerido | Descripción                  |
+| --------- | ------ | --------- | ---------------------------- |
+| client_id | string | Sí        | Identificador único en Reten |
 
 ### Información Básica
 
@@ -96,14 +96,17 @@ Los clientes son los establecimientos, negocios o personas que interactúan con 
 
 ### Marcas Temporales
 
-| Campo        | Tipo      | Requerido | Descripción                             |
-| ------------ | --------- | --------- | --------------------------------------- |
-| created_at   | timestamp | Sí        | Fecha de creación en sistema cliente    |
-| updated_at   | timestamp | No        | Última actualización en sistema cliente |
-| _created_at  | timestamp | Sí        | Fecha de creación en Reten              |
-| _updated_at  | timestamp | No        | Última actualización en Reten           |
-| sign_up_date | timestamp | Sí        | Fecha de registro inicial               |
-| set_up_date  | timestamp | No        | Fecha de configuración completada       |
+| Campo      | Tipo      | Requerido | Descripción                             |
+| ---------- | --------- | --------- | --------------------------------------- |
+| created_at | timestamp | Sí        | Fecha de creación en sistema cliente    |
+| updated_at | timestamp | No        | Última actualización en sistema cliente |
+
+### Fechas Relevantes
+
+| Campo         | Tipo      | Requerido | Descripción                  |
+| ------------- | --------- | --------- | ---------------------------- |
+| dates.sign_up | timestamp | Sí        | Fecha de registro inicial    |
+| dates.set_up  | timestamp | No        | Fecha de configuración final |
 
 ### Contactos
 
@@ -210,13 +213,12 @@ Los grupos permiten categorizar y segmentar clientes:
 
 ### Identificadores
 
-- `user_id` debe ser único en todo el sistema
-- `external_id` debe ser único por cliente
+- `client_id` debe ser único en todo el sistema
 
 ### Fechas
 
 - `created_at` no puede ser posterior a `updated_at`
-- `sign_up_date` no puede ser posterior a `set_up_date`
+- `dates.sign_up` no puede ser posterior a `dates.set_up`
 - Todas las fechas deben ser válidas y en formato ISO 8601
 
 ### Contactos
@@ -236,7 +238,7 @@ Los grupos permiten categorizar y segmentar clientes:
 
 ### Configuración Inicial
 
-- `set_up_date` solo se establece cuando se completan todos los campos requeridos
+- `dates.set_up` solo se establece cuando se completan todos los campos requeridos
 - La configuración requiere al menos una dirección y un contacto válidos
 
 ### Grupos
@@ -255,11 +257,12 @@ Los grupos permiten categorizar y segmentar clientes:
 
 ```json
 {
-  "user_id": "COM_001",
-  "external_id": "CLIENT_123",
+  "client_id": "COM_001",
   "name": "José Pérez",
   "created_at": "2024-03-19T10:00:00Z",
-  "sign_up_date": "2024-03-19T10:00:00Z",
+  "dates": {
+    "sign_up": "2024-03-19T10:00:00Z"
+  },
   "country": "CL",
   "contacts": [{
     "type": "primary",
@@ -289,7 +292,7 @@ Los grupos permiten categorizar y segmentar clientes:
 
 ```json
 {
-  "user_id": "COM_002",
+  "client_id": "COM_002",
   "name": "Supermercados El Sol",
   "contacts": [{
     "type": "primary",
@@ -330,7 +333,7 @@ Los grupos permiten categorizar y segmentar clientes:
 
 ```json
 {
-  "user_id": "COM_003",
+  "client_id": "COM_003",
   "name": "Distribuidora Mayor",
   "groups": [{
     "group_type": "channel",
@@ -411,19 +414,19 @@ Los grupos permiten categorizar y segmentar clientes:
 #### Endpoints Principales
 
 ```
-GET    /api/v1/commerces/{user_id}
+GET    /api/v1/commerces/{client_id}
 POST   /api/v1/commerces
-PUT    /api/v1/commerces/{user_id}
-PATCH  /api/v1/commerces/{user_id}
-DELETE /api/v1/commerces/{user_id}
+PUT    /api/v1/commerces/{client_id}
+PATCH  /api/v1/commerces/{client_id}
+DELETE /api/v1/commerces/{client_id}
 ```
 
 #### Endpoints de Relación
 
 ```
-GET    /api/v1/commerces/{user_id}/contacts
-GET    /api/v1/commerces/{user_id}/addresses
-GET    /api/v1/commerces/{user_id}/groups
+GET    /api/v1/commerces/{client_id}/contacts
+GET    /api/v1/commerces/{client_id}/addresses
+GET    /api/v1/commerces/{client_id}/groups
 ```
 
 ### Webhooks
@@ -442,7 +445,7 @@ GET    /api/v1/commerces/{user_id}/groups
   "event": "commerce.updated",
   "timestamp": "2024-03-19T14:30:00Z",
   "data": {
-    "user_id": "string",
+    "client_id": "string",
     "changes": [{
       "field": "string",
       "old_value": "any",
