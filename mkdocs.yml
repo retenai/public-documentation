@@ -57,7 +57,12 @@ markdown_extensions:
 
 # Navigation
 nav:
-  - Inicio: index.md
+  - Inicio:
+    - Resumen: index.md
+    - Datos Maestros: master-data/README.md
+    - Tareas: tasks/README.md
+    - Eventos: events/README.md
+    - Configuraciones: settings/README.md
   - Datos Maestros:
     - Resumen: master-data/README.md
     - Clientes: master-data/client/README.md
