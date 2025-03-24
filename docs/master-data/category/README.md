@@ -9,7 +9,6 @@ Las categorías permiten organizar y clasificar productos de manera jerárquica 
   // Identificadores
   "category_id": "string",      // Identificador único de la categoría (not null)
   "parent_id": "string",        // ID de la categoría padre (null si es raíz)
-  "data_object_id": "string",   // ID del objeto de datos (not null)
 
   // Información básica
   "name": {
@@ -48,11 +47,10 @@ Las categorías permiten organizar y clasificar productos de manera jerárquica 
 
 ### Identificadores
 
-| Campo          | Tipo   | Requerido | Descripción              |
-| -------------- | ------ | --------- | ------------------------ |
-| category_id    | string | Sí        | Identificador único      |
-| parent_id      | string | No        | ID de la categoría padre |
-| data_object_id | string | Sí        | ID del objeto de datos   |
+| Campo       | Tipo   | Requerido | Descripción              |
+| ----------- | ------ | --------- | ------------------------ |
+| category_id | string | Sí        | Identificador único      |
+| parent_id   | string | No        | ID de la categoría padre |
 
 ### Nombre
 

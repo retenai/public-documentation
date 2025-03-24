@@ -188,11 +188,10 @@ WHERE id = 'COUPON1';
 
 ### Identificadores
 
-| Campo          | Tipo   | Requerido | Descripción                     |
-| -------------- | ------ | --------- | ------------------------------- |
-| coupon_id      | string | Sí        | Identificador único del cupón   |
-| code           | string | Sí        | Código para redención del cupón |
-| data_object_id | string | Sí        | ID del objeto de datos          |
+| Campo     | Tipo   | Requerido | Descripción                     |
+| --------- | ------ | --------- | ------------------------------- |
+| coupon_id | string | Sí        | Identificador único del cupón   |
+| code      | string | Sí        | Código para redención del cupón |
 
 ### Información Básica
 

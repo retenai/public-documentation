@@ -82,11 +82,10 @@ Los tipos de canal disponibles son:
 
 ### Identificadores
 
-| Campo           | Tipo   | Requerido | Descripción            |
-| --------------- | ------ | --------- | ---------------------- |
-| subscription_id | string | Sí        | Identificador único    |
-| user_id         | string | Sí        | ID del usuario         |
-| data_object_id  | string | Sí        | ID del objeto de datos |
+| Campo           | Tipo   | Requerido | Descripción         |
+| --------------- | ------ | --------- | ------------------- |
+| subscription_id | string | Sí        | Identificador único |
+| user_id         | string | Sí        | ID del usuario      |
 
 ### Canal
 
