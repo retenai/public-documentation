@@ -38,8 +38,6 @@ Las categorías permiten organizar y clasificar productos de manera jerárquica 
   // Marcas temporales
   "created_at": "timestamp",   // Fecha de creación (not null)
   "updated_at": "timestamp",   // Última actualización (not null)
-  "_created_at": "timestamp",  // Fecha de creación en BigQuery (not null)
-  "_updated_at": "timestamp"   // Última actualización en BigQuery (not null)
 }
 ```
 

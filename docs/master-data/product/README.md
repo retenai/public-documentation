@@ -21,10 +21,8 @@ Los productos representan los artículos comercializados a través de la platafo
   },
   
   // Marcas temporales
-  "created_at": "timestamp",    // Fecha de creación del producto (not null)
-  "updated_at": "timestamp",    // Última actualización del producto (not null)
-  "_created_at": "timestamp",   // Fecha de creación del registro en BigQuery (not null)
-  "_updated_at": "timestamp",   // Última actualización del registro en BigQuery (not null)
+  "created_at": "timestamp",   // Fecha de creación (not null)
+  "updated_at": "timestamp",   // Última actualización (not null)
 
   // Imágenes
   "images": {

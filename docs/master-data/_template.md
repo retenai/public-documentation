@@ -18,10 +18,8 @@
   },
   
   // Marcas temporales
-  "created_at": "timestamp",    // Fecha de creación en sistema cliente (not null)
-  "updated_at": "timestamp",    // Fecha de última actualización en sistema cliente
-  "_created_at": "timestamp",   // Fecha de creación en Reten (not null)
-  "_updated_at": "timestamp",   // Fecha de última actualización en Reten (not null)
+  "created_at": "timestamp",   // Fecha de creación (not null)
+  "updated_at": "timestamp",   // Fecha de última actualización (not null)
 
   // Estado
   "status": "string",           // Estado actual de la entidad
@@ -84,60 +82,45 @@
 
 ```json
 {
-  "[entity]_id": "ENT_001",
-  "external_id": "EXT_123",
-  "name": {
-    "display_name": "Ejemplo Básico",
-    "short_name": "Ejemplo"
-  },
-  "created_at": "2024-03-19T10:00:00Z",
-  "updated_at": "2024-03-19T10:00:00Z",
-  "_created_at": "2024-03-19T10:00:00Z",
-  "_updated_at": "2024-03-19T10:00:00Z",
+  "[entity]_id": "EX_001",
+  "name": "Ejemplo Básico",
+  "description": "Un ejemplo básico de la entidad",
   "status": "active",
-  "is_active": true,
-  "attributes": []
+  "created_at": "2024-03-19T10:00:00Z",
+  "updated_at": "2024-03-19T10:00:00Z"
 }
 ```
 
-### Ejemplo Completo
+### Ejemplo con Atributos
 
 ```json
 {
-  "[entity]_id": "ENT_001",
-  "external_id": "EXT_123",
-  "name": {
-    "display_name": "Ejemplo Completo",
-    "short_name": "Ejemplo"
-  },
-  "created_at": "2024-03-19T10:00:00Z",
-  "updated_at": "2024-03-19T10:00:00Z",
-  "_created_at": "2024-03-19T10:00:00Z",
-  "_updated_at": "2024-03-19T10:00:00Z",
+  "example_id": "EX_002",
+  "name": "Ejemplo con Atributos",
+  "description": "Un ejemplo con atributos personalizados",
   "status": "active",
-  "is_active": true,
   "attributes": [{
     "key": "color",
-    "value": "blue",
-    "type": "string"
-  }, {
-    "key": "weight",
-    "value": "10.5",
-    "type": "number"
-  }, {
-    "key": "expiry_date",
-    "value": "2025-12-31",
-    "type": "date"
-  }]
+    "value": "blue"
+  }],
+  "created_at": "2024-03-19T10:00:00Z",
+  "updated_at": "2024-03-19T10:00:00Z"
 }
 ```
 
 ## Notas de Implementación
 
+### Gestión de Estado
+
+#### Actualizaciones
+
+- Los estados se validan antes de actualizar
+- Se mantiene historial de cambios
+- Se notifican cambios relevantes
+
 ### Gestión de Cambios
 
 #### Actualización de Datos
-- `_updated_at` se actualiza automáticamente
 - Mantener historial de cambios importantes
 - Manejar actualizaciones concurrentes
 

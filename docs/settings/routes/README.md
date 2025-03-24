@@ -25,10 +25,8 @@ Las rutas en Reten definen cómo los vendedores visitan sus clientes asignados, 
   },
   
   // Marcas temporales
-  "created_at": "timestamp",    // Fecha de creación en sistema cliente (not null)
-  "updated_at": "timestamp",    // Fecha de última actualización en sistema cliente
-  "_created_at": "timestamp",   // Fecha de creación en Reten (not null)
-  "_updated_at": "timestamp",   // Fecha de última actualización en Reten (not null)
+  "created_at": "timestamp",   // Fecha de creación (not null)
+  "updated_at": "timestamp",   // Última actualización (not null)
 
   // Estado
   "status": "string",           // Estado actual de la ruta (active, inactive, archived, draft)
@@ -109,8 +107,6 @@ Las rutas en Reten definen cómo los vendedores visitan sus clientes asignados, 
   },
   "created_at": "2024-03-19T10:00:00Z",
   "updated_at": "2024-03-19T10:00:00Z",
-  "_created_at": "2024-03-19T10:00:00Z",
-  "_updated_at": "2024-03-19T10:00:00Z",
   "status": "active",
   "attributes": []
 }
@@ -128,8 +124,6 @@ Las rutas en Reten definen cómo los vendedores visitan sus clientes asignados, 
   "visit_date": "2024-12-01",
   "created_at": "2024-03-19T10:00:00Z",
   "updated_at": "2024-03-19T10:00:00Z",
-  "_created_at": "2024-03-19T10:00:00Z",
-  "_updated_at": "2024-03-19T10:00:00Z",
   "status": "active",
   "attributes": [{
     "key": "campaign",
@@ -140,6 +134,20 @@ Las rutas en Reten definen cómo los vendedores visitan sus clientes asignados, 
     "value": "1",
     "type": "number"
   }]
+}
+```
+
+### Ruta con Territorios
+
+```json
+{
+  "route_id": "ROUTE_002",
+  "name": "Ruta Norte",
+  "description": "Ruta del sector norte de Santiago",
+  "status": "active",
+  "territories": ["SANTIAGO_NORTE", "PROVIDENCIA_NORTE"],
+  "created_at": "2024-03-19T10:00:00Z",
+  "updated_at": "2024-03-19T10:00:00Z"
 }
 ```
 

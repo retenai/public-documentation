@@ -16,10 +16,8 @@ Las asignaciones en Reten definen la relación entre vendedores y los clientes q
   "type": "string",             // Tipo de asignación: "primary", "secondary", "temporary"
   
   // Marcas temporales
-  "created_at": "timestamp",     // Fecha de creación en sistema cliente (not null)
-  "updated_at": "timestamp",     // Fecha de última actualización en sistema cliente
-  "_created_at": "timestamp",    // Fecha de creación en Reten (not null)
-  "_updated_at": "timestamp",    // Fecha de última actualización en Reten (not null)
+  "created_at": "timestamp",    // Fecha de creación (not null)
+  "updated_at": "timestamp",    // Fecha de última actualización (not null)
 
   // Estado
   "status": "string",            // Estado actual de la asignación (active, inactive, pending, completed, transferred)
@@ -95,8 +93,6 @@ Las asignaciones en Reten definen la relación entre vendedores y los clientes q
   "type": "primary",
   "created_at": "2024-03-19T10:00:00Z",
   "updated_at": "2024-03-19T10:00:00Z",
-  "_created_at": "2024-03-19T10:00:00Z",
-  "_updated_at": "2024-03-19T10:00:00Z",
   "status": "active",
   "attributes": []
 }
@@ -113,14 +109,29 @@ Las asignaciones en Reten definen la relación entre vendedores y los clientes q
   "type": "temporary",
   "created_at": "2024-01-10T10:00:00Z",
   "updated_at": "2024-01-10T10:00:00Z",
-  "_created_at": "2024-01-10T10:00:00Z",
-  "_updated_at": "2024-01-10T10:00:00Z",
   "status": "completed",
   "attributes": [{
     "key": "replacement_reason",
     "value": "vacation",
     "type": "string"
   }]
+}
+```
+
+### Asignación con Período
+
+```json
+{
+  "assignment_id": "ASG_002",
+  "seller_id": "SELLER_002",
+  "route_id": "ROUTE_002",
+  "status": "scheduled",
+  "period": {
+    "start_date": "2024-01-01",
+    "end_date": "2024-12-31"
+  },
+  "created_at": "2024-01-10T10:00:00Z",
+  "updated_at": "2024-01-10T10:00:00Z"
 }
 ```
 

@@ -22,8 +22,6 @@ Los vendedores son los usuarios del CPG (Consumer Packaged Goods) que interactú
   // Marcas temporales
   "created_at": "timestamp",     // Fecha de creación en sistema cliente (not null)
   "updated_at": "timestamp",     // Fecha de última actualización en sistema cliente
-  "_created_at": "timestamp",    // Fecha de creación en Reten
-  "_updated_at": "timestamp",    // Fecha de última actualización en Reten
   "hire_date": "timestamp",      // Fecha de contratación (not null)
   "termination_date": "timestamp", // Fecha de término si aplica
 
