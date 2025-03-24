@@ -7,9 +7,8 @@ Los vendedores son los usuarios del CPG (Consumer Packaged Goods) que interactú
 ```json
 {
   // Identificadores
-  "seller_id": "string",         // Identificador principal (not null)
-  "external_id": "string",       // Identificador externo del cliente
-  "employee_id": "string",       // Identificador de empleado en CPG
+  "seller_id": "string",         // Identificador único interno (not null)
+  "route_id": "string",          // Identificador de ruta o código de vendedor (not null)
 
   // Información básica
   "name": {
@@ -18,8 +17,7 @@ Los vendedores son los usuarios del CPG (Consumer Packaged Goods) que interactú
     "display_name": "string",    // Nombre para mostrar
     "full_name": "string"        // Nombre completo (not null)
   },
-  "status": "string",            // Estado del vendedor (active, inactive, suspended)
-  "is_active": "boolean",        // Indicador de estado activo
+  "status": "string",            // Estado del vendedor (active, inactive, suspended, terminated)
   
   // Marcas temporales
   "created_at": "timestamp",     // Fecha de creación en sistema cliente (not null)
@@ -37,52 +35,22 @@ Los vendedores son los usuarios del CPG (Consumer Packaged Goods) que interactú
     "is_primary": "boolean"      // Indica si es el contacto principal
   }],
 
-  // Información de acceso
-  "access": {
-    "username": "string",        // Nombre de usuario (not null)
-    "role": "string",            // Rol principal (not null)
-    "permissions": ["string"],   // Lista de permisos específicos
-    "last_login": "timestamp",   // Último acceso
-    "requires_2fa": "boolean",   // Requiere autenticación de dos factores
-    "status": "string"          // Estado de la cuenta (active, locked, etc.)
-  },
-
-  // Asignaciones y territorios
-  "assignments": [{
-    "type": "string",           // Tipo de asignación (territory, route, etc.)
-    "code": "string",           // Código de identificación
-    "name": "string",           // Nombre descriptivo
-    "start_date": "timestamp",  // Fecha de inicio
-    "end_date": "timestamp",    // Fecha de término si aplica
-    "is_active": "boolean"      // Estado actual de la asignación
-  }],
-
-  // Ubicación
-  "location": {
-    "id": "string",             // ID de la ubicación
-    "name": "string"            // Nombre de la ubicación
-  },
-
-  // Jerarquía organizacional
+  // Información organizacional
   "organization": {
-    "department": "string",     // Departamento
-    "position": "string",       // Cargo
-    "level": "string",         // Nivel jerárquico
-    "supervisor": {
-      "id": "string",          // ID del supervisor directo
-      "name": "string"         // Nombre del supervisor
-    },
-    "cost_center": "string"    // Centro de costo
+    "type": "string",           // Tipo de vendedor (salesman, callcenter, supervisor)
+    "supervisor_id": "string",   // ID del supervisor directo
+    "business_unit": {
+      "id": "string",           // ID de la unidad de negocio
+      "name": "string",         // Nombre de la unidad de negocio
+      "code": "string",         // Código interno de la unidad de negocio
+      "type": "string",         // Tipo de unidad (business_unit, division, sub_division)
+      "parent_unit": {          // Unidad de negocio padre (si aplica)
+        "id": "string",
+        "name": "string",
+        "code": "string"
+      }
+    }
   },
-
-  // Metas y KPIs
-  "targets": [{
-    "period": "string",        // Periodo (monthly, quarterly, yearly)
-    "type": "string",         // Tipo de meta
-    "value": "number",        // Valor objetivo
-    "unit": "string",         // Unidad de medida
-    "progress": "number"      // Progreso actual
-  }],
 
   // Atributos personalizados
   "attributes": [{
@@ -97,11 +65,10 @@ Los vendedores son los usuarios del CPG (Consumer Packaged Goods) que interactú
 
 ### Identificadores
 
-| Campo       | Tipo   | Requerido | Descripción                             |
-| ----------- | ------ | --------- | --------------------------------------- |
-| seller_id   | string | Sí        | Identificador único en Reten            |
-| external_id | string | No        | Identificador en el sistema del cliente |
-| employee_id | string | No        | Número de empleado en CPG               |
+| Campo     | Tipo   | Requerido | Descripción                                 |
+| --------- | ------ | --------- | ------------------------------------------- |
+| seller_id | string | Sí        | Identificador único interno en Reten        |
+| route_id  | string | Sí        | Identificador de ruta o código del vendedor |
 
 ### Información Básica
 
@@ -119,44 +86,27 @@ Los vendedores son los usuarios del CPG (Consumer Packaged Goods) que interactú
 - `suspended`: Cuenta suspendida
 - `terminated`: Relación terminada
 
-### Información de Acceso
+### Información Organizacional
 
-| Campo        | Tipo      | Requerido | Descripción                      |
-| ------------ | --------- | --------- | -------------------------------- |
-| username     | string    | Sí        | Nombre de usuario para acceso    |
-| role         | string    | Sí        | Rol principal asignado           |
-| permissions  | array     | No        | Permisos específicos adicionales |
-| requires_2fa | boolean   | No        | Autenticación de dos factores    |
-| last_login   | timestamp | No        | Último acceso al sistema         |
+| Campo              | Tipo   | Requerido | Descripción                      |
+| ------------------ | ------ | --------- | -------------------------------- |
+| organization.type  | string | Sí        | Tipo de vendedor                 |
+| supervisor_id      | string | No        | ID del supervisor directo        |
+| business_unit.id   | string | Sí        | ID de la unidad de negocio       |
+| business_unit.name | string | Sí        | Nombre de la unidad de negocio   |
+| business_unit.code | string | Sí        | Código interno de la unidad      |
+| business_unit.type | string | Sí        | Tipo de unidad de negocio        |
+| parent_unit.id     | string | No        | ID de la unidad de negocio padre |
 
-**Roles Comunes:**
+**Tipos de Vendedor:**
+- `salesman`: Vendedor de campo que realiza visitas presenciales
+- `callcenter`: Vendedor que gestiona clientes vía telefónica
+- `supervisor`: Responsable de gestionar y supervisar otros vendedores
 
-- `sales_rep`: Vendedor de campo
-- `supervisor`: Supervisor de ventas
-- `manager`: Gerente de territorio
-- `admin`: Administrador de sistema
-- `analyst`: Analista de ventas
-
-### Asignaciones y Territorios
-
-Las asignaciones definen las áreas de responsabilidad del vendedor:
-
-| Campo      | Tipo      | Descripción              |
-| ---------- | --------- | ------------------------ |
-| type       | string    | Tipo de asignación       |
-| code       | string    | Código identificador     |
-| name       | string    | Nombre descriptivo       |
-| start_date | timestamp | Inicio de la asignación  |
-| end_date   | timestamp | Término de la asignación |
-| is_active  | boolean   | Estado actual            |
-
-**Tipos de Asignación:**
-
-- `territory`: Territorio geográfico
-- `route`: Ruta de visita
-- `portfolio`: Portafolio de productos
-- `channel`: Canal de ventas
-- `segment`: Segmento de clientes
+**Tipos de Unidad de Negocio:**
+- `business_unit`: Región o territorio principal
+- `division`: Zona dentro de una región
+- `sub_division`: Sector específico dentro de una zona
 
 ## Validaciones
 
@@ -165,8 +115,8 @@ Las asignaciones definen las áreas de responsabilidad del vendedor:
 #### Identificadores
 
 - `seller_id` debe ser único en todo el sistema
-- `external_id` debe ser único por cliente
-- `employee_id` debe ser único dentro del CPG
+- `route_id` debe ser único dentro del mismo CPG
+- El formato de `route_id` debe seguir el patrón definido por el CPG (ej: "R001", "V123", etc.)
 
 #### Información Personal
 
@@ -174,26 +124,17 @@ Las asignaciones definen las áreas de responsabilidad del vendedor:
 - El email principal debe ser corporativo
 - El formato de teléfono debe ser válido
 
-#### Acceso
-
-- Username debe ser único
-- Password debe cumplir política de seguridad
-- Roles deben ser válidos y activos
-
 ### Validaciones de Negocio
-
-#### Asignaciones
-
-- No puede haber solapamiento de territorios
-- Fechas de inicio deben ser válidas
-- Debe haber al menos una asignación activa
-- Las asignaciones de clientes se manejan a través de la entidad Asignaciones
 
 #### Jerarquía
 
 - El supervisor debe existir y estar activo
 - No pueden existir ciclos en la jerarquía
-- Niveles deben ser consistentes
+- La unidad de negocio debe existir y estar activa
+- La unidad de negocio padre debe existir si se especifica
+- El tipo de unidad debe ser válido
+- Los supervisores solo pueden tener el tipo "supervisor"
+- Un vendedor tipo "supervisor" debe tener al menos un subordinado
 
 ## Ejemplos de Uso
 
@@ -202,7 +143,7 @@ Las asignaciones definen las áreas de responsabilidad del vendedor:
 ```json
 {
   "seller_id": "SELLER_001",
-  "external_id": "EMP_123",
+  "route_id": "R001",
   "name": {
     "first_name": "Juan",
     "last_name": "Pérez",
@@ -214,65 +155,43 @@ Las asignaciones definen las áreas de responsabilidad del vendedor:
     "phone": "+56912345678",
     "type": "work",
     "is_primary": true
-  }],
-  "access": {
-    "username": "jperez",
-    "role": "sales_rep",
-    "permissions": ["view_reports", "create_orders"],
-    "requires_2fa": true
-  }
+  }]
 }
 ```
 
-### Vendedor con Territorios
+### Vendedor con Jerarquía y Unidad de Negocio
 
 ```json
 {
   "seller_id": "SELLER_002",
+  "route_id": "V123",
   "name": {
     "first_name": "María",
     "last_name": "González"
   },
-  "assignments": [{
-    "type": "territory",
-    "code": "ZONE_NORTH",
-    "name": "Zona Norte Santiago",
-    "start_date": "2024-01-01T00:00:00Z",
-    "is_active": true
-  }, {
-    "type": "portfolio",
-    "code": "PORTFOLIO_PREMIUM",
-    "name": "Productos Premium",
-    "start_date": "2024-01-01T00:00:00Z",
-    "is_active": true
-  }],
   "organization": {
-    "department": "Sales",
-    "position": "Senior Sales Representative",
-    "level": "L3",
-    "reports_to": "SELLER_005"
+    "type": "supervisor",
+    "supervisor_id": "SELLER_005",
+    "business_unit": {
+      "id": "BU_NORTE",
+      "name": "Zona Norte",
+      "code": "ZN",
+      "type": "division",
+      "parent_unit": {
+        "id": "BU_METRO",
+        "name": "Región Metropolitana",
+        "code": "RM"
+      }
+    }
   }
 }
 ```
 
-### Vendedor con Metas
+### Vendedor con Atributos Personalizados
 
 ```json
 {
   "seller_id": "SELLER_003",
-  "targets": [{
-    "period": "2024-Q1",
-    "type": "sales_volume",
-    "value": 100000,
-    "unit": "USD",
-    "progress": 75000
-  }, {
-    "period": "2024-Q1",
-    "type": "new_customers",
-    "value": 20,
-    "unit": "count",
-    "progress": 15
-  }],
   "attributes": [{
     "key": "specialty",
     "value": "new_business",
@@ -286,20 +205,6 @@ Las asignaciones definen las áreas de responsabilidad del vendedor:
 ```
 
 ## Notas de Implementación
-
-### Gestión de Acceso
-
-#### Autenticación
-
-- Soporte para múltiples métodos
-- Integración con SSO corporativo
-- Políticas de contraseñas
-
-#### Autorización
-
-- Basada en roles y permisos
-- Herencia de permisos
-- Restricciones por territorio
 
 ### Seguridad
 
@@ -332,8 +237,6 @@ DELETE /api/v1/sellers/{seller_id}
 #### Endpoints de Relación
 
 ```
-GET    /api/v1/sellers/{seller_id}/assignments
-GET    /api/v1/sellers/{seller_id}/targets
 GET    /api/v1/sellers/{seller_id}/subordinates
 ```
 
@@ -344,7 +247,6 @@ GET    /api/v1/sellers/{seller_id}/subordinates
 - `seller.created`
 - `seller.updated`
 - `seller.status_changed`
-- `seller.assignment_changed`
 
 #### Formato de Payload
 
@@ -367,25 +269,22 @@ GET    /api/v1/sellers/{seller_id}/subordinates
 
 ## Preguntas Frecuentes
 
-### ¿Cómo manejar cambios de territorio?
+### ¿Cuál es la diferencia entre seller_id y route_id?
 
-- Mantener historial de asignaciones previas
-- Asegurar transición suave de clientes mediante la entidad Asignaciones
-- Actualizar jerarquías y relaciones heredadas
-- Notificar a todas las partes involucradas
+- `seller_id` es el identificador interno único en Reten, usado para referencias del sistema
+- `route_id` es el identificador que maneja el CPG, generalmente asociado a una ruta o código de vendedor
+- `route_id` puede seguir diferentes formatos según las necesidades del CPG
+- Las búsquedas se pueden realizar por cualquiera de los dos identificadores
 
 ### ¿Cómo gestionar vendedores temporales?
 
 - Usar `status` y fechas de vigencia
-- Crear asignaciones temporales a través de la entidad Asignaciones
 - Mantener permisos limitados
 - Establecer fecha de término clara
 
 ### ¿Cómo funciona la herencia de territorios?
 
-- Las asignaciones se heredan según jerarquía organizacional
 - Los supervisores heredan visibilidad de sus subordinados
-- Las asignaciones heredadas se marcan como `inherited`
 - Se mantiene trazabilidad del origen de la herencia
 
 ### ¿Cómo manejar conflictos de asignación?

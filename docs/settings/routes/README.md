@@ -8,28 +8,21 @@ Las rutas en Reten definen cómo los vendedores visitan sus clientes asignados, 
 {
   // Identificadores
   "route_id": "string",         // Identificador principal de la ruta (not null)
-  "external_id": "string",      // Identificador externo del cliente
   "seller_id": "string",        // Identificador del vendedor asignado (not null)
+  "client_id": "string",        // Identificador del cliente a visitar (not null)
   
   // Información básica
-  "name": {
-    "display_name": "string",   // Nombre para mostrar (not null)
-    "short_name": "string"      // Nombre corto (opcional)
-  },
   "description": "string",      // Descripción de la ruta
   
   // Configuración de la ruta
   "pattern_type": "string",     // Tipo de patrón: "recurring" o "specific" (not null)
-  "visits": [{
-    "client_id": "string",      // ID del cliente a visitar (not null)
-    "visit_date": "date",       // Fecha específica de visita (requerido si pattern_type es "specific")
-    "recurring_pattern": {      // Patrón recurrente (requerido si pattern_type es "recurring")
-      "frequency": "string",    // "weekly", "monthly", "custom"
-      "days": ["string"],      // Días de la semana ["MONDAY", "TUESDAY", etc.]
-      "week_of_month": "number", // Para patrones mensuales (1-5)
-      "interval": "number"      // Para patrones personalizados
-    }
-  }],
+  "visit_date": "date",         // Fecha específica de visita (requerido si pattern_type es "specific")
+  "recurring_pattern": {        // Patrón recurrente (requerido si pattern_type es "recurring")
+    "frequency": "string",      // "weekly", "monthly", "custom"
+    "days": ["string"],        // Días de la semana ["MONDAY", "TUESDAY", etc.]
+    "week_of_month": "number",  // Para patrones mensuales (1-5)
+    "interval": "number"        // Para patrones personalizados
+  },
   
   // Marcas temporales
   "created_at": "timestamp",    // Fecha de creación en sistema cliente (not null)
@@ -38,8 +31,7 @@ Las rutas en Reten definen cómo los vendedores visitan sus clientes asignados, 
   "_updated_at": "timestamp",   // Fecha de última actualización en Reten (not null)
 
   // Estado
-  "status": "string",           // Estado actual de la ruta
-  "is_active": "boolean",       // Indicador de estado activo
+  "status": "string",           // Estado actual de la ruta (active, inactive, archived, draft)
 
   // Atributos personalizados
   "attributes": [{
@@ -54,20 +46,18 @@ Las rutas en Reten definen cómo los vendedores visitan sus clientes asignados, 
 
 ### Identificadores
 
-| Campo       | Tipo   | Requerido | Descripción                             |
-| ----------- | ------ | --------- | --------------------------------------- |
-| route_id    | string | Sí        | Identificador único en Reten            |
-| external_id | string | No        | Identificador en el sistema del cliente |
-| seller_id   | string | Sí        | Identificador del vendedor asignado     |
+| Campo     | Tipo   | Requerido | Descripción                         |
+| --------- | ------ | --------- | ----------------------------------- |
+| route_id  | string | Sí        | Identificador único en Reten        |
+| seller_id | string | Sí        | Identificador del vendedor asignado |
+| client_id | string | Sí        | Identificador del cliente a visitar |
 
 ### Información Básica
 
-| Campo             | Tipo   | Requerido | Descripción                |
-| ----------------- | ------ | --------- | -------------------------- |
-| name.display_name | string | Sí        | Nombre completo de la ruta |
-| name.short_name   | string | No        | Nombre corto para la ruta  |
-| description       | string | No        | Descripción detallada      |
-| pattern_type      | string | Sí        | Tipo de patrón de visitas  |
+| Campo        | Tipo   | Requerido | Descripción               |
+| ------------ | ------ | --------- | ------------------------- |
+| description  | string | No        | Descripción detallada     |
+| pattern_type | string | Sí        | Tipo de patrón de visitas |
 
 ### Estado
 
@@ -83,24 +73,23 @@ Las rutas en Reten definen cómo los vendedores visitan sus clientes asignados, 
 
 #### Identificadores
 - `route_id` debe ser único en todo el sistema
-- `external_id` debe ser único por cliente
 - `seller_id` debe corresponder a un vendedor existente y activo
+- `client_id` debe corresponder a un cliente existente y asignado al vendedor
 
 #### Fechas
 - `created_at` no puede ser posterior a `updated_at`
-- Las fechas de visita deben ser válidas y en formato ISO 8601
+- `visit_date` debe ser válida y en formato ISO 8601 cuando pattern_type es "specific"
 - Las fechas específicas de visita no pueden ser en el pasado
 
 #### Patrones
-- Si `pattern_type` es "specific", cada visita debe tener una `visit_date` válida
-- Si `pattern_type` es "recurring", cada visita debe tener un `recurring_pattern` válido
+- Si `pattern_type` es "specific", debe tener una `visit_date` válida
+- Si `pattern_type` es "recurring", debe tener un `recurring_pattern` válido
 - Los días en `recurring_pattern.days` deben ser días válidos de la semana
 
 ### Validaciones de Negocio
 
 - Un vendedor no puede tener visitas programadas simultáneas en diferentes clientes
-- Las rutas deben tener al menos un cliente asignado
-- Los clientes en una ruta deben pertenecer a la cartera del vendedor
+- El cliente debe pertenecer a la cartera del vendedor
 - Los patrones recurrentes no pueden tener intervalos menores a 1 día
 
 ## Ejemplos de Uso
@@ -110,56 +99,38 @@ Las rutas en Reten definen cómo los vendedores visitan sus clientes asignados, 
 ```json
 {
   "route_id": "RTE_001",
-  "external_id": "EXT_123",
   "seller_id": "SLR_001",
-  "name": {
-    "display_name": "Ruta Semanal Zona Norte",
-    "short_name": "Norte"
-  },
+  "client_id": "CLT_001",
+  "description": "Visita semanal cliente principal zona norte",
   "pattern_type": "recurring",
-  "visits": [{
-    "client_id": "CLT_001",
-    "recurring_pattern": {
-      "frequency": "weekly",
-      "days": ["MONDAY", "THURSDAY"]
-    }
-  }],
+  "recurring_pattern": {
+    "frequency": "weekly",
+    "days": ["MONDAY", "THURSDAY"]
+  },
   "created_at": "2024-03-19T10:00:00Z",
   "updated_at": "2024-03-19T10:00:00Z",
   "_created_at": "2024-03-19T10:00:00Z",
   "_updated_at": "2024-03-19T10:00:00Z",
   "status": "active",
-  "is_active": true,
   "attributes": []
 }
 ```
 
-### Ejemplo Completo - Ruta con Fechas Específicas
+### Ejemplo Completo - Ruta con Fecha Específica
 
 ```json
 {
   "route_id": "RTE_002",
-  "external_id": "EXT_124",
   "seller_id": "SLR_001",
-  "name": {
-    "display_name": "Ruta Temporada Navideña",
-    "short_name": "Navidad"
-  },
-  "description": "Visitas especiales para campaña navideña",
+  "client_id": "CLT_002",
+  "description": "Visita especial campaña navideña",
   "pattern_type": "specific",
-  "visits": [{
-    "client_id": "CLT_001",
-    "visit_date": "2024-12-01"
-  }, {
-    "client_id": "CLT_002",
-    "visit_date": "2024-12-03"
-  }],
+  "visit_date": "2024-12-01",
   "created_at": "2024-03-19T10:00:00Z",
   "updated_at": "2024-03-19T10:00:00Z",
   "_created_at": "2024-03-19T10:00:00Z",
   "_updated_at": "2024-03-19T10:00:00Z",
   "status": "active",
-  "is_active": true,
   "attributes": [{
     "key": "campaign",
     "value": "navidad_2024",
