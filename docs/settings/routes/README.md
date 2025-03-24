@@ -2,13 +2,39 @@
 
 Las rutas en Reten definen cómo los vendedores visitan sus clientes asignados, permitiendo una planificación eficiente de tareas y visitas. Una ruta representa ya sea un patrón recurrente de visitas o fechas específicas programadas para visitar los clientes en la cartera del vendedor.
 
+## Modelo de Relaciones
+
+```mermaid
+
+erDiagram
+    direction LR
+    
+    Vendedor ||--o{ Ruta : tiene_asignada
+    Ruta ||--o{ Cliente : visita
+
+    Vendedor {
+        string seller_id PK
+        string route_id FK
+    }
+
+    Ruta {
+        string route_id PK
+        string client_id FK
+        string pattern_type
+        string status
+    }
+
+    Cliente {
+        string client_id PK
+    }
+```
+
 ## Estructura de Datos
 
 ```json
 {
   // Identificadores
   "route_id": "string",         // Identificador principal de la ruta (not null)
-  "seller_id": "string",        // Identificador del vendedor asignado (not null)
   "client_id": "string",        // Identificador del cliente a visitar (not null)
   
   // Información básica
@@ -47,7 +73,6 @@ Las rutas en Reten definen cómo los vendedores visitan sus clientes asignados, 
 | Campo     | Tipo   | Requerido | Descripción                         |
 | --------- | ------ | --------- | ----------------------------------- |
 | route_id  | string | Sí        | Identificador único en Reten        |
-| seller_id | string | Sí        | Identificador del vendedor asignado |
 | client_id | string | Sí        | Identificador del cliente a visitar |
 
 ### Información Básica
@@ -71,7 +96,6 @@ Las rutas en Reten definen cómo los vendedores visitan sus clientes asignados, 
 
 #### Identificadores
 - `route_id` debe ser único en todo el sistema
-- `seller_id` debe corresponder a un vendedor existente y activo
 - `client_id` debe corresponder a un cliente existente y asignado al vendedor
 
 #### Fechas
@@ -97,7 +121,6 @@ Las rutas en Reten definen cómo los vendedores visitan sus clientes asignados, 
 ```json
 {
   "route_id": "RTE_001",
-  "seller_id": "SLR_001",
   "client_id": "CLT_001",
   "description": "Visita semanal cliente principal zona norte",
   "pattern_type": "recurring",
@@ -117,7 +140,6 @@ Las rutas en Reten definen cómo los vendedores visitan sus clientes asignados, 
 ```json
 {
   "route_id": "RTE_002",
-  "seller_id": "SLR_001",
   "client_id": "CLT_002",
   "description": "Visita especial campaña navideña",
   "pattern_type": "specific",

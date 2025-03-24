@@ -2,13 +2,31 @@
 
 Las suscripciones a canales representan las preferencias de comunicación y notificaciones de los usuarios en la plataforma Reten. Esta entidad almacena la información sobre los canales de comunicación, consentimientos, y configuraciones específicas para cada usuario.
 
+## Modelo de Relaciones
+
+```mermaid
+erDiagram
+    direction LR
+    Cliente ||--o{ Suscripcion : tiene
+    Suscripcion {
+        string subscription_id PK
+        string client_id FK
+        string channel_type
+        string channel_identifier
+        string status
+    }
+    Cliente {
+        string client_id PK
+    }
+```
+
 ## Estructura de Datos
 
 ```json
 {
   // Identificadores
   "subscription_id": "string",    // Identificador único de la suscripción (not null)
-  "user_id": "string",           // Identificador del usuario (not null)
+  "client_id": "string",           // Identificador del cliente (not null)
 
   // Información del canal
   "channel": {
@@ -83,7 +101,7 @@ Los tipos de canal disponibles son:
 | Campo           | Tipo   | Requerido | Descripción         |
 | --------------- | ------ | --------- | ------------------- |
 | subscription_id | string | Sí        | Identificador único |
-| user_id         | string | Sí        | ID del usuario      |
+| client_id       | string | Sí        | ID del cliente      |
 
 ### Canal
 
@@ -101,7 +119,7 @@ Los tipos de canal disponibles son:
 #### Identificadores
 
 - `subscription_id` debe ser único
-- `user_id` debe corresponder a un usuario existente
+- `client_id` debe corresponder a un cliente existente
 - `identifier` debe ser válido según el tipo de canal
 
 #### Canal
@@ -136,7 +154,7 @@ Los tipos de canal disponibles son:
 ```json
 {
   "subscription_id": "SUB_001",
-  "user_id": "USER_001",
+  "client_id": "USER_001",
   "channel": {
     "type": "email",
     "identifier": "usuario@ejemplo.com",
@@ -168,7 +186,7 @@ Los tipos de canal disponibles son:
 ```json
 {
   "subscription_id": "SUB_002",
-  "user_id": "USER_001",
+  "client_id": "USER_001",
   "channel": {
     "type": "whatsapp",
     "identifier": "+56912345678",
@@ -267,7 +285,7 @@ POST   /api/v1/subscriptions/{subscription_id}/resend-verification
      "timestamp": "2024-03-19T14:30:00Z",
      "data": {
        "subscription_id": "string",
-       "user_id": "string",
+       "client_id": "string",
        "channel": {
          "type": "string",
          "identifier": "string"

@@ -2,6 +2,35 @@
 
 [Descripción breve de la configuración y su propósito en el sistema]
 
+## Modelo de Relaciones
+
+```mermaid
+erDiagram
+    direction LR
+    %% Define las entidades y sus relaciones
+    %% Ejemplo:
+    Entidad1 ||--o{ Entidad2 : accion
+    Entidad2 }o--|| Entidad3 : accion
+
+    Entidad1 {
+        string id PK
+        string campo1
+        string campo2
+    }
+    
+    Entidad2 {
+        string id PK
+        string entidad1_id FK
+        string entidad3_id FK
+        string campo1
+    }
+
+    Entidad3 {
+        string id PK
+        string campo1
+    }
+```
+
 ## Estructura de Datos
 
 ```json
