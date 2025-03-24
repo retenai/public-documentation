@@ -10,9 +10,9 @@ La documentación está organizada siguiendo el flujo natural de implementación
 
 La base fundamental del sistema que define las entidades principales con las que opera Reten:
 
-- **[Categorías](master-data/category/README.md)**: Clasificación jerárquica de productos
 - **[Clientes](master-data/client/README.md)**: Establecimientos comerciales y sus características
 - **[Productos](master-data/product/README.md)**: Catálogo de productos y sus atributos
+- **[Categorías](master-data/category/README.md)**: Clasificación jerárquica de productos
 - **[Vendedores](master-data/seller/README.md)**: Usuarios del sistema y sus permisos
 - **[Cupones](master-data/coupon/README.md)**: Sistema de promociones y descuentos
 - **[Transacciones](master-data/transactions/README.md)**: Compras realizadas por los clientes
@@ -36,11 +36,12 @@ Sistema de gestión de actividades comerciales generadas a partir de las configu
 
 Registro de actividades que retroalimentan al sistema para futuras iteraciones:
 
-- **[Ventas](events/sales_events.md)**: Eventos del proceso de venta
-- **[Marketing](events/marketing_events.md)**: Eventos relacionados con campañas y comunicaciones
-- **[Productos](events/product_events.md)**: Eventos relacionados con productos
-- **[Usuario](events/user_events.md)**: Eventos de interacción de usuarios
-- **[Entregas](events/delivery_events.md)**: Eventos del proceso de entrega
+- **[Órdenes](events/order/README.md)**: Eventos del ciclo de vida de órdenes
+- **[Logística](events/logistics/README.md)**: Eventos de preparación y entrega
+- **[Cuenta](events/account/README.md)**: Eventos de gestión de usuarios
+- **[Engagement](events/engagement/README.md)**: Eventos de interacción y fidelización
+- **[Carrito](events/cart/README.md)**: Eventos relacionados con el carrito de compras
+- **[Navegación](events/navigation/README.md)**: Eventos de interacción con la plataforma
 
 ## Características Principales
 
