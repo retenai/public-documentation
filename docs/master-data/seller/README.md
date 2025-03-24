@@ -108,11 +108,13 @@ Los vendedores son los usuarios del CPG (Consumer Packaged Goods) que interactú
 | parent_unit.id     | string | No        | ID de la unidad de negocio padre |
 
 **Tipos de Vendedor:**
+
 - `salesman`: Vendedor de campo que realiza visitas presenciales
 - `callcenter`: Vendedor que gestiona clientes vía telefónica
 - `supervisor`: Responsable de gestionar y supervisar otros vendedores
 
 **Tipos de Unidad de Negocio:**
+
 - `business_unit`: Región o territorio principal
 - `division`: Zona dentro de una región
 - `sub_division`: Sector específico dentro de una zona
@@ -284,10 +286,10 @@ GET    /api/v1/sellers/{seller_id}/subordinates
 
 ### ¿Cuál es la diferencia entre seller_id y route_id?
 
-- `seller_id` es el identificador interno único en Reten, usado para referencias del sistema
-- `route_id` es el identificador que maneja el CPG, generalmente asociado a una ruta o código de vendedor
-- `route_id` puede seguir diferentes formatos según las necesidades del CPG
-- Las búsquedas se pueden realizar por cualquiera de los dos identificadores
+- `seller_id` es el identificador único de la persona (vendedor) en el sistema
+- `route_id` es el identificador de la ruta de venta asignada al vendedor
+- Un vendedor (`seller_id`) puede tener asignada una ruta (`route_id`) específica
+- Las búsquedas se pueden realizar por cualquiera de los dos identificadores para encontrar la relación vendedor-ruta
 
 ### ¿Cómo gestionar vendedores temporales?
 
