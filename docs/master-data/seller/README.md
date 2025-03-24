@@ -20,8 +20,10 @@ Los vendedores son los usuarios del CPG (Consumer Packaged Goods) que interactú
   "status": "string",            // Estado del vendedor (active, inactive, suspended, terminated)
   
   // Fechas relevantes
-  "hire_date": "timestamp",      // Fecha de contratación (not null)
-  "termination_date": "timestamp", // Fecha de término si aplica
+  "dates": {
+    "hire_date": "timestamp",      // Fecha de contratación (not null)
+    "termination_date": "timestamp" // Fecha de término si aplica
+  },
 
   // Información de contacto
   "contacts": [{
@@ -78,6 +80,13 @@ Los vendedores son los usuarios del CPG (Consumer Packaged Goods) que interactú
 | last_name    | string | Sí        | Apellido del vendedor          |
 | display_name | string | No        | Nombre para mostrar en sistema |
 | status       | string | Sí        | Estado actual del vendedor     |
+
+### Fechas
+
+| Campo            | Tipo      | Requerido | Descripción                |
+| ---------------- | --------- | --------- | -------------------------- |
+| hire_date        | timestamp | Sí        | Fecha de contratación      |
+| termination_date | timestamp | No        | Fecha de término si aplica |
 
 **Estados Válidos del Vendedor:**
 
@@ -150,6 +159,10 @@ Los vendedores son los usuarios del CPG (Consumer Packaged Goods) que interactú
     "display_name": "Juan P."
   },
   "status": "active",
+  "dates": {
+    "hire_date": "2024-01-01T00:00:00Z",
+    "termination_date": null
+  },
   "contacts": [{
     "email": "juan.perez@cpg.com",
     "phone": "+56912345678",
