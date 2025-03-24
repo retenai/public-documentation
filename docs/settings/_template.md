@@ -61,7 +61,7 @@ erDiagram
 
   // Marcas temporales
   "created_at": "timestamp",   // Fecha de creación (not null)
-  "updated_at": "timestamp",   // Última actualización (not null)
+  "updated_at": "timestamp"    // Última actualización (not null)
 }
 ```
 

@@ -49,10 +49,6 @@ erDiagram
     "week_of_month": "number",  // Para patrones mensuales (1-5)
     "interval": "number"        // Para patrones personalizados
   },
-  
-  // Marcas temporales
-  "created_at": "timestamp",   // Fecha de creación (not null)
-  "updated_at": "timestamp",   // Última actualización (not null)
 
   // Estado
   "status": "string",           // Estado actual de la ruta (active, inactive, archived, draft)
@@ -62,7 +58,11 @@ erDiagram
     "key": "string",
     "value": "string",
     "type": "string"           // Tipo de valor (string, number, date, boolean)
-  }]
+  }],
+
+  // Marcas temporales
+  "created_at": "timestamp",   // Fecha de creación (not null)
+  "updated_at": "timestamp"    // Última actualización (not null)
 }
 ```
 

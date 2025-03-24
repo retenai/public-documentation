@@ -41,10 +41,6 @@ erDiagram
   "description": "string",       // Descripción de la asignación
   "type": "string",             // Tipo de asignación: "primary", "secondary", "temporary"
   
-  // Marcas temporales
-  "created_at": "timestamp",    // Fecha de creación (not null)
-  "updated_at": "timestamp",    // Fecha de última actualización (not null)
-
   // Estado
   "status": "string",            // Estado actual de la asignación (active, inactive, pending, completed, transferred)
 
@@ -53,7 +49,11 @@ erDiagram
     "key": "string",
     "value": "string",
     "type": "string"            // Tipo de valor (string, number, date, boolean)
-  }]
+  }],
+
+  // Marcas temporales
+  "created_at": "timestamp",    // Fecha de creación (not null)
+  "updated_at": "timestamp"    // Fecha de última actualización (not null)
 }
 ```
 
