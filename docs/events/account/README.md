@@ -1,4 +1,4 @@
-# Eventos de Cuenta y Perfil
+# :material-account: Cuenta
 
 Esta sección documenta los eventos relacionados con la gestión de usuarios y sus preferencias.
 

@@ -1,4 +1,4 @@
-# Eventos de Engagement
+# :material-heart: Engagement
 
 Esta sección documenta los eventos relacionados con la interacción y fidelización de usuarios.
 

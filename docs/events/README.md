@@ -6,10 +6,10 @@ Los eventos en Reten representan acciones y cambios significativos que ocurren e
 
 {% call section_cards() %}
 {{ feature_card(
-    'material-shopping',
+    'material-package-variant',
     'Órdenes',
     'Eventos del ciclo de vida de órdenes',
-    'order/README.md'
+    'orders/README.md'
 ) }}
 
 {{ feature_card(
@@ -69,7 +69,7 @@ Eventos del proceso de compra:
 - Aplicación de cupones
 - Selección de métodos de pago y envío
 
-### [Órdenes](./order/README.md)
+### [Órdenes](./orders/README.md)
 Eventos relacionados con órdenes:
 
 - Creación de orden

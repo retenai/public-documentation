@@ -1,4 +1,4 @@
-# Eventos de Logística y Fulfillment
+# :material-truck-delivery: Logística
 
 Esta sección documenta los eventos relacionados con el proceso de preparación y entrega de pedidos.
 

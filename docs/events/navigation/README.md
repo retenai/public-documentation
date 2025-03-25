@@ -1,4 +1,4 @@
-# Eventos de Navegación y Descubrimiento
+# :material-navigation: Navegación
 
 Esta sección documenta los eventos relacionados con la exploración y descubrimiento de productos en la plataforma.
 

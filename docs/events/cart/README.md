@@ -1,4 +1,4 @@
-# Eventos de Carrito y Checkout
+# :material-cart: Carrito
 
 Esta sección documenta los eventos relacionados con el proceso de compra, desde la gestión del carrito hasta la finalización del checkout.
 
