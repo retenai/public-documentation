@@ -8,200 +8,164 @@ Bienvenido a la documentación técnica de Reten. Esta documentación está dise
     - 💡 [Ver ejemplos](master-data/client/README.md#ejemplos-de-uso)
     - 🤝 [Contribuir](#contribuir)
 
-
 ## Estructura de la Documentación
 
 La documentación está organizada siguiendo el flujo natural de implementación y uso del sistema:
 
-### 📊 Datos Maestros { .section-title }
-
-<div class="grid cards" markdown>
-
--   :material-store:{ .lg .middle } **[Clientes](master-data/client/README.md)**
-
-    ---
-
-    Establecimientos comerciales y sus características
-    
-    [:octicons-arrow-right-24: Ver más](master-data/client/README.md)
-
--   :material-package:{ .lg .middle } **[Productos](master-data/product/README.md)**
-
-    ---
-
-    Catálogo de productos y sus atributos
-    
-    [:octicons-arrow-right-24: Ver más](master-data/product/README.md)
-
--   :material-shape:{ .lg .middle } **[Categorías](master-data/category/README.md)**
-
-    ---
-
-    Clasificación jerárquica de productos
-    
-    [:octicons-arrow-right-24: Ver más](master-data/category/README.md)
-
--   :material-account-tie:{ .lg .middle } **[Vendedores](master-data/seller/README.md)**
-
-    ---
-
-    Usuarios del sistema y sus permisos
-    
-    [:octicons-arrow-right-24: Ver más](master-data/seller/README.md)
-
--   :material-ticket-percent:{ .lg .middle } **[Cupones](master-data/coupon/README.md)**
-
-    ---
-
-    Sistema de promociones y descuentos
-    
-    [:octicons-arrow-right-24: Ver más](master-data/coupon/README.md)
-
--   :material-cart:{ .lg .middle } **[Transacciones](master-data/transactions/README.md)**
-
-    ---
-
-    Compras realizadas por los clientes
-    
-    [:octicons-arrow-right-24: Ver más](master-data/transactions/README.md)
-
-</div>
-
-### ⚙️ Configuraciones { .section-title }
-
-<div class="grid cards" markdown>
-
--   :material-account-group:{ .lg .middle } **[Asignaciones](settings/assignments/README.md)**
-
-    ---
-
-    Relaciones entre vendedores y clientes
-    
-    [:octicons-arrow-right-24: Ver más](settings/assignments/README.md)
-
--   :material-map-marker-path:{ .lg .middle } **[Rutas](settings/routes/README.md)**
-
-    ---
-
-    Programación de visitas a clientes
-    
-    [:octicons-arrow-right-24: Ver más](settings/routes/README.md)
-
--   :material-bell:{ .lg .middle } **[Suscripciones](settings/subscription/README.md)**
-
-    ---
-
-    Gestión de comunicaciones y notificaciones
-    
-    [:octicons-arrow-right-24: Ver más](settings/subscription/README.md)
-
-</div>
-
-### ✅ Tareas { .section-title }
-
-<div class="grid cards" markdown>
-
--   :material-clipboard-list:{ .lg .middle } **[Tareas](tasks/README.md)**
-
-    ---
-
-    Instrucciones y momentos oportunos para contactar clientes
-    
-    [:octicons-arrow-right-24: Ver más](tasks/README.md)
-
--   :material-chart-timeline:{ .lg .middle } **[Seguimiento](tasks/tracking/README.md)**
-
-    ---
-
-    Estado y progreso de tareas
-    
-    [:octicons-arrow-right-24: Ver más](tasks/tracking/README.md)
-
-</div>
-
-### 📈 Eventos { .section-title }
-
-<div class="grid cards" markdown>
-
--   :material-shopping:{ .lg .middle } **[Órdenes](events/order/README.md)**
-
-    ---
-
-    Eventos del ciclo de vida de órdenes
-    
-    [:octicons-arrow-right-24: Ver más](events/order/README.md)
-
--   :material-truck-delivery:{ .lg .middle } **[Logística](events/logistics/README.md)**
-
-    ---
-
-    Eventos de preparación y entrega
-    
-    [:octicons-arrow-right-24: Ver más](events/logistics/README.md)
-
--   :material-account:{ .lg .middle } **[Cuenta](events/account/README.md)**
-
-    ---
-
-    Eventos de gestión de usuarios
-    
-    [:octicons-arrow-right-24: Ver más](events/account/README.md)
-
--   :material-heart:{ .lg .middle } **[Engagement](events/engagement/README.md)**
-
-    ---
-
-    Eventos de interacción y fidelización
-    
-    [:octicons-arrow-right-24: Ver más](events/engagement/README.md)
-
--   :material-cart:{ .lg .middle } **[Carrito](events/cart/README.md)**
-
-    ---
-
-    Eventos relacionados con el carrito de compras
-    
-    [:octicons-arrow-right-24: Ver más](events/cart/README.md)
-
--   :material-navigation:{ .lg .middle } **[Navegación](events/navigation/README.md)**
-
-    ---
-
-    Eventos de interacción con la plataforma
-    
-    [:octicons-arrow-right-24: Ver más](events/navigation/README.md)
-
-</div>
-
-## ✨ Características Principales
-
-<div class="grid cards" markdown>
-
--   :material-book-open-variant:{ .lg .middle } **Documentación Completa**
-
-    ---
-
-    Cada sección está documentada con ejemplos y casos de uso
-
--   :material-check-decagram:{ .lg .middle } **Validaciones**
-
-    ---
-
-    Incluye reglas de validación y restricciones de datos
-
--   :material-code-tags:{ .lg .middle } **Ejemplos**
-
-    ---
-
-    Código de ejemplo para implementaciones comunes
-
--   :material-compass:{ .lg .middle } **Guías**
-
-    ---
-
-    Instrucciones paso a paso para integraciones
-
-</div>
+{% from 'includes/cards.md' import feature_card, section_cards %}
+
+{% call section_cards('📊 Datos Maestros', 'master-data/README.md') %}
+{{ feature_card(
+    'material-store',
+    'Clientes',
+    'Establecimientos comerciales y sus características',
+    'master-data/client/README.md'
+) }}
+
+{{ feature_card(
+    'material-package',
+    'Productos',
+    'Catálogo de productos y sus atributos',
+    'master-data/product/README.md'
+) }}
+
+{{ feature_card(
+    'material-shape',
+    'Categorías',
+    'Clasificación jerárquica de productos',
+    'master-data/category/README.md'
+) }}
+
+{{ feature_card(
+    'material-account-tie',
+    'Vendedores',
+    'Usuarios del sistema y sus permisos',
+    'master-data/seller/README.md'
+) }}
+
+{{ feature_card(
+    'material-ticket-percent',
+    'Cupones',
+    'Sistema de promociones y descuentos',
+    'master-data/coupon/README.md'
+) }}
+
+{{ feature_card(
+    'material-cart',
+    'Transacciones',
+    'Compras realizadas por los clientes',
+    'master-data/transactions/README.md'
+) }}
+{% endcall %}
+
+{% call section_cards('⚙️ Configuraciones', 'settings/README.md') %}
+{{ feature_card(
+    'material-account-group',
+    'Asignaciones',
+    'Relaciones entre vendedores y clientes',
+    'settings/assignments/README.md'
+) }}
+
+{{ feature_card(
+    'material-map-marker-path',
+    'Rutas',
+    'Programación de visitas a clientes',
+    'settings/routes/README.md'
+) }}
+
+{{ feature_card(
+    'material-bell',
+    'Suscripciones',
+    'Gestión de comunicaciones y notificaciones',
+    'settings/subscription/README.md'
+) }}
+{% endcall %}
+
+{% call section_cards('✅ Tareas', 'tasks/README.md') %}
+{{ feature_card(
+    'material-clipboard-list',
+    'Tareas',
+    'Instrucciones y momentos oportunos para contactar clientes',
+    'tasks/README.md'
+) }}
+
+{{ feature_card(
+    'material-chart-timeline',
+    'Seguimiento',
+    'Estado y progreso de tareas',
+    'tasks/tracking/README.md'
+) }}
+{% endcall %}
+
+{% call section_cards('📈 Eventos', 'events/README.md') %}
+{{ feature_card(
+    'material-shopping',
+    'Órdenes',
+    'Eventos del ciclo de vida de órdenes',
+    'events/order/README.md'
+) }}
+
+{{ feature_card(
+    'material-truck-delivery',
+    'Logística',
+    'Eventos de preparación y entrega',
+    'events/logistics/README.md'
+) }}
+
+{{ feature_card(
+    'material-account',
+    'Cuenta',
+    'Eventos de gestión de usuarios',
+    'events/account/README.md'
+) }}
+
+{{ feature_card(
+    'material-heart',
+    'Engagement',
+    'Eventos de interacción y fidelización',
+    'events/engagement/README.md'
+) }}
+
+{{ feature_card(
+    'material-cart',
+    'Carrito',
+    'Eventos relacionados con el carrito de compras',
+    'events/cart/README.md'
+) }}
+
+{{ feature_card(
+    'material-navigation',
+    'Navegación',
+    'Eventos de interacción con la plataforma',
+    'events/navigation/README.md'
+) }}
+{% endcall %}
+
+{% call section_cards('✨ Características Principales') %}
+{{ feature_card(
+    'material-book-open-variant',
+    'Documentación Completa',
+    'Cada sección está documentada con ejemplos y casos de uso'
+) }}
+
+{{ feature_card(
+    'material-check-decagram',
+    'Validaciones',
+    'Incluye reglas de validación y restricciones de datos'
+) }}
+
+{{ feature_card(
+    'material-code-tags',
+    'Ejemplos',
+    'Código de ejemplo para implementaciones comunes'
+) }}
+
+{{ feature_card(
+    'material-compass',
+    'Guías',
+    'Instrucciones paso a paso para integraciones'
+) }}
+{% endcall %}
 
 ## 🚀 Comenzando
 
