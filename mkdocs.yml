@@ -16,7 +16,7 @@ theme:
   name: material
   language: es
   logo: assets/images/brand/reten-logo-all-white.svg
-  favicon: assets/images/brand/reten-logo-dark.svg
+  favicon: assets/images/brand/reten-logo-all-white.svg
   font:
     text: Inter
     code: Fira Code
