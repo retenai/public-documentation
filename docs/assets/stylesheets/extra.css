@@ -1,13 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap');
 
-:root {
-    /* Brand Colors */
+/* Light mode colors */
+[data-md-color-scheme="default"] {
     --md-primary-fg-color: #651FFF;
     --md-primary-fg-color--light: #7C4DFF;
     --md-primary-fg-color--dark: #4919FF;
     --md-accent-fg-color: #651FFF;
+}
 
+/* Dark mode colors */
+[data-md-color-scheme="slate"] {
+    --md-primary-fg-color: #7C4DFF;
+    --md-primary-fg-color--light: #9B4DFF;
+    --md-primary-fg-color--dark: #651FFF;
+    --md-accent-fg-color: #7C4DFF;
+    --md-typeset-a-color: #9B4DFF;
+}
+
+:root {
     /* Typography */
     --md-text-font: "Inter", -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
     --md-code-font: "Fira Code", monospace;
@@ -103,14 +114,6 @@
 .md-typeset table:not([class]) th {
     background-color: var(--md-primary-fg-color);
     color: var(--md-primary-bg-color);
-}
-
-/* Dark mode adjustments */
-[data-md-color-scheme="slate"] {
-    --md-primary-fg-color: #651FFF;
-    --md-primary-fg-color--light: #7C4DFF;
-    --md-primary-fg-color--dark: #4919FF;
-    --md-typeset-a-color: #9B4DFF;
 }
 
 /* Custom container classes */
