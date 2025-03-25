@@ -15,12 +15,26 @@ Los eventos de logística y fulfillment capturan todo el proceso de preparación
 
 ## Eventos Disponibles
 
+La siguiente tabla muestra un resumen de todos los eventos disponibles en esta sección:
+
+| Evento                                                                      | Tipo                 | Descripción              | Trigger                      |
+| --------------------------------------------------------------------------- | -------------------- | ------------------------ | ---------------------------- |
+| [Asignación a Centro de Distribución](#asignacion-a-centro-de-distribucion) | `warehouse_assigned` | Asignación de orden a CD | Orden lista para preparación |
+| [Inicio de Picking](#inicio-de-picking)                                     | `picking_started`    | Inicio de recolección    | Orden asignada a picker      |
+| [Picking Completado](#picking-completado)                                   | `picking_completed`  | Fin de recolección       | Picking finalizado           |
+| [Packing Iniciado](#packing-iniciado)                                       | `packing_started`    | Inicio de empaque        | Picking completado           |
+| [Orden Despachada](#orden-despachada)                                       | `order_dispatched`   | Entrega a transportista  | Packing completado           |
+
+---
+
 ### Asignación a Centro de Distribución
 
-**Tipo de Evento:** `warehouse_assigned`
+!!! info "`warehouse_assigned`"
+    **Trigger**  
+    Se dispara cuando una orden es asignada a un centro de distribución específico para su preparación
 
-**Descripción:**  
-Registra cuando una orden es asignada a un centro de distribución específico para su preparación.
+    **Descripción**  
+    Registra cuando una orden es asignada a un centro de distribución específico para su preparación.
 
 **Estructura del Evento:**
 ```json
@@ -53,21 +67,46 @@ Registra cuando una orden es asignada a un centro de distribución específico p
 
 **Campos Específicos:**
 
-| Campo                      | Tipo   | Requerido | Descripción                               |
-| -------------------------- | ------ | --------- | ----------------------------------------- |
-| warehouse_id               | string | Sí        | Identificador del centro de distribución  |
-| warehouse_name             | string | Sí        | Nombre del centro de distribución         |
-| assignment_type            | string | Sí        | Tipo de asignación                        |
-| estimated_preparation_time | number | No        | Tiempo estimado de preparación en minutos |
-| priority_level             | string | Sí        | Nivel de prioridad de la orden            |
-| items                      | array  | Sí        | Lista de productos y sus ubicaciones      |
+| Campo                        | Tipo   | Requerido | Descripción                               |
+| ---------------------------- | ------ | --------- | ----------------------------------------- |
+| `warehouse_id`               | string | Sí        | Identificador del centro de distribución  |
+| `warehouse_name`             | string | Sí        | Nombre del centro de distribución         |
+| `assignment_type`            | string | Sí        | Tipo de asignación                        |
+| `estimated_preparation_time` | number | No        | Tiempo estimado de preparación en minutos |
+| `priority_level`             | string | Sí        | Nivel de prioridad de la orden            |
+| `items`                      | array  | Sí        | Lista de productos y sus ubicaciones      |
+
+**Ejemplo de Uso:**
+```json
+{
+  "event_type": "warehouse_assigned",
+  "data": {
+    "order_id": "ORD_123",
+    "warehouse_id": "WH_001",
+    "warehouse_name": "Centro Principal",
+    "assignment_type": "automatic",
+    "priority_level": "high",
+    "items": [
+      {
+        "product_id": "PROD_789",
+        "quantity": 2,
+        "stock_location": "A-12-3"
+      }
+    ]
+  }
+}
+```
+
+---
 
 ### Inicio de Picking
 
-**Tipo de Evento:** `picking_started`
+!!! note "`picking_started`"
+    **Trigger**  
+    Se dispara cuando comienza el proceso de recolección de productos
 
-**Descripción:**  
-Registra el inicio del proceso de recolección de productos en el centro de distribución.
+    **Descripción**  
+    Registra el inicio del proceso de recolección de productos en el centro de distribución.
 
 **Estructura del Evento:**
 ```json
@@ -103,19 +142,47 @@ Registra el inicio del proceso de recolección de productos en el centro de dist
 
 **Campos Específicos:**
 
-| Campo                     | Tipo   | Requerido | Descripción                           |
-| ------------------------- | ------ | --------- | ------------------------------------- |
-| picker_id                 | string | Sí        | Identificador del operador de picking |
-| picking_route             | array  | Sí        | Ruta optimizada de recolección        |
-| estimated_completion_time | string | No        | Hora estimada de finalización         |
-| picking_batch_id          | string | No        | ID del batch de picking si aplica     |
+| Campo                       | Tipo   | Requerido | Descripción                           |
+| --------------------------- | ------ | --------- | ------------------------------------- |
+| `picker_id`                 | string | Sí        | Identificador del operador de picking |
+| `picking_route`             | array  | Sí        | Ruta optimizada de recolección        |
+| `estimated_completion_time` | string | No        | Hora estimada de finalización         |
+| `picking_batch_id`          | string | No        | ID del batch de picking si aplica     |
+
+**Ejemplo de Uso:**
+```json
+{
+  "event_type": "picking_started",
+  "data": {
+    "order_id": "ORD_123",
+    "warehouse_id": "WH_001",
+    "picker_id": "PICK_456",
+    "picking_route": [
+      {
+        "location": "A-12-3",
+        "products": [
+          {
+            "product_id": "PROD_789",
+            "quantity": 2,
+            "bin_location": "A-12-3"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+---
 
 ### Picking Completado
 
-**Tipo de Evento:** `picking_completed`
+!!! success "`picking_completed`"
+    **Trigger**  
+    Se dispara cuando finaliza el proceso de recolección de productos
 
-**Descripción:**  
-Registra la finalización del proceso de recolección de productos.
+    **Descripción**  
+    Registra la finalización del proceso de recolección de productos.
 
 **Estructura del Evento:**
 ```json
@@ -154,19 +221,44 @@ Registra la finalización del proceso de recolección de productos.
 
 **Campos Específicos:**
 
-| Campo         | Tipo   | Requerido | Descripción                              |
-| ------------- | ------ | --------- | ---------------------------------------- |
-| duration      | number | Sí        | Duración del picking en minutos          |
-| items_status  | array  | Sí        | Estado de recolección de cada item       |
-| issues        | array  | No        | Problemas encontrados durante el picking |
-| accuracy_rate | number | No        | Tasa de precisión del picking            |
+| Campo           | Tipo   | Requerido | Descripción                              |
+| --------------- | ------ | --------- | ---------------------------------------- |
+| `duration`      | number | Sí        | Duración del picking en minutos          |
+| `items_status`  | array  | Sí        | Estado de recolección de cada item       |
+| `issues`        | array  | No        | Problemas encontrados durante el picking |
+| `accuracy_rate` | number | No        | Tasa de precisión del picking            |
+
+**Ejemplo de Uso:**
+```json
+{
+  "event_type": "picking_completed",
+  "data": {
+    "order_id": "ORD_123",
+    "warehouse_id": "WH_001",
+    "picker_id": "PICK_456",
+    "duration": 15,
+    "items_status": [
+      {
+        "product_id": "PROD_789",
+        "requested_quantity": 2,
+        "picked_quantity": 2,
+        "status": "complete"
+      }
+    ]
+  }
+}
+```
+
+---
 
 ### Packing Iniciado
 
-**Tipo de Evento:** `packing_started`
+!!! note "`packing_started`"
+    **Trigger**  
+    Se dispara cuando comienza el proceso de empaquetado
 
-**Descripción:**  
-Registra el inicio del proceso de empaquetado de la orden.
+    **Descripción**  
+    Registra el inicio del proceso de empaquetado de la orden.
 
 **Estructura del Evento:**
 ```json
@@ -197,19 +289,43 @@ Registra el inicio del proceso de empaquetado de la orden.
 
 **Campos Específicos:**
 
-| Campo                | Tipo   | Requerido | Descripción                           |
-| -------------------- | ------ | --------- | ------------------------------------- |
-| packer_id            | string | Sí        | Identificador del operador de packing |
-| packaging_type       | string | Sí        | Tipo de empaque a utilizar            |
-| estimated_packages   | number | Sí        | Número estimado de paquetes           |
-| special_requirements | array  | No        | Requisitos especiales de empaque      |
+| Campo                  | Tipo   | Requerido | Descripción                           |
+| ---------------------- | ------ | --------- | ------------------------------------- |
+| `packer_id`            | string | Sí        | Identificador del operador de packing |
+| `packaging_type`       | string | Sí        | Tipo de empaque a utilizar            |
+| `estimated_packages`   | number | Sí        | Número estimado de paquetes           |
+| `special_requirements` | array  | No        | Requisitos especiales de empaque      |
+
+**Ejemplo de Uso:**
+```json
+{
+  "event_type": "packing_started",
+  "data": {
+    "order_id": "ORD_123",
+    "warehouse_id": "WH_001",
+    "packer_id": "PACK_789",
+    "packaging_type": "box_medium",
+    "estimated_packages": 1,
+    "special_requirements": [
+      {
+        "type": "fragile",
+        "instructions": "Empacar con material de protección adicional"
+      }
+    ]
+  }
+}
+```
+
+---
 
 ### Orden Despachada
 
-**Tipo de Evento:** `order_dispatched`
+!!! success "`order_dispatched`"
+    **Trigger**  
+    Se dispara cuando la orden es entregada al transportista
 
-**Descripción:**  
-Registra cuando una orden es entregada al transportista para su envío.
+    **Descripción**  
+    Registra cuando una orden es entregada al transportista para su envío.
 
 **Estructura del Evento:**
 ```json
@@ -247,12 +363,40 @@ Registra cuando una orden es entregada al transportista para su envío.
 
 **Campos Específicos:**
 
-| Campo                   | Tipo   | Requerido | Descripción                     |
-| ----------------------- | ------ | --------- | ------------------------------- |
-| carrier_id              | string | Sí        | Identificador del transportista |
-| tracking_number         | string | Sí        | Número de seguimiento principal |
-| packages                | array  | Sí        | Información de los paquetes     |
-| estimated_delivery_date | string | Sí        | Fecha estimada de entrega       |
+| Campo                     | Tipo   | Requerido | Descripción                     |
+| ------------------------- | ------ | --------- | ------------------------------- |
+| `carrier_id`              | string | Sí        | Identificador del transportista |
+| `tracking_number`         | string | Sí        | Número de seguimiento principal |
+| `packages`                | array  | Sí        | Información de los paquetes     |
+| `estimated_delivery_date` | string | Sí        | Fecha estimada de entrega       |
+
+**Ejemplo de Uso:**
+```json
+{
+  "event_type": "order_dispatched",
+  "data": {
+    "order_id": "ORD_123",
+    "warehouse_id": "WH_001",
+    "carrier_id": "CARR_001",
+    "tracking_number": "TRACK123456",
+    "packages": [
+      {
+        "package_id": "PKG_001",
+        "weight": 2.5,
+        "dimensions": {
+          "length": 30,
+          "width": 20,
+          "height": 15
+        },
+        "tracking_number": "TRACK123456-1"
+      }
+    ],
+    "estimated_delivery_date": "2024-03-22T15:00:00Z"
+  }
+}
+```
+
+---
 
 ## Consideraciones Técnicas
 
@@ -292,7 +436,7 @@ Utiliza el evento `order_dispatched` para:
 ## Preguntas Frecuentes
 
 ### ¿Cómo manejar productos faltantes durante el picking?
-Registrar la discrepancia en `picking_completed` y generar eventos de reposición.
+Se debe registrar la discrepancia en `picking_completed` y generar eventos de reposición.
 
 ### ¿Qué hacer si un paquete necesita ser reempacado?
 Generar un nuevo evento `packing_started` con referencia al empaque original.
