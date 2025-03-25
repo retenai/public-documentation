@@ -5,6 +5,7 @@ Esta sección documenta los eventos relacionados con la interacción y fidelizac
 ## Descripción General
 
 Los eventos de engagement capturan las interacciones de los usuarios que demuestran su nivel de compromiso e interés con la plataforma y sus productos. Estos eventos son fundamentales para:
+
 - Medir el nivel de participación de los usuarios
 - Identificar productos y contenido de mayor interés
 - Mejorar la experiencia de usuario basada en feedback
@@ -51,6 +52,7 @@ Registra cuando un usuario agrega o remueve productos de su lista de deseos.
 ```
 
 **Campos Específicos:**
+
 | Campo                    | Tipo   | Requerido | Descripción                      |
 | ------------------------ | ------ | --------- | -------------------------------- |
 | action                   | string | Sí        | Tipo de acción realizada         |
@@ -102,6 +104,7 @@ Registra cuando un usuario crea, modifica o elimina una reseña de producto.
 ```
 
 **Campos Específicos:**
+
 | Campo             | Tipo    | Requerido | Descripción                      |
 | ----------------- | ------- | --------- | -------------------------------- |
 | review_id         | string  | Sí        | Identificador único de la reseña |
@@ -141,6 +144,7 @@ Registra cuando un usuario comparte un producto en redes sociales o por otros me
 ```
 
 **Campos Específicos:**
+
 | Campo             | Tipo   | Requerido | Descripción                      |
 | ----------------- | ------ | --------- | -------------------------------- |
 | share_method      | string | Sí        | Método utilizado para compartir  |
@@ -181,6 +185,7 @@ Registra las interacciones de los usuarios con el sistema de soporte al cliente.
 ```
 
 **Campos Específicos:**
+
 | Campo               | Tipo   | Requerido | Descripción                     |
 | ------------------- | ------ | --------- | ------------------------------- |
 | interaction_type    | string | Sí        | Tipo de interacción con soporte |
@@ -227,6 +232,7 @@ Registra cuando un usuario completa una encuesta o formulario de feedback.
 ```
 
 **Campos Específicos:**
+
 | Campo           | Tipo   | Requerido | Descripción                       |
 | --------------- | ------ | --------- | --------------------------------- |
 | survey_id       | string | Sí        | Identificador de la encuesta      |
@@ -246,19 +252,25 @@ Registra cuando un usuario completa una encuesta o formulario de feedback.
 ## Casos de Uso Comunes
 
 ### Análisis de Satisfacción
+
 Utiliza los eventos `product_review` y `survey_response` para:
+
 1. Medir la satisfacción general del cliente
 2. Identificar áreas de mejora
 3. Ajustar estrategias de producto
 
 ### Optimización de Soporte
+
 Utiliza el evento `support_interaction` para:
+
 1. Mejorar tiempos de respuesta
 2. Identificar problemas comunes
 3. Optimizar la asignación de recursos
 
 ### Análisis de Viralidad
+
 Utiliza el evento `product_shared` para:
+
 1. Identificar productos con alto potencial viral
 2. Optimizar estrategias de marketing social
 3. Mejorar funcionalidades de compartir

@@ -5,6 +5,7 @@ Esta sección documenta los eventos relacionados con la gestión de usuarios y s
 ## Descripción General
 
 Los eventos de cuenta y perfil capturan todas las interacciones relacionadas con la gestión de usuarios, sus datos personales y preferencias. Estos eventos son fundamentales para:
+
 - Mantener un registro de la actividad de los usuarios
 - Gestionar el ciclo de vida de las cuentas
 - Asegurar el cumplimiento de normativas de privacidad
@@ -56,6 +57,7 @@ Registra la creación de una nueva cuenta de usuario en la plataforma.
 ```
 
 **Campos Específicos:**
+
 | Campo                 | Tipo   | Requerido | Descripción                       |
 | --------------------- | ------ | --------- | --------------------------------- |
 | user_id               | string | Sí        | Identificador único del usuario   |
@@ -104,6 +106,7 @@ Registra cuando un usuario inicia sesión en la plataforma.
 ```
 
 **Campos Específicos:**
+
 | Campo        | Tipo   | Requerido | Descripción                    |
 | ------------ | ------ | --------- | ------------------------------ |
 | login_method | string | Sí        | Método utilizado para el login |
@@ -144,6 +147,7 @@ Registra cuando un usuario actualiza su información de perfil.
 ```
 
 **Campos Específicos:**
+
 | Campo               | Tipo   | Requerido | Descripción                      |
 | ------------------- | ------ | --------- | -------------------------------- |
 | updated_fields      | array  | Sí        | Lista de campos actualizados     |
@@ -193,6 +197,7 @@ Registra cuando un usuario agrega, modifica o elimina una dirección.
 ```
 
 **Campos Específicos:**
+
 | Campo             | Tipo   | Requerido | Descripción                   |
 | ----------------- | ------ | --------- | ----------------------------- |
 | address_id        | string | Sí        | Identificador de la dirección |
@@ -239,6 +244,7 @@ Registra cuando un usuario actualiza sus preferencias de comunicación o configu
 ```
 
 **Campos Específicos:**
+
 | Campo                     | Tipo   | Requerido | Descripción                     |
 | ------------------------- | ------ | --------- | ------------------------------- |
 | preference_type           | string | Sí        | Tipo de preferencia actualizada |
@@ -259,19 +265,25 @@ Registra cuando un usuario actualiza sus preferencias de comunicación o configu
 ## Casos de Uso Comunes
 
 ### Análisis de Registro y Retención
+
 Utiliza los eventos `user_registered` y `user_login` para:
+
 1. Analizar tasas de conversión de registro
 2. Identificar patrones de abandono
 3. Optimizar el proceso de onboarding
 
 ### Gestión de Preferencias
+
 Utiliza el evento `preferences_updated` para:
+
 1. Personalizar la experiencia del usuario
 2. Mejorar las estrategias de comunicación
 3. Cumplir con preferencias de privacidad
 
 ### Validación de Direcciones
+
 Utiliza el evento `address_updated` para:
+
 1. Mejorar la precisión de entregas
 2. Optimizar costos de envío
 3. Prevenir fraudes

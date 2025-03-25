@@ -5,6 +5,7 @@ Esta sección documenta los eventos relacionados con el proceso de compra, desde
 ## Descripción General
 
 Los eventos de carrito y checkout capturan las interacciones de los usuarios durante el proceso de compra. Estos eventos son esenciales para:
+
 - Analizar el comportamiento de compra de los usuarios
 - Identificar puntos de fricción en el proceso de checkout
 - Detectar y reducir el abandono de carrito
@@ -45,6 +46,7 @@ Registra cuando un usuario agrega un producto a su carrito de compras. Este even
 ```
 
 **Campos Específicos:**
+
 | Campo        | Tipo   | Requerido | Descripción                               |
 | ------------ | ------ | --------- | ----------------------------------------- |
 | product_id   | string | Sí        | Identificador único del producto          |
@@ -85,6 +87,7 @@ Captura cuando un usuario remueve un producto de su carrito o reduce su cantidad
 ```
 
 **Campos Específicos:**
+
 | Campo              | Tipo   | Requerido | Descripción                           |
 | ------------------ | ------ | --------- | ------------------------------------- |
 | product_id         | string | Sí        | Identificador único del producto      |
@@ -129,6 +132,7 @@ Registra cuando un usuario inicia el proceso de checkout desde su carrito.
 ```
 
 **Campos Específicos:**
+
 | Campo         | Tipo    | Requerido | Descripción                               |
 | ------------- | ------- | --------- | ----------------------------------------- |
 | cart_id       | string  | Sí        | Identificador único del carrito           |
@@ -166,6 +170,7 @@ Captura cuando un usuario selecciona un método de pago durante el checkout.
 ```
 
 **Campos Específicos:**
+
 | Campo          | Tipo   | Requerido | Descripción                    |
 | -------------- | ------ | --------- | ------------------------------ |
 | payment_method | string | Sí        | Método de pago seleccionado    |
@@ -203,6 +208,7 @@ Registra cuando un usuario aplica un cupón de descuento a su carrito.
 ```
 
 **Campos Específicos:**
+
 | Campo           | Tipo   | Requerido | Descripción                        |
 | --------------- | ------ | --------- | ---------------------------------- |
 | coupon_code     | string | Sí        | Código del cupón aplicado          |
@@ -223,19 +229,25 @@ Registra cuando un usuario aplica un cupón de descuento a su carrito.
 ## Casos de Uso Comunes
 
 ### Análisis de Abandono de Carrito
+
 Utiliza los eventos `add_to_cart` y `begin_checkout` para:
+
 1. Identificar productos con alta tasa de abandono
 2. Analizar el momento del abandono en el proceso
 3. Implementar estrategias de recuperación
 
 ### Optimización de Métodos de Pago
+
 Utiliza el evento `select_payment` para:
+
 1. Identificar métodos de pago preferidos
 2. Analizar tasas de conversión por método
 3. Optimizar la oferta de medios de pago
 
 ### Efectividad de Promociones
+
 Utiliza el evento `apply_coupon` para:
+
 1. Medir el impacto de diferentes tipos de descuento
 2. Analizar el comportamiento de uso de cupones
 3. Optimizar estrategias promocionales

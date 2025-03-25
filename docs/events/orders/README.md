@@ -5,6 +5,7 @@ Esta sección documenta los eventos relacionados con el ciclo de vida de las ór
 ## Descripción General
 
 Los eventos de órdenes capturan el ciclo de vida completo de una orden desde su creación hasta su finalización. Estos eventos son fundamentales para:
+
 - Monitorear el estado y progreso de las órdenes
 - Analizar patrones de compra y comportamiento de usuarios
 - Identificar problemas en el proceso de compra
@@ -64,6 +65,7 @@ Registra la creación exitosa de una nueva orden después de completar el proces
 ```
 
 **Campos Específicos:**
+
 | Campo            | Tipo   | Requerido | Descripción                         |
 | ---------------- | ------ | --------- | ----------------------------------- |
 | order_id         | string | Sí        | Identificador único de la orden     |
@@ -108,6 +110,7 @@ Registra la confirmación exitosa del pago de una orden.
 ```
 
 **Campos Específicos:**
+
 | Campo          | Tipo   | Requerido | Descripción                      |
 | -------------- | ------ | --------- | -------------------------------- |
 | payment_id     | string | Sí        | Identificador del pago           |
@@ -146,6 +149,7 @@ Registra cualquier cambio en el estado de una orden durante su ciclo de vida.
 ```
 
 **Campos Específicos:**
+
 | Campo           | Tipo   | Requerido | Descripción                             |
 | --------------- | ------ | --------- | --------------------------------------- |
 | previous_status | string | Sí        | Estado anterior de la orden             |
@@ -189,6 +193,7 @@ Registra la cancelación de una orden, ya sea por el cliente o por el sistema.
 ```
 
 **Campos Específicos:**
+
 | Campo               | Tipo   | Requerido | Descripción                    |
 | ------------------- | ------ | --------- | ------------------------------ |
 | cancellation_reason | string | Sí        | Motivo de la cancelación       |
@@ -209,19 +214,25 @@ Registra la cancelación de una orden, ya sea por el cliente o por el sistema.
 ## Casos de Uso Comunes
 
 ### Análisis de Conversión
+
 Utiliza los eventos `order_created` y `payment_confirmed` para:
+
 1. Calcular tasas de conversión por canal
 2. Identificar patrones de compra exitosos
 3. Optimizar el proceso de checkout
 
 ### Monitoreo de Estados
+
 Utiliza el evento `order_status_changed` para:
+
 1. Identificar cuellos de botella en el proceso
 2. Analizar tiempos de procesamiento
 3. Mejorar la comunicación con el cliente
 
 ### Gestión de Cancelaciones
+
 Utiliza el evento `order_cancelled` para:
+
 1. Analizar causas comunes de cancelación
 2. Optimizar políticas de stock
 3. Mejorar procesos de reembolso

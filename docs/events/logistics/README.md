@@ -5,6 +5,7 @@ Esta sección documenta los eventos relacionados con el proceso de preparación 
 ## Descripción General
 
 Los eventos de logística y fulfillment capturan todo el proceso de preparación y entrega de pedidos, desde la asignación al centro de distribución hasta la entrega final al cliente. Estos eventos son fundamentales para:
+
 - Monitorear el proceso de preparación de pedidos
 - Realizar seguimiento en tiempo real de envíos
 - Optimizar rutas y tiempos de entrega
@@ -51,6 +52,7 @@ Registra cuando una orden es asignada a un centro de distribución específico p
 ```
 
 **Campos Específicos:**
+
 | Campo                      | Tipo   | Requerido | Descripción                               |
 | -------------------------- | ------ | --------- | ----------------------------------------- |
 | warehouse_id               | string | Sí        | Identificador del centro de distribución  |
@@ -100,6 +102,7 @@ Registra el inicio del proceso de recolección de productos en el centro de dist
 ```
 
 **Campos Específicos:**
+
 | Campo                     | Tipo   | Requerido | Descripción                           |
 | ------------------------- | ------ | --------- | ------------------------------------- |
 | picker_id                 | string | Sí        | Identificador del operador de picking |
@@ -150,6 +153,7 @@ Registra la finalización del proceso de recolección de productos.
 ```
 
 **Campos Específicos:**
+
 | Campo         | Tipo   | Requerido | Descripción                              |
 | ------------- | ------ | --------- | ---------------------------------------- |
 | duration      | number | Sí        | Duración del picking en minutos          |
@@ -192,6 +196,7 @@ Registra el inicio del proceso de empaquetado de la orden.
 ```
 
 **Campos Específicos:**
+
 | Campo                | Tipo   | Requerido | Descripción                           |
 | -------------------- | ------ | --------- | ------------------------------------- |
 | packer_id            | string | Sí        | Identificador del operador de packing |
@@ -241,6 +246,7 @@ Registra cuando una orden es entregada al transportista para su envío.
 ```
 
 **Campos Específicos:**
+
 | Campo                   | Tipo   | Requerido | Descripción                     |
 | ----------------------- | ------ | --------- | ------------------------------- |
 | carrier_id              | string | Sí        | Identificador del transportista |
@@ -260,19 +266,25 @@ Registra cuando una orden es entregada al transportista para su envío.
 ## Casos de Uso Comunes
 
 ### Optimización de Picking
+
 Utiliza los eventos `picking_started` y `picking_completed` para:
+
 1. Analizar tiempos de picking por operador
 2. Optimizar rutas de recolección
 3. Identificar productos problemáticos
 
 ### Gestión de Capacidad
+
 Utiliza el evento `warehouse_assigned` para:
+
 1. Balancear la carga entre centros de distribución
 2. Predecir necesidades de personal
 3. Optimizar la asignación de recursos
 
 ### Monitoreo de Envíos
+
 Utiliza el evento `order_dispatched` para:
+
 1. Realizar seguimiento de envíos
 2. Calcular tiempos de entrega
 3. Gestionar excepciones en la entrega

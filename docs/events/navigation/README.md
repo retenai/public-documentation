@@ -5,6 +5,7 @@ Esta sección documenta los eventos relacionados con la exploración y descubrim
 ## Descripción General
 
 Los eventos de navegación y descubrimiento capturan las interacciones de los usuarios mientras exploran la plataforma. Estos eventos son fundamentales para:
+
 - Entender el comportamiento de navegación de los usuarios
 - Analizar patrones de búsqueda y exploración
 - Identificar productos y categorías de mayor interés
@@ -44,6 +45,7 @@ Registra cuando un usuario visualiza una página específica de la plataforma. E
 ```
 
 **Campos Específicos:**
+
 | Campo      | Tipo   | Requerido | Descripción                                            |
 | ---------- | ------ | --------- | ------------------------------------------------------ |
 | page_url   | string | Sí        | URL completa de la página visualizada                  |
@@ -88,6 +90,7 @@ Captura cuando un usuario realiza una búsqueda de productos. Incluye tanto bús
 ```
 
 **Campos Específicos:**
+
 | Campo         | Tipo   | Requerido | Descripción                                  |
 | ------------- | ------ | --------- | -------------------------------------------- |
 | search_query  | string | No        | Término de búsqueda ingresado por el usuario |
@@ -127,6 +130,7 @@ Registra cuando un usuario visualiza el detalle de un producto específico.
 ```
 
 **Campos Específicos:**
+
 | Campo         | Tipo   | Requerido | Descripción                               |
 | ------------- | ------ | --------- | ----------------------------------------- |
 | product_id    | string | Sí        | Identificador único del producto          |
@@ -167,6 +171,7 @@ Captura las interacciones de los usuarios con banners promocionales o informativ
 ```
 
 **Campos Específicos:**
+
 | Campo            | Tipo   | Requerido | Descripción                       |
 | ---------------- | ------ | --------- | --------------------------------- |
 | banner_id        | string | Sí        | Identificador único del banner    |
@@ -188,19 +193,25 @@ Captura las interacciones de los usuarios con banners promocionales o informativ
 ## Casos de Uso Comunes
 
 ### Análisis de Embudo de Conversión
+
 Utiliza los eventos `page_view` y `product_view` para:
+
 1. Identificar páginas con mayor tasa de abandono
 2. Analizar la efectividad de la navegación
 3. Optimizar el flujo de conversión
 
 ### Optimización de Búsqueda
+
 Utiliza el evento `product_search` para:
+
 1. Mejorar el algoritmo de búsqueda
 2. Identificar términos de búsqueda sin resultados
 3. Optimizar los filtros más utilizados
 
 ### Efectividad de Campañas
+
 Utiliza el evento `banner_interaction` para:
+
 1. Medir el rendimiento de banners promocionales
 2. Optimizar el posicionamiento de banners
 3. Evaluar la efectividad de diferentes tipos de contenido
