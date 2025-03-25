@@ -15,12 +15,21 @@ Los eventos de cuenta y perfil capturan todas las interacciones relacionadas con
 
 ## Eventos Disponibles
 
+| Evento                | Descripción                                    | Trigger                                 |
+| --------------------- | ---------------------------------------------- | --------------------------------------- |
+| `user_registered`     | Registra la creación de una nueva cuenta       | Usuario completa el proceso de registro |
+| `user_login`          | Registra el inicio de sesión en la plataforma  | Usuario accede a su cuenta              |
+| `profile_updated`     | Registra actualizaciones al perfil del usuario | Usuario modifica sus datos personales   |
+| `address_updated`     | Registra cambios en las direcciones            | Usuario gestiona sus direcciones        |
+| `preferences_updated` | Registra cambios en preferencias               | Usuario actualiza sus configuraciones   |
+
 ### Registro de Usuario
 
-**Tipo de Evento:** `user_registered`
+!!! info "Trigger"
+    Este evento se dispara cuando un usuario completa exitosamente el proceso de registro en la plataforma.
 
-**Descripción:**  
-Registra la creación de una nueva cuenta de usuario en la plataforma.
+!!! example "Descripción"
+    Registra la creación de una nueva cuenta de usuario, capturando información esencial del perfil y preferencias iniciales.
 
 **Estructura del Evento:**
 ```json
@@ -58,21 +67,24 @@ Registra la creación de una nueva cuenta de usuario en la plataforma.
 
 **Campos Específicos:**
 
-| Campo                 | Tipo   | Requerido | Descripción                       |
-| --------------------- | ------ | --------- | --------------------------------- |
-| user_id               | string | Sí        | Identificador único del usuario   |
-| email                 | string | Sí        | Correo electrónico del usuario    |
-| registration_method   | string | Sí        | Método utilizado para el registro |
-| user_type             | string | Sí        | Tipo de usuario registrado        |
-| profile_data          | object | Sí        | Datos básicos del perfil          |
-| marketing_preferences | object | No        | Preferencias de comunicación      |
+| Campo                   | Tipo   | Requerido | Descripción                       |
+| ----------------------- | ------ | --------- | --------------------------------- |
+| `user_id`               | string | Sí        | Identificador único del usuario   |
+| `email`                 | string | Sí        | Correo electrónico del usuario    |
+| `registration_method`   | string | Sí        | Método utilizado para el registro |
+| `user_type`             | string | Sí        | Tipo de usuario registrado        |
+| `profile_data`          | object | Sí        | Datos básicos del perfil          |
+| `marketing_preferences` | object | No        | Preferencias de comunicación      |
+
+---
 
 ### Inicio de Sesión
 
-**Tipo de Evento:** `user_login`
+!!! info "Trigger"
+    Este evento se dispara cuando un usuario accede exitosamente a su cuenta en la plataforma.
 
-**Descripción:**  
-Registra cuando un usuario inicia sesión en la plataforma.
+!!! example "Descripción"
+    Registra cuando un usuario inicia sesión, incluyendo información sobre el método de acceso, dispositivo y ubicación.
 
 **Estructura del Evento:**
 ```json
@@ -107,19 +119,22 @@ Registra cuando un usuario inicia sesión en la plataforma.
 
 **Campos Específicos:**
 
-| Campo        | Tipo   | Requerido | Descripción                    |
-| ------------ | ------ | --------- | ------------------------------ |
-| login_method | string | Sí        | Método utilizado para el login |
-| session_id   | string | Sí        | ID de la sesión creada         |
-| device_info  | object | Sí        | Información del dispositivo    |
-| location     | object | No        | Información de ubicación       |
+| Campo          | Tipo   | Requerido | Descripción                    |
+| -------------- | ------ | --------- | ------------------------------ |
+| `login_method` | string | Sí        | Método utilizado para el login |
+| `session_id`   | string | Sí        | ID de la sesión creada         |
+| `device_info`  | object | Sí        | Información del dispositivo    |
+| `location`     | object | No        | Información de ubicación       |
+
+---
 
 ### Actualización de Perfil
 
-**Tipo de Evento:** `profile_updated`
+!!! info "Trigger"
+    Este evento se dispara cuando un usuario modifica cualquier información de su perfil.
 
-**Descripción:**  
-Registra cuando un usuario actualiza su información de perfil.
+!!! example "Descripción"
+    Registra cuando un usuario actualiza su información personal, manteniendo un historial de cambios y estados de verificación.
 
 **Estructura del Evento:**
 ```json
@@ -148,20 +163,23 @@ Registra cuando un usuario actualiza su información de perfil.
 
 **Campos Específicos:**
 
-| Campo               | Tipo   | Requerido | Descripción                      |
-| ------------------- | ------ | --------- | -------------------------------- |
-| updated_fields      | array  | Sí        | Lista de campos actualizados     |
-| previous_values     | object | No        | Valores anteriores de los campos |
-| new_values          | object | Sí        | Nuevos valores de los campos     |
-| update_type         | string | Sí        | Origen de la actualización       |
-| verification_status | object | No        | Estado de verificación           |
+| Campo                 | Tipo   | Requerido | Descripción                      |
+| --------------------- | ------ | --------- | -------------------------------- |
+| `updated_fields`      | array  | Sí        | Lista de campos actualizados     |
+| `previous_values`     | object | No        | Valores anteriores de los campos |
+| `new_values`          | object | Sí        | Nuevos valores de los campos     |
+| `update_type`         | string | Sí        | Origen de la actualización       |
+| `verification_status` | object | No        | Estado de verificación           |
+
+---
 
 ### Gestión de Direcciones
 
-**Tipo de Evento:** `address_updated`
+!!! info "Trigger"
+    Este evento se dispara cuando un usuario agrega, modifica o elimina una dirección en su perfil.
 
-**Descripción:**  
-Registra cuando un usuario agrega, modifica o elimina una dirección.
+!!! example "Descripción"
+    Registra cuando un usuario gestiona sus direcciones, incluyendo validación y datos de geolocalización.
 
 **Estructura del Evento:**
 ```json
@@ -198,20 +216,23 @@ Registra cuando un usuario agrega, modifica o elimina una dirección.
 
 **Campos Específicos:**
 
-| Campo             | Tipo   | Requerido | Descripción                   |
-| ----------------- | ------ | --------- | ----------------------------- |
-| address_id        | string | Sí        | Identificador de la dirección |
-| action            | string | Sí        | Tipo de acción realizada      |
-| address_type      | string | Sí        | Tipo de dirección             |
-| address_data      | object | Sí        | Datos de la dirección         |
-| validation_status | string | No        | Estado de validación          |
+| Campo               | Tipo   | Requerido | Descripción                   |
+| ------------------- | ------ | --------- | ----------------------------- |
+| `address_id`        | string | Sí        | Identificador de la dirección |
+| `action`            | string | Sí        | Tipo de acción realizada      |
+| `address_type`      | string | Sí        | Tipo de dirección             |
+| `address_data`      | object | Sí        | Datos de la dirección         |
+| `validation_status` | string | No        | Estado de validación          |
+
+---
 
 ### Actualización de Preferencias
 
-**Tipo de Evento:** `preferences_updated`
+!!! info "Trigger"
+    Este evento se dispara cuando un usuario modifica sus preferencias de comunicación o configuración de la cuenta.
 
-**Descripción:**  
-Registra cuando un usuario actualiza sus preferencias de comunicación o configuración.
+!!! example "Descripción"
+    Registra cuando un usuario actualiza sus preferencias, incluyendo configuraciones de privacidad y comunicación.
 
 **Estructura del Evento:**
 ```json
@@ -245,22 +266,22 @@ Registra cuando un usuario actualiza sus preferencias de comunicación o configu
 
 **Campos Específicos:**
 
-| Campo                     | Tipo   | Requerido | Descripción                     |
-| ------------------------- | ------ | --------- | ------------------------------- |
-| preference_type           | string | Sí        | Tipo de preferencia actualizada |
-| previous_settings         | object | No        | Configuración anterior          |
-| new_settings              | object | Sí        | Nueva configuración             |
-| communication_preferences | object | No        | Preferencias de comunicación    |
-| privacy_settings          | object | No        | Configuración de privacidad     |
+| Campo                       | Tipo   | Requerido | Descripción                     |
+| --------------------------- | ------ | --------- | ------------------------------- |
+| `preference_type`           | string | Sí        | Tipo de preferencia actualizada |
+| `previous_settings`         | object | No        | Configuración anterior          |
+| `new_settings`              | object | Sí        | Nueva configuración             |
+| `communication_preferences` | object | No        | Preferencias de comunicación    |
+| `privacy_settings`          | object | No        | Configuración de privacidad     |
 
 ## Consideraciones Técnicas
 
-- Los eventos deben cumplir con regulaciones de privacidad (GDPR, CCPA)
-- La información sensible debe estar encriptada
-- Se debe mantener un historial de cambios para auditoría
-- Los eventos de autenticación deben incluir información de seguridad
-- Se debe implementar rate limiting para eventos de autenticación
-- Las actualizaciones de perfil deben validar datos antes del evento
+- Los eventos deben manejar datos sensibles según normativas de privacidad
+- Se debe implementar validación de datos en tiempo real
+- Los cambios en información crítica deben requerir verificación
+- Se recomienda mantener un historial de cambios para auditoría
+- Los eventos deben ser consistentes entre diferentes plataformas
+- Se debe implementar rate limiting para prevenir abusos
 
 ## Casos de Uso Comunes
 
@@ -268,25 +289,25 @@ Registra cuando un usuario actualiza sus preferencias de comunicación o configu
 
 Utiliza los eventos `user_registered` y `user_login` para:
 
-1. Analizar tasas de conversión de registro
-2. Identificar patrones de abandono
-3. Optimizar el proceso de onboarding
+1. Medir tasas de conversión en el registro
+2. Analizar patrones de retención de usuarios
+3. Identificar fuentes de tráfico efectivas
 
-### Gestión de Preferencias
+### Optimización de Perfiles
+
+Utiliza el evento `profile_updated` para:
+
+1. Identificar campos comúnmente actualizados
+2. Mejorar el proceso de onboarding
+3. Personalizar la experiencia del usuario
+
+### Gestión de Comunicaciones
 
 Utiliza el evento `preferences_updated` para:
 
-1. Personalizar la experiencia del usuario
-2. Mejorar las estrategias de comunicación
-3. Cumplir con preferencias de privacidad
-
-### Validación de Direcciones
-
-Utiliza el evento `address_updated` para:
-
-1. Mejorar la precisión de entregas
-2. Optimizar costos de envío
-3. Prevenir fraudes
+1. Optimizar estrategias de comunicación
+2. Respetar preferencias de privacidad
+3. Mejorar la relevancia del contenido
 
 ## Preguntas Frecuentes
 
