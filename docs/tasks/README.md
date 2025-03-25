@@ -6,17 +6,17 @@ Las tareas en Reten representan los momentos de contacto planificados con los cl
 
 {% call section_cards() %}
 {{ feature_card(
-    'material-clipboard-list',
-    'Tareas',
-    'Instrucciones y momentos oportunos para contactar clientes',
-    'README.md'
+    'material-map-marker',
+    'Visitas',
+    'Interacciones a realizar por vendedores de forma presencial',
+    'visit/README.md'
 ) }}
 
 {{ feature_card(
-    'material-chart-timeline',
-    'Seguimiento',
-    'Estado y progreso de tareas',
-    'tracking/README.md'
+    'material-phone',
+    'Llamadas',
+    'Contactos telefónicos a realizar por el call center',
+    'call/README.md'
 ) }}
 {% endcall %}
 
@@ -32,63 +32,31 @@ Todas las tareas comparten:
 - Seguimiento de estado
 - Integración con canales de contacto
 
-## Tipos de Tareas
+## Propósito de Contacto
 
-### [Visitas](./visit/README.md)
+!!! info "Adquisición"
+    - Prospección de nuevos clientes
+    - Presentación de productos/servicios
+    - Activación inicial
+    - Registro de datos
 
-Interacciones presenciales realizadas por vendedores.
+!!! success "Retención"
+    - Seguimiento regular
+    - Atención a necesidades
+    - Venta cruzada/incrementada
+    - Resolución de problemas
 
-- Planificación territorial
-- Objetivos comerciales
-- Captura de información en campo
-- Integración con rutas y asignaciones
+!!! warning "Reactivación"
+    - Recuperación de clientes inactivos
+    - Ofertas especiales
+    - Actualización de información
+    - Identificación de causas de abandono
 
-
-### [Llamadas](./call/README.md)
-
-Contactos telefónicos realizados por el call center.
-
-- Scripts de conversación
-- Registro de resultados
-- Seguimiento de intentos
-- Programación de callbacks
-
-
-### [Mensajería](./messaging/README.md)
-
-Comunicaciones a través de canales digitales.
-
-- WhatsApp Business
-- Correo electrónico
-- SMS
-- Notificaciones push
-
-
-## Objetivos de Contacto
-
-### Adquisición
-- Prospección de nuevos clientes
-- Presentación de productos/servicios
-- Activación inicial
-- Registro de datos
-
-### Retención
-- Seguimiento regular
-- Atención a necesidades
-- Venta cruzada/incrementada
-- Resolución de problemas
-
-### Reactivación
-- Recuperación de clientes inactivos
-- Ofertas especiales
-- Actualización de información
-- Identificación de causas de abandono
-
-### Digitalización
-- Adopción de herramientas digitales
-- Capacitación en plataforma
-- Activación de funcionalidades
-- Mejora de engagement digital
+!!! tip "Digitalización"
+    - Adopción de herramientas digitales
+    - Capacitación en plataforma
+    - Activación de funcionalidades
+    - Mejora de engagement digital
 
 ## Estados y Ciclo de Vida
 
@@ -100,18 +68,6 @@ Comunicaciones a través de canales digitales.
 - `failed`: No completada
 - `cancelled`: Cancelada
 - `rescheduled`: Reprogramada
-
-### Transiciones
-
-```mermaid
-graph LR
-    A[Pending] --> B[In Progress]
-    B --> C[Completed]
-    B --> D[Failed]
-    B --> E[Cancelled]
-    B --> F[Rescheduled]
-    F --> A
-```
 
 ## Estructura de Datos Base
 

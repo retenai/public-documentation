@@ -1,4 +1,4 @@
-# Llamadas
+# :material-phone: Llamadas
 
 Las llamadas representan los contactos telefónicos realizados por el equipo de call center con los clientes. Son esenciales para brindar soporte, realizar ventas telefónicas y mantener una comunicación efectiva a distancia.
 

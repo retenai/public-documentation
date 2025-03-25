@@ -1,4 +1,4 @@
-# Visitas
+# :material-map-marker: Visitas
 
 Las visitas representan los momentos de contacto presencial entre vendedores y clientes. Son fundamentales para mantener relaciones comerciales sólidas, realizar ventas directas, y recopilar información valiosa del terreno.
 
