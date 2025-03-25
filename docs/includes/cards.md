@@ -1,12 +1,11 @@
 {% macro feature_card(icon, title, description, link='', link_text='Ver más') %}
--   :{{ icon }}:{ .lg .middle } **{% if link %}[{{ title }}]({{ link }}){% else %}{{ title }}{% endif %}**
+-   :{{ icon }}:{ .lg .middle } **{{ title }}**
 
     ---
 
     {{ description }}
-    {% if link %}
-    [:octicons-arrow-right-24: {{ link_text }}]({{ link }})
-    {% endif %}
+
+    {% if link %}<a href="{{ link }}" class="card-link"></a>{% endif %}
 {% endmacro %}
 
 {% macro section_overview(sections) %}
