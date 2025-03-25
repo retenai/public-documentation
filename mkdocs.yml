@@ -98,7 +98,8 @@ nav:
     - Suscripciones: settings/subscription/README.md
   - Tareas:
     - Resumen: tasks/README.md
-    - Seguimiento: tasks/tracking/README.md
+    - Visitas: tasks/visit/README.md
+    - Llamadas: tasks/call/README.md
   - Eventos:
     - Resumen: events/README.md
     - Órdenes: events/orders/README.md
