@@ -9,14 +9,14 @@ Las tareas en Reten representan los momentos de contacto planificados con los cl
     'material-clipboard-list',
     'Tareas',
     'Instrucciones y momentos oportunos para contactar clientes',
-    '/public-documentation/tasks/'
+    'README.md'
 ) }}
 
 {{ feature_card(
     'material-chart-timeline',
     'Seguimiento',
     'Estado y progreso de tareas',
-    '/public-documentation/tasks/tracking/'
+    'tracking/README.md'
 ) }}
 {% endcall %}
 

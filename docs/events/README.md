@@ -9,42 +9,42 @@ Los eventos en Reten representan acciones y cambios significativos que ocurren e
     'material-shopping',
     'Órdenes',
     'Eventos del ciclo de vida de órdenes',
-    '/public-documentation/events/order/'
+    'order/README.md'
 ) }}
 
 {{ feature_card(
     'material-truck-delivery',
     'Logística',
     'Eventos de preparación y entrega',
-    '/public-documentation/events/logistics/'
+    'logistics/README.md'
 ) }}
 
 {{ feature_card(
     'material-account',
     'Cuenta',
     'Eventos de gestión de usuarios',
-    '/public-documentation/events/account/'
+    'account/README.md'
 ) }}
 
 {{ feature_card(
     'material-heart',
     'Engagement',
     'Eventos de interacción y fidelización',
-    '/public-documentation/events/engagement/'
+    'engagement/README.md'
 ) }}
 
 {{ feature_card(
     'material-cart',
     'Carrito',
     'Eventos relacionados con el carrito de compras',
-    '/public-documentation/events/cart/'
+    'cart/README.md'
 ) }}
 
 {{ feature_card(
     'material-navigation',
     'Navegación',
     'Eventos de interacción con la plataforma',
-    '/public-documentation/events/navigation/'
+    'navigation/README.md'
 ) }}
 {% endcall %}
 

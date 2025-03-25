@@ -9,21 +9,21 @@ Personalización del sistema, asignaciones, rutas y notificaciones.
     'material-account-group',
     'Asignaciones',
     'Relaciones entre vendedores y clientes',
-    '/public-documentation/settings/assignments/'
+    'assignments/README.md'
 ) }}
 
 {{ feature_card(
     'material-map-marker-path',
     'Rutas',
     'Programación de visitas a clientes',
-    '/public-documentation/settings/routes/'
+    'routes/README.md'
 ) }}
 
 {{ feature_card(
     'material-bell',
     'Suscripciones',
     'Gestión de comunicaciones y notificaciones',
-    '/public-documentation/settings/subscription/'
+    'subscription/README.md'
 ) }}
 {% endcall %}
 

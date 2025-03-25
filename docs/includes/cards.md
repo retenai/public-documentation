@@ -1,11 +1,9 @@
-{% macro feature_card(icon, title, description, link='', link_text='Ver más') %}
--   :{{ icon }}:{ .lg .middle } **{{ title }}**
+{% macro feature_card(icon, title, description, link='') %}
+-   :{{ icon }}:{ .lg .middle } **[{{ title }}]({{ link }})** {% if link %}[]({{ link }}){.card-link}{% endif %}
 
     ---
 
     {{ description }}
-
-    {% if link %}<a href="{{ link }}" class="card-link"></a>{% endif %}
 {% endmacro %}
 
 {% macro section_overview(sections) %}
