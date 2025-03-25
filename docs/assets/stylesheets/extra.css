@@ -246,6 +246,8 @@
     display: block;
     font-size: 0.7rem;
     font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
     margin-bottom: 0.1rem;
 }
 
@@ -322,4 +324,86 @@
 [data-md-color-scheme="slate"] .overview-item:hover {
     background-color: var(--md-accent-fg-color--transparent);
     border-left-color: var(--md-accent-fg-color);
+}
+
+/* Grid Cards */
+.grid.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.grid.cards>ul {
+    display: contents;
+}
+
+.grid.cards>ul>li,
+.grid.cards>p {
+    border-radius: 0.2rem;
+    padding: 1rem;
+    margin: 0;
+    transition: all 0.2s ease;
+    background: var(--md-code-bg-color);
+    border: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.grid.cards>ul>li:hover,
+.grid.cards>p:hover {
+    border-color: var(--md-accent-fg-color);
+}
+
+.grid.cards .lg {
+    font-size: 0.9rem;
+    margin-right: 0.5rem;
+    color: var(--md-primary-fg-color);
+    opacity: 0.9;
+}
+
+.grid.cards strong {
+    color: var(--md-primary-fg-color);
+    font-size: 0.8rem;
+}
+
+.grid.cards p {
+    font-size: 0.7rem;
+    margin: 0.5rem 0;
+    color: var(--md-typeset-color);
+    opacity: 0.8;
+}
+
+.grid.cards hr {
+    margin: 0.5rem 0;
+    border: none;
+    border-top: 1px solid var(--md-default-fg-color--lightest);
+}
+
+[data-md-color-scheme="slate"] .grid.cards>ul>li,
+[data-md-color-scheme="slate"] .grid.cards>p {
+    background: var(--md-code-bg-color);
+    border-color: var(--md-default-fg-color--lightest);
+}
+
+[data-md-color-scheme="slate"] .grid.cards>ul>li:hover,
+[data-md-color-scheme="slate"] .grid.cards>p:hover {
+    border-color: var(--md-accent-fg-color);
+}
+
+[data-md-color-scheme="slate"] .grid.cards .lg {
+    color: var(--md-typeset-color);
+    opacity: 1;
+}
+
+[data-md-color-scheme="slate"] .grid.cards strong {
+    color: var(--md-typeset-color);
+}
+
+[data-md-color-scheme="slate"] .grid.cards a {
+    color: var(--md-typeset-color);
+    opacity: 1;
+}
+
+[data-md-color-scheme="slate"] .grid.cards a:hover {
+    color: var(--md-primary-fg-color--light);
+    text-decoration: none;
 }
