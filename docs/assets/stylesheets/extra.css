@@ -575,3 +575,29 @@
 [data-md-color-scheme="slate"] table th {
     padding: 0.9em 1.25em !important;
 }
+
+/* Grid Cards in Master Data */
+.md-typeset .grid {
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.md-typeset .grid.cards> :is(ul, ol) {
+    display: contents;
+}
+
+.md-typeset .grid.cards> :is(ul, ol)>li,
+.md-typeset .grid>.card {
+    border-radius: 8px;
+    box-shadow: var(--md-shadow-z1);
+    margin: 0;
+    padding: 1rem;
+    transition: all 0.2s ease;
+}
+
+.md-typeset .grid.cards> :is(ul, ol)>li:hover,
+.md-typeset .grid>.card:hover {
+    box-shadow: var(--md-shadow-z2);
+    transform: translateY(-2px);
+}
