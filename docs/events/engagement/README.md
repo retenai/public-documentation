@@ -15,12 +15,26 @@ Los eventos de engagement capturan las interacciones de los usuarios que demuest
 
 ## Eventos Disponibles
 
+La siguiente tabla muestra un resumen de todos los eventos disponibles en esta sección:
+
+| Evento                                              | Tipo                  | Descripción                         | Trigger                  |
+| --------------------------------------------------- | --------------------- | ----------------------------------- | ------------------------ |
+| [Lista de Deseos](#lista-de-deseos)                 | `wishlist_updated`    | Actualización de lista de deseos    | Agregar/remover producto |
+| [Reseña de Producto](#resena-de-producto)           | `product_review`      | Gestión de reseñas                  | Crear/modificar reseña   |
+| [Compartir Producto](#compartir-producto)           | `product_shared`      | Compartir en redes sociales         | Compartir producto       |
+| [Interacción con Soporte](#interaccion-con-soporte) | `support_interaction` | Interacción con servicio al cliente | Contacto con soporte     |
+| [Respuesta a Encuesta](#respuesta-a-encuesta)       | `survey_response`     | Respuesta a encuestas               | Completar encuesta       |
+
+---
+
 ### Lista de Deseos
 
-**Tipo de Evento:** `wishlist_updated`
+!!! info "`wishlist_updated`"
+    **Trigger**  
+    Se dispara cuando un usuario agrega o remueve productos de su lista de deseos
 
-**Descripción:**  
-Registra cuando un usuario agrega o remueve productos de su lista de deseos.
+    **Descripción**  
+    Registra cuando un usuario agrega o remueve productos de su lista de deseos.
 
 **Estructura del Evento:**
 ```json
@@ -53,20 +67,42 @@ Registra cuando un usuario agrega o remueve productos de su lista de deseos.
 
 **Campos Específicos:**
 
-| Campo                    | Tipo   | Requerido | Descripción                      |
-| ------------------------ | ------ | --------- | -------------------------------- |
-| action                   | string | Sí        | Tipo de acción realizada         |
-| product_id               | string | Sí        | ID del producto afectado         |
-| wishlist_id              | string | Sí        | ID de la lista de deseos         |
-| wishlist_name            | string | No        | Nombre personalizado de la lista |
-| notification_preferences | object | No        | Preferencias de notificación     |
+| Campo                      | Tipo   | Requerido | Descripción                      |
+| -------------------------- | ------ | --------- | -------------------------------- |
+| `action`                   | string | Sí        | Tipo de acción realizada         |
+| `product_id`               | string | Sí        | ID del producto afectado         |
+| `wishlist_id`              | string | Sí        | ID de la lista de deseos         |
+| `wishlist_name`            | string | No        | Nombre personalizado de la lista |
+| `notification_preferences` | object | No        | Preferencias de notificación     |
+
+**Ejemplo de Uso:**
+```json
+{
+  "event_type": "wishlist_updated",
+  "data": {
+    "user_id": "USR_123",
+    "action": "add",
+    "product_id": "PROD_456",
+    "product_name": "Zapatos Deportivos Nike",
+    "wishlist_id": "WL_789",
+    "notification_preferences": {
+      "price_drop": true,
+      "back_in_stock": true
+    }
+  }
+}
+```
+
+---
 
 ### Reseña de Producto
 
-**Tipo de Evento:** `product_review`
+!!! note "`product_review`"
+    **Trigger**  
+    Se dispara cuando un usuario crea, modifica o elimina una reseña
 
-**Descripción:**  
-Registra cuando un usuario crea, modifica o elimina una reseña de producto.
+    **Descripción**  
+    Registra cuando un usuario crea, modifica o elimina una reseña de producto.
 
 **Estructura del Evento:**
 ```json
@@ -105,20 +141,40 @@ Registra cuando un usuario crea, modifica o elimina una reseña de producto.
 
 **Campos Específicos:**
 
-| Campo             | Tipo    | Requerido | Descripción                      |
-| ----------------- | ------- | --------- | -------------------------------- |
-| review_id         | string  | Sí        | Identificador único de la reseña |
-| rating            | number  | Sí        | Calificación del producto (1-5)  |
-| review_text       | string  | No        | Texto de la reseña               |
-| purchase_verified | boolean | Sí        | Si la compra está verificada     |
-| media             | array   | No        | Archivos multimedia adjuntos     |
+| Campo               | Tipo    | Requerido | Descripción                      |
+| ------------------- | ------- | --------- | -------------------------------- |
+| `review_id`         | string  | Sí        | Identificador único de la reseña |
+| `rating`            | number  | Sí        | Calificación del producto (1-5)  |
+| `review_text`       | string  | No        | Texto de la reseña               |
+| `purchase_verified` | boolean | Sí        | Si la compra está verificada     |
+| `media`             | array   | No        | Archivos multimedia adjuntos     |
+
+**Ejemplo de Uso:**
+```json
+{
+  "event_type": "product_review",
+  "data": {
+    "user_id": "USR_123",
+    "product_id": "PROD_456",
+    "review_id": "REV_789",
+    "action": "create",
+    "rating": 5,
+    "review_text": "Excelente producto, muy satisfecho con la compra",
+    "purchase_verified": true
+  }
+}
+```
+
+---
 
 ### Compartir Producto
 
-**Tipo de Evento:** `product_shared`
+!!! info "`product_shared`"
+    **Trigger**  
+    Se dispara cuando un usuario comparte un producto en redes sociales o por otros medios
 
-**Descripción:**  
-Registra cuando un usuario comparte un producto en redes sociales o por otros medios.
+    **Descripción**  
+    Registra cuando un usuario comparte un producto en redes sociales o por otros medios.
 
 **Estructura del Evento:**
 ```json
@@ -145,19 +201,37 @@ Registra cuando un usuario comparte un producto en redes sociales o por otros me
 
 **Campos Específicos:**
 
-| Campo             | Tipo   | Requerido | Descripción                      |
-| ----------------- | ------ | --------- | -------------------------------- |
-| share_method      | string | Sí        | Método utilizado para compartir  |
-| share_destination | string | No        | Destino específico del compartir |
-| custom_message    | string | No        | Mensaje personalizado agregado   |
-| share_url         | string | Sí        | URL compartida                   |
+| Campo               | Tipo   | Requerido | Descripción                      |
+| ------------------- | ------ | --------- | -------------------------------- |
+| `share_method`      | string | Sí        | Método utilizado para compartir  |
+| `share_destination` | string | No        | Destino específico del compartir |
+| `custom_message`    | string | No        | Mensaje personalizado agregado   |
+| `share_url`         | string | Sí        | URL compartida                   |
+
+**Ejemplo de Uso:**
+```json
+{
+  "event_type": "product_shared",
+  "data": {
+    "user_id": "USR_123",
+    "product_id": "PROD_456",
+    "share_method": "whatsapp",
+    "share_url": "https://example.com/products/PROD_456",
+    "share_context": "product_page"
+  }
+}
+```
+
+---
 
 ### Interacción con Soporte
 
-**Tipo de Evento:** `support_interaction`
+!!! note "`support_interaction`"
+    **Trigger**  
+    Se dispara cuando un usuario interactúa con el sistema de soporte al cliente
 
-**Descripción:**  
-Registra las interacciones de los usuarios con el sistema de soporte al cliente.
+    **Descripción**  
+    Registra las interacciones de los usuarios con el sistema de soporte al cliente.
 
 **Estructura del Evento:**
 ```json
@@ -186,20 +260,39 @@ Registra las interacciones de los usuarios con el sistema de soporte al cliente.
 
 **Campos Específicos:**
 
-| Campo               | Tipo   | Requerido | Descripción                     |
-| ------------------- | ------ | --------- | ------------------------------- |
-| interaction_type    | string | Sí        | Tipo de interacción con soporte |
-| topic               | string | Sí        | Tema principal de la consulta   |
-| category            | string | Sí        | Categoría de la interacción     |
-| priority            | string | Sí        | Nivel de prioridad asignado     |
-| satisfaction_rating | number | No        | Calificación de satisfacción    |
+| Campo                 | Tipo   | Requerido | Descripción                     |
+| --------------------- | ------ | --------- | ------------------------------- |
+| `interaction_type`    | string | Sí        | Tipo de interacción con soporte |
+| `topic`               | string | Sí        | Tema principal de la consulta   |
+| `category`            | string | Sí        | Categoría de la interacción     |
+| `priority`            | string | Sí        | Nivel de prioridad asignado     |
+| `satisfaction_rating` | number | No        | Calificación de satisfacción    |
+
+**Ejemplo de Uso:**
+```json
+{
+  "event_type": "support_interaction",
+  "data": {
+    "user_id": "USR_123",
+    "interaction_type": "chat",
+    "topic": "Estado de orden",
+    "category": "order",
+    "priority": "medium",
+    "status": "opened"
+  }
+}
+```
+
+---
 
 ### Respuesta a Encuesta
 
-**Tipo de Evento:** `survey_response`
+!!! info "`survey_response`"
+    **Trigger**  
+    Se dispara cuando un usuario completa una encuesta o formulario de feedback
 
-**Descripción:**  
-Registra cuando un usuario completa una encuesta o formulario de feedback.
+    **Descripción**  
+    Registra cuando un usuario completa una encuesta o formulario de feedback.
 
 **Estructura del Evento:**
 ```json
@@ -233,12 +326,35 @@ Registra cuando un usuario completa una encuesta o formulario de feedback.
 
 **Campos Específicos:**
 
-| Campo           | Tipo   | Requerido | Descripción                       |
-| --------------- | ------ | --------- | --------------------------------- |
-| survey_id       | string | Sí        | Identificador de la encuesta      |
-| survey_type     | string | Sí        | Tipo de encuesta                  |
-| responses       | array  | Sí        | Respuestas proporcionadas         |
-| completion_time | number | No        | Tiempo de completitud en segundos |
+| Campo             | Tipo   | Requerido | Descripción                       |
+| ----------------- | ------ | --------- | --------------------------------- |
+| `survey_id`       | string | Sí        | Identificador de la encuesta      |
+| `survey_type`     | string | Sí        | Tipo de encuesta                  |
+| `responses`       | array  | Sí        | Respuestas proporcionadas         |
+| `completion_time` | number | No        | Tiempo de completitud en segundos |
+
+**Ejemplo de Uso:**
+```json
+{
+  "event_type": "survey_response",
+  "data": {
+    "user_id": "USR_123",
+    "survey_id": "SUR_456",
+    "survey_type": "nps",
+    "responses": [
+      {
+        "question_id": "Q1",
+        "question_type": "rating",
+        "response": 9,
+        "additional_comment": "Excelente servicio"
+      }
+    ],
+    "completion_time": 120
+  }
+}
+```
+
+---
 
 ## Consideraciones Técnicas
 
@@ -253,38 +369,38 @@ Registra cuando un usuario completa una encuesta o formulario de feedback.
 
 ### Análisis de Satisfacción
 
-Utiliza los eventos `product_review` y `survey_response` para:
+Utiliza los eventos `support_interaction` y `survey_response` para:
 
-1. Medir la satisfacción general del cliente
+1. Medir el nivel de satisfacción general
 2. Identificar áreas de mejora
-3. Ajustar estrategias de producto
+3. Optimizar procesos de atención
 
-### Optimización de Soporte
+### Gestión de Contenido
 
-Utiliza el evento `support_interaction` para:
+Utiliza el evento `product_review` para:
 
-1. Mejorar tiempos de respuesta
-2. Identificar problemas comunes
-3. Optimizar la asignación de recursos
+1. Moderar contenido generado por usuarios
+2. Destacar reseñas relevantes
+3. Identificar productos con problemas
 
-### Análisis de Viralidad
+### Optimización de Engagement
 
-Utiliza el evento `product_shared` para:
+Utiliza los eventos `wishlist_updated` y `product_shared` para:
 
-1. Identificar productos con alto potencial viral
-2. Optimizar estrategias de marketing social
-3. Mejorar funcionalidades de compartir
+1. Analizar tendencias de productos
+2. Mejorar recomendaciones
+3. Optimizar campañas sociales
 
 ## Preguntas Frecuentes
 
 ### ¿Cómo manejar contenido inapropiado en reseñas?
-Implementar sistemas de moderación automática y manual.
+Implementar un sistema de moderación automática y manual antes de la publicación.
 
-### ¿Cómo evitar el abuso en sistemas de calificación?
-Establecer límites de frecuencia y verificación de compras.
+### ¿Qué hacer si un usuario solicita eliminar su feedback?
+Proporcionar un proceso claro para la eliminación de contenido manteniendo la integridad de los datos agregados.
 
-### ¿Cuándo y cómo solicitar feedback?
-Identificar momentos óptimos post-interacción y respetar preferencias.
+### ¿Cómo optimizar la tasa de respuesta en encuestas?
+Implementar incentivos y elegir momentos apropiados para solicitar feedback.
 
 ## Referencias
 
