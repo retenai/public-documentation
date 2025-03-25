@@ -92,20 +92,16 @@ Para implementar Reten de manera efectiva, sigue estos pasos:
 
 ## 🤝 Contribuir
 
-<div class="reten-container reten-container--bordered" markdown>
 Si encuentras algún error o tienes sugerencias para mejorar la documentación, por favor:
 
 1. Crea un issue en el repositorio
 2. Propón cambios mediante pull requests
 3. Contacta al equipo de desarrollo
-</div>
 
 ## 💬 Soporte
 
-<div class="reten-container" markdown>
 Para obtener ayuda adicional:
 
 - Revisa la documentación detallada de cada sección
 - Contacta al equipo de soporte técnico
 - Consulta los ejemplos de implementación
-</div>
