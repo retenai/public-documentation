@@ -345,55 +345,61 @@ DELETE /api/v1/routes/{route_id}/visits/{visit_id}
 ## Preguntas Frecuentes
 
 **¿Cómo manejar cambios en los patrones de visita?**
+
 - Los cambios en patrones recurrentes aplican desde la siguiente ocurrencia
 - Las modificaciones a fechas específicas requieren notificación al vendedor
 - Se debe mantener un historial de cambios en los patrones
 
 **¿Cómo gestionar conflictos de horarios?**
+
 - El sistema valida superposición de visitas
 - Se notifica al vendedor de conflictos potenciales
 - Se pueden sugerir horarios alternativos
 
 **¿Cómo se integra con el sistema de tareas?**
+
 - Las tareas se pueden asignar a visitas específicas
 - Se sincronizan automáticamente con el calendario del vendedor
 - Se pueden definir tareas recurrentes por patrón de visita
 
 **¿Cómo configurar diferentes frecuencias de visita?**
+
 - Visitas semanales: usar `interval: 1` (valor por defecto)
 - Visitas bi-semanales: usar `interval: 2`
 - Visitas mensuales: usar `frequency: "monthly"` con los días específicos
 - Para patrones más complejos, usar `frequency: "custom"` con el intervalo necesario
 
 **¿Cómo se calculan las semanas en visitas bi-semanales?**
+
 - Las semanas se calculan desde el inicio del año (semana ISO)
 - Para `interval: 2`, si una ruta comienza en una semana par:
-  - Las visitas ocurrirán en las semanas pares (2, 4, 6, etc.)
+    - Las visitas ocurrirán en las semanas pares (2, 4, 6, etc.)
 - Si comienza en una semana impar:
-  - Las visitas ocurrirán en las semanas impares (1, 3, 5, etc.)
+    - Las visitas ocurrirán en las semanas impares (1, 3, 5, etc.)
 - Ejemplo:
-  ```json
-  {
-    "pattern_type": "recurring",
-    "recurring_pattern": {
-      "frequency": "weekly",
-      "days": ["WEDNESDAY"],
-      "interval": 2,
-      "start_date": "2024-01-10"  // Semana 2 del año
+    ```json
+    {
+        "pattern_type": "recurring",
+        "recurring_pattern": {
+        "frequency": "weekly",
+        "days": ["WEDNESDAY"],
+        "interval": 2,
+        "start_date": "2024-01-10"  // Semana 2 del año
+        }
     }
-  }
-  ```
-  En este caso, las visitas serán en las semanas 2, 4, 6, etc. del año
+    ```
+    En este caso, las visitas serán en las semanas 2, 4, 6, etc. del año
 
 **¿Cuándo usar patrones de frecuencia personalizados?**
+
 - Cuando se necesita una combinación específica de días y semanas del mes
 - Para visitas que siguen un patrón irregular pero predecible
 - Ejemplos de uso:
-  - Visitas en la primera y tercera semana del mes
-  - Diferentes días según la semana del mes
-  - Patrones que combinan reglas semanales y mensuales
+    - Visitas en la primera y tercera semana del mes
+    - Diferentes días según la semana del mes
+    - Patrones que combinan reglas semanales y mensuales
 - La configuración requiere:
-  - `frequency: "custom"`
-  - `days`: días de la semana permitidos
-  - `week_of_month`: semanas específicas del mes
-  - `start_date`: fecha de inicio del patrón
+    - `frequency: "custom"`
+    - `days`: días de la semana permitidos
+    - `week_of_month`: semanas específicas del mes
+    - `start_date`: fecha de inicio del patrón

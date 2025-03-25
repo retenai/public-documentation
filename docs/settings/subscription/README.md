@@ -300,17 +300,20 @@ POST   /api/v1/subscriptions/{subscription_id}/resend-verification
 
 ## Preguntas Frecuentes
 
-1. **¿Cómo manejar cambios de identificador?**
+**¿Cómo manejar cambios de identificador?**
+
    - Requiere nueva verificación
    - Mantener historial de cambios
    - Período de gracia para transición
 
-2. **¿Qué hacer con canales inactivos?**
+**¿Qué hacer con canales inactivos?**
+
    - Política de reactivación
    - Limpieza periódica
    - Notificación al usuario
 
-3. **¿Cómo gestionar preferencias globales?**
+**¿Cómo gestionar preferencias globales?**
+
    - Herencia de configuración
    - Override por canal
    - Sincronización entre canales 

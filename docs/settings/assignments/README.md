@@ -231,16 +231,19 @@ GET    /api/v1/clients/{client_id}/assignments
 ## Preguntas Frecuentes
 
 **¿Cómo manejar reemplazos temporales?**
+
 - Crear nueva asignación con rol "temporary"
 - Definir período de vigencia específico
 - Mantener asignación principal en estado "active"
 
 **¿Cómo gestionar transferencias permanentes?**
+
 - Finalizar asignación actual (status: "transferred")
 - Crear nueva asignación con nuevo vendedor
 - Mantener historial de transferencia
 
 **¿Cómo afectan las asignaciones a las rutas?**
+
 - Las rutas solo pueden incluir clientes asignados al vendedor
 - Los cambios en asignaciones pueden requerir actualización de rutas
 - Se validan permisos de visita antes de crear rutas
