@@ -1,4 +1,4 @@
-# Documentación Técnica de Reten
+# :material-book-open-page-variant: Documentación Técnica de Reten
 
 Bienvenido a la documentación técnica de Reten. Esta documentación está diseñada para proporcionar información detallada sobre la estructura, funcionamiento y uso de nuestro sistema.
 
