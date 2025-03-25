@@ -200,6 +200,42 @@ erDiagram
 }
 ```
 
+### Ejemplo - Ruta con Patrón Personalizado
+
+```json
+{
+  // Identificadores
+  "route_id": "RTE_004",
+  "client_id": "CLT_004",
+  
+  // Información básica
+  "description": "Visita en días específicos del mes",
+  
+  // Configuración de la ruta
+  "pattern_type": "recurring",
+  "recurring_pattern": {
+    "frequency": "custom",
+    "days": ["MONDAY", "THURSDAY"],  // Días permitidos
+    "week_of_month": [1, 3],         // Primera y tercera semana
+    "start_date": "2024-01-01"       // Fecha de inicio del patrón
+  },
+
+  // Estado
+  "status": "active",
+
+  // Atributos personalizados
+  "attributes": [{
+    "key": "visit_duration",
+    "value": "60",
+    "type": "number"
+  }],
+
+  // Marcas temporales
+  "created_at": "2024-03-19T10:00:00Z",
+  "updated_at": "2024-03-19T10:00:00Z"
+}
+```
+
 ### Ejemplo Completo - Ruta con Fecha Específica
 
 ```json
@@ -348,3 +384,16 @@ DELETE /api/v1/routes/{route_id}/visits/{visit_id}
   }
   ```
   En este caso, las visitas serán en las semanas 2, 4, 6, etc. del año
+
+**¿Cuándo usar patrones de frecuencia personalizados?**
+- Cuando se necesita una combinación específica de días y semanas del mes
+- Para visitas que siguen un patrón irregular pero predecible
+- Ejemplos de uso:
+  - Visitas en la primera y tercera semana del mes
+  - Diferentes días según la semana del mes
+  - Patrones que combinan reglas semanales y mensuales
+- La configuración requiere:
+  - `frequency: "custom"`
+  - `days`: días de la semana permitidos
+  - `week_of_month`: semanas específicas del mes
+  - `start_date`: fecha de inicio del patrón
