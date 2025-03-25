@@ -46,7 +46,7 @@ La documentación está organizada siguiendo el flujo natural de implementación
 {% call feature_highlights('✨ Características Principales') %}
 {{ highlight_item(
     'material-book-open-variant',
-    'Documentación Completa',
+    'Documentación completa',
     'Cada sección está documentada con ejemplos y casos de uso'
 ) }}
 
