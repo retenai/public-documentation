@@ -1,4 +1,4 @@
-# Rutas
+# :material-map-marker-path: Rutas
 
 Las rutas en Reten definen cómo los vendedores visitan sus clientes asignados, permitiendo una planificación eficiente de tareas y visitas. Una ruta representa ya sea un patrón recurrente de visitas o fechas específicas programadas para visitar los clientes en la cartera del vendedor.
 

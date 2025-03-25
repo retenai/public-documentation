@@ -1,4 +1,4 @@
-# Suscripción a Canales
+# :material-bell: Suscripciones
 
 Las suscripciones a canales representan las preferencias de comunicación y notificaciones de los usuarios en la plataforma Reten. Esta entidad almacena la información sobre los canales de comunicación, consentimientos, y configuraciones específicas para cada usuario.
 

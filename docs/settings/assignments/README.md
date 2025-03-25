@@ -1,4 +1,4 @@
-# Asignaciones
+# :material-account-multiple: Asignaciones
 
 Las asignaciones en Reten definen la relación entre vendedores y los clientes que tienen a su cargo. Esta entidad permite gestionar qué vendedor es responsable de cada cliente, facilitando la organización del trabajo en terreno y el seguimiento de las relaciones comerciales.
 

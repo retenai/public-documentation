@@ -6,7 +6,7 @@ Las configuraciones representan las reglas y parámetros operativos que definen 
 
 {% call section_cards() %}
 {{ feature_card(
-    'material-account-group',
+    'material-account-multiple',
     'Asignaciones',
     'Relaciones entre vendedores y clientes',
     'assignments/README.md'
