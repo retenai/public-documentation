@@ -4,7 +4,7 @@ Las tareas en Reten representan los momentos de contacto planificados con los cl
 
 {% from '/includes/cards.md' import feature_card, section_cards %}
 
-{% call section_cards('Componentes') %}
+{% call section_cards() %}
 {{ feature_card(
     'material-clipboard-list',
     'Tareas',

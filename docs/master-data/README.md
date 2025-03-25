@@ -4,7 +4,7 @@ Los datos maestros representan la información fundamental y de referencia en el
 
 {% from '/includes/cards.md' import feature_card, section_cards %}
 
-{% call section_cards('Entidades') %}
+{% call section_cards() %}
 {{ feature_card(
     'material-store',
     'Clientes',

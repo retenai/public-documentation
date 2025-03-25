@@ -4,7 +4,7 @@ Los eventos en Reten representan acciones y cambios significativos que ocurren e
 
 {% from '/includes/cards.md' import feature_card, section_cards %}
 
-{% call section_cards('Tipos') %}
+{% call section_cards() %}
 {{ feature_card(
     'material-shopping',
     'Órdenes',

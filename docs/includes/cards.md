@@ -18,9 +18,7 @@
 </div>
 {% endmacro %}
 
-{% macro section_cards(title, link='', cards_class='') %}
-### {% if link %}[{{ title }}]({{ link }}){% else %}{{ title }}{% endif %} { .section-title }
-
+{% macro section_cards(title='', link='', cards_class='') %}
 <div class="grid cards" markdown>
 {{ caller() }}
 </div>

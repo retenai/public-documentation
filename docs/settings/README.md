@@ -1,10 +1,10 @@
 # ⚙️ Configuraciones
 
-Personalización del sistema, asignaciones, rutas y notificaciones.
+Las configuraciones representan las reglas y parámetros operativos que definen el comportamiento del sistema Reten. Cada configuración establece cómo los diferentes componentes del sistema interactúan y operan, permitiendo una personalización flexible según las necesidades del negocio.
 
 {% from '/includes/cards.md' import feature_card, section_cards %}
 
-{% call section_cards('Componentes') %}
+{% call section_cards() %}
 {{ feature_card(
     'material-account-group',
     'Asignaciones',
