@@ -75,12 +75,9 @@ markdown_extensions:
 
 # Navigation
 nav:
-  - :material-home: Inicio: index.md
-  - :material-database: Datos Maestros: master-data/README.md
-  - :material-cog: Configuraciones: settings/README.md
-  - :material-checkbox-marked-circle: Tareas: tasks/README.md
-  - :material-chart-timeline-variant: Eventos: events/README.md
-  - Datos Maestros:
+  - :material-home: Inicio:
+    - index.md
+  - :material-database: Datos Maestros:
     - Resumen: master-data/README.md
     - Clientes: master-data/client/README.md
     - Productos: master-data/product/README.md
@@ -88,15 +85,15 @@ nav:
     - Vendedores: master-data/seller/README.md
     - Cupones: master-data/coupon/README.md
     - Transacciones: master-data/transactions/README.md
-  - Configuraciones:
+  - :material-cog: Configuraciones:
     - Resumen: settings/README.md
     - Asignaciones: settings/assignments/README.md
     - Rutas: settings/routes/README.md
     - Suscripciones: settings/subscription/README.md
-  - Tareas:
+  - :material-checkbox-marked-circle: Tareas:
     - Resumen: tasks/README.md
     - Seguimiento: tasks/tracking/README.md
-  - Eventos:
+  - :material-chart-timeline-variant: Eventos:
     - Resumen: events/README.md
     - Marketing: events/marketing_events.md
     - Ventas: events/sales_events.md
