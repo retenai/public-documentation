@@ -14,12 +14,25 @@ Los eventos de órdenes capturan el ciclo de vida completo de una orden desde su
 
 ## Eventos Disponibles
 
+La siguiente tabla muestra un resumen de todos los eventos disponibles en esta sección:
+
+| Evento                                        | Tipo                   | Descripción                  | Trigger                  |
+| --------------------------------------------- | ---------------------- | ---------------------------- | ------------------------ |
+| [Creación de Orden](#creacion-de-orden)       | `order_created`        | Registro de nueva orden      | Checkout completado      |
+| [Confirmación de Pago](#confirmacion-de-pago) | `payment_confirmed`    | Confirmación de pago exitoso | Pago procesado           |
+| [Cambio de Estado](#cambio-de-estado)         | `order_status_changed` | Actualización de estado      | Cambio en la orden       |
+| [Cancelación](#cancelacion-de-orden)          | `order_cancelled`      | Cancelación de orden         | Solicitud de cancelación |
+
+---
+
 ### Creación de Orden
 
-**Tipo de Evento:** `order_created`
+!!! info "`order_created`"
+    **Trigger**  
+    Se dispara cuando se completa exitosamente el proceso de checkout
 
-**Descripción:**  
-Registra la creación exitosa de una nueva orden después de completar el proceso de checkout y confirmar el pago.
+    **Descripción**  
+    Registra la creación exitosa de una nueva orden después de completar el proceso de checkout y confirmar el pago.
 
 **Estructura del Evento:**
 ```json
@@ -66,24 +79,47 @@ Registra la creación exitosa de una nueva orden después de completar el proces
 
 **Campos Específicos:**
 
-| Campo            | Tipo   | Requerido | Descripción                         |
-| ---------------- | ------ | --------- | ----------------------------------- |
-| order_id         | string | Sí        | Identificador único de la orden     |
-| customer_id      | string | Sí        | Identificador del cliente           |
-| total_amount     | number | Sí        | Monto total de la orden             |
-| subtotal         | number | Sí        | Subtotal antes de impuestos y envío |
-| tax              | number | Sí        | Monto de impuestos                  |
-| shipping_cost    | number | Sí        | Costo de envío                      |
-| discount_amount  | number | No        | Monto total de descuentos aplicados |
-| items            | array  | Sí        | Lista de productos en la orden      |
-| shipping_address | object | Sí        | Dirección de envío                  |
+| Campo              | Tipo   | Requerido | Descripción                         |
+| ------------------ | ------ | --------- | ----------------------------------- |
+| `order_id`         | string | Sí        | Identificador único de la orden     |
+| `customer_id`      | string | Sí        | Identificador del cliente           |
+| `total_amount`     | number | Sí        | Monto total de la orden             |
+| `subtotal`         | number | Sí        | Subtotal antes de impuestos y envío |
+| `tax`              | number | Sí        | Monto de impuestos                  |
+| `shipping_cost`    | number | Sí        | Costo de envío                      |
+| `discount_amount`  | number | No        | Monto total de descuentos aplicados |
+| `items`            | array  | Sí        | Lista de productos en la orden      |
+| `shipping_address` | object | Sí        | Dirección de envío                  |
+
+**Ejemplo de Uso:**
+```json
+{
+  "event_type": "order_created",
+  "data": {
+    "order_id": "ORD_123",
+    "customer_id": "CUST_456",
+    "total_amount": 1500.00,
+    "items": [
+      {
+        "product_id": "PROD_789",
+        "quantity": 2,
+        "unit_price": 750.00
+      }
+    ]
+  }
+}
+```
+
+---
 
 ### Confirmación de Pago
 
-**Tipo de Evento:** `payment_confirmed`
+!!! success "`payment_confirmed`"
+    **Trigger**  
+    Se dispara cuando se recibe la confirmación del procesador de pagos
 
-**Descripción:**  
-Registra la confirmación exitosa del pago de una orden.
+    **Descripción**  
+    Registra la confirmación exitosa del pago de una orden.
 
 **Estructura del Evento:**
 ```json
@@ -111,20 +147,46 @@ Registra la confirmación exitosa del pago de una orden.
 
 **Campos Específicos:**
 
-| Campo          | Tipo   | Requerido | Descripción                      |
-| -------------- | ------ | --------- | -------------------------------- |
-| payment_id     | string | Sí        | Identificador del pago           |
-| amount         | number | Sí        | Monto del pago                   |
-| payment_status | string | Sí        | Estado del pago                  |
-| transaction_id | string | Sí        | ID de transacción del procesador |
-| installments   | number | No        | Número de cuotas                 |
+| Campo            | Tipo   | Requerido | Descripción                      |
+| ---------------- | ------ | --------- | -------------------------------- |
+| `payment_id`     | string | Sí        | Identificador del pago           |
+| `amount`         | number | Sí        | Monto del pago                   |
+| `payment_status` | string | Sí        | Estado del pago                  |
+| `transaction_id` | string | Sí        | ID de transacción del procesador |
+| `installments`   | number | No        | Número de cuotas                 |
+
+**Ejemplo de Uso:**
+```json
+{
+  "event_type": "payment_confirmed",
+  "data": {
+    "order_id": "ORD_123",
+    "payment_id": "PAY_789",
+    "amount": 1500.00,
+    "payment_status": "approved",
+    "transaction_id": "TXN_456"
+  }
+}
+```
+
+---
 
 ### Cambio de Estado
 
-**Tipo de Evento:** `order_status_changed`
+!!! note "`order_status_changed`"
+    **Trigger**  
+    Se dispara cuando cambia el estado de una orden
 
-**Descripción:**  
-Registra cualquier cambio en el estado de una orden durante su ciclo de vida.
+    **Descripción**  
+    Registra cualquier cambio en el estado de una orden durante su ciclo de vida.
+
+**Estados Posibles:**
+- `pending` - Orden creada, pendiente de procesamiento
+- `processing` - En proceso de preparación
+- `shipped` - Enviada al cliente
+- `delivered` - Entregada al cliente
+- `cancelled` - Cancelada
+- `refunded` - Reembolsada
 
 **Estructura del Evento:**
 ```json
@@ -150,20 +212,37 @@ Registra cualquier cambio en el estado de una orden durante su ciclo de vida.
 
 **Campos Específicos:**
 
-| Campo           | Tipo   | Requerido | Descripción                             |
-| --------------- | ------ | --------- | --------------------------------------- |
-| previous_status | string | Sí        | Estado anterior de la orden             |
-| new_status      | string | Sí        | Nuevo estado de la orden                |
-| reason          | string | No        | Razón del cambio de estado              |
-| notes           | string | No        | Notas adicionales sobre el cambio       |
-| changed_by      | string | Sí        | Usuario o sistema que realizó el cambio |
+| Campo             | Tipo   | Requerido | Descripción                             |
+| ----------------- | ------ | --------- | --------------------------------------- |
+| `previous_status` | string | Sí        | Estado anterior de la orden             |
+| `new_status`      | string | Sí        | Nuevo estado de la orden                |
+| `reason`          | string | No        | Razón del cambio de estado              |
+| `notes`           | string | No        | Notas adicionales sobre el cambio       |
+| `changed_by`      | string | Sí        | Usuario o sistema que realizó el cambio |
+
+**Ejemplo de Uso:**
+```json
+{
+  "event_type": "order_status_changed",
+  "data": {
+    "order_id": "ORD_123",
+    "previous_status": "pending",
+    "new_status": "processing",
+    "changed_by": "system"
+  }
+}
+```
+
+---
 
 ### Cancelación de Orden
 
-**Tipo de Evento:** `order_cancelled`
+!!! warning "`order_cancelled`"
+    **Trigger**  
+    Se dispara cuando se cancela una orden
 
-**Descripción:**  
-Registra la cancelación de una orden, ya sea por el cliente o por el sistema.
+    **Descripción**  
+    Registra la cancelación de una orden, ya sea por el cliente o por el sistema.
 
 **Estructura del Evento:**
 ```json
@@ -194,13 +273,28 @@ Registra la cancelación de una orden, ya sea por el cliente o por el sistema.
 
 **Campos Específicos:**
 
-| Campo               | Tipo   | Requerido | Descripción                    |
-| ------------------- | ------ | --------- | ------------------------------ |
-| cancellation_reason | string | Sí        | Motivo de la cancelación       |
-| cancelled_by        | string | Sí        | Quién realizó la cancelación   |
-| refund_amount       | number | No        | Monto a reembolsar             |
-| refund_status       | string | No        | Estado del reembolso           |
-| items_status        | array  | Sí        | Estado de los items cancelados |
+| Campo                 | Tipo   | Requerido | Descripción                    |
+| --------------------- | ------ | --------- | ------------------------------ |
+| `cancellation_reason` | string | Sí        | Motivo de la cancelación       |
+| `cancelled_by`        | string | Sí        | Quién realizó la cancelación   |
+| `refund_amount`       | number | No        | Monto a reembolsar             |
+| `refund_status`       | string | No        | Estado del reembolso           |
+| `items_status`        | array  | Sí        | Estado de los items cancelados |
+
+**Ejemplo de Uso:**
+```json
+{
+  "event_type": "order_cancelled",
+  "data": {
+    "order_id": "ORD_123",
+    "cancellation_reason": "customer_request",
+    "cancelled_by": "customer",
+    "refund_amount": 1500.00
+  }
+}
+```
+
+---
 
 ## Consideraciones Técnicas
 
