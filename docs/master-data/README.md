@@ -1,4 +1,4 @@
-# 📊 Datos Maestros
+# :material-database: Datos Maestros
 
 Los datos maestros representan la información fundamental y de referencia en el sistema Reten. Estas entidades constituyen el núcleo de datos que es compartido y reutilizado a través de los diferentes procesos y operaciones del negocio, asegurando consistencia y uniformidad en toda la plataforma.
 

@@ -1,4 +1,4 @@
-# 📈 Eventos
+# :material-chart-timeline-variant: Eventos
 
 Los eventos en Reten representan acciones y cambios significativos que ocurren en la plataforma del cliente. Estos eventos capturan el journey completo del cliente final, desde la navegación inicial hasta la entrega del producto.
 

@@ -1,4 +1,4 @@
-# ⚙️ Configuraciones
+# :material-cog: Configuraciones
 
 Las configuraciones representan las reglas y parámetros operativos que definen el comportamiento del sistema Reten. Cada configuración establece cómo los diferentes componentes del sistema interactúan y operan, permitiendo una personalización flexible según las necesidades del negocio.
 
