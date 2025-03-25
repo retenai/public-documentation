@@ -120,18 +120,30 @@ erDiagram
 
 ```json
 {
+  // Identificadores
   "route_id": "RTE_001",
   "client_id": "CLT_001",
+  
+  // Información básica
   "description": "Visita semanal cliente principal zona norte",
+  
+  // Configuración de la ruta
   "pattern_type": "recurring",
   "recurring_pattern": {
     "frequency": "weekly",
-    "days": ["MONDAY", "THURSDAY"]
+    "days": ["MONDAY", "THURSDAY"],
+    "interval": 1
   },
-  "created_at": "2024-03-19T10:00:00Z",
-  "updated_at": "2024-03-19T10:00:00Z",
+
+  // Estado
   "status": "active",
-  "attributes": []
+
+  // Atributos personalizados
+  "attributes": [],
+
+  // Marcas temporales
+  "created_at": "2024-03-19T10:00:00Z",
+  "updated_at": "2024-03-19T10:00:00Z"
 }
 ```
 
@@ -139,14 +151,21 @@ erDiagram
 
 ```json
 {
+  // Identificadores
   "route_id": "RTE_002",
   "client_id": "CLT_002",
+  
+  // Información básica
   "description": "Visita especial campaña navideña",
+  
+  // Configuración de la ruta
   "pattern_type": "specific",
   "visit_date": "2024-12-01",
-  "created_at": "2024-03-19T10:00:00Z",
-  "updated_at": "2024-03-19T10:00:00Z",
+
+  // Estado
   "status": "active",
+
+  // Atributos personalizados
   "attributes": [{
     "key": "campaign",
     "value": "navidad_2024",
@@ -155,19 +174,9 @@ erDiagram
     "key": "priority",
     "value": "1",
     "type": "number"
-  }]
-}
-```
+  }],
 
-### Ruta con Territorios
-
-```json
-{
-  "route_id": "ROUTE_002",
-  "name": "Ruta Norte",
-  "description": "Ruta del sector norte de Santiago",
-  "status": "active",
-  "territories": ["SANTIAGO_NORTE", "PROVIDENCIA_NORTE"],
+  // Marcas temporales
   "created_at": "2024-03-19T10:00:00Z",
   "updated_at": "2024-03-19T10:00:00Z"
 }
