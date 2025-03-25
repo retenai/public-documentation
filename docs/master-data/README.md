@@ -1,15 +1,14 @@
-# Entidades
+# Datos Maestros
 
-Las entidades representan los objetos principales del sistema Reten. Cada entidad tiene propiedades que definen sus características y comportamientos, manteniendo el estado actual de los diferentes componentes del sistema.
+Los datos maestros representan la información fundamental y de referencia en el sistema Reten. Estas entidades constituyen el núcleo de datos que es compartido y reutilizado a través de los diferentes procesos y operaciones del negocio, asegurando consistencia y uniformidad en toda la plataforma.
 
 ## Características Comunes
 
-Todas las entidades comparten:
+Todas las entidades de datos maestros comparten:
 
-- Identificación dual (ID interno Reten y ID externo cliente)
+- Identificación mediante ID de cliente
 - Trazabilidad temporal (fechas de creación/actualización)
 - Extensibilidad mediante atributos personalizados
-- Campos de auditoría y metadatos
 
 Para asegurar la consistencia en la documentación y estructura de las entidades, se proporciona una [plantilla](./_template.md) que debe seguirse al crear nuevas entidades master-data.
 
@@ -17,7 +16,7 @@ Para asegurar la consistencia en la documentación y estructura de las entidades
 
 ### [Clientes](./client/README.md)
 
-Establecimientos comerciales que interactúan con la plataforma.
+Personas naturales o empresas que interactúan con la plataforma, según el modelo de negocio (B2B o B2C).
 
 - Información de contacto y ubicación
 - Grupos y clasificaciones
@@ -44,11 +43,11 @@ Estructura jerárquica para la organización de productos.
 
 ### [Vendedores](./seller/README.md)
 
-Usuarios del CPG que gestionan las relaciones comerciales.
+Representantes comerciales que gestionan las relaciones con los clientes.
 
-- Roles y permisos
-- Información de acceso
-- Asignaciones y territorios
+- Información personal y de contacto
+- Estructura organizacional y jerarquía
+- Rutas y territorios asignados
 
 
 ### [Cupones](./coupon/README.md)
