@@ -14,12 +14,25 @@ Los eventos de navegación y descubrimiento capturan las interacciones de los us
 
 ## Eventos Disponibles
 
+La siguiente tabla muestra un resumen de todos los eventos disponibles en esta sección:
+
+| Evento                                                  | Tipo                 | Descripción                  | Trigger                |
+| ------------------------------------------------------- | -------------------- | ---------------------------- | ---------------------- |
+| [Visualización de Página](#visualizacion-de-pagina)     | `page_view`          | Registro de vista de página  | Carga de página        |
+| [Búsqueda de Productos](#busqueda-de-productos)         | `product_search`     | Búsqueda y filtrado          | Búsqueda realizada     |
+| [Visualización de Producto](#visualizacion-de-producto) | `product_view`       | Vista de detalle de producto | Ver producto           |
+| [Interacción con Banner](#interaccion-con-banner)       | `banner_interaction` | Interacción con banners      | Interacción con banner |
+
+---
+
 ### Visualización de Página
 
-**Tipo de Evento:** `page_view`
+!!! info "`page_view`"
+    **Trigger**  
+    Se dispara cuando un usuario visualiza una página específica de la plataforma
 
-**Descripción:**  
-Registra cuando un usuario visualiza una página específica de la plataforma. Este evento se genera cada vez que se carga una nueva página o se realiza una navegación mediante SPA (Single Page Application).
+    **Descripción**  
+    Registra cuando un usuario visualiza una página específica de la plataforma. Este evento se genera cada vez que se carga una nueva página o se realiza una navegación mediante SPA (Single Page Application).
 
 **Estructura del Evento:**
 ```json
@@ -46,20 +59,37 @@ Registra cuando un usuario visualiza una página específica de la plataforma. E
 
 **Campos Específicos:**
 
-| Campo      | Tipo   | Requerido | Descripción                                            |
-| ---------- | ------ | --------- | ------------------------------------------------------ |
-| page_url   | string | Sí        | URL completa de la página visualizada                  |
-| page_title | string | Sí        | Título de la página                                    |
-| page_type  | string | Sí        | Tipo de página (home, category, product, search, etc.) |
-| referrer   | string | No        | URL de la página anterior                              |
-| session_id | string | Sí        | Identificador único de la sesión del usuario           |
+| Campo        | Tipo   | Requerido | Descripción                                            |
+| ------------ | ------ | --------- | ------------------------------------------------------ |
+| `page_url`   | string | Sí        | URL completa de la página visualizada                  |
+| `page_title` | string | Sí        | Título de la página                                    |
+| `page_type`  | string | Sí        | Tipo de página (home, category, product, search, etc.) |
+| `referrer`   | string | No        | URL de la página anterior                              |
+| `session_id` | string | Sí        | Identificador único de la sesión del usuario           |
+
+**Ejemplo de Uso:**
+```json
+{
+  "event_type": "page_view",
+  "data": {
+    "page_url": "https://example.com/products/category/shoes",
+    "page_title": "Zapatos - Categoría",
+    "page_type": "category",
+    "session_id": "sess_123456"
+  }
+}
+```
+
+---
 
 ### Búsqueda de Productos
 
-**Tipo de Evento:** `product_search`
+!!! note "`product_search`"
+    **Trigger**  
+    Se dispara cuando un usuario realiza una búsqueda o aplica filtros
 
-**Descripción:**  
-Captura cuando un usuario realiza una búsqueda de productos. Incluye tanto búsquedas por texto como aplicación de filtros.
+    **Descripción**  
+    Captura cuando un usuario realiza una búsqueda de productos. Incluye tanto búsquedas por texto como aplicación de filtros.
 
 **Estructura del Evento:**
 ```json
@@ -91,20 +121,44 @@ Captura cuando un usuario realiza una búsqueda de productos. Incluye tanto bús
 
 **Campos Específicos:**
 
-| Campo         | Tipo   | Requerido | Descripción                                  |
-| ------------- | ------ | --------- | -------------------------------------------- |
-| search_query  | string | No        | Término de búsqueda ingresado por el usuario |
-| filters       | object | No        | Filtros aplicados a la búsqueda              |
-| results_count | number | Sí        | Cantidad de resultados encontrados           |
-| page_number   | number | Sí        | Número de página de resultados               |
-| sort_by       | string | No        | Criterio de ordenamiento aplicado            |
+| Campo           | Tipo   | Requerido | Descripción                                  |
+| --------------- | ------ | --------- | -------------------------------------------- |
+| `search_query`  | string | No        | Término de búsqueda ingresado por el usuario |
+| `filters`       | object | No        | Filtros aplicados a la búsqueda              |
+| `results_count` | number | Sí        | Cantidad de resultados encontrados           |
+| `page_number`   | number | Sí        | Número de página de resultados               |
+| `sort_by`       | string | No        | Criterio de ordenamiento aplicado            |
+
+**Ejemplo de Uso:**
+```json
+{
+  "event_type": "product_search",
+  "data": {
+    "search_query": "zapatos deportivos",
+    "filters": {
+      "category": ["calzado", "deportes"],
+      "price_range": {
+        "min": 1000,
+        "max": 5000
+      }
+    },
+    "results_count": 24,
+    "page_number": 1,
+    "sort_by": "relevance"
+  }
+}
+```
+
+---
 
 ### Visualización de Producto
 
-**Tipo de Evento:** `product_view`
+!!! info "`product_view`"
+    **Trigger**  
+    Se dispara cuando un usuario accede al detalle de un producto
 
-**Descripción:**  
-Registra cuando un usuario visualiza el detalle de un producto específico.
+    **Descripción**  
+    Registra cuando un usuario visualiza el detalle de un producto específico.
 
 **Estructura del Evento:**
 ```json
@@ -131,22 +185,41 @@ Registra cuando un usuario visualiza el detalle de un producto específico.
 
 **Campos Específicos:**
 
-| Campo         | Tipo   | Requerido | Descripción                               |
-| ------------- | ------ | --------- | ----------------------------------------- |
-| product_id    | string | Sí        | Identificador único del producto          |
-| product_name  | string | Sí        | Nombre del producto                       |
-| category_id   | string | Sí        | Identificador de la categoría principal   |
-| price         | number | Sí        | Precio actual del producto                |
-| currency      | string | Sí        | Moneda del precio                         |
-| view_duration | number | No        | Tiempo de visualización en segundos       |
-| source_page   | string | Sí        | Página desde donde se accedió al producto |
+| Campo           | Tipo   | Requerido | Descripción                               |
+| --------------- | ------ | --------- | ----------------------------------------- |
+| `product_id`    | string | Sí        | Identificador único del producto          |
+| `product_name`  | string | Sí        | Nombre del producto                       |
+| `category_id`   | string | Sí        | Identificador de la categoría principal   |
+| `price`         | number | Sí        | Precio actual del producto                |
+| `currency`      | string | Sí        | Moneda del precio                         |
+| `view_duration` | number | No        | Tiempo de visualización en segundos       |
+| `source_page`   | string | Sí        | Página desde donde se accedió al producto |
+
+**Ejemplo de Uso:**
+```json
+{
+  "event_type": "product_view",
+  "data": {
+    "product_id": "PROD_123",
+    "product_name": "Zapatos Deportivos Nike Air",
+    "category_id": "CAT_456",
+    "price": 2999.99,
+    "currency": "MXN",
+    "source_page": "search"
+  }
+}
+```
+
+---
 
 ### Interacción con Banner
 
-**Tipo de Evento:** `banner_interaction`
+!!! note "`banner_interaction`"
+    **Trigger**  
+    Se dispara cuando un usuario interactúa con un banner promocional o informativo
 
-**Descripción:**  
-Captura las interacciones de los usuarios con banners promocionales o informativos.
+    **Descripción**  
+    Captura las interacciones de los usuarios con banners promocionales o informativos.
 
 **Estructura del Evento:**
 ```json
@@ -172,14 +245,31 @@ Captura las interacciones de los usuarios con banners promocionales o informativ
 
 **Campos Específicos:**
 
-| Campo            | Tipo   | Requerido | Descripción                       |
-| ---------------- | ------ | --------- | --------------------------------- |
-| banner_id        | string | Sí        | Identificador único del banner    |
-| banner_name      | string | Sí        | Nombre descriptivo del banner     |
-| banner_type      | string | Sí        | Tipo de banner                    |
-| interaction_type | string | Sí        | Tipo de interacción con el banner |
-| position         | string | Sí        | Posición del banner en la página  |
-| campaign_id      | string | No        | ID de la campaña asociada         |
+| Campo              | Tipo   | Requerido | Descripción                       |
+| ------------------ | ------ | --------- | --------------------------------- |
+| `banner_id`        | string | Sí        | Identificador único del banner    |
+| `banner_name`      | string | Sí        | Nombre descriptivo del banner     |
+| `banner_type`      | string | Sí        | Tipo de banner                    |
+| `interaction_type` | string | Sí        | Tipo de interacción con el banner |
+| `position`         | string | Sí        | Posición del banner en la página  |
+| `campaign_id`      | string | No        | ID de la campaña asociada         |
+
+**Ejemplo de Uso:**
+```json
+{
+  "event_type": "banner_interaction",
+  "data": {
+    "banner_id": "BAN_789",
+    "banner_name": "Promoción Verano",
+    "banner_type": "promotion",
+    "interaction_type": "click",
+    "position": "home_top",
+    "campaign_id": "CAMP_123"
+  }
+}
+```
+
+---
 
 ## Consideraciones Técnicas
 
@@ -224,8 +314,8 @@ Se recomienda almacenar los eventos en localStorage y enviarlos cuando se recupe
 ### ¿Cómo evitar duplicados en eventos de page_view en SPAs?
 Implementar un debounce y verificar cambios reales en la ruta de la aplicación.
 
-### ¿Qué hacer si se excede el límite de eventos por segundo?
-Implementar un sistema de cola que agrupe y envíe los eventos respetando los límites establecidos.
+### ¿Cómo sincronizar estados entre múltiples sistemas?
+Utilizar un sistema de eventos distribuido con garantía de orden.
 
 ## Referencias
 
