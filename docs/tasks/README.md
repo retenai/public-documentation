@@ -132,8 +132,6 @@ Todas las tareas comparten:
   // Marcas temporales
   "created_at": "timestamp", // Fecha de creación
   "updated_at": "timestamp", // Última actualización
-  "_created_at": "timestamp", // Fecha de creación en BigQuery
-  "_updated_at": "timestamp"  // Última actualización en BigQuery
 }
 ```
 
