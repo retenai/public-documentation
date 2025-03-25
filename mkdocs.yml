@@ -22,6 +22,7 @@ theme:
     code: Fira Code
   features:
     - navigation.tabs
+    - navigation.tabs.sticky
     - navigation.sections
     - navigation.expand
     - navigation.top
@@ -32,6 +33,7 @@ theme:
     - content.code.copy
     - content.code.annotate
     - content.tabs.link
+    - toc.follow
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
