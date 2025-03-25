@@ -414,35 +414,35 @@ Los grupos permiten categorizar y segmentar clientes:
 #### Endpoints Principales
 
 ```
-GET    /api/v1/commerces/{client_id}
-POST   /api/v1/commerces
-PUT    /api/v1/commerces/{client_id}
-PATCH  /api/v1/commerces/{client_id}
-DELETE /api/v1/commerces/{client_id}
+GET    /api/v1/clients/{client_id}
+POST   /api/v1/clients
+PUT    /api/v1/clients/{client_id}
+PATCH  /api/v1/clients/{client_id}
+DELETE /api/v1/clients/{client_id}
 ```
 
 #### Endpoints de Relación
 
 ```
-GET    /api/v1/commerces/{client_id}/contacts
-GET    /api/v1/commerces/{client_id}/addresses
-GET    /api/v1/commerces/{client_id}/groups
+GET    /api/v1/clients/{client_id}/contacts
+GET    /api/v1/clients/{client_id}/addresses
+GET    /api/v1/clients/{client_id}/groups
 ```
 
 ### Webhooks
 
 #### Eventos Disponibles
 
-- `commerce.created`
-- `commerce.updated`
-- `commerce.deleted`
-- `commerce.status_changed`
+- `client.created`
+- `client.updated`
+- `client.deleted`
+- `client.status_changed`
 
 #### Formato de Payload
 
 ```json
 {
-  "event": "commerce.updated",
+  "event": "client.updated",
   "timestamp": "2024-03-19T14:30:00Z",
   "data": {
     "client_id": "string",
