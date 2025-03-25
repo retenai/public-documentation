@@ -9,42 +9,42 @@ Los datos maestros representan la información fundamental y de referencia en el
     'material-store',
     'Clientes',
     'Establecimientos comerciales y sus características',
-    './client/README.md'
+    '/master-data/client/'
 ) }}
 
 {{ feature_card(
     'material-package',
     'Productos',
     'Catálogo de productos y sus atributos',
-    './product/README.md'
+    '/master-data/product/'
 ) }}
 
 {{ feature_card(
     'material-shape',
     'Categorías',
     'Clasificación jerárquica de productos',
-    './category/README.md'
+    '/master-data/category/'
 ) }}
 
 {{ feature_card(
     'material-account-tie',
     'Vendedores',
     'Usuarios del sistema y sus permisos',
-    './seller/README.md'
+    '/master-data/seller/'
 ) }}
 
 {{ feature_card(
     'material-ticket-percent',
     'Cupones',
     'Sistema de promociones y descuentos',
-    './coupon/README.md'
+    '/master-data/coupon/'
 ) }}
 
 {{ feature_card(
     'material-cart',
     'Transacciones',
     'Compras realizadas por los clientes',
-    './transactions/README.md'
+    '/master-data/transactions/'
 ) }}
 {% endcall %}
 
