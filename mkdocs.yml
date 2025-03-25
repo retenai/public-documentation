@@ -15,10 +15,7 @@ docs_dir: docs
 theme:
   name: material
   language: es
-  logo:
-    icon:
-      light: assets/images/brand/reten-logo-dark.svg
-      dark: assets/images/brand/reten-logo-white.svg
+  logo: assets/images/brand/reten-logo-white.svg
   favicon: assets/images/brand/reten-logo-dark.svg
   font:
     text: Inter
