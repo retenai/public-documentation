@@ -15,4 +15,24 @@
 <div class="grid cards" markdown>
 {{ caller() }}
 </div>
+{% endmacro %}
+
+{% macro feature_highlights(title) %}
+## {{ title }}
+
+<div class="feature-highlights" markdown>
+{{ caller() }}
+</div>
+{% endmacro %}
+
+{% macro highlight_item(icon, title, description) %}
+<div class="highlight-item" markdown>
+:{{ icon }}:{ .lg .middle }
+
+<div class="content" markdown>
+**{{ title }}**
+
+{{ description }}
+</div>
+</div>
 {% endmacro %} 
