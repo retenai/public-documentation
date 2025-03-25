@@ -12,7 +12,36 @@ Bienvenido a la documentación técnica de Reten. Esta documentación está dise
 
 La documentación está organizada siguiendo el flujo natural de implementación y uso del sistema:
 
-{% from 'includes/cards.md' import feature_card, section_cards %}
+{% from 'includes/cards.md' import feature_card, section_cards, feature_highlights, highlight_item, section_overview %}
+
+{% set main_sections = [
+    {
+        'icon': 'material-database',
+        'title': 'Datos Maestros',
+        'link': 'master-data/README.md',
+        'description': 'Gestión de clientes, productos, categorías y otros datos fundamentales del sistema.'
+    },
+    {
+        'icon': 'material-cog',
+        'title': 'Configuraciones',
+        'link': 'settings/README.md',
+        'description': 'Personalización del sistema, asignaciones, rutas y notificaciones.'
+    },
+    {
+        'icon': 'material-checkbox-marked-circle',
+        'title': 'Tareas',
+        'link': 'tasks/README.md',
+        'description': 'Sistema de tareas, seguimiento y gestión de actividades.'
+    },
+    {
+        'icon': 'material-chart-timeline-variant',
+        'title': 'Eventos',
+        'link': 'events/README.md',
+        'description': 'Seguimiento de acciones y eventos del sistema en tiempo real.'
+    }
+] %}
+
+{{ section_overview(main_sections) }}
 
 {% call section_cards('📊 Datos Maestros', 'master-data/README.md') %}
 {{ feature_card(
@@ -141,26 +170,26 @@ La documentación está organizada siguiendo el flujo natural de implementación
 ) }}
 {% endcall %}
 
-{% call section_cards('✨ Características Principales') %}
-{{ feature_card(
+{% call feature_highlights('✨ Características Principales') %}
+{{ highlight_item(
     'material-book-open-variant',
     'Documentación Completa',
     'Cada sección está documentada con ejemplos y casos de uso'
 ) }}
 
-{{ feature_card(
+{{ highlight_item(
     'material-check-decagram',
     'Validaciones',
     'Incluye reglas de validación y restricciones de datos'
 ) }}
 
-{{ feature_card(
+{{ highlight_item(
     'material-code-tags',
     'Ejemplos',
     'Código de ejemplo para implementaciones comunes'
 ) }}
 
-{{ feature_card(
+{{ highlight_item(
     'material-compass',
     'Guías',
     'Instrucciones paso a paso para integraciones'

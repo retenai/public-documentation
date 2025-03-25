@@ -9,6 +9,18 @@
     {% endif %}
 {% endmacro %}
 
+{% macro section_overview(sections) %}
+<div class="section-overview" markdown>
+{% for section in sections %}
+<div class="overview-item" markdown>
+:{{ section.icon }}:{ .lg .middle } **[{{ section.title }}]({{ section.link }})**
+
+{{ section.description }}
+</div>
+{% endfor %}
+</div>
+{% endmacro %}
+
 {% macro section_cards(title, link='', cards_class='') %}
 ### {% if link %}[{{ title }}]({{ link }}){% else %}{{ title }}{% endif %} { .section-title }
 
