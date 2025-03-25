@@ -75,7 +75,6 @@ Todas las tareas comparten:
 {
   // Identificadores
   "task_id": "string",         // Identificador único de la tarea (not null)
-  "external_id": "string",     // Identificador externo del cliente
   
   // Información básica
   "type": "string",           // Tipo de tarea (visit, call, message)
