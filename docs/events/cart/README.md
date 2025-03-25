@@ -14,12 +14,21 @@ Los eventos de carrito y checkout capturan las interacciones de los usuarios dur
 
 ## Eventos Disponibles
 
+| Evento             | Descripción                                                 | Trigger                                             |
+| ------------------ | ----------------------------------------------------------- | --------------------------------------------------- |
+| `add_to_cart`      | Registra cuando un usuario agrega un producto a su carrito  | Usuario agrega o incrementa cantidad de un producto |
+| `remove_from_cart` | Captura cuando un usuario remueve un producto de su carrito | Usuario elimina o reduce cantidad de un producto    |
+| `begin_checkout`   | Registra cuando un usuario inicia el proceso de checkout    | Usuario inicia el proceso de pago desde el carrito  |
+| `select_payment`   | Captura la selección del método de pago                     | Usuario selecciona forma de pago en checkout        |
+| `apply_coupon`     | Registra la aplicación de un cupón de descuento             | Usuario aplica un código promocional                |
+
 ### Agregar al Carrito
 
-**Tipo de Evento:** `add_to_cart`
+!!! info "Trigger"
+    Este evento se dispara cuando un usuario agrega un nuevo producto a su carrito o incrementa la cantidad de un producto existente.
 
-**Descripción:**  
-Registra cuando un usuario agrega un producto a su carrito de compras. Este evento se genera cada vez que se añade un nuevo producto o se modifica la cantidad de un producto existente (incremento).
+!!! example "Descripción"
+    Registra cuando un usuario agrega un producto a su carrito de compras. Captura información detallada del producto, cantidad y contexto de la acción.
 
 **Estructura del Evento:**
 ```json
@@ -47,23 +56,26 @@ Registra cuando un usuario agrega un producto a su carrito de compras. Este even
 
 **Campos Específicos:**
 
-| Campo        | Tipo   | Requerido | Descripción                               |
-| ------------ | ------ | --------- | ----------------------------------------- |
-| product_id   | string | Sí        | Identificador único del producto          |
-| product_name | string | Sí        | Nombre del producto                       |
-| category_id  | string | Sí        | Identificador de la categoría             |
-| quantity     | number | Sí        | Cantidad agregada al carrito              |
-| price        | number | Sí        | Precio unitario del producto              |
-| currency     | string | Sí        | Moneda del precio                         |
-| variant_id   | string | No        | Identificador de la variante del producto |
-| source_page  | string | Sí        | Página desde donde se agregó el producto  |
+| Campo          | Tipo   | Requerido | Descripción                               |
+| -------------- | ------ | --------- | ----------------------------------------- |
+| `product_id`   | string | Sí        | Identificador único del producto          |
+| `product_name` | string | Sí        | Nombre del producto                       |
+| `category_id`  | string | Sí        | Identificador de la categoría             |
+| `quantity`     | number | Sí        | Cantidad agregada al carrito              |
+| `price`        | number | Sí        | Precio unitario del producto              |
+| `currency`     | string | Sí        | Moneda del precio                         |
+| `variant_id`   | string | No        | Identificador de la variante del producto |
+| `source_page`  | string | Sí        | Página desde donde se agregó el producto  |
+
+---
 
 ### Remover del Carrito
 
-**Tipo de Evento:** `remove_from_cart`
+!!! info "Trigger"
+    Este evento se dispara cuando un usuario elimina un producto de su carrito o reduce su cantidad.
 
-**Descripción:**  
-Captura cuando un usuario remueve un producto de su carrito o reduce su cantidad.
+!!! example "Descripción"
+    Captura cuando un usuario remueve un producto de su carrito o reduce su cantidad, permitiendo analizar patrones de abandono y decisiones de compra.
 
 **Estructura del Evento:**
 ```json
@@ -88,20 +100,23 @@ Captura cuando un usuario remueve un producto de su carrito o reduce su cantidad
 
 **Campos Específicos:**
 
-| Campo              | Tipo   | Requerido | Descripción                           |
-| ------------------ | ------ | --------- | ------------------------------------- |
-| product_id         | string | Sí        | Identificador único del producto      |
-| product_name       | string | Sí        | Nombre del producto                   |
-| quantity           | number | Sí        | Cantidad removida del carrito         |
-| removal_type       | string | Sí        | Tipo de remoción (completa o parcial) |
-| remaining_quantity | number | No        | Cantidad que queda en el carrito      |
+| Campo                | Tipo   | Requerido | Descripción                           |
+| -------------------- | ------ | --------- | ------------------------------------- |
+| `product_id`         | string | Sí        | Identificador único del producto      |
+| `product_name`       | string | Sí        | Nombre del producto                   |
+| `quantity`           | number | Sí        | Cantidad removida del carrito         |
+| `removal_type`       | string | Sí        | Tipo de remoción (completa o parcial) |
+| `remaining_quantity` | number | No        | Cantidad que queda en el carrito      |
+
+---
 
 ### Inicio de Checkout
 
-**Tipo de Evento:** `begin_checkout`
+!!! info "Trigger"
+    Este evento se dispara cuando un usuario inicia el proceso de checkout desde su carrito de compras.
 
-**Descripción:**  
-Registra cuando un usuario inicia el proceso de checkout desde su carrito.
+!!! example "Descripción"
+    Registra cuando un usuario comienza el proceso de pago, incluyendo información sobre los productos en el carrito y el valor total de la compra.
 
 **Estructura del Evento:**
 ```json
@@ -133,21 +148,24 @@ Registra cuando un usuario inicia el proceso de checkout desde su carrito.
 
 **Campos Específicos:**
 
-| Campo         | Tipo    | Requerido | Descripción                               |
-| ------------- | ------- | --------- | ----------------------------------------- |
-| cart_id       | string  | Sí        | Identificador único del carrito           |
-| total_items   | number  | Sí        | Cantidad total de items                   |
-| total_amount  | number  | Sí        | Monto total del carrito                   |
-| currency      | string  | Sí        | Moneda del total                          |
-| products      | array   | Sí        | Lista de productos en el carrito          |
-| has_promocode | boolean | No        | Indica si hay código promocional aplicado |
+| Campo           | Tipo    | Requerido | Descripción                               |
+| --------------- | ------- | --------- | ----------------------------------------- |
+| `cart_id`       | string  | Sí        | Identificador único del carrito           |
+| `total_items`   | number  | Sí        | Cantidad total de items                   |
+| `total_amount`  | number  | Sí        | Monto total del carrito                   |
+| `currency`      | string  | Sí        | Moneda del total                          |
+| `products`      | array   | Sí        | Lista de productos en el carrito          |
+| `has_promocode` | boolean | No        | Indica si hay código promocional aplicado |
+
+---
 
 ### Selección de Método de Pago
 
-**Tipo de Evento:** `select_payment`
+!!! info "Trigger"
+    Este evento se dispara cuando un usuario selecciona un método de pago durante el proceso de checkout.
 
-**Descripción:**  
-Captura cuando un usuario selecciona un método de pago durante el checkout.
+!!! example "Descripción"
+    Captura la elección del método de pago por parte del usuario, incluyendo detalles sobre el tipo de pago y condiciones seleccionadas.
 
 **Estructura del Evento:**
 ```json
@@ -171,19 +189,22 @@ Captura cuando un usuario selecciona un método de pago durante el checkout.
 
 **Campos Específicos:**
 
-| Campo          | Tipo   | Requerido | Descripción                    |
-| -------------- | ------ | --------- | ------------------------------ |
-| payment_method | string | Sí        | Método de pago seleccionado    |
-| payment_type   | string | Sí        | Tipo de método de pago         |
-| installments   | number | No        | Número de cuotas seleccionadas |
-| provider       | string | Sí        | Proveedor del método de pago   |
+| Campo            | Tipo   | Requerido | Descripción                    |
+| ---------------- | ------ | --------- | ------------------------------ |
+| `payment_method` | string | Sí        | Método de pago seleccionado    |
+| `payment_type`   | string | Sí        | Tipo de método de pago         |
+| `installments`   | number | No        | Número de cuotas seleccionadas |
+| `provider`       | string | Sí        | Proveedor del método de pago   |
+
+---
 
 ### Aplicación de Cupón
 
-**Tipo de Evento:** `apply_coupon`
+!!! info "Trigger"
+    Este evento se dispara cuando un usuario aplica un código de descuento a su carrito.
 
-**Descripción:**  
-Registra cuando un usuario aplica un cupón de descuento a su carrito.
+!!! example "Descripción"
+    Registra cuando un usuario aplica un cupón de descuento, capturando información sobre el tipo de descuento y su impacto en el total.
 
 **Estructura del Evento:**
 ```json
@@ -209,13 +230,13 @@ Registra cuando un usuario aplica un cupón de descuento a su carrito.
 
 **Campos Específicos:**
 
-| Campo           | Tipo   | Requerido | Descripción                        |
-| --------------- | ------ | --------- | ---------------------------------- |
-| coupon_code     | string | Sí        | Código del cupón aplicado          |
-| discount_type   | string | Sí        | Tipo de descuento                  |
-| discount_value  | number | Sí        | Valor del descuento                |
-| original_amount | number | Sí        | Monto original antes del descuento |
-| final_amount    | number | Sí        | Monto final después del descuento  |
+| Campo             | Tipo   | Requerido | Descripción                        |
+| ----------------- | ------ | --------- | ---------------------------------- |
+| `coupon_code`     | string | Sí        | Código del cupón aplicado          |
+| `discount_type`   | string | Sí        | Tipo de descuento                  |
+| `discount_value`  | number | Sí        | Valor del descuento                |
+| `original_amount` | number | Sí        | Monto original antes del descuento |
+| `final_amount`    | number | Sí        | Monto final después del descuento  |
 
 ## Consideraciones Técnicas
 
