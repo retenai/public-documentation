@@ -99,11 +99,12 @@ nav:
     - Seguimiento: tasks/tracking/README.md
   - Eventos:
     - Resumen: events/README.md
-    - Marketing: events/marketing_events.md
-    - Ventas: events/sales_events.md
-    - Productos: events/product_events.md
-    - Usuario: events/user_events.md
-    - Entregas: events/delivery_events.md
+    - Órdenes: events/orders/README.md
+    - Logística: events/logistics/README.md
+    - Cuenta: events/account/README.md
+    - Engagement: events/engagement/README.md
+    - Carrito: events/cart/README.md
+    - Navegación: events/navigation/README.md
 
 # Additional settings
 plugins:
