@@ -47,7 +47,8 @@ erDiagram
     "frequency": "string",      // "weekly", "monthly", "custom"
     "days": ["string"],        // Días de la semana ["MONDAY", "TUESDAY", etc.]
     "week_of_month": "number",  // Para patrones mensuales (1-5)
-    "interval": "number"        // Para patrones personalizados
+    "interval": "number",       // Número de unidades entre visitas (default: 1)
+    "start_date": "date"       // Fecha de inicio del patrón (determina la secuencia de semanas)
   },
 
   // Estado
@@ -81,6 +82,26 @@ erDiagram
 | ------------ | ------ | --------- | ------------------------- |
 | description  | string | No        | Descripción detallada     |
 | pattern_type | string | Sí        | Tipo de patrón de visitas |
+
+### Configuración de la Ruta
+
+#### Patrón Específico
+| Campo      | Tipo | Requerido | Descripción                                   |
+| ---------- | ---- | --------- | --------------------------------------------- |
+| visit_date | date | Sí*       | Fecha específica de visita (formato ISO 8601) |
+
+\* Requerido cuando `pattern_type` es "specific"
+
+#### Patrón Recurrente
+| Campo         | Tipo     | Requerido | Descripción                                                     |
+| ------------- | -------- | --------- | --------------------------------------------------------------- |
+| frequency     | string   | Sí*       | Frecuencia: "weekly", "monthly", "custom"                       |
+| days          | string[] | Sí*       | Días de la semana: ["MONDAY", "TUESDAY", etc.]                  |
+| week_of_month | number   | No        | Semana del mes (1-5) para patrones mensuales                    |
+| interval      | number   | No        | Número de unidades (semanas/meses) entre visitas. Por defecto 1 |
+| start_date    | date     | No        | Fecha de inicio del patrón. Define la secuencia de semanas      |
+
+\* Requerido cuando `pattern_type` es "recurring"
 
 ### Estado
 
@@ -132,7 +153,39 @@ erDiagram
   "recurring_pattern": {
     "frequency": "weekly",
     "days": ["MONDAY", "THURSDAY"],
-    "interval": 1
+    "interval": 1  // Visita todas las semanas
+  },
+
+  // Estado
+  "status": "active",
+
+  // Atributos personalizados
+  "attributes": [],
+
+  // Marcas temporales
+  "created_at": "2024-03-19T10:00:00Z",
+  "updated_at": "2024-03-19T10:00:00Z"
+}
+```
+
+### Ejemplo - Ruta Bi-semanal
+
+```json
+{
+  // Identificadores
+  "route_id": "RTE_003",
+  "client_id": "CLT_003",
+  
+  // Información básica
+  "description": "Visita quincenal cliente secundario",
+  
+  // Configuración de la ruta
+  "pattern_type": "recurring",
+  "recurring_pattern": {
+    "frequency": "weekly",
+    "days": ["WEDNESDAY"],
+    "interval": 2,  // Visita cada dos semanas
+    "start_date": "2024-01-10"  // Comienza en semana 2, por lo que las visitas serán en semanas pares
   },
 
   // Estado
@@ -269,3 +322,29 @@ DELETE /api/v1/routes/{route_id}/visits/{visit_id}
 - Las tareas se pueden asignar a visitas específicas
 - Se sincronizan automáticamente con el calendario del vendedor
 - Se pueden definir tareas recurrentes por patrón de visita
+
+**¿Cómo configurar diferentes frecuencias de visita?**
+- Visitas semanales: usar `interval: 1` (valor por defecto)
+- Visitas bi-semanales: usar `interval: 2`
+- Visitas mensuales: usar `frequency: "monthly"` con los días específicos
+- Para patrones más complejos, usar `frequency: "custom"` con el intervalo necesario
+
+**¿Cómo se calculan las semanas en visitas bi-semanales?**
+- Las semanas se calculan desde el inicio del año (semana ISO)
+- Para `interval: 2`, si una ruta comienza en una semana par:
+  - Las visitas ocurrirán en las semanas pares (2, 4, 6, etc.)
+- Si comienza en una semana impar:
+  - Las visitas ocurrirán en las semanas impares (1, 3, 5, etc.)
+- Ejemplo:
+  ```json
+  {
+    "pattern_type": "recurring",
+    "recurring_pattern": {
+      "frequency": "weekly",
+      "days": ["WEDNESDAY"],
+      "interval": 2,
+      "start_date": "2024-01-10"  // Semana 2 del año
+    }
+  }
+  ```
+  En este caso, las visitas serán en las semanas 2, 4, 6, etc. del año
