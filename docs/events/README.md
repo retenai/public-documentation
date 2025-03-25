@@ -1,11 +1,58 @@
-# Eventos
+# 📈 Eventos
 
 Los eventos en Reten representan acciones y cambios significativos que ocurren en la plataforma del cliente. Estos eventos capturan el journey completo del cliente final, desde la navegación inicial hasta la entrega del producto.
+
+{% from '/includes/cards.md' import feature_card, section_cards %}
+
+{% call section_cards('Tipos') %}
+{{ feature_card(
+    'material-shopping',
+    'Órdenes',
+    'Eventos del ciclo de vida de órdenes',
+    'order/README.md'
+) }}
+
+{{ feature_card(
+    'material-truck-delivery',
+    'Logística',
+    'Eventos de preparación y entrega',
+    'logistics/README.md'
+) }}
+
+{{ feature_card(
+    'material-account',
+    'Cuenta',
+    'Eventos de gestión de usuarios',
+    'account/README.md'
+) }}
+
+{{ feature_card(
+    'material-heart',
+    'Engagement',
+    'Eventos de interacción y fidelización',
+    'engagement/README.md'
+) }}
+
+{{ feature_card(
+    'material-cart',
+    'Carrito',
+    'Eventos relacionados con el carrito de compras',
+    'cart/README.md'
+) }}
+
+{{ feature_card(
+    'material-navigation',
+    'Navegación',
+    'Eventos de interacción con la plataforma',
+    'navigation/README.md'
+) }}
+{% endcall %}
 
 ## Tipos de Eventos
 
 ### [Navegación y Descubrimiento](./navigation/README.md)
 Eventos relacionados con la exploración de la plataforma:
+
 - Vistas de página
 - Búsquedas realizadas
 - Visualización de productos
@@ -15,6 +62,7 @@ Eventos relacionados con la exploración de la plataforma:
 
 ### [Carrito y Checkout](./cart/README.md)
 Eventos del proceso de compra:
+
 - Gestión del carrito (agregar/remover productos)
 - Modificación de cantidades
 - Proceso de checkout
@@ -23,6 +71,7 @@ Eventos del proceso de compra:
 
 ### [Órdenes](./order/README.md)
 Eventos relacionados con órdenes:
+
 - Creación de orden
 - Procesamiento de pagos
 - Confirmaciones
@@ -31,6 +80,7 @@ Eventos relacionados con órdenes:
 
 ### [Logística y Fulfillment](./logistics/README.md)
 Eventos del proceso de preparación y entrega:
+
 - Asignación a centro de distribución
 - Picking y packing
 - Despacho y tracking
@@ -39,6 +89,7 @@ Eventos del proceso de preparación y entrega:
 
 ### [Cuenta y Perfil](./account/README.md)
 Eventos de gestión de usuarios:
+
 - Registro y autenticación
 - Actualización de datos personales
 - Gestión de preferencias
@@ -47,6 +98,7 @@ Eventos de gestión de usuarios:
 
 ### [Engagement](./engagement/README.md)
 Eventos de interacción y fidelización:
+
 - Listas de deseos
 - Reseñas y calificaciones
 - Compartir productos

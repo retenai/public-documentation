@@ -1,6 +1,31 @@
-# Configuraciones
+# ⚙️ Configuraciones
 
-Las configuraciones representan las reglas y parámetros operativos que definen el comportamiento del sistema Reten. Cada configuración establece cómo los diferentes componentes del sistema interactúan y operan, permitiendo una personalización flexible según las necesidades del negocio.
+Personalización del sistema, asignaciones, rutas y notificaciones.
+
+{% from '/includes/cards.md' import feature_card, section_cards %}
+
+{% call section_cards('Componentes') %}
+{{ feature_card(
+    'material-account-group',
+    'Asignaciones',
+    'Relaciones entre vendedores y clientes',
+    'assignments/README.md'
+) }}
+
+{{ feature_card(
+    'material-map-marker-path',
+    'Rutas',
+    'Programación de visitas a clientes',
+    'routes/README.md'
+) }}
+
+{{ feature_card(
+    'material-bell',
+    'Suscripciones',
+    'Gestión de comunicaciones y notificaciones',
+    'subscription/README.md'
+) }}
+{% endcall %}
 
 ## Características Comunes
 
@@ -13,38 +38,6 @@ Todas las configuraciones comparten:
 - Extensibilidad mediante atributos personalizados
 
 Para asegurar la consistencia en la documentación y estructura de las configuraciones, se proporciona una [plantilla](./_template.md) que debe seguirse al crear nuevas configuraciones.
-
-## Catálogo de Configuraciones
-
-### [Asignaciones](./assignments/README.md)
-
-Define la relación entre vendedores y clientes.
-
-- Roles y responsabilidades
-- Períodos de validez
-- Métricas y objetivos
-- Reglas de asignación
-
-
-### [Rutas](./routes/README.md)
-
-Establece los patrones de visita y planificación.
-
-- Patrones recurrentes y específicos
-- Frecuencias de visita
-- Optimización territorial
-- Integración con tareas
-
-
-### [Suscripciones](./subscription/README.md)
-
-Gestiona las preferencias de comunicación y notificaciones.
-
-- Canales de comunicación
-- Preferencias por usuario
-- Configuración de frecuencias
-- Gestión de consentimientos
-
 
 ## Convenciones Generales
 

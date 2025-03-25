@@ -12,7 +12,7 @@ Bienvenido a la documentación técnica de Reten. Esta documentación está dise
 
 La documentación está organizada siguiendo el flujo natural de implementación y uso del sistema:
 
-{% from 'includes/cards.md' import feature_card, section_cards, feature_highlights, highlight_item, section_overview %}
+{% from '/includes/cards.md' import feature_card, section_cards, feature_highlights, highlight_item, section_overview %}
 
 {% set main_sections = [
     {
@@ -42,133 +42,6 @@ La documentación está organizada siguiendo el flujo natural de implementación
 ] %}
 
 {{ section_overview(main_sections) }}
-
-{% call section_cards('📊 Datos Maestros', 'master-data/README.md') %}
-{{ feature_card(
-    'material-store',
-    'Clientes',
-    'Establecimientos comerciales y sus características',
-    'master-data/client/README.md'
-) }}
-
-{{ feature_card(
-    'material-package',
-    'Productos',
-    'Catálogo de productos y sus atributos',
-    'master-data/product/README.md'
-) }}
-
-{{ feature_card(
-    'material-shape',
-    'Categorías',
-    'Clasificación jerárquica de productos',
-    'master-data/category/README.md'
-) }}
-
-{{ feature_card(
-    'material-account-tie',
-    'Vendedores',
-    'Usuarios del sistema y sus permisos',
-    'master-data/seller/README.md'
-) }}
-
-{{ feature_card(
-    'material-ticket-percent',
-    'Cupones',
-    'Sistema de promociones y descuentos',
-    'master-data/coupon/README.md'
-) }}
-
-{{ feature_card(
-    'material-cart',
-    'Transacciones',
-    'Compras realizadas por los clientes',
-    'master-data/transactions/README.md'
-) }}
-{% endcall %}
-
-{% call section_cards('⚙️ Configuraciones', 'settings/README.md') %}
-{{ feature_card(
-    'material-account-group',
-    'Asignaciones',
-    'Relaciones entre vendedores y clientes',
-    'settings/assignments/README.md'
-) }}
-
-{{ feature_card(
-    'material-map-marker-path',
-    'Rutas',
-    'Programación de visitas a clientes',
-    'settings/routes/README.md'
-) }}
-
-{{ feature_card(
-    'material-bell',
-    'Suscripciones',
-    'Gestión de comunicaciones y notificaciones',
-    'settings/subscription/README.md'
-) }}
-{% endcall %}
-
-{% call section_cards('✅ Tareas', 'tasks/README.md') %}
-{{ feature_card(
-    'material-clipboard-list',
-    'Tareas',
-    'Instrucciones y momentos oportunos para contactar clientes',
-    'tasks/README.md'
-) }}
-
-{{ feature_card(
-    'material-chart-timeline',
-    'Seguimiento',
-    'Estado y progreso de tareas',
-    'tasks/tracking/README.md'
-) }}
-{% endcall %}
-
-{% call section_cards('📈 Eventos', 'events/README.md') %}
-{{ feature_card(
-    'material-shopping',
-    'Órdenes',
-    'Eventos del ciclo de vida de órdenes',
-    'events/order/README.md'
-) }}
-
-{{ feature_card(
-    'material-truck-delivery',
-    'Logística',
-    'Eventos de preparación y entrega',
-    'events/logistics/README.md'
-) }}
-
-{{ feature_card(
-    'material-account',
-    'Cuenta',
-    'Eventos de gestión de usuarios',
-    'events/account/README.md'
-) }}
-
-{{ feature_card(
-    'material-heart',
-    'Engagement',
-    'Eventos de interacción y fidelización',
-    'events/engagement/README.md'
-) }}
-
-{{ feature_card(
-    'material-cart',
-    'Carrito',
-    'Eventos relacionados con el carrito de compras',
-    'events/cart/README.md'
-) }}
-
-{{ feature_card(
-    'material-navigation',
-    'Navegación',
-    'Eventos de interacción con la plataforma',
-    'events/navigation/README.md'
-) }}
-{% endcall %}
 
 {% call feature_highlights('✨ Características Principales') %}
 {{ highlight_item(
