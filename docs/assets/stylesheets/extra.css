@@ -144,15 +144,6 @@
     color: var(--md-primary-fg-color);
 }
 
-/* Logo color handling */
-[data-md-color-scheme="default"] .md-header__button.md-logo img {
-    filter: brightness(0) saturate(100%) invert(27%) sepia(82%) saturate(4182%) hue-rotate(254deg) brightness(99%) contrast(108%);
-}
-
-[data-md-color-scheme="slate"] .md-header__button.md-logo img {
-    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
-}
-
 /* Typography */
 .md-typeset {
     font-size: 0.75rem;
