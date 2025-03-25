@@ -1,4 +1,4 @@
-# Clientes
+# :material-store: Clientes
 
 Los clientes son los establecimientos, negocios o personas que interactúan con la plataforma Reten. Esta entidad almacena toda la información relevante sobre los clientes.
 

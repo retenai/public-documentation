@@ -1,4 +1,4 @@
-# Cupones
+# :material-ticket-percent: Cupones
 
 Los cupones representan los descuentos y promociones que pueden ser aplicados a las órdenes en la plataforma Reten. Esta entidad almacena toda la información relevante sobre las condiciones, restricciones y beneficios de cada cupón.
 

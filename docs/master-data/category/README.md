@@ -1,4 +1,4 @@
-# Categorías
+# :material-shape: Categorías
 
 Las categorías permiten organizar y clasificar productos de manera jerárquica en la plataforma Reten. Esta entidad maneja la estructura de navegación, filtrado y agrupación de productos.
 

@@ -1,4 +1,4 @@
-# Vendedores
+# :material-account-tie: Vendedores
 
 Los vendedores son los usuarios del CPG (Consumer Packaged Goods) que interactúan con la plataforma Reten. Esta entidad almacena toda la información relevante sobre los usuarios, sus roles, permisos y relaciones con comercios.
 

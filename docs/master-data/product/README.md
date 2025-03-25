@@ -1,4 +1,4 @@
-# Productos
+# :material-package: Productos
 
 Los productos representan los artículos comercializados a través de la plataforma Reten. Esta entidad almacena toda la información relevante sobre los productos, sus características, categorización y relaciones comerciales.
 

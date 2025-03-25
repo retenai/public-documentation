@@ -1,4 +1,4 @@
-# Transacciones
+# :material-cart: Transacciones
 
 Las transacciones representan las compras realizadas por los clientes en el sistema. Esta entidad almacena toda la información relevante sobre las operaciones comerciales completadas.
 
