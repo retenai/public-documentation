@@ -449,3 +449,102 @@
     position: relative;
     z-index: 2;
 }
+
+/* Tables - Light mode */
+[data-md-color-scheme="default"] table {
+    background-color: #ffffff !important;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    margin: 2em 0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+[data-md-color-scheme="default"] table th {
+    background-color: var(--md-primary-fg-color) !important;
+    border-bottom: none !important;
+    color: #ffffff !important;
+    font-weight: 500;
+}
+
+[data-md-color-scheme="default"] table td {
+    border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
+    background-color: #ffffff;
+}
+
+[data-md-color-scheme="default"] table tr:nth-child(even) td {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+[data-md-color-scheme="default"] table tr:hover td {
+    background-color: rgba(var(--md-primary-fg-color--rgb), 0.04) !important;
+}
+
+[data-md-color-scheme="default"] table code {
+    background-color: rgba(0, 0, 0, 0.05) !important;
+    color: var(--md-code-fg-color) !important;
+    padding: 0.2em 0.5em;
+    border-radius: 4px;
+}
+
+/* Links in tables - Light mode */
+[data-md-color-scheme="default"] table a {
+    color: var(--md-primary-fg-color) !important;
+    text-decoration: none;
+}
+
+[data-md-color-scheme="default"] table a:hover {
+    text-decoration: underline;
+}
+
+/* Tables - Dark mode */
+[data-md-color-scheme="slate"] table {
+    background-color: hsla(var(--md-hue), 15%, 15%, 1) !important;
+    border-radius: 6px;
+    border: 1px solid hsla(var(--md-hue), 25%, 25%, 1) !important;
+    margin: 2em 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+[data-md-color-scheme="slate"] table th {
+    background-color: var(--md-primary-fg-color) !important;
+    border-bottom: none !important;
+    color: #ffffff !important;
+    font-weight: 500;
+}
+
+[data-md-color-scheme="slate"] table td {
+    border-top: 1px solid hsla(var(--md-hue), 25%, 25%, 1) !important;
+}
+
+[data-md-color-scheme="slate"] table tr:nth-child(even) td {
+    background-color: hsla(var(--md-hue), 20%, 20%, 1);
+}
+
+[data-md-color-scheme="slate"] table tr:hover td {
+    background-color: hsla(var(--md-hue), 25%, 25%, 1) !important;
+}
+
+[data-md-color-scheme="slate"] table code {
+    background-color: hsla(var(--md-hue), 30%, 30%, 0.5) !important;
+    color: var(--md-code-fg-color) !important;
+    padding: 0.2em 0.5em;
+    border-radius: 4px;
+}
+
+/* Links in tables - Dark mode */
+[data-md-color-scheme="slate"] table a {
+    color: var(--md-primary-fg-color) !important;
+    text-decoration: none;
+}
+
+[data-md-color-scheme="slate"] table a:hover {
+    text-decoration: underline;
+}
+
+/* Improve spacing for both modes */
+[data-md-color-scheme="default"] table td,
+[data-md-color-scheme="default"] table th,
+[data-md-color-scheme="slate"] table td,
+[data-md-color-scheme="slate"] table th {
+    padding: 0.9em 1.25em !important;
+}
