@@ -260,7 +260,7 @@
 
 .section-overview {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
     gap: 1rem;
     margin: 2rem 0;
 }
@@ -269,7 +269,7 @@
     padding: 1rem;
     background-color: var(--md-code-bg-color);
     border-left: .2rem solid var(--md-primary-fg-color);
-    border-radius: .1rem;
+    border-radius: 8px;
     transition: all 0.2s ease;
     font-size: .8rem;
     position: relative;
@@ -336,6 +336,20 @@
 
 [data-md-color-scheme="slate"] .overview-item p {
     color: var(--md-typeset-color);
+}
+
+.overview-item .card-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 2;
+}
+
+.overview-item:hover .card-link {
+    opacity: 0.1;
 }
 
 /* Grid Cards */

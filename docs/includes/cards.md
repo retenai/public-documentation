@@ -10,7 +10,7 @@
 <div class="section-overview" markdown>
 {% for section in sections %}
 <div class="overview-item" markdown>
-:{{ section.icon }}:{ .lg .middle } **[{{ section.title }}]({{ section.link }})**
+:{{ section.icon }}:{ .lg .middle } **[{{ section.title }}]({{ section.link }})** []({{ section.link }}){.card-link}
 
 {{ section.description }}
 </div>
