@@ -4,7 +4,7 @@ Bienvenido a la documentación técnica de Reten. Esta documentación está dise
 
 !!! tip "Acceso Rápido"
     - 🚀 [Comenzar ahora](#comenzando)
-    - 📚 [Explorar APIs](master-data/client/README.md#apis)
+    - 📚 [Estructura de datos](master-data/client/README.md#estructura-de-datos)
     - 💡 [Ver ejemplos](master-data/client/README.md#ejemplos-de-uso)
     - 🤝 [Contribuir](#contribuir)
 
@@ -14,9 +14,29 @@ La documentación está organizada siguiendo el flujo natural de implementación
 
 {% from '/includes/cards.md' import feature_card, section_cards, feature_highlights, highlight_item, section_overview %}
 
-{% set main_sections = [
+### [🔌 Métodos de Conexión](connection-methods/README.md)
+{% set connection_methods = [
+    {
+        'icon': 'material-folder',
+        'title': 'Archivo',
+        'link': 'connection-methods/file-based/README.md',
+        'description': 'Carga periódica de archivos en bucket compartido para sincronización de datos.'
+    },
     {
         'icon': 'material-database',
+        'title': 'Base de Datos',
+        'link': 'connection-methods/database/README.md',
+        'description': 'Consulta directa a base de datos expuesta por el cliente para acceso en tiempo real.'
+    }
+] %}
+
+{{ section_overview(connection_methods) }}
+
+### 📊 Contenidos del Sistema
+
+{% set main_sections = [
+    {
+        'icon': 'material-book-open-variant',
         'title': 'Datos Maestros',
         'link': 'master-data/README.md',
         'description': 'Gestión de clientes, productos, categorías y otros datos fundamentales del sistema.'
