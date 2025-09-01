@@ -1,0 +1,343 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Git Workflow Rules
+
+## 📝 Standardized Commit Workflow
+
+### Prerequisites
+- User must have all changes staged before requesting commit assistance
+- Verify staged changes with: `git status`
+
+### Step-by-Step Process
+
+#### 1. Generate Staged Diff
+```bash
+git diff --cached > staged_changes.diff
+```
+**Purpose**: Create a temporary file with all staged changes for analysis
+
+#### 2. Analyze Changes and Generate Commit Message
+- Review the staged diff content
+- Identify the main feature/fix/enhancement
+- Create a structured commit message in a temporary file
+- Use conventional commit format with detailed body
+
+#### 3. Create Commit Message File
+**Template Structure**:
+```
+feat/fix/docs/refactor: Brief description
+
+Detailed description of what was changed and why.
+
+## Key Changes:
+- Change 1 with explanation
+- Change 2 with explanation
+
+## Technical Details:
+- Implementation details
+- Performance considerations
+- Breaking changes (if any)
+
+## Files Modified:
+- file1.py: Description of changes
+- file2.py: Description of changes
+```
+
+#### 4. Execute Commit
+```bash
+git commit -F commit_message.txt
+```
+
+#### 5. Cleanup
+```bash
+rm staged_changes.diff commit_message.txt
+```
+
+### Commands Reference
+```bash
+# Check staged files
+git status
+
+# Generate staged diff
+git diff --cached > staged_changes.diff
+
+# Create commit with message file
+git commit -F commit_message.txt
+
+# Amend commit message if needed
+git commit --amend -F new_commit_message.txt
+
+# View recent commit
+git log --oneline -1
+git show --stat HEAD
+```
+
+---
+
+## 🚀 Standardized Pull Request Workflow
+
+### Prerequisites
+- All commits should be pushed to the current branch
+- GitHub CLI must be installed and authenticated (`gh auth status`)
+- User must specify target branch for the PR (e.g., main, develop, staging)
+
+### Step-by-Step Process
+
+#### 1. Push Current Branch
+```bash
+# Push current branch to origin
+git push origin HEAD
+```
+
+#### 2. Review Branch Differences
+```bash
+# Compare current branch with target branch (replace 'main' with target)
+git log --oneline origin/main..HEAD
+git diff origin/main..HEAD --stat
+```
+
+#### 3. Generate PR Title and Body Content
+- Analyze the commit history and changes
+- Create a descriptive PR title based on main feature/fix
+- Create a comprehensive PR description
+- Include technical implementation details
+- Add breaking changes warnings
+- Provide testing considerations
+
+#### 4. Create PR Title File
+```bash
+# Example: echo "feat: Add user authentication system" > pr_title.txt
+echo "PR_TITLE_HERE" > pr_title.txt
+```
+
+#### 5. Create PR Body File
+**Template Structure**:
+```markdown
+# 🚀 Feature Title
+
+## 📋 Overview
+Brief description of the feature/fix and its purpose.
+
+## 🎯 Key Features
+- Feature 1: Description
+- Feature 2: Description
+
+## 🏗️ Technical Implementation
+
+### 📂 Files Modified
+| File     | Changes  | Description |
+| -------- | -------- | ----------- |
+| file1.py | +X lines | Description |
+| file2.py | +Y lines | Description |
+
+### 🔧 New Methods/Functions
+#### `method_name()`
+- Description of what it does
+- Parameters and return values
+- Key implementation details
+
+## 🚨 Breaking Changes
+### ⚠️ Method Signature Changes
+```python
+# BEFORE
+old_method_signature()
+
+# AFTER
+new_method_signature()
+```
+
+## 🎯 Performance Optimizations
+- Optimization 1: Description and impact
+- Optimization 2: Description and impact
+
+## 🧪 Testing Considerations
+- [ ] Test case 1
+- [ ] Test case 2
+- [ ] Edge case handling
+
+## 🎉 Benefits
+1. Benefit 1: Description
+2. Benefit 2: Description
+```
+
+#### 6. Create PR via GitHub CLI
+```bash
+# Create PR with title and body files (replace 'main' with target branch)
+gh pr create --title "$(cat pr_title.txt)" --body-file pr_body.md --base main --head $(git branch --show-current)
+
+# Alternative: Create PR and open for editing
+gh pr create --title "$(cat pr_title.txt)" --body-file pr_body.md --base main --head $(git branch --show-current) --web
+```
+
+#### 7. View Created PR
+```bash
+# View PR details in terminal
+gh pr view
+
+# Open PR in browser
+gh pr view --web
+```
+
+#### 8. Cleanup
+```bash
+rm pr_title.txt pr_body.md
+```
+
+### Commands Reference
+```bash
+# Check GitHub CLI installation and auth
+which gh
+gh auth status
+
+# Push current branch
+git push origin HEAD
+
+# Create PR with custom target branch
+gh pr create --title "$(cat pr_title.txt)" --body-file pr_body.md --base TARGET_BRANCH --head $(git branch --show-current)
+
+# List available branches for reference
+git branch -r
+
+# View PR details
+gh pr view
+gh pr view --web
+
+# Edit PR after creation
+gh pr edit --title "New Title"
+gh pr edit --body-file new_pr_body.md
+
+# List current PRs
+gh pr list
+
+# Compare branches with custom target
+git log --oneline origin/TARGET_BRANCH..HEAD
+git diff origin/TARGET_BRANCH..HEAD --stat
+```
+
+---
+
+## 🎯 Best Practices
+
+### Commit Messages
+- **Use English language**: All commit messages must be written in English for consistency and team collaboration
+- Use conventional commit types: `feat:`, `fix:`, `docs:`, `refactor:`, `perf:`, `test:`
+- Keep first line under 50 characters
+- Provide detailed body with bullet points
+- Include technical implementation details
+- Mention breaking changes explicitly
+
+### PR Descriptions
+- Start with clear overview and purpose
+- Use emojis for visual organization
+- Include tables for file changes
+- Provide code examples for breaking changes
+- Add comprehensive testing checklist
+- Highlight performance implications
+
+### File Organization
+- Always use temporary files for structured content
+- Clean up temporary files after use
+- Use descriptive filenames (`commit_message.txt`, `pr_title.txt`, `pr_body.md`)
+- Store files in project root for easy access
+
+---
+
+## ⚠️ Important Notes
+
+1. **GitHub CLI Required**: Ensure `gh` is installed and authenticated for PR operations (`gh auth status`)
+2. **Target Branch**: Always confirm the target branch before creating PR (main, develop, staging, etc.)
+3. **Staged Changes**: Always verify changes are staged before commit workflow
+4. **Branch Context**: Ensure you're on the correct branch before starting workflows
+5. **Push Before PR**: Always push the current branch before creating PR
+6. **File Cleanup**: Always remove temporary files to keep workspace clean
+7. **Review Before Execute**: Always review generated content before applying to Git/GitHub
+
+---
+
+## 🔧 Troubleshooting
+
+### Common Issues
+```bash
+# GitHub CLI not authenticated
+gh auth login
+
+# Check authentication status
+gh auth status
+
+# No staged changes
+git add <files>
+git status
+
+# Wrong branch
+git checkout <correct-branch>
+
+# Branch not pushed to origin
+git push origin HEAD
+
+# List available branches for target reference
+git branch -r
+
+# PR creation failed - check permissions
+gh repo view
+
+# View existing PRs
+gh pr list
+
+# Check current branch
+git branch --show-current
+```
+
+---
+
+## 📟 Pager Commands - Avoiding Stuck Commands
+
+### ⚠️ Commands That Can Get Stuck in Pager
+Some Git and GitHub CLI commands use a pager by default, which can cause them to hang waiting for user input. Use these alternatives to prevent blocking:
+
+```bash
+# ❌ Commands that may get stuck in pager:
+git log --oneline
+git diff --stat  
+git show --stat
+gh pr view
+gh pr list
+gh repo view
+
+# ✅ Safe alternatives - use --no-pager or | cat:
+git --no-pager log --oneline
+git --no-pager log --oneline -1
+git --no-pager log --oneline origin/main..HEAD
+git --no-pager diff --stat
+git --no-pager diff origin/main..HEAD --stat
+git --no-pager show --stat HEAD
+git --no-pager branch -r
+
+# For GitHub CLI - pipe to cat
+gh pr view | cat
+gh pr list | cat
+gh repo view | cat
+
+# Or use JSON output (no pager)
+gh pr view --json title,body,url
+gh pr list --json number,title,headRefName
+```
+
+### 🔧 Updated Workflow Commands
+Use these safe versions in automated workflows:
+
+```bash
+# Safe commit verification
+git --no-pager log --oneline -1
+git --no-pager show --stat HEAD
+
+# Safe branch comparison  
+git --no-pager log --oneline origin/main..HEAD
+git --no-pager diff origin/main..HEAD --stat
+
+# Safe PR operations
+gh pr view | cat
+gh pr list | cat
+```
