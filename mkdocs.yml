@@ -79,25 +79,22 @@ markdown_extensions:
 nav:
   - Inicio:
     - Resumen: index.md
-    - Datos Maestros: master-data/README.md
-    - Configuraciones: settings/README.md
-    - Tareas: tasks/README.md
-    - Eventos: events/README.md
-  - Métodos de Conexión:
-    - Métodos de Conexión: connection-methods/README.md
-    - Archivos: connection-methods/file-based/README.md
-    - Base de Datos: connection-methods/database/README.md
-  - Datos Maestros:
-    - Resumen: master-data/README.md
-    - Clientes: master-data/client/README.md
-    - Productos: master-data/product/README.md
-    - Vendedores: master-data/seller/README.md
-    - Cupones: master-data/coupon/README.md
-    - Transacciones: master-data/transactions/README.md
-  - Configuraciones:
-    - Resumen: settings/README.md
-    - Asignaciones: settings/assignments/README.md
-    - Rutas: settings/routes/README.md
+  - Carga de Datos:
+    - Resumen: data-loading/README.md
+    - Métodos de Conexión:
+      - Archivos: connection-methods/file-based/README.md
+      - Base de Datos: connection-methods/database/README.md
+    - Datos Maestros:
+      - Resumen: master-data/README.md
+      - Clientes: master-data/client/README.md
+      - Productos: master-data/product/README.md
+      - Vendedores: master-data/seller/README.md
+      - Cupones: master-data/coupon/README.md
+      - Transacciones: master-data/transactions/README.md
+    - Configuraciones:
+      - Resumen: settings/README.md
+      - Asignaciones: settings/assignments/README.md
+      - Rutas: settings/routes/README.md
   - Tareas:
     - Resumen: tasks/README.md
     - Visitas: tasks/visit/README.md
