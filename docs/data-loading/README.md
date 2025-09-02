@@ -61,6 +61,12 @@ Los datos maestros representan la información fundamental de tu negocio:
         'title': 'Transacciones',
         'link': '../master-data/transactions/README.md',
         'description': 'Historial de compras y ventas.'
+    },
+    {
+        'icon': 'material-chart-timeline-variant',
+        'title': 'Eventos',
+        'link': '../master-data/events/README.md',
+        'description': 'Acciones y actividades del sistema para análisis retrospectivo.'
     }
 ] %}
 

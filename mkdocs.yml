@@ -91,6 +91,7 @@ nav:
       - Vendedores: master-data/seller/README.md
       - Cupones: master-data/coupon/README.md
       - Transacciones: master-data/transactions/README.md
+      - Eventos: master-data/events/README.md
     - Configuraciones:
       - Resumen: settings/README.md
       - Asignaciones: settings/assignments/README.md

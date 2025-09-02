@@ -29,6 +29,7 @@ El cliente debe crear tablas con la estructura especificada en la documentación
 - **Productos**: Ver estructura en [Datos Maestros > Productos](../../master-data/product/README.md)
 - **Vendedores**: Ver estructura en [Datos Maestros > Vendedores](../../master-data/seller/README.md)
 - **Transacciones**: Ver estructura en [Datos Maestros > Transacciones](../../master-data/transactions/README.md)
+- **Eventos**: Ver estructura en [Datos Maestros > Eventos](../../master-data/events/README.md)
 
 > 💡 **Ver todas las entidades de datos maestros**: [Datos Maestros](../../master-data/README.md)
 
