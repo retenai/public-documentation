@@ -28,7 +28,6 @@ Este método de integración funciona mediante:
 **Ejemplos**:
 - `clients_20241201_143022.csv`
 - `products_20241201_143025.csv`
-- `categories_20241201_143028.csv`
 - `assignments_20241201_143030.csv`
 - `routes_20241201_143032.csv`
 - `subscriptions_20241201_143035.csv`
@@ -47,7 +46,6 @@ Reten proporciona un bucket compartido para cada cliente:
 reten-integration-{client_id}/
 ├── clients/
 ├── products/
-├── categories/
 ├── sellers/
 ├── transactions/
 ├── assignments/
@@ -62,7 +60,7 @@ Los archivos CSV deben contener las columnas especificadas en la documentación 
 ### Datos Maestros
 - **Clientes**: Ver estructura en [Datos Maestros > Clientes](../../master-data/client/README.md)
 - **Productos**: Ver estructura en [Datos Maestros > Productos](../../master-data/product/README.md)
-- **Categorías**: Ver estructura en [Datos Maestros > Categorías](../../master-data/category/README.md)
+
 - **Vendedores**: Ver estructura en [Datos Maestros > Vendedores](../../master-data/seller/README.md)
 - **Transacciones**: Ver estructura en [Datos Maestros > Transacciones](../../master-data/transactions/README.md)
 
