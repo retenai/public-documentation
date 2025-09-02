@@ -12,20 +12,33 @@ Los clientes son los establecimientos, negocios o personas que interactúan con 
   // Información básica
   "name": "string",              // Nombre del cliente
   
+  // Información de contacto directa
+  "email": "string",             // Email principal del cliente
+  "phone": "string",             // Teléfono principal del cliente
+  
+  // Ubicación
+  "country": "string",           // País del cliente
+  
+  // Dirección principal (opcional)
+  "address": "string",           // Dirección completa como string
+  
+  // Dirección desglosada (opcional)
+  "address_street": "string",    // Calle
+  "address_number": "string",    // Número
+  "address_commune": "string",   // Comuna
+  "address_city": "string",      // Ciudad
+  "address_region": "string",    // Región
+  "address_dept": "string",      // Departamento/oficina
+  
+  // Fechas relevantes
+  "signup_at": "timestamp",      // Fecha de registro (not null)
+  "setup_at": "timestamp",       // Fecha de configuración final
+  
   // Marcas temporales
   "created_at": "timestamp",     // Fecha de creación en sistema cliente (not null)
   "updated_at": "timestamp",     // Fecha de última actualización en sistema cliente
 
-  // Fechas relevantes
-  "dates": {
-    "sign_up": "timestamp",      // Fecha de registro (not null)
-    "set_up": "timestamp",       // Fecha de configuración inicial
-  },
-
-  // Ubicación
-  "country": "string",           // País del cliente
-
-  // Información de contacto y personas relacionadas
+  // Información de contacto estructurada (opcional)
   "contacts": [{
     "email": "string",           // Correo electrónico
     "phone": "string",           // Número telefónico
@@ -39,7 +52,7 @@ Los clientes son los establecimientos, negocios o personas que interactúan con 
     }
   }],
 
-  // Direcciones
+  // Direcciones adicionales (opcional)
   "addresses": [{
     "type": "string",           // shipping, billing, warehouse, etc.
     "name": "string",           // Nombre de la dirección
@@ -94,6 +107,32 @@ Los clientes son los establecimientos, negocios o personas que interactúan con 
 | name    | string | Sí        | Nombre del cliente          |
 | country | string | No        | País donde opera el cliente |
 
+### Información de Contacto Directa
+
+| Campo | Tipo   | Requerido | Descripción                    |
+| ----- | ------ | --------- | ------------------------------ |
+| email | string | Sí        | Email principal del cliente    |
+| phone | string | Sí        | Teléfono principal del cliente |
+
+### Dirección Principal
+
+| Campo           | Tipo   | Requerido | Descripción                    |
+| --------------- | ------ | --------- | ------------------------------ |
+| address         | string | No        | Dirección completa como string |
+| address_street  | string | No        | Calle                          |
+| address_number  | string | No        | Número                         |
+| address_commune | string | No        | Comuna                         |
+| address_city    | string | No        | Ciudad                         |
+| address_region  | string | No        | Región                         |
+| address_dept    | string | No        | Departamento/oficina           |
+
+### Fechas Relevantes
+
+| Campo     | Tipo      | Requerido | Descripción                  |
+| --------- | --------- | --------- | ---------------------------- |
+| signup_at | timestamp | Sí        | Fecha de registro inicial    |
+| setup_at  | timestamp | No        | Fecha de configuración final |
+
 ### Marcas Temporales
 
 | Campo      | Tipo      | Requerido | Descripción                             |
@@ -101,16 +140,9 @@ Los clientes son los establecimientos, negocios o personas que interactúan con 
 | created_at | timestamp | Sí        | Fecha de creación en sistema cliente    |
 | updated_at | timestamp | No        | Última actualización en sistema cliente |
 
-### Fechas Relevantes
+### Contactos (Opcional)
 
-| Campo         | Tipo      | Requerido | Descripción                  |
-| ------------- | --------- | --------- | ---------------------------- |
-| dates.sign_up | timestamp | Sí        | Fecha de registro inicial    |
-| dates.set_up  | timestamp | No        | Fecha de configuración final |
-
-### Contactos
-
-Los contactos se manejan como un array para permitir múltiples personas relacionadas con el cliente. Para clientes que son personas naturales, la lista contendrá un único contacto.
+Los contactos se manejan como un array opcional para permitir múltiples personas relacionadas con el cliente. Normalmente se usa cuando el cliente es un comercio o empresa con varias personas como punto de contacto. Para clientes que son personas naturales, este campo puede omitirse ya que la información principal está en los campos `email` y `phone` de raíz.
 
 | Campo         | Tipo   | Descripción                               |
 | ------------- | ------ | ----------------------------------------- |
@@ -146,9 +178,9 @@ Los contactos se manejan como un array para permitir múltiples personas relacio
 - `employee`: Empleado
 - `representative`: Representante legal
 
-### Direcciones
+### Direcciones Adicionales (Opcional)
 
-Las direcciones se manejan como un array para permitir múltiples ubicaciones:
+Las direcciones adicionales se manejan como un array opcional para permitir múltiples ubicaciones. Normalmente se usa para negocios con varias sucursales o direcciones de atención, oficina y facturación separadas. Para clientes simples, la información principal está en los campos de dirección de raíz.
 
 | Campo       | Tipo    | Descripción                         |
 | ----------- | ------- | ----------------------------------- |
@@ -218,19 +250,30 @@ Los grupos permiten categorizar y segmentar clientes:
 ### Fechas
 
 - `created_at` no puede ser posterior a `updated_at`
-- `dates.sign_up` no puede ser posterior a `dates.set_up`
+- `signup_at` no puede ser posterior a `setup_at`
 - Todas las fechas deben ser válidas y en formato ISO 8601
 
-### Contactos
+### Información de Contacto
 
-- Debe existir al menos un contacto de tipo `primary`
+- `email` y `phone` son campos requeridos en raíz
+- Los emails deben tener formato válido
+- Los teléfonos deben tener formato válido según el país
+
+### Contactos (Opcional)
+
+- Si se proporciona `contacts`, debe existir al menos un contacto de tipo `primary`
 - Los emails deben ser únicos dentro del array de contactos
 - Los emails deben tener formato válido
 - Los teléfonos deben tener formato válido según el país
 
-### Direcciones
+### Dirección Principal
 
-- Debe existir al menos una dirección marcada como `is_default: true`
+- Al menos uno de los campos de dirección debe estar presente (`address` o combinación de campos desglosados)
+- Si se usan campos desglosados, `address_city` es recomendado para ubicación básica
+
+### Direcciones Adicionales (Opcional)
+
+- Si se proporciona `addresses`, debe existir al menos una dirección marcada como `is_default: true`
 - Las coordenadas geográficas deben ser válidas si se proporcionan
 - Los tipos de dirección deben ser valores predefinidos
 
@@ -238,8 +281,9 @@ Los grupos permiten categorizar y segmentar clientes:
 
 ### Configuración Inicial
 
-- `dates.set_up` solo se establece cuando se completan todos los campos requeridos
-- La configuración requiere al menos una dirección y un contacto válidos
+- `setup_at` solo se establece cuando se completan todos los campos requeridos
+- La configuración requiere al menos `email`, `phone` y un campo de dirección válido
+- Los campos `contacts` y `addresses` son opcionales y no afectan la configuración inicial
 
 ### Grupos
 
@@ -259,32 +303,12 @@ Los grupos permiten categorizar y segmentar clientes:
 {
   "client_id": "COM_001",
   "name": "José Pérez",
-  "created_at": "2024-03-19T10:00:00Z",
-  "dates": {
-    "sign_up": "2024-03-19T10:00:00Z"
-  },
+  "email": "jose.perez@email.com",
+  "phone": "+56912345678",
   "country": "CL",
-  "contacts": [{
-    "type": "primary",
-    "email": "jose.perez@email.com",
-    "phone": "+56912345678",
-    "personal_info": {
-      "first_name": "José",
-      "last_name": "Pérez",
-      "country": "CL",
-      "date_of_birth": "1980-05-15T00:00:00Z",
-      "role": "owner"
-    }
-  }],
-  "addresses": [{
-    "type": "home",
-    "name": "Casa",
-    "street": "Los Alerces",
-    "number": "123",
-    "city": "Santiago",
-    "region": "Metropolitana",
-    "is_default": true
-  }]
+  "address": "Los Alerces 123, Santiago, Región Metropolitana",
+  "signup_at": "2024-03-19T10:00:00Z",
+  "created_at": "2024-03-19T10:00:00Z"
 }
 ```
 
@@ -294,6 +318,17 @@ Los grupos permiten categorizar y segmentar clientes:
 {
   "client_id": "COM_002",
   "name": "Supermercados El Sol",
+  "email": "gerencia@elsol.cl",
+  "phone": "+56922334455",
+  "country": "CL",
+  "address_street": "Av. Providencia",
+  "address_number": "1234",
+  "address_commune": "Providencia",
+  "address_city": "Santiago",
+  "address_region": "Metropolitana",
+  "signup_at": "2024-01-15T09:00:00Z",
+  "setup_at": "2024-01-20T16:00:00Z",
+  "created_at": "2024-01-15T09:00:00Z",
   "contacts": [{
     "type": "primary",
     "email": "gerencia@elsol.cl",
@@ -325,7 +360,15 @@ Los grupos permiten categorizar y segmentar clientes:
       "role": "manager"
     }
   }],
-  // ... resto de la información ...
+  "addresses": [{
+    "type": "warehouse",
+    "name": "Bodega Central",
+    "street": "Camino Industrial",
+    "number": "567",
+    "city": "Maipú",
+    "region": "Metropolitana",
+    "is_default": false
+  }]
 }
 ```
 
