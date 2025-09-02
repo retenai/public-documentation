@@ -1,5 +1,8 @@
 # :material-chart-timeline-variant: Eventos
 
+!!! warning "🚧 Work in Progress"
+    Esta sección está en desarrollo activo. La documentación de eventos se está construyendo y puede estar incompleta o sujeta a cambios.
+
 Los eventos en Reten representan acciones y cambios significativos que ocurren en la plataforma del cliente. Estos eventos capturan el journey completo del cliente final, desde la navegación inicial hasta la entrega del producto.
 
 {% from '/includes/cards.md' import feature_card, section_cards %}

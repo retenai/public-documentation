@@ -1,5 +1,8 @@
 # :material-checkbox-marked-circle: Tareas
 
+!!! warning "🚧 Work in Progress"
+    Esta sección está en desarrollo activo. La documentación de tareas se está construyendo y puede estar incompleta o sujeta a cambios.
+
 Las tareas en Reten representan los momentos de contacto planificados con los clientes, diseñados para alcanzar objetivos específicos en el ciclo de vida del cliente: adquisición, retención, reactivación y digitalización. Cada tarea define cómo, cuándo y a través de qué canal se realizará la interacción con el cliente.
 
 {% from '/includes/cards.md' import feature_card, section_cards %}
