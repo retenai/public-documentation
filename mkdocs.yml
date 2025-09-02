@@ -99,6 +99,8 @@ nav:
       - Rutas: settings/routes/README.md
   - Consumo de Datos:
     - Resumen: data-consumption/README.md
+    - Métodos de Conexión:
+      - API REST: data-consumption/connection-methods/README.md
     - Tareas:
       - Resumen: tasks/README.md
       - Visitas: tasks/visit/README.md

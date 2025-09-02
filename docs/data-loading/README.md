@@ -2,6 +2,10 @@
 
 Esta sección contiene toda la información necesaria para cargar datos desde tu sistema hacia Reten. La carga de datos es el primer paso fundamental para implementar Reten en tu negocio.
 
+!!! tip "Flujo de Datos"
+    - **🔄 Carga de Datos**: Tu sistema envía información a Reten
+    - **📤 Consumo de Datos**: Reten envía información procesada a tu sistema
+
 ## 🔌 Métodos de Conexión
 
 Reten ofrece dos métodos principales para cargar datos:
@@ -25,7 +29,7 @@ Reten ofrece dos métodos principales para cargar datos:
 
 {{ section_overview(connection_methods) }}
 
-## 📋 Tipos de Datos a Cargar
+## 📋 Tipos de Datos Disponibles
 
 ### 🗂️ Datos Maestros
 
