@@ -95,7 +95,8 @@ Para implementar Reten de manera efectiva, sigue estos pasos:
 
 !!! note "1. Configura tus Datos Maestros"
     - Define tus [Productos](master-data/product/README.md)
-    - Registra tus [Clientes](master-data/client/README.md) y [Vendedores](master-data/seller/README.md)
+    - Registra tus [Clientes](master-data/client/README.md)
+    - Informa tus [Vendedores](master-data/seller/README.md) en caso de tener fuerza de venta
 
 !!! note "2. Establece las Configuraciones"
     - Define las [Asignaciones](settings/assignments/README.md) entre vendedores y clientes
