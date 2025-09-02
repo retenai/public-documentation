@@ -38,15 +38,21 @@ La documentación está organizada siguiendo el flujo natural de implementación
 
 {{ section_overview(data_loading) }}
 
-### 🔄 Funcionalidades del Sistema
-
-{% set system_features = [
+### [📤 Consumo de Datos](data-consumption/README.md)
+{% set data_consumption = [
     {
         'icon': 'material-checkbox-marked-circle',
         'title': 'Tareas',
-        'link': 'tasks/README.md',
+        'link': 'data-consumption/README.md',
         'description': 'Sistema de tareas, seguimiento y gestión de actividades.'
-    },
+    }
+] %}
+
+{{ section_overview(data_consumption) }}
+
+### 🔄 Funcionalidades del Sistema
+
+{% set system_features = [
     {
         'icon': 'material-chart-timeline-variant',
         'title': 'Eventos',
@@ -92,8 +98,8 @@ Para implementar Reten de manera efectiva, sigue estos pasos:
     - Configura tus [Datos Maestros](data-loading/README.md#datos-maestros) (productos, clientes, vendedores)
     - Establece tus [Configuraciones](data-loading/README.md#configuraciones) (asignaciones y rutas)
 
-!!! note "2. Gestiona las Tareas"
-    - Comprende el sistema de [Tareas](tasks/README.md)
+!!! note "2. Consume las Tareas"
+    - Recibe tareas asignadas desde [Consumo de Datos](data-consumption/README.md)
     - Implementa el [Seguimiento](tasks/tracking/README.md)
 
 !!! note "3. Monitorea los Eventos"

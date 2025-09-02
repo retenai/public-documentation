@@ -97,10 +97,12 @@ nav:
       - Resumen: settings/README.md
       - Asignaciones: settings/assignments/README.md
       - Rutas: settings/routes/README.md
-  - Tareas:
-    - Resumen: tasks/README.md
-    - Visitas: tasks/visit/README.md
-    - Llamadas: tasks/call/README.md
+  - Consumo de Datos:
+    - Resumen: data-consumption/README.md
+    - Tareas:
+      - Resumen: tasks/README.md
+      - Visitas: tasks/visit/README.md
+      - Llamadas: tasks/call/README.md
   - Eventos:
     - Resumen: events/README.md
     - Órdenes: events/orders/README.md
