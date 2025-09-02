@@ -39,7 +39,7 @@ La documentación está organizada siguiendo el flujo natural de implementación
         'icon': 'material-book-open-variant',
         'title': 'Datos Maestros',
         'link': 'master-data/README.md',
-        'description': 'Gestión de clientes, productos, categorías y otros datos fundamentales del sistema.'
+        'description': 'Gestión de clientes, productos, vendedores y otros datos fundamentales del sistema.'
     },
     {
         'icon': 'material-cog',
@@ -94,13 +94,12 @@ La documentación está organizada siguiendo el flujo natural de implementación
 Para implementar Reten de manera efectiva, sigue estos pasos:
 
 !!! note "1. Configura tus Datos Maestros"
-    - Define tus [Categorías](master-data/category/README.md) y [Productos](master-data/product/README.md)
+    - Define tus [Productos](master-data/product/README.md)
     - Registra tus [Clientes](master-data/client/README.md) y [Vendedores](master-data/seller/README.md)
 
 !!! note "2. Establece las Configuraciones"
     - Define las [Asignaciones](settings/assignments/README.md) entre vendedores y clientes
     - Configura las [Rutas](settings/routes/README.md) de visita
-    - Gestiona las [Suscripciones](settings/subscription/README.md)
 
 !!! note "3. Gestiona las Tareas"
     - Comprende el sistema de [Tareas](tasks/README.md)
