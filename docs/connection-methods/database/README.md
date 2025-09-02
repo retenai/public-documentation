@@ -27,7 +27,6 @@ El cliente debe crear tablas con la estructura especificada en la documentación
 
 - **Clientes**: Ver estructura en [Datos Maestros > Clientes](../../master-data/client/README.md)
 - **Productos**: Ver estructura en [Datos Maestros > Productos](../../master-data/product/README.md)
-
 - **Vendedores**: Ver estructura en [Datos Maestros > Vendedores](../../master-data/seller/README.md)
 - **Transacciones**: Ver estructura en [Datos Maestros > Transacciones](../../master-data/transactions/README.md)
 
@@ -36,7 +35,6 @@ El cliente debe crear tablas con la estructura especificada en la documentación
 ### Configuraciones
 - **Asignaciones**: Ver estructura en [Configuraciones > Asignaciones](../../settings/assignments/README.md)
 - **Rutas**: Ver estructura en [Configuraciones > Rutas](../../settings/routes/README.md)
-- **Suscripciones**: Ver estructura en [Configuraciones > Suscripciones](../../settings/subscription/README.md)
 
 > 💡 **Ver todas las configuraciones disponibles**: [Configuraciones](../../settings/README.md)
 

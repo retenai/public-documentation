@@ -30,7 +30,6 @@ Este método de integración funciona mediante:
 - `products_20241201_143025.csv`
 - `assignments_20241201_143030.csv`
 - `routes_20241201_143032.csv`
-- `subscriptions_20241201_143035.csv`
 
 > 💡 **Beneficios del timestamp**: Facilita la trazabilidad, ordenamiento cronológico y auditoría de archivos sincronizados.
 
@@ -49,8 +48,7 @@ reten-integration-{client_id}/
 ├── sellers/
 ├── transactions/
 ├── assignments/
-├── routes/
-└── subscriptions/
+└── routes/
 ```
 
 ## Estructura de Datos
@@ -60,7 +58,6 @@ Los archivos CSV deben contener las columnas especificadas en la documentación 
 ### Datos Maestros
 - **Clientes**: Ver estructura en [Datos Maestros > Clientes](../../master-data/client/README.md)
 - **Productos**: Ver estructura en [Datos Maestros > Productos](../../master-data/product/README.md)
-
 - **Vendedores**: Ver estructura en [Datos Maestros > Vendedores](../../master-data/seller/README.md)
 - **Transacciones**: Ver estructura en [Datos Maestros > Transacciones](../../master-data/transactions/README.md)
 
@@ -69,7 +66,6 @@ Los archivos CSV deben contener las columnas especificadas en la documentación 
 ### Configuraciones
 - **Asignaciones**: Ver estructura en [Configuraciones > Asignaciones](../../settings/assignments/README.md)
 - **Rutas**: Ver estructura en [Configuraciones > Rutas](../../settings/routes/README.md)
-- **Suscripciones**: Ver estructura en [Configuraciones > Suscripciones](../../settings/subscription/README.md)
 
 > 💡 **Ver todas las configuraciones disponibles**: [Configuraciones](../../settings/README.md)
 

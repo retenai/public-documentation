@@ -98,7 +98,6 @@ nav:
     - Resumen: settings/README.md
     - Asignaciones: settings/assignments/README.md
     - Rutas: settings/routes/README.md
-    - Suscripciones: settings/subscription/README.md
   - Tareas:
     - Resumen: tasks/README.md
     - Visitas: tasks/visit/README.md
