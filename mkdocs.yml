@@ -82,6 +82,7 @@ nav:
   - Carga de Datos:
     - Resumen: data-loading/README.md
     - Métodos de Conexión:
+      - Resumen: connection-methods/README.md
       - Archivos: connection-methods/file-based/README.md
       - Base de Datos: connection-methods/database/README.md
     - Datos Maestros:
