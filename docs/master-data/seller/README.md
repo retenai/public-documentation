@@ -11,44 +11,33 @@ Los vendedores son los usuarios del CPG (Consumer Packaged Goods) que interactú
   "route_id": "string",          // Identificador de ruta o código de vendedor (not null)
 
   // Información básica
-  "name": {
-    "first_name": "string",      // Nombre (not null)
-    "last_name": "string",       // Apellido (not null)
-    "display_name": "string",    // Nombre para mostrar
-    "full_name": "string"        // Nombre completo (not null)
-  },
+  "full_name": "string",         // Nombre completo (not null)
+  "first_name": "string",        // Nombre (opcional)
+  "last_name": "string",         // Apellido (opcional)
   "status": "string",            // Estado del vendedor (active, inactive, suspended, terminated)
   
-  // Fechas relevantes
-  "dates": {
-    "hire_date": "timestamp",      // Fecha de contratación (not null)
-    "termination_date": "timestamp" // Fecha de término si aplica
-  },
-
-  // Información de contacto
+  // Información de contacto directa
+  "email": "string",             // Email del vendedor
+  "phone": "string",             // Teléfono del vendedor
+  "channel": "string",           // Canal de venta (salesman, callcenter, supervisor, activator)
+  
+  // Ubicaciones asignadas
+  "location_ids": ["string"],    // Lista de IDs de ubicaciones asignadas al vendedor
+  
+  // Supervisores
+  "supervisor_ids": ["string"],  // Lista de IDs de supervisores del vendedor
+  
+  // Fechas relevantes (opcional)
+  "hire_date": "timestamp",      // Fecha de contratación
+  "termination_date": "timestamp", // Fecha de término si aplica
+  
+  // Información de contacto estructurada (opcional)
   "contacts": [{
     "email": "string",           // Email corporativo o personal
     "phone": "string",           // Número telefónico
     "type": "string",            // Tipo de contacto (work, personal)
     "is_primary": "boolean"      // Indica si es el contacto principal
   }],
-
-  // Información organizacional
-  "organization": {
-    "type": "string",           // Tipo de vendedor (salesman, callcenter, supervisor)
-    "supervisor_id": "string",   // ID del supervisor directo
-    "business_unit": {
-      "id": "string",           // ID de la unidad de negocio
-      "name": "string",         // Nombre de la unidad de negocio
-      "code": "string",         // Código interno de la unidad de negocio
-      "type": "string",         // Tipo de unidad (business_unit, division, sub_division)
-      "parent_unit": {          // Unidad de negocio padre (si aplica)
-        "id": "string",
-        "name": "string",
-        "code": "string"
-      }
-    }
-  },
 
   // Atributos personalizados
   "attributes": [{
@@ -74,18 +63,39 @@ Los vendedores son los usuarios del CPG (Consumer Packaged Goods) que interactú
 
 ### Información Básica
 
-| Campo        | Tipo   | Requerido | Descripción                    |
-| ------------ | ------ | --------- | ------------------------------ |
-| first_name   | string | Sí        | Nombre del vendedor            |
-| last_name    | string | Sí        | Apellido del vendedor          |
-| display_name | string | No        | Nombre para mostrar en sistema |
-| status       | string | Sí        | Estado actual del vendedor     |
+| Campo      | Tipo   | Requerido | Descripción                  |
+| ---------- | ------ | --------- | ---------------------------- |
+| full_name  | string | Sí        | Nombre completo del vendedor |
+| first_name | string | No        | Nombre del vendedor          |
+| last_name  | string | No        | Apellido del vendedor        |
+| status     | string | Sí        | Estado actual del vendedor   |
 
-### Fechas
+### Información de Contacto Directa
+
+| Campo   | Tipo   | Requerido | Descripción                 |
+| ------- | ------ | --------- | --------------------------- |
+| email   | string | Sí        | Email del vendedor          |
+| phone   | string | Sí        | Teléfono del vendedor       |
+| channel | string | Sí        | Canal de venta del vendedor |
+
+**Tipos de Canal:**
+- **`salesman`**: Vendedor tradicional que vende productos
+- **`callcenter`**: Vendedor por teléfono
+- **`supervisor`**: Supervisor de vendedores
+- **`activator`**: Activador que enrola clientes nuevos
+
+### Ubicaciones y Supervisión
+
+| Campo          | Tipo     | Requerido | Descripción                           |
+| -------------- | -------- | --------- | ------------------------------------- |
+| location_ids   | [string] | No        | Lista de IDs de ubicaciones asignadas |
+| supervisor_ids | [string] | No        | Lista de IDs de supervisores          |
+
+### Fechas (Opcional)
 
 | Campo            | Tipo      | Requerido | Descripción                |
 | ---------------- | --------- | --------- | -------------------------- |
-| hire_date        | timestamp | Sí        | Fecha de contratación      |
+| hire_date        | timestamp | No        | Fecha de contratación      |
 | termination_date | timestamp | No        | Fecha de término si aplica |
 
 **Estados Válidos del Vendedor:**
@@ -94,30 +104,6 @@ Los vendedores son los usuarios del CPG (Consumer Packaged Goods) que interactú
 - `inactive`: Vendedor inactivo temporalmente
 - `suspended`: Cuenta suspendida
 - `terminated`: Relación terminada
-
-### Información Organizacional
-
-| Campo              | Tipo   | Requerido | Descripción                      |
-| ------------------ | ------ | --------- | -------------------------------- |
-| organization.type  | string | Sí        | Tipo de vendedor                 |
-| supervisor_id      | string | No        | ID del supervisor directo        |
-| business_unit.id   | string | Sí        | ID de la unidad de negocio       |
-| business_unit.name | string | Sí        | Nombre de la unidad de negocio   |
-| business_unit.code | string | Sí        | Código interno de la unidad      |
-| business_unit.type | string | Sí        | Tipo de unidad de negocio        |
-| parent_unit.id     | string | No        | ID de la unidad de negocio padre |
-
-**Tipos de Vendedor:**
-
-- `salesman`: Vendedor de campo que realiza visitas presenciales
-- `callcenter`: Vendedor que gestiona clientes vía telefónica
-- `supervisor`: Responsable de gestionar y supervisar otros vendedores
-
-**Tipos de Unidad de Negocio:**
-
-- `business_unit`: Región o territorio principal
-- `division`: Zona dentro de una región
-- `sub_division`: Sector específico dentro de una zona
 
 ## Validaciones
 
@@ -137,15 +123,23 @@ Los vendedores son los usuarios del CPG (Consumer Packaged Goods) que interactú
 
 ### Validaciones de Negocio
 
-#### Jerarquía
+#### Información de Contacto
 
-- El supervisor debe existir y estar activo
-- No pueden existir ciclos en la jerarquía
-- La unidad de negocio debe existir y estar activa
-- La unidad de negocio padre debe existir si se especifica
-- El tipo de unidad debe ser válido
-- Los supervisores solo pueden tener el tipo "supervisor"
-- Un vendedor tipo "supervisor" debe tener al menos un subordinado
+- El email debe tener formato válido
+- El teléfono debe tener formato válido
+- El canal debe ser uno de los valores permitidos: `salesman`, `callcenter`, `supervisor`, `activator`
+
+#### Ubicaciones y Supervisión
+
+- Los IDs de ubicaciones deben existir en el sistema
+- Los IDs de supervisores deben existir y estar activos
+- No pueden existir ciclos en la jerarquía de supervisión
+
+#### Fechas (Opcional)
+
+- Si se proporciona `hire_date`, debe ser una fecha válida
+- Si se proporciona `termination_date`, debe ser posterior a `hire_date`
+- Las fechas deben estar en formato ISO 8601
 
 ## Ejemplos de Uso
 
@@ -155,58 +149,58 @@ Los vendedores son los usuarios del CPG (Consumer Packaged Goods) que interactú
 {
   "seller_id": "SELLER_001",
   "route_id": "R001",
-  "name": {
-    "first_name": "Juan",
-    "last_name": "Pérez",
-    "display_name": "Juan P."
-  },
+  "full_name": "Juan Pérez",
   "status": "active",
-  "dates": {
-    "hire_date": "2024-01-01T00:00:00Z",
-    "termination_date": null
-  },
-  "contacts": [{
-    "email": "juan.perez@cpg.com",
-    "phone": "+56912345678",
-    "type": "work",
-    "is_primary": true
-  }]
+  "email": "juan.perez@cpg.com",
+  "phone": "+56912345678",
+  "channel": "salesman",
+  "created_at": "2024-01-01T00:00:00Z",
+  "updated_at": "2024-01-01T00:00:00Z"
 }
 ```
 
-### Vendedor con Jerarquía y Unidad de Negocio
+### Vendedor con Ubicaciones y Supervisores
 
 ```json
 {
   "seller_id": "SELLER_002",
   "route_id": "V123",
-  "name": {
-    "first_name": "María",
-    "last_name": "González"
-  },
-  "organization": {
-    "type": "supervisor",
-    "supervisor_id": "SELLER_005",
-    "business_unit": {
-      "id": "BU_NORTE",
-      "name": "Zona Norte",
-      "code": "ZN",
-      "type": "division",
-      "parent_unit": {
-        "id": "BU_METRO",
-        "name": "Región Metropolitana",
-        "code": "RM"
-      }
-    }
-  }
+  "full_name": "María González",
+  "first_name": "María",
+  "last_name": "González",
+  "status": "active",
+  "email": "maria.gonzalez@cpg.com",
+  "phone": "+56987654321",
+  "channel": "supervisor",
+  "location_ids": ["LOC_001", "LOC_002", "LOC_003"],
+  "supervisor_ids": ["SELLER_005"],
+  "created_at": "2024-01-01T00:00:00Z",
+  "updated_at": "2024-01-01T00:00:00Z"
 }
 ```
 
-### Vendedor con Atributos Personalizados
+### Vendedor con Estructura Completa
 
 ```json
 {
   "seller_id": "SELLER_003",
+  "route_id": "R003",
+  "full_name": "Carlos Rodríguez",
+  "first_name": "Carlos",
+  "last_name": "Rodríguez",
+  "status": "active",
+  "email": "carlos.rodriguez@cpg.com",
+  "phone": "+56911223344",
+  "channel": "callcenter",
+  "location_ids": ["LOC_004"],
+  "supervisor_ids": ["SELLER_002"],
+  "hire_date": "2024-02-01T00:00:00Z",
+  "contacts": [{
+    "email": "carlos.rodriguez@cpg.com",
+    "phone": "+56911223344",
+    "type": "work",
+    "is_primary": true
+  }],
   "attributes": [{
     "key": "specialty",
     "value": "new_business",
@@ -215,6 +209,26 @@ Los vendedores son los usuarios del CPG (Consumer Packaged Goods) que interactú
     "key": "certification_level",
     "value": "advanced",
     "type": "string"
-  }]
+  }],
+  "created_at": "2024-02-01T00:00:00Z",
+  "updated_at": "2024-02-01T00:00:00Z"
+}
+```
+
+### Activator (Enrolador de Clientes)
+
+```json
+{
+  "seller_id": "SELLER_004",
+  "route_id": "R004",
+  "full_name": "Ana Martínez",
+  "status": "active",
+  "email": "ana.martinez@cpg.com",
+  "phone": "+56999887766",
+  "channel": "activator",
+  "location_ids": ["LOC_005", "LOC_006"],
+  "hire_date": "2024-03-01T00:00:00Z",
+  "created_at": "2024-03-01T00:00:00Z",
+  "updated_at": "2024-03-01T00:00:00Z"
 }
 ```
