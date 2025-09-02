@@ -8,36 +8,43 @@ Los productos representan los artículos comercializados a través de la platafo
 {
   // Identificadores
   "product_id": "string",        // Identificador único del producto (not null)
-  "product_identifiers": {
-    "sku": "string",            // Stock Keeping Unit, código único de producto para gestión de inventario (not null)
-    "gtin": "string"            // Global Trade Item Number (código de barras)
-  },
+  "sku": "string",               // Stock Keeping Unit, código único de producto para gestión de inventario (not null)
+  "gtin": "string",              // Global Trade Item Number (código de barras) - opcional
 
   // Información básica
-  "name": {
-    "display_name": "string",    // Nombre comercial del producto (not null)
-    "short_name": "string",      // Nombre corto para listados
-    "slug": "string",           // Versión URL-friendly del nombre
-    "short_description": "string", // Descripción corta del producto
-    "description": "string"      // Descripción detallada del producto
-  },
+  "display_name": "string",      // Nombre comercial del producto (not null)
+  "short_name": "string",        // Nombre corto para listados
+  "slug": "string",              // Versión URL-friendly del nombre
+  "short_description": "string", // Descripción corta del producto
+  "description": "string",       // Descripción detallada del producto
 
-  // Imágenes
-  "images": {
-    "main_image_url": "string",
-    "thumbnail_url": "string",
-    "additional_images": [{
-      "url": "string",
-      "description": "string",
-      "type": "string",
-      "position": "number",
-      "alt_text": "string"
-    }]
-  },
+  // Imágenes principales
+  "main_image_url": "string",    // URL de la imagen principal
+  "thumbnail_url": "string",     // URL de la miniatura
 
-  // Categorización
+  // Categoría principal
+  "category_id": "string",       // ID de la categoría principal
+  "category_name": "string",     // Nombre de la categoría principal
+    
+  // Información de marca
+  "brand": "string",       // Identificador de la marca
+
+  // Tags para búsqueda y filtrado
+  "tags": ["string"],     // Lista de etiquetas para búsqueda y categorización adicional
+
+  // Imágenes adicionales (opcional)
+  "images": [{
+    "url": "string",             // URL de la imagen
+    "description": "string",     // Descripción de la imagen
+    "type": "string",            // Tipo de imagen (producto, lifestyle, etc.)
+    "position": "number",        // Orden de visualización
+    "alt_text": "string"         // Texto alternativo para accesibilidad
+  }],
+
+  // Categorías adicionales (opcional)
   "categories": [{
     "category_id": "string",     // Referencia al ID de la categoría
+    "category_name": "string",   // Nombre de la categoría
     "is_primary": "boolean",     // Indica si es la categoría principal del producto
     "attributes": [{            // Atributos específicos de la relación producto-categoría
       "key": "string",
@@ -45,12 +52,6 @@ Los productos representan los artículos comercializados a través de la platafo
       "type": "string"
     }]
   }],
-
-  // Información de marca
-  "brand": "string",       // Identificador de la marca
-
-  // Tags para búsqueda y filtrado
-  "tags": ["string"],     // Lista de etiquetas para búsqueda y categorización adicional
 
   // Características físicas
   "physical": {
@@ -126,29 +127,42 @@ Los productos representan los artículos comercializados a través de la platafo
 | short_description | string | No        | Descripción corta para listados y previews |
 | description       | string | No        | Descripción detallada del producto         |
 
-### Imágenes
+### Imágenes Principales
 
-| Campo             | Tipo   | Descripción                       |
-| ----------------- | ------ | --------------------------------- |
-| main_image_url    | string | URL de la imagen principal        |
-| thumbnail_url     | string | URL de la miniatura               |
-| additional_images | array  | Colección de imágenes adicionales |
+| Campo          | Tipo   | Requerido | Descripción                |
+| -------------- | ------ | --------- | -------------------------- |
+| main_image_url | string | Sí        | URL de la imagen principal |
+| thumbnail_url  | string | Sí        | URL de la miniatura        |
 
-**Estructura de Imágenes Adicionales:**
+### Categoría Principal
 
-- `url`: URL de la imagen
-- `description`: Descripción de la imagen
-- `type`: Tipo de imagen (producto, lifestyle, etc.)
-- `position`: Orden de visualización
-- `alt_text`: Texto alternativo para accesibilidad
+| Campo         | Tipo   | Requerido | Descripción                      |
+| ------------- | ------ | --------- | -------------------------------- |
+| category_id   | string | Sí        | ID de la categoría principal     |
+| category_name | string | Sí        | Nombre de la categoría principal |
 
-### Categorización
+### Imágenes Adicionales (Opcional)
 
-| Campo       | Tipo    | Descripción                                             |
-| ----------- | ------- | ------------------------------------------------------- |
-| category_id | string  | Referencia al ID de la categoría                        |
-| is_primary  | boolean | Indica si es la categoría principal                     |
-| attributes  | array   | Atributos específicos de la relación producto-categoría |
+| Campo       | Tipo   | Descripción                                |
+| ----------- | ------ | ------------------------------------------ |
+| url         | string | URL de la imagen                           |
+| description | string | Descripción de la imagen                   |
+| type        | string | Tipo de imagen (producto, lifestyle, etc.) |
+| position    | number | Orden de visualización                     |
+| alt_text    | string | Texto alternativo para accesibilidad       |
+
+**Nota:** Las imágenes principales (`main_image_url` y `thumbnail_url`) están en raíz. Este array es opcional para productos que requieran múltiples imágenes adicionales.
+
+### Categorías Adicionales (Opcional)
+
+| Campo         | Tipo    | Descripción                                             |
+| ------------- | ------- | ------------------------------------------------------- |
+| category_id   | string  | Referencia al ID de la categoría                        |
+| category_name | string  | Nombre de la categoría                                  |
+| is_primary    | boolean | Indica si es la categoría principal                     |
+| attributes    | array   | Atributos específicos de la relación producto-categoría |
+
+**Nota:** La categoría principal está en raíz (`category_id` y `category_name`). Este array es opcional para productos que requieran múltiples categorías.
 
 ### Tags
 
@@ -185,15 +199,25 @@ Los productos representan los artículos comercializados a través de la platafo
 
 ### Información Básica
 
-- `name` no puede estar vacío
+- `display_name` no puede estar vacío
 - `slug` debe ser único y URL-friendly
 - Descripciones no deben exceder límites de caracteres
 
-### Imágenes
+### Imágenes Principales
 
+- `main_image_url` y `thumbnail_url` son requeridos
 - URLs deben ser válidas y accesibles
-- Posiciones deben ser únicas
-- Tipos de imagen deben ser válidos
+
+### Imágenes Adicionales (Opcional)
+
+- Si se proporciona `images`, las URLs deben ser válidas y accesibles
+- Las posiciones deben ser únicas
+- Los tipos de imagen deben ser válidos
+
+### Categoría Principal
+
+- `category_id` y `category_name` son requeridos
+- La categoría debe existir en el maestro de categorías
 
 ### Validaciones de Negocio
 
@@ -203,9 +227,13 @@ Los productos representan los artículos comercializados a través de la platafo
 - Si `is_combo` es true, `combo_details` debe estar completo
 - Componentes deben existir en el catálogo
 
-### Categorización
+### Categorías Adicionales (Opcional)
 
-- Categorías deben existir en el maestro
+- Si se proporciona `categories`, las categorías deben existir en el maestro
+- Los atributos de categoría deben ser válidos
+
+### Otros
+
 - Tags deben ser válidos
 - Marca debe existir en el maestro
 
@@ -216,33 +244,15 @@ Los productos representan los artículos comercializados a través de la platafo
 ```json
 {
   "product_id": "PROD_001",
-  "product_identifiers": {
-    "sku": "SKU123",
-    "gtin": null
-  },
-  "name": {
-    "display_name": "Pintura Látex Premium",
-    "short_name": "Látex Premium",
-    "slug": "pintura-latex-premium",
-    "short_description": "Pintura látex de alta calidad"
-  },
-  "images": {
-    "main_image_url": "https://example.com/images/main.jpg",
-    "thumbnail_url": "https://example.com/images/thumb.jpg"
-  },
-  "categories": [{
-    "category_id": "CAT_001",
-    "is_primary": true,
-    "attributes": [{
-      "key": "coverage",
-      "value": "12",
-      "type": "numeric"
-    }, {
-      "key": "finish",
-      "value": "matte",
-      "type": "string"
-    }]
-  }],
+  "sku": "SKU123",
+  "display_name": "Pintura Látex Premium",
+  "short_name": "Látex Premium",
+  "slug": "pintura-latex-premium",
+  "short_description": "Pintura látex de alta calidad",
+  "main_image_url": "https://example.com/images/main.jpg",
+  "thumbnail_url": "https://example.com/images/thumb.jpg",
+  "category_id": "CAT_001",
+  "category_name": "Pinturas",
   "brand": "BRD_001",
   "tags": ["pintura", "latex", "interior", "premium"],
   "attributes": [{
@@ -262,16 +272,15 @@ Los productos representan los artículos comercializados a través de la platafo
 ```json
 {
   "product_id": "PROD_002",
-  "product_identifiers": {
-    "sku": "PACK456",
-    "gtin": null
-  },
-  "name": {
-    "display_name": "Pack Pintura Interior",
-    "short_name": "Pack Pintura",
-    "slug": "pack-pintura-interior",
-    "short_description": "Pack de pinturas para interiores"
-  },
+  "sku": "PACK456",
+  "display_name": "Pack Pintura Interior",
+  "short_name": "Pack Pintura",
+  "slug": "pack-pintura-interior",
+  "short_description": "Pack de pinturas para interiores",
+  "main_image_url": "https://example.com/images/pack-main.jpg",
+  "thumbnail_url": "https://example.com/images/pack-thumb.jpg",
+  "category_id": "CAT_002",
+  "category_name": "Packs de Pintura",
   "composition": {
     "is_pack": true,
     "pack_details": {
@@ -281,19 +290,6 @@ Los productos representan los artículos comercializados a través de la platafo
       "unit_measure": "galón"
     }
   },
-  "categories": [{
-    "category_id": "CAT_002",
-    "is_primary": true,
-    "attributes": [{
-      "key": "color_family",
-      "value": "neutrals",
-      "type": "string"
-    }, {
-      "key": "recommended_use",
-      "value": "living_spaces",
-      "type": "string"
-    }]
-  }],
   "brand": "BRD_002",
   "tags": ["pack", "pintura", "interior", "combo"],
   "attributes": [{
