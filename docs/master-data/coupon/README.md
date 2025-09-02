@@ -463,3 +463,29 @@ Los campos adicionales son completamente opcionales y se pueden implementar seg�
   }
 }
 ```
+
+## 🔄 Integración
+
+### **Método por Archivo**
+Los cupones se cargan en archivos CSV con las columnas correspondientes:
+
+```csv
+coupon_id,code,display_name,description,created_at
+COUPON1,WELCOME20,Descuento de Bienvenida,20% de descuento en primera compra,2024-01-15T10:00:00Z
+COUPON2,SUMMER15,Descuento de Verano,15% de descuento en productos de verano,2024-01-15T11:00:00Z
+```
+
+### **Método por Base de Datos**
+Los cupones se consultan desde una tabla con la estructura correspondiente:
+
+```sql
+SELECT 
+    coupon_id,
+    code,
+    display_name,
+    description,
+    created_at
+FROM coupons 
+WHERE updated_at > '2024-01-15T00:00:00Z'
+ORDER BY created_at;
+```

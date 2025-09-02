@@ -405,3 +405,33 @@ Los grupos permiten categorizar y segmentar clientes:
   }]
 }
 ```
+
+## 🔄 Integración
+
+### **Método por Archivo**
+Los clientes se cargan en archivos CSV con las columnas correspondientes:
+
+```csv
+client_id,name,email,phone,country,address,signup_at,setup_at,created_at
+CLI_001,Restaurante La Pasta,contacto@lapasta.cl,+56911223344,CL,"Los Alerces 123, Santiago, Región Metropolitana",2024-03-19T10:00:00Z,,2024-03-19T10:00:00Z
+COM_002,Supermercados El Sol,gerencia@elsol.cl,+56922334455,CL,Av. Providencia 1234,2024-01-15T09:00:00Z,2024-01-20T16:00:00Z,2024-01-15T09:00:00Z
+```
+
+### **Método por Base de Datos**
+Los clientes se consultan desde una tabla con la estructura correspondiente:
+
+```sql
+SELECT 
+    client_id,
+    name,
+    email,
+    phone,
+    country,
+    address,
+    signup_at,
+    setup_at,
+    created_at
+FROM clients 
+WHERE updated_at > '2024-01-15T00:00:00Z'
+ORDER BY created_at;
+```

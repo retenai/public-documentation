@@ -19,8 +19,6 @@ Los datos maestros representan la información fundamental y de referencia en el
     'product/README.md'
 ) }}
 
-
-
 {{ feature_card(
     'material-account-tie',
     'Vendedores',
@@ -40,6 +38,13 @@ Los datos maestros representan la información fundamental y de referencia en el
     'Transacciones',
     'Compras realizadas por los clientes',
     'transactions/README.md'
+) }}
+
+{{ feature_card(
+    'material-chart-timeline-variant',
+    'Eventos',
+    'Acciones y actividades del sistema para análisis retrospectivo',
+    'events/README.md'
 ) }}
 {% endcall %}
 

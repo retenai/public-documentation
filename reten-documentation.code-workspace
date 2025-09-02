@@ -1,0 +1,16 @@
+{
+    "folders": [
+        {
+            "name": "📚 Reten Documentation",
+            "path": "."
+        },
+        {
+            "name": "🔗 Reten Integration MVP",
+            "path": "../reten-integrations-mvp"
+        },
+        {
+            "name": "🚀 YOM Integrations",
+            "path": "../../YOM/yom-integrations"
+        }
+    ]
+}

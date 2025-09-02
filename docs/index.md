@@ -14,45 +14,45 @@ La documentación está organizada siguiendo el flujo natural de implementación
 
 {% from '/includes/cards.md' import feature_card, section_cards, feature_highlights, highlight_item, section_overview %}
 
-### [🔌 Métodos de Conexión](connection-methods/README.md)
-{% set connection_methods = [
+### [📊 Carga de Datos](data-loading/README.md)
+{% set data_loading = [
     {
-        'icon': 'material-folder',
-        'title': 'Archivo',
-        'link': 'connection-methods/file-based/README.md',
-        'description': 'Carga periódica de archivos en bucket compartido para sincronización de datos.'
+        'icon': 'material-database-import',
+        'title': 'Métodos de Conexión',
+        'link': 'data-loading/README.md',
+        'description': 'Archivos CSV y conexión directa a base de datos para sincronización.'
     },
-    {
-        'icon': 'material-database',
-        'title': 'Base de Datos',
-        'link': 'connection-methods/database/README.md',
-        'description': 'Consulta directa a base de datos expuesta por el cliente para acceso en tiempo real.'
-    }
-] %}
-
-{{ section_overview(connection_methods) }}
-
-### 📊 Contenidos del Sistema
-
-{% set main_sections = [
     {
         'icon': 'material-book-open-variant',
         'title': 'Datos Maestros',
-        'link': 'master-data/README.md',
-        'description': 'Gestión de clientes, productos, categorías y otros datos fundamentales del sistema.'
+        'link': 'data-loading/README.md',
+        'description': 'Clientes, productos, vendedores, cupones y transacciones.'
     },
     {
         'icon': 'material-cog',
         'title': 'Configuraciones',
-        'link': 'settings/README.md',
-        'description': 'Personalización del sistema, asignaciones, rutas y notificaciones.'
-    },
+        'link': 'data-loading/README.md',
+        'description': 'Asignaciones y rutas para personalizar el sistema.'
+    }
+] %}
+
+{{ section_overview(data_loading) }}
+
+### [📤 Consumo de Datos](data-consumption/README.md)
+{% set data_consumption = [
     {
         'icon': 'material-checkbox-marked-circle',
         'title': 'Tareas',
-        'link': 'tasks/README.md',
+        'link': 'data-consumption/README.md',
         'description': 'Sistema de tareas, seguimiento y gestión de actividades.'
-    },
+    }
+] %}
+
+{{ section_overview(data_consumption) }}
+
+### 🔄 Funcionalidades del Sistema
+
+{% set system_features = [
     {
         'icon': 'material-chart-timeline-variant',
         'title': 'Eventos',
@@ -61,7 +61,7 @@ La documentación está organizada siguiendo el flujo natural de implementación
     }
 ] %}
 
-{{ section_overview(main_sections) }}
+{{ section_overview(system_features) }}
 
 {% call feature_highlights('✨ Características Principales') %}
 {{ highlight_item(
@@ -93,20 +93,16 @@ La documentación está organizada siguiendo el flujo natural de implementación
 
 Para implementar Reten de manera efectiva, sigue estos pasos:
 
-!!! note "1. Configura tus Datos Maestros"
-    - Define tus [Categorías](master-data/category/README.md) y [Productos](master-data/product/README.md)
-    - Registra tus [Clientes](master-data/client/README.md) y [Vendedores](master-data/seller/README.md)
+!!! note "1. Implementa la Carga de Datos"
+    - Elige tu [Método de Conexión](data-loading/README.md#métodos-de-conexión) (archivos o base de datos)
+    - Configura tus [Datos Maestros](data-loading/README.md#datos-maestros) (productos, clientes, vendedores)
+    - Establece tus [Configuraciones](data-loading/README.md#configuraciones) (asignaciones y rutas)
 
-!!! note "2. Establece las Configuraciones"
-    - Define las [Asignaciones](settings/assignments/README.md) entre vendedores y clientes
-    - Configura las [Rutas](settings/routes/README.md) de visita
-    - Gestiona las [Suscripciones](settings/subscription/README.md)
-
-!!! note "3. Gestiona las Tareas"
-    - Comprende el sistema de [Tareas](tasks/README.md)
+!!! note "2. Consume las Tareas"
+    - Recibe tareas asignadas desde [Consumo de Datos](data-consumption/README.md)
     - Implementa el [Seguimiento](tasks/tracking/README.md)
 
-!!! note "4. Monitorea los Eventos"
+!!! note "3. Monitorea los Eventos"
     - Integra los [Eventos](events/README.md) relevantes para tu negocio
     - Utiliza la información para optimizar el sistema
 

@@ -232,3 +232,32 @@ Los vendedores son los usuarios del CPG (Consumer Packaged Goods) que interactú
   "updated_at": "2024-03-01T00:00:00Z"
 }
 ```
+
+## 🔄 Integración
+
+### **Método por Archivo**
+Los vendedores se cargan en archivos CSV con las columnas correspondientes:
+
+```csv
+seller_id,route_id,full_name,status,email,phone,channel,created_at
+SELLER_001,R001,Juan Pérez,active,juan.perez@cpg.com,+56912345678,salesman,2024-01-01T00:00:00Z
+SELLER_002,V123,María González,active,maria.gonzalez@cpg.com,+56987654321,supervisor,2024-01-01T00:00:00Z
+```
+
+### **Método por Base de Datos**
+Los vendedores se consultan desde una tabla con la estructura correspondiente:
+
+```sql
+SELECT 
+    seller_id,
+    route_id,
+    full_name,
+    status,
+    email,
+    phone,
+    channel,
+    created_at
+FROM sellers 
+WHERE updated_at > '2024-01-15T00:00:00Z'
+ORDER BY created_at;
+```

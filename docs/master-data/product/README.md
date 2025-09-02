@@ -303,3 +303,35 @@ Los productos representan los artículos comercializados a través de la platafo
   }]
 }
 ```
+## 🔄 Integración
+
+### **Método por Archivo**
+Los productos se cargan en archivos CSV con las columnas correspondientes:
+
+```csv
+product_id,sku,display_name,short_name,slug,short_description,main_image_url,thumbnail_url,category_id,category_name,brand,created_at
+PROD_001,SKU123,Pintura Látex Premium,Látex Premium,pintura-latex-premium,Pintura látex de alta calidad,https://example.com/images/main.jpg,https://example.com/images/thumb.jpg,CAT_001,Pinturas,BRD_001,2024-01-15T10:00:00Z
+PROD_002,PACK456,Pack Pintura Interior,Pack Pintura,pack-pintura-interior,Pack de pinturas para interiores,https://example.com/images/pack-main.jpg,https://example.com/images/pack-thumb.jpg,CAT_002,Packs de Pintura,BRD_002,2024-01-15T11:00:00Z
+```
+
+### **Método por Base de Datos**
+Los productos se consultan desde una tabla con la estructura correspondiente:
+
+```sql
+SELECT 
+    product_id,
+    sku,
+    display_name,
+    short_name,
+    slug,
+    short_description,
+    main_image_url,
+    thumbnail_url,
+    category_id,
+    category_name,
+    brand,
+    created_at
+FROM products 
+WHERE updated_at > '2024-01-15T00:00:00Z'
+ORDER BY created_at;
+```
