@@ -68,8 +68,13 @@ Las transacciones representan las compras realizadas por los clientes en el sist
   "items": [{
     "product_id": "string",      // ID del producto
     "item_id": "string",         // ID único del item
-    "name": "string",            // Nombre del producto
-    "category": "string",        // Categoría del producto
+    "display_name": "string",    // Nombre del producto
+    "slug": "string",            // Slug del producto
+    "category_id": "string",     // ID de la categoría del producto
+    "category_name": "string",   // Nombre de la categoría del producto
+    "sku": "string",             // SKU del producto (opcional)
+    "gtin": "string",            // GTIN del producto (opcional)
+    "brand": "string",           // Marca del producto (opcional)
     "quantity": "number",        // Cantidad
     "unit_price": "number",      // Precio unitario
     "total_price": "number",     // Precio total
@@ -247,8 +252,12 @@ Las transacciones representan las compras realizadas por los clientes en el sist
   "items": [{
     "product_id": "PROD_789",
     "item_id": "ITEM_001",
-    "name": "Producto A",
-    "category": "Electrónicos",
+    "display_name": "Producto A",
+    "slug": "producto-a",
+    "category_id": "CAT_001",
+    "category_name": "Electrónicos",
+    "sku": "SKU123",
+    "brand": "Marca A",
     "quantity": 2,
     "unit_price": 100.00,
     "total_price": 200.00,
@@ -331,7 +340,12 @@ Las transacciones representan las compras realizadas por los clientes en el sist
   "items": [{
     "product_id": "PROD_789",
     "item_id": "ITEM_002",
-    "name": "Producto A",
+    "display_name": "Producto A",
+    "slug": "producto-a",
+    "category_id": "CAT_001",
+    "category_name": "Electrónicos",
+    "sku": "SKU123",
+    "brand": "Marca A",
     "quantity": 1,
     "unit_price": 100.00,
     "total_price": 100.00,
@@ -414,7 +428,12 @@ Las transacciones representan las compras realizadas por los clientes en el sist
     {
       "product_id": "PROD_789",
       "item_id": "ITEM_003",
-      "name": "Producto A",
+      "display_name": "Producto A",
+      "slug": "producto-a",
+      "category_id": "CAT_001",
+      "category_name": "Electrónicos",
+      "sku": "SKU123",
+      "brand": "Marca A",
       "quantity": 2,
       "unit_price": 100.00,
       "total_price": 200.00
@@ -422,7 +441,12 @@ Las transacciones representan las compras realizadas por los clientes en el sist
     {
       "product_id": "PROD_790",
       "item_id": "ITEM_004",
-      "name": "Producto B",
+      "display_name": "Producto B",
+      "slug": "producto-b",
+      "category_id": "CAT_002",
+      "category_name": "Hogar",
+      "sku": "SKU456",
+      "brand": "Marca B",
       "quantity": 1,
       "unit_price": 50.00,
       "total_price": 50.00
@@ -475,7 +499,12 @@ Las transacciones representan las compras realizadas por los clientes en el sist
   "items": [{
     "product_id": "PROD_789",
     "item_id": "ITEM_005",
-    "name": "Producto A",
+    "display_name": "Producto A",
+    "slug": "producto-a",
+    "category_id": "CAT_001",
+    "category_name": "Electrónicos",
+    "sku": "SKU123",
+    "brand": "Marca A",
     "quantity": 1,
     "unit_price": 100.00,
     "total_price": 100.00
@@ -546,7 +575,12 @@ Las transacciones representan las compras realizadas por los clientes en el sist
   "items": [{
     "product_id": "PROD_789",
     "item_id": "ITEM_006",
-    "name": "Producto A",
+    "display_name": "Producto A",
+    "slug": "producto-a",
+    "category_id": "CAT_001",
+    "category_name": "Electrónicos",
+    "sku": "SKU123",
+    "brand": "Marca A",
     "quantity": 1,
     "unit_price": 100.00,
     "total_price": 100.00
@@ -627,7 +661,12 @@ Las transacciones representan las compras realizadas por los clientes en el sist
   "items": [{
     "product_id": "PROD_789",
     "item_id": "ITEM_007",
-    "name": "Producto A",
+    "display_name": "Producto A",
+    "slug": "producto-a",
+    "category_id": "CAT_001",
+    "category_name": "Electrónicos",
+    "sku": "SKU123",
+    "brand": "Marca A",
     "quantity": 1,
     "unit_price": 100.00,
     "total_price": 100.00
