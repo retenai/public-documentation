@@ -19,12 +19,7 @@ Los datos maestros representan la información fundamental y de referencia en el
     'product/README.md'
 ) }}
 
-{{ feature_card(
-    'material-shape',
-    'Categorías',
-    'Clasificación jerárquica de productos',
-    'category/README.md'
-) }}
+
 
 {{ feature_card(
     'material-account-tie',

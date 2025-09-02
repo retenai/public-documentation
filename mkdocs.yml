@@ -91,7 +91,6 @@ nav:
     - Resumen: master-data/README.md
     - Clientes: master-data/client/README.md
     - Productos: master-data/product/README.md
-    - Categorías: master-data/category/README.md
     - Vendedores: master-data/seller/README.md
     - Cupones: master-data/coupon/README.md
     - Transacciones: master-data/transactions/README.md
@@ -99,7 +98,6 @@ nav:
     - Resumen: settings/README.md
     - Asignaciones: settings/assignments/README.md
     - Rutas: settings/routes/README.md
-    - Suscripciones: settings/subscription/README.md
   - Tareas:
     - Resumen: tasks/README.md
     - Visitas: tasks/visit/README.md

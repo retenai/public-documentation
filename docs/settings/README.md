@@ -19,12 +19,6 @@ Las configuraciones representan las reglas y parámetros operativos que definen 
     'routes/README.md'
 ) }}
 
-{{ feature_card(
-    'material-bell',
-    'Suscripciones',
-    'Gestión de comunicaciones y notificaciones',
-    'subscription/README.md'
-) }}
 {% endcall %}
 
 ## Características Comunes
