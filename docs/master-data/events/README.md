@@ -10,32 +10,42 @@ Esta entidad permite cargar eventos históricos o en lote desde el sistema del c
 
 ```json
 {
-  "id": "string",
-  "type": "string",
-  "timestamp": "datetime",
-  "event_data": "object",
-  "source": "string",
-  "metadata": "object"
+  // Identificadores
+  "id": "string",                // Identificador único del evento (not null)
+  "type": "string",              // Tipo o categoría del evento (not null)
+  "timestamp": "datetime",       // Fecha y hora cuando ocurrió el evento (not null)
+  
+  // Datos del evento
+  "event_data": "object",        // Objeto JSON con los datos específicos del evento (not null)
+  
+  // Información adicional
+  "source": "string",            // Sistema o plataforma de origen (opcional)
+  "metadata": "object"           // Información adicional del evento (opcional)
 }
 ```
 
 ## 🏗️ Campos Detallados
 
-### **Campos Requeridos**
+### Identificadores
 
-| Campo | Tipo | Descripción | Ejemplo |
-|-------|------|-------------|---------|
-| `id` | string | Identificador único del evento | `"evt_001"` |
-| `type` | string | Tipo o categoría del evento | `"purchase"` |
-| `timestamp` | datetime | Fecha y hora cuando ocurrió el evento | `"2024-01-15T14:30:00Z"` |
-| `event_data` | object | Objeto JSON con los datos específicos del evento | `{"amount": 150.00, "currency": "USD"}` |
+| Campo     | Tipo   | Requerido | Descripción                  |
+| --------- | ------ | --------- | ---------------------------- |
+| id        | string | Sí        | Identificador único del evento |
+| type      | string | Sí        | Tipo o categoría del evento   |
+| timestamp | datetime | Sí        | Fecha y hora del evento       |
 
-### **Campos Opcionales**
+### Datos del Evento
 
-| Campo | Tipo | Descripción | Ejemplo |
-|-------|------|-------------|---------|
-| `source` | string | Sistema o plataforma de origen | `"web"`, `"mobile"`, `"pos"` |
-| `metadata` | object | Información adicional del evento | `{"priority": "high", "tags": ["urgent"]}` |
+| Campo       | Tipo   | Requerido | Descripción                  |
+| ----------- | ------ | --------- | ---------------------------- |
+| event_data  | object | Sí        | Objeto JSON con datos del evento |
+
+### Información Adicional
+
+| Campo    | Tipo   | Requerido | Descripción                  |
+| -------- | ------ | --------- | ---------------------------- |
+| source   | string | No        | Sistema o plataforma de origen |
+| metadata | object | No        | Información adicional del evento |
 
 ## 🔍 Tipos de Eventos Comunes
 
@@ -66,17 +76,17 @@ Esta entidad permite cargar eventos históricos o en lote desde el sistema del c
 
 ## ✅ Validaciones
 
-### **Campos Requeridos**
-- `id`: Debe ser único y no nulo
-- `type`: Debe ser una cadena válida
-- `timestamp`: Debe ser una fecha/hora válida en formato ISO 8601
-- `event_data`: Debe ser un objeto JSON válido
+### Campos Requeridos
+- **`id`**: Debe ser único y no nulo
+- **`type`**: Debe ser una cadena válida
+- **`timestamp`**: Debe ser una fecha/hora válida en formato ISO 8601
+- **`event_data`**: Debe ser un objeto JSON válido
 
-### **Campos Opcionales**
-- `source`: Si se proporciona, debe ser una cadena válida
-- `metadata`: Si se proporciona, debe ser un objeto JSON válido
+### Campos Opcionales
+- **`source`**: Si se proporciona, debe ser una cadena válida
+- **`metadata`**: Si se proporciona, debe ser un objeto JSON válido
 
-### **Reglas de Negocio**
+### Reglas de Negocio
 - El `id` debe ser único dentro del conjunto de eventos del cliente
 - El `timestamp` no puede ser futuro
 - El `event_data` debe contener al menos un campo
