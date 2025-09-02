@@ -686,3 +686,31 @@ Las transacciones representan las compras realizadas por los clientes en el sist
   "updated_at": "2024-03-19T15:00:00Z"
 }
 ```
+
+## 🔄 Integración
+
+### **Método por Archivo**
+Las transacciones se cargan en archivos CSV con las columnas correspondientes:
+
+```csv
+transaction_id,order_id,client_id,status,amount_value,amount_currency,created_at
+TRX_001,ORDER_001,CLIENT_123,completed,238.00,CLP,2024-03-19T10:00:00Z
+TRX_002,ORDER_002,CLIENT_124,pending,150.00,CLP,2024-03-19T11:00:00Z
+```
+
+### **Método por Base de Datos**
+Las transacciones se consultan desde una tabla con la estructura correspondiente:
+
+```sql
+SELECT 
+    transaction_id,
+    order_id,
+    client_id,
+    status,
+    amount_value,
+    amount_currency,
+    created_at
+FROM transactions 
+WHERE updated_at > '2024-01-15T00:00:00Z'
+ORDER BY created_at;
+```
