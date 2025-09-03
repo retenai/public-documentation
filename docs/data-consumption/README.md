@@ -1,5 +1,8 @@
 # :material-database-export: Consumo de Datos
 
+!!! warning "🚧 Work in Progress"
+    Esta sección está en desarrollo activo. La documentación de Consumo de datos desde Reten se está construyendo y puede estar incompleta o sujeta a cambios.
+
 Esta sección contiene toda la información necesaria para consumir datos desde Reten hacia tu sistema. El consumo de datos es el segundo paso fundamental para implementar Reten en tu negocio, permitiéndote acceder a la información procesada y generada por la plataforma.
 
 ## [:material-connection: Métodos de Conexión](./connection-methods/README.md)
