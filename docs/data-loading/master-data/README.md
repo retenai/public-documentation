@@ -6,10 +6,16 @@ Los datos maestros representan la información fundamental y de referencia en el
 
 {% set master_data = [
     {
-        'icon': 'material-store',
+        'icon': 'material-account-group',
         'title': 'Clientes',
         'link': 'client/README.md',
-        'description': 'Establecimientos comerciales y sus características'
+        'description': 'Información de clientes, contactos y direcciones.'
+    },
+    {
+        'icon': 'material-cart',
+        'title': 'Transacciones',
+        'link': 'transactions/README.md',
+        'description': 'Compras realizadas por los clientes'
     },
     {
         'icon': 'material-package',
@@ -28,12 +34,6 @@ Los datos maestros representan la información fundamental y de referencia en el
         'title': 'Cupones',
         'link': 'coupon/README.md',
         'description': 'Sistema de promociones y descuentos'
-    },
-    {
-        'icon': 'material-cart',
-        'title': 'Transacciones',
-        'link': 'transactions/README.md',
-        'description': 'Compras realizadas por los clientes'
     },
     {
         'icon': 'material-chart-timeline-variant',
