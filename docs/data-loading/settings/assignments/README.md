@@ -2,31 +2,46 @@
 
 Las asignaciones en Reten definen la relación entre vendedores y los clientes que tienen a su cargo. Esta entidad permite gestionar qué vendedor es responsable de cada cliente, facilitando la organización del trabajo en terreno y el seguimiento de las relaciones comerciales.
 
-## Modelo de Relaciones
+<div style="text-align: center;">
 
 ```mermaid
-
 erDiagram
     direction LR
 
-    Vendedor ||--o{ Asignacion : tiene
-    Asignacion }o--|| Cliente : gestiona
+    %% Estilos personalizados para las entidades - bordes redondeados y solo relleno
+    classDef sellerClass fill:#e8f5e8,stroke:none,color:#000,rx:8,ry:8
+    classDef assignmentClass fill:#fce4ec,stroke:none,color:#000,rx:8,ry:8
+    classDef clientClass fill:#fff3e0,stroke:none,color:#000,rx:8,ry:8
+
+    Vendedor ||--o{ Asignacion : "es responsable de"
+    Asignacion }o--|| Cliente : "es gestionado por"
 
     Asignacion {
-        string assignment_id PK
-        string type
-        string status
     }
 
     Vendedor {
-        string seller_id PK
-        string route_id
     }
 
     Cliente {
-        string client_id PK
     }
+
+    %% Aplicar estilos
+    class Asignacion assignmentClass
+    class Vendedor sellerClass
+    class Cliente clientClass
 ```
+
+</div>
+
+La asignación actúa como un **conector inteligente** que:
+
+- **Define la responsabilidad** de un vendedor sobre un cliente específico
+- **Establece el tipo de relación** (principal, secundaria, temporal)
+- **Controla el estado** de la relación comercial
+- **Permite la gestión** de múltiples vendedores por cliente
+- **Facilita la transferencia** de clientes entre vendedores
+
+Un vendedor puede tener múltiples asignaciones de clientes, y un cliente puede ser gestionado por diferentes vendedores según el tipo de asignación.
 
 ## Estructura de Datos
 

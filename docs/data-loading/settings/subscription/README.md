@@ -4,21 +4,28 @@ Las suscripciones a canales representan las preferencias de comunicación y noti
 
 ## Modelo de Relaciones
 
+<div style="text-align: center;">
+
 ```mermaid
 erDiagram
     direction LR
+
+    %% Estilos personalizados para las entidades - bordes redondeados y solo relleno
+    classDef clientClass fill:#fff3e0,stroke:none,color:#000,rx:8,ry:8
+    classDef subscriptionClass fill:#e8f4fd,stroke:none,color:#000,rx:8,ry:8
+
     Cliente ||--o{ Suscripcion : tiene
     Suscripcion {
-        string subscription_id PK
-        string client_id FK
-        string channel_type
-        string channel_identifier
-        string status
     }
     Cliente {
-        string client_id PK
     }
+
+    %% Aplicar estilos
+    class Suscripcion subscriptionClass
+    class Cliente clientClass
 ```
+
+</div>
 
 ## Estructura de Datos
 

@@ -36,6 +36,7 @@ Este método de integración funciona mediante:
 ## Configuración del Bucket
 
 Reten proporciona un bucket compartido para cada cliente:
+
 - **Bucket**: `reten-integration-{client_id}`
 - **Acceso**: Credenciales proporcionadas por Reten
 - **Permisos**: Escritura para el cliente, lectura para Reten
