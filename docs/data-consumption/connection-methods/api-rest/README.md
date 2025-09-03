@@ -1,11 +1,8 @@
-# 🔌 Métodos de Conexión
+# :material-api: Consumo desde API REST de Reten
 
-Esta sección describe el método de conexión disponible para consumir datos desde Reten hacia tu sistema. A diferencia de la carga de datos, el consumo se realiza exclusivamente a través de **APIs REST** expuestas por Reten.
+!!! warning "🚧 Work in Progress"
+    Esta sección está en desarrollo activo. La documentación de API REST Reten se está construyendo y puede estar incompleta o sujeta a cambios.
 
-!!! tip "Método Único"
-    Para el consumo de datos, Reten expone una **API REST unificada** que permite acceder a todos los recursos disponibles de manera estándar y segura.
-
-## 🎯 API REST de Reten
 
 ### **Características Principales**
 
