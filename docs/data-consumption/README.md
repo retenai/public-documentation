@@ -1,12 +1,8 @@
-# 📤 Consumo de Datos
+# :material-database-export: Consumo de Datos
 
 Esta sección contiene toda la información necesaria para consumir datos desde Reten hacia tu sistema. El consumo de datos es el segundo paso fundamental para implementar Reten en tu negocio, permitiéndote acceder a la información procesada y generada por la plataforma.
 
-!!! tip "Flujo de Datos"
-    - **🔄 Carga de Datos**: Tu sistema envía información a Reten
-    - **📤 Consumo de Datos**: Reten envía información procesada a tu sistema
-
-## 🔌 Métodos de Conexión
+## [:material-connection: Métodos de Conexión](./connection-methods/README.md)
 
 Para consumir datos desde Reten, dispones de un método de conexión unificado:
 
@@ -16,28 +12,27 @@ Para consumir datos desde Reten, dispones de un método de conexión unificado:
     {
         'icon': 'material-api',
         'title': 'API REST',
-        'link': 'connection-methods/README.md',
+        'link': 'connection-methods/api-rest/README.md',
         'description': 'Endpoints REST para consultar y recibir datos en tiempo real.'
     }
 ] %}
 
 {{ section_overview(connection_methods) }}
 
-## 📋 Tipos de Datos Disponibles
-
+## :material-format-list-bulleted-type: Tipos de Datos
 
 {% set tasks = [
     {
         'icon': 'material-checkbox-marked-circle',
         'title': 'Tareas',
-        'link': '../tasks/README.md',
+        'link': './tasks/README.md',
         'description': 'Sistema de tareas, seguimiento y gestión de actividades.'
     }
 ] %}
 
 {{ section_overview(tasks) }}
 
-## 🚀 Flujo de Implementación
+## :material-step-forward-2: Flujo de Implementación
 
 Para implementar el consumo de datos en Reten, sigue estos pasos:
 
@@ -60,26 +55,3 @@ Para implementar el consumo de datos en Reten, sigue estos pasos:
     - Revisa logs de consumo regularmente
     - Optimiza la frecuencia de consultas
     - Ajusta la configuración según tus necesidades
-
-## 💡 Recomendaciones
-
-- **Empieza simple**: Comienza consultando solo las tareas más importantes
-- **Optimiza consultas**: Usa filtros y paginación para obtener solo los datos necesarios
-- **Prueba primero**: Usa un ambiente de desarrollo antes de pasar a producción
-- **Monitorea**: Revisa regularmente los logs de consumo y métricas de API
-
-## 🔗 Próximos Pasos
-
-Una vez que hayas implementado el consumo de tareas, podrás:
-
-- Configurar [Tareas](../tasks/README.md) para gestionar actividades
-- Monitorear [Eventos](../events/README.md) del sistema
-- Integrar con herramientas de comunicación (funcionalidad futura)
-
-## 📝 Notas Técnicas
-
-- **Autenticación**: OAuth 2.0 con tokens JWT
-- **Rate Limiting**: 1000 requests por minuto por cliente
-- **Timeout de Consultas**: 30 segundos para respuesta
-- **Formato de Fechas**: ISO 8601 en UTC
-- **Encoding**: UTF-8 para todos los datos

@@ -2,24 +2,24 @@
 
 Las configuraciones representan las reglas y parámetros operativos que definen el comportamiento del sistema Reten. Cada configuración establece cómo los diferentes componentes del sistema interactúan y operan, permitiendo una personalización flexible según las necesidades del negocio.
 
-{% from '/includes/cards.md' import feature_card, section_cards %}
+{% from '/includes/cards.md' import section_overview %}
 
-{% call section_cards() %}
-{{ feature_card(
-    'material-account-multiple',
-    'Asignaciones',
-    'Relaciones entre vendedores y clientes',
-    'assignments/README.md'
-) }}
+{% set settings = [
+    {
+        'icon': 'material-account-multiple',
+        'title': 'Asignaciones',
+        'link': 'assignments/README.md',
+        'description': 'Relaciones entre vendedores y clientes'
+    },
+    {
+        'icon': 'material-map-marker-path',
+        'title': 'Rutas',
+        'link': 'routes/README.md',
+        'description': 'Programación de visitas a clientes'
+    }
+] %}
 
-{{ feature_card(
-    'material-map-marker-path',
-    'Rutas',
-    'Programación de visitas a clientes',
-    'routes/README.md'
-) }}
-
-{% endcall %}
+{{ section_overview(settings) }}
 
 ## Características Comunes
 

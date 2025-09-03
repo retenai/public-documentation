@@ -5,23 +5,24 @@
 
 Las tareas en Reten representan los momentos de contacto planificados con los clientes, diseñados para alcanzar objetivos específicos en el ciclo de vida del cliente: adquisición, retención, reactivación y digitalización. Cada tarea define cómo, cuándo y a través de qué canal se realizará la interacción con el cliente.
 
-{% from '/includes/cards.md' import feature_card, section_cards %}
+{% from '/includes/cards.md' import section_overview %}
 
-{% call section_cards() %}
-{{ feature_card(
-    'material-map-marker',
-    'Visitas',
-    'Interacciones a realizar por vendedores de forma presencial',
-    'visit/README.md'
-) }}
+{% set tasks = [
+    {
+        'icon': 'material-map-marker',
+        'title': 'Visitas',
+        'link': 'visit/README.md',
+        'description': 'Interacciones a realizar por vendedores de forma presencial'
+    },
+    {
+        'icon': 'material-phone',
+        'title': 'Llamadas',
+        'link': 'call/README.md',
+        'description': 'Contactos telefónicos a realizar por el call center'
+    }
+] %}
 
-{{ feature_card(
-    'material-phone',
-    'Llamadas',
-    'Contactos telefónicos a realizar por el call center',
-    'call/README.md'
-) }}
-{% endcall %}
+{{ section_overview(tasks) }}
 
 ## Características Comunes
 
