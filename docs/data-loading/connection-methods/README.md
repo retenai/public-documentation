@@ -2,23 +2,24 @@
 
 Los métodos de conexión definen cómo los clientes pueden sincronizar datos con la plataforma Reten. Elige el método que mejor se adapte a tu infraestructura técnica.
 
-{% from '/includes/cards.md' import feature_card, section_cards %}
+{% from '/includes/cards.md' import section_overview %}
 
-{% call section_cards() %}
-{{ feature_card(
-    'material-folder',
-    'Archivo',
-    'Carga de archivos CSV en bucket compartido para sincronización de datos',
-    'file-based/README.md'
-) }}
+{% set connection_methods = [
+    {
+        'icon': 'material-folder',
+        'title': 'Archivo',
+        'link': 'file-based/README.md',
+        'description': 'Carga de archivos CSV en bucket compartido para sincronización de datos'
+    },
+    {
+        'icon': 'material-database',
+        'title': 'Base de Datos',
+        'link': 'database/README.md',
+        'description': 'Consulta directa a base de datos expuesta por el cliente'
+    }
+] %}
 
-{{ feature_card(
-    'material-database',
-    'Base de Datos',
-    'Consulta directa a base de datos expuesta por el cliente',
-    'database/README.md'
-) }}
-{% endcall %}
+{{ section_overview(connection_methods) }}
 
 ## Características Comunes
 

@@ -82,37 +82,30 @@ nav:
   - Carga de Datos:
     - Resumen: data-loading/README.md
     - Métodos de Conexión:
-      - Resumen: connection-methods/README.md
-      - Archivos: connection-methods/file-based/README.md
-      - Base de Datos: connection-methods/database/README.md
+      - Resumen: data-loading/connection-methods/README.md
+      - Archivos: data-loading/connection-methods/file-based/README.md
+      - Base de Datos: data-loading/connection-methods/database/README.md
     - Datos Maestros:
-      - Resumen: master-data/README.md
-      - Clientes: master-data/client/README.md
-      - Productos: master-data/product/README.md
-      - Vendedores: master-data/seller/README.md
-      - Cupones: master-data/coupon/README.md
-      - Transacciones: master-data/transactions/README.md
-      - Eventos: master-data/events/README.md
+      - Resumen: data-loading/master-data/README.md
+      - Clientes: data-loading/master-data/client/README.md
+      - Productos: data-loading/master-data/product/README.md
+      - Vendedores: data-loading/master-data/seller/README.md
+      - Cupones: data-loading/master-data/coupon/README.md
+      - Transacciones: data-loading/master-data/transactions/README.md
+      - Eventos: data-loading/master-data/events/README.md
     - Configuraciones:
-      - Resumen: settings/README.md
-      - Asignaciones: settings/assignments/README.md
-      - Rutas: settings/routes/README.md
+      - Resumen: data-loading/settings/README.md
+      - Asignaciones: data-loading/settings/assignments/README.md
+      - Rutas: data-loading/settings/routes/README.md
   - Consumo de Datos:
     - Resumen: data-consumption/README.md
     - Métodos de Conexión:
-      - API REST: data-consumption/connection-methods/README.md
+      - Resumen: data-consumption/connection-methods/README.md
+      - API REST: data-consumption/connection-methods/api-rest/README.md
     - Tareas:
-      - Resumen: tasks/README.md
-      - Visitas: tasks/visit/README.md
-      - Llamadas: tasks/call/README.md
-  - Eventos:
-    - Resumen: events/README.md
-    - Órdenes: events/orders/README.md
-    - Logística: events/logistics/README.md
-    - Cuenta: events/account/README.md
-    - Engagement: events/engagement/README.md
-    - Carrito: events/cart/README.md
-    - Navegación: events/navigation/README.md
+      - Resumen: data-consumption/tasks/README.md
+      - Visitas: data-consumption/tasks/visit/README.md
+      - Llamadas: data-consumption/tasks/call/README.md
 
 # Additional settings
 plugins:
