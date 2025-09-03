@@ -42,13 +42,13 @@ Los datos maestros representan la información fundamental de tu negocio:
         'icon': 'material-cart',
         'title': 'Transacciones',
         'link': './master-data/transactions/README.md',
-        'description': 'Historial de compras y ventas.'
+        'description': 'Compras realizadas por los clientes'
     },
     {
-        'icon': 'material-package-variant',
+        'icon': 'material-package',
         'title': 'Productos',
         'link': './master-data/product/README.md',
-        'description': 'Catálogo de productos, precios y características.'
+        'description': 'Catálogo de productos y sus atributos'
     },
     {
         'icon': 'material-account-tie',
@@ -60,13 +60,13 @@ Los datos maestros representan la información fundamental de tu negocio:
         'icon': 'material-ticket-percent',
         'title': 'Cupones',
         'link': './master-data/coupon/README.md',
-        'description': 'Descuentos, promociones y reglas comerciales.'
+        'description': 'Sistema de promociones y descuentos'
     },
     {
         'icon': 'material-chart-timeline-variant',
         'title': 'Eventos',
         'link': './master-data/events/README.md',
-        'description': 'Acciones y actividades del sistema para análisis retrospectivo.'
+        'description': 'Acciones y actividades del sistema para análisis retrospectivo'
     }
 ] %}
 
@@ -78,16 +78,16 @@ Las configuraciones definen cómo funciona tu negocio en Reten:
 
 {% set settings = [
     {
-        'icon': 'material-account-multiple-check',
+        'icon': 'material-account-multiple',
         'title': 'Asignaciones',
         'link': './settings/assignments/README.md',
-        'description': 'Relaciones entre vendedores y clientes.'
+        'description': 'Relaciones entre vendedores y clientes'
     },
     {
         'icon': 'material-map-marker-path',
         'title': 'Rutas',
         'link': './settings/routes/README.md',
-        'description': 'Planificación de visitas y territorios.'
+        'description': 'Programación de visitas a clientes'
     }
 ] %}
 

@@ -13,7 +13,7 @@ Para consumir datos desde Reten, dispones de un método de conexión unificado:
         'icon': 'material-api',
         'title': 'API REST',
         'link': 'connection-methods/api-rest/README.md',
-        'description': 'Endpoints REST para consultar y recibir datos en tiempo real.'
+        'description': 'Endpoints REST para consultar y recibir datos en tiempo real'
     }
 ] %}
 
