@@ -1,145 +1,206 @@
 # :material-cart: Transacciones
 
-Las transacciones representan las compras realizadas por los clientes en el sistema. Esta entidad almacena toda la información relevante sobre las operaciones comerciales completadas.
+Las transacciones representan las compras realizadas por los clientes en el sistema. Esta entidad se divide en dos estructuras relacionadas para optimizar el procesamiento y almacenamiento de datos.
+
+## Entidades Relacionadas
+
+{% from '/includes/cards.md' import section_overview %}
+
+{% set transactions_entities = [
+    {
+        'icon': 'material-cart',
+        'title': 'Transacciones',
+        'link': '#Estructura de Datos - Transaction',
+        'description': 'Contiene la información general de la transacción'
+    },
+    {
+        'icon': 'material-package-variant',
+        'title': 'Items de Transacción',
+        'link': 'transactions/README.md',
+        'description': 'Contiene los detalles de productos/items asociados a cada transacción'
+    }
+] %}
+
+{{ section_overview(transactions_entities) }}
+
+<div style="text-align: center;">
+
+```mermaid
+erDiagram
+    direction LR
+
+    %% Estilos personalizados para las entidades - bordes redondeados y solo relleno
+    classDef transactionClass fill:#e1f5fe,stroke:none,color:#000,rx:8,ry:8
+    classDef itemsClass fill:#f3e5f5,stroke:none,color:#000,rx:8,ry:8
+
+    %% Entidades simplificadas
+    Transacción {
+    }
+
+    Item {
+    }
+
+    %% Relación con etiqueta descriptiva
+    Transacción ||--o{ Item : "contiene (1:N)"
+
+    %% Aplicar estilos
+    class Transacción transactionClass
+    class Item itemsClass
+```
+
+</div>
+
+Una transacción puede tener múltiples items. Indicar los items de una transacción es opcional.
 
 ## Estructura de Datos
+
+### :material-cart: Transacción
+
+```json
+{
+  // Identificadores (requeridos)
+  "transaction_id": "string",           // Identificador único interno (not null)
+  "order_id": "string",                 // Identificador de la orden asociada (not null)
+  "client_id": "string",                // Identificador del cliente (not null)
+
+  // Información básica
+  "transaction_type": "string",         // Tipo: order, invoice, credit_note, debit_note
+  "status": "string",                   // Estado: completed, cancelled, pending, rejected
+  "currency": "string",                 // Moneda: CLP, USD, EUR, etc
+
+  // Fechas relevantes
+  "order_date": "timestamp",            // Fecha de creación de la orden (not null)
+  "transaction_date": "timestamp",      // Fecha de la transacción (not null)
+  "approval_date": "timestamp",         // Fecha de aprobación (opcional)
+  "rejection_date": "timestamp",        // Fecha de rechazo (opcional)
+  "cancellation_date": "timestamp",     // Fecha de cancelación (opcional)
+
+  // Origen y atribución (aplanada)
+  "origin_channel": "string",           // Canal: web, app, marketplace, pos, call_center, whatsapp
+  "origin_platform": "string",          // Plataforma: website, android_app, ios_app, mercadolibre, genesys
+  "attribution_type": "string",         // Tipo: seller, agent, self_service
+  "attribution_entity_id": "string",    // ID de la entidad atribuida (seller_id, agent_id)
+
+  // Precios y totales (aplanados)
+  "pricing_amount": "number",           // Monto básico (requerido, puede ser neto o final)
+  "pricing_net_amount": "number",       // Monto neto (opcional)
+  "pricing_final_amount": "number",     // Monto final (opcional)
+  "pricing_discount_amount": "number",  // Monto total de descuentos (opcional)
+  "pricing_shipping_amount": "number",  // Costo de envío (opcional)
+  "pricing_tax_amount": "number",       // Monto de impuestos (opcional)
+
+  // Direcciones (aplanadas)
+  "shipping_name": "string",            // Nombre del destinatario para envío
+  "shipping_street": "string",          // Calle de envío
+  "shipping_number": "string",          // Número de envío
+  "shipping_dept_number": "string",     // Número de departamento de envío
+  "shipping_city": "string",            // Ciudad de envío
+  "shipping_commune": "string",         // Comuna de envío
+  "shipping_region": "string",          // Región de envío
+  "shipping_lat": "string",             // Latitud de envío
+  "shipping_long": "string",            // Longitud de envío
+
+  "billing_name": "string",             // Nombre para facturación
+  "billing_street": "string",           // Calle de facturación
+  "billing_number": "string",           // Número de facturación
+  "billing_dept_number": "string",      // Número de departamento de facturación
+  "billing_city": "string",             // Ciudad de facturación
+  "billing_commune": "string",          // Comuna de facturación
+  "billing_region": "string",           // Región de facturación
+  "billing_lat": "string",              // Latitud de facturación
+  "billing_long": "string",             // Longitud de facturación
+
+  // Cupones (aplanados)
+  "coupon_id": "string",                // ID del cupón aplicado
+  "coupon_code": "string",              // Código del cupón aplicado
+  "coupon_discount_value": "number",    // Valor del descuento del cupón
+  "coupon_type": "string",              // Tipo de cupón: percentage, fixed
+
+  // Metadatos
+  "notes": "string",                    // Notas adicionales
+  "tags": "string",                     // Etiquetas separadas por comas (tag1,tag2,tag3)
+
+  // Información de pago
+  "payment_method": "string",           // Método: credit_card, debit_card, cash, transfer, bank_transfer
+  "payment_provider": "string",         // Proveedor: transbank, mercadopago, paypal, etc
+  "payment_reference": "string",        // Referencia o número de autorización
+  "payment_installments": "number",     // Número de cuotas (opcional)
+  "payment_status": "string",           // Estado del pago: paid, pending, failed, refunded
+  "payment_date": "timestamp",          // Fecha del pago
+  "payment_card_type": "string",        // Tipo de tarjeta: credit, debit
+  "payment_card_brand": "string",       // Marca: visa, mastercard, amex, etc
+  "payment_card_last_digits": "string", // Últimos 4 dígitos
+  "payment_card_holder_name": "string", // Nombre del titular
+
+
+  // Atributos personalizados - Cualquier columna no definida en el modelo se almacenará aquí
+  "attributes": [
+    {
+      "key": "string",        // Nombre del atributo personalizado
+      "value": "string",      // Valor del atributo
+      "type": "string"        // Tipo de dato: string, number, date, boolean
+    }
+  ],
+
+  // Marcas temporales del sistema origen
+  "created_at": "timestamp",            // Fecha de creación en sistema cliente (not null)
+  "updated_at": "timestamp",            // Fecha de actualización en sistema cliente
+
+  // Marcas temporales de sincronización con Reten
+  "_created_at": "timestamp",           // Fecha de creación del registro en Método de Conexión con Reten
+  "_updated_at": "timestamp"            // Fecha de última actualización del registro en Método de Conexión con Reten
+}
+```
+
+### :material-package-variant: Item
 
 ```json
 {
   // Identificadores
-  "transaction_id": "string",    // Identificador único interno (not null)
-  "order_id": "string",          // Identificador de la orden asociada (not null)
-  "client_id": "string",         // Identificador del cliente (not null)
+  "transaction_id": "string",       // ID de la transacción padre (not null)
+  "product_id": "string",           // ID del producto (not null)
+  "item_id": "string",              // ID único del item dentro de la transacción (not null)
 
-  // Información básica
-  "status": "string",            // Estado de la transacción (pending, approved, rejected, cancelled)
-  "amount": {
-    "value": "number",           // Monto de la transacción (not null)
-    "currency": "string"         // Moneda de la transacción (not null)
-  },
+  // Información del producto
+  "display_name": "string",         // Nombre del producto para mostrar
+  "slug": "string",                 // Slug/URL del producto
+  "category_id": "string",          // ID de la categoría del producto
+  "category_name": "string",        // Nombre de la categoría del producto
+  "sku": "string",                  // SKU del producto
+  "gtin": "string",                 // GTIN/EAN del producto
+  "brand": "string",                // Marca del producto
 
-  // Detalles de pagos
-  "payments": [{
-    "method": "string",          // Método de pago (credit_card, debit_card, cash, transfer)
-    "provider": "string",        // Proveedor del método de pago
-    "reference": "string",       // Referencia o número de autorización
-    "installments": "number",    // Número de cuotas si aplica
-    "amount": "number",          // Monto del pago
-    "status": "string",          // Estado del pago (paid, pending, failed)
-    "date": "timestamp",         // Fecha del pago
-    "card": {
-      "type": "string",          // Tipo de tarjeta (credit, debit)
-      "brand": "string",         // Marca de la tarjeta
-      "last_digits": "string",   // Últimos 4 dígitos
-      "holder_name": "string"    // Nombre del titular
+  // Cantidad y precios
+  "quantity": "number",             // Cantidad del producto (not null)
+  "pricing_amount": "number",       // Monto básico del item (requerido)
+  "pricing_net_amount": "number",   // Monto neto del item (opcional)
+  "pricing_final_amount": "number", // Monto final del item (opcional)
+  "pricing_discount_amount": "number", // Monto de descuento del item (opcional)
+  "pricing_shipping_amount": "number", // Costo de envío del item (opcional)
+  "pricing_tax_amount": "number",   // Monto de impuestos del item (opcional)
+
+  // Cupones aplicados al item
+  "coupon_id": "string",            // ID del cupón aplicado al item
+  "coupon_code": "string",          // Código del cupón aplicado al item
+  "coupon_discount_value": "number", // Valor del descuento del cupón
+  "coupon_type": "string",          // Tipo de cupón: percentage, fixed
+
+  // Atributos personalizados - Cualquier columna no definida en el modelo se almacenará aquí
+  "attributes": [
+    {
+      "key": "string",        // Nombre del atributo personalizado
+      "value": "string",      // Valor del atributo
+      "type": "string"        // Tipo de dato: string, number, date, boolean
     }
-  }],
+  ],
 
-  // Fechas relevantes
-  "dates": {
-    "order_date": "timestamp",       // Fecha de creación de la orden por el cliente (not null)
-    "transaction_date": "timestamp",  // Fecha de la transacción (not null)
-    "approval_date": "timestamp",     // Fecha de aprobación
-    "rejection_date": "timestamp",    // Fecha de rechazo
-    "cancellation_date": "timestamp"  // Fecha de cancelación
-  },
+  // Marcas temporales del sistema origen
+  "created_at": "timestamp",            // Fecha de creación en sistema cliente (not null)
+  "updated_at": "timestamp",            // Fecha de actualización en sistema cliente
 
-  // Origen y atribución
-  "origin": {
-    "channel": "string",         // Canal de venta (ej: web, app, marketplace, pos)
-    "platform": "string",        // Plataforma específica (ej: website, android_app, ios_app, mercadolibre)
-    "attributes": [{             // Atributos adicionales del origen
-      "key": "string",
-      "value": "string",
-      "type": "string"    // Tipo de valor (string, number, date, boolean)
-    }]
-  },
-  "attribution": {
-    "type": "string",            // Tipo de atribución (seller, agent, self_service)
-    "entity_id": "string",       // ID de la entidad a la que se atribuye (seller_id, agent_id, etc)
-    "attributes": [{             // Atributos adicionales de la atribución
-      "key": "string",
-      "value": "string",
-      "type": "string"    // Tipo de valor (string, number, date, boolean)
-    }]
-  },
-
-  // Detalles de la transacción
-  "items": [{
-    "product_id": "string",      // ID del producto
-    "item_id": "string",         // ID único del item
-    "display_name": "string",    // Nombre del producto
-    "slug": "string",            // Slug del producto
-    "category_id": "string",     // ID de la categoría del producto
-    "category_name": "string",   // Nombre de la categoría del producto
-    "sku": "string",             // SKU del producto (opcional)
-    "gtin": "string",            // GTIN del producto (opcional)
-    "brand": "string",           // Marca del producto (opcional)
-    "quantity": "number",        // Cantidad
-    "unit_price": "number",      // Precio unitario
-    "total_price": "number",     // Precio total
-    "attributes": [{             // Atributos del item
-      "key": "string",
-      "value": "string",
-      "type": "string"    // Tipo de valor (string, number, date, boolean)
-    }],
-    "discount": {
-      "coupon_id": "string",     // ID del cupón aplicado
-      "amount": "number",        // Monto del descuento
-      "type": "string"           // Tipo de descuento (percentage, fixed)
-    }
-  }],
-
-  // Precios y totales
-  "pricing": {
-    "net_amount": "number",      // Monto neto
-    "final_amount": "number",    // Monto final
-    "discount_amount": "number", // Monto total de descuentos
-    "shipping_amount": "number", // Costo de envío
-    "tax_amount": "number"      // Monto de impuestos
-  },
-
-  // Direcciones
-  "shipping_address": {
-    "name": "string",           // Nombre del destinatario
-    "street": "string",         // Calle
-    "number": "string",         // Número
-    "dept_number": "string",    // Número de departamento
-    "city": "string",           // Ciudad
-    "commune": "string",        // Comuna
-    "region": "string",         // Región
-    "lat": "string",           // Latitud
-    "long": "string"           // Longitud
-  },
-  "billing_address": {
-    "name": "string",           // Nombre para facturación
-    "street": "string",         // Calle
-    "number": "string",         // Número
-    "dept_number": "string",    // Número de departamento
-    "city": "string",           // Ciudad
-    "commune": "string",        // Comuna
-    "region": "string",         // Región
-    "lat": "string",           // Latitud
-    "long": "string"           // Longitud
-  },
-
-  // Estado y pago
-  "coupon_code": "string",       // Código de cupón aplicado
-
-  // Metadatos
-  "notes": "string",             // Notas adicionales
-  "tags": ["string"],           // Etiquetas para categorización
-
-  // Atributos personalizados
-  "attributes": [{
-    "key": "string",
-    "value": "string",
-    "type": "string"    // Tipo de valor (string, number, date, boolean)
-  }],
-
-  // Marcas temporales
-  "created_at": "timestamp",     // Fecha de creación en sistema cliente (not null)
-  "updated_at": "timestamp"      // Fecha de última actualización en sistema cliente
+  // Marcas temporales de sincronización con Reten
+  "_created_at": "timestamp",           // Fecha de creación del registro en Método de Conexión con Reten
+  "_updated_at": "timestamp"            // Fecha de última actualización del registro en Método de Conexión con Reten
 }
 ```
 
@@ -159,45 +220,112 @@ Las transacciones representan las compras realizadas por los clientes en el sist
 - `failed`: Pago fallido
 - `refunded`: Pago reembolsado
 
+### Tipo de Transacción
+
+- `order`: Orden de compra
+- `invoice`: Factura
+- `credit_note`: Nota de crédito
+- `debit_note`: Nota de débito
+
+### Método de Pago
+
+- `credit_card`: Tarjeta de crédito
+- `debit_card`: Tarjeta de débito
+- `cash`: Efectivo
+- `transfer`: Transferencia bancaria
+- `bank_transfer`: Transferencia bancaria
+- `check`: Cheque
+
 ## Validaciones
 
 ### Identificadores
 
 - `transaction_id` debe ser único en todo el sistema
 - `client_id` debe corresponder a un cliente existente
-- `seller_id` debe corresponder a un vendedor existente
+- `attribution_entity_id` debe existir si `attribution_type` no es `self_service`
 
 ### Origen
 
-- `channel` debe ser uno de los valores permitidos: `web`, `app`, `marketplace`, `pos`, `call_center`, `whatsapp`
-- `platform` debe ser consistente con el canal seleccionado
+- `origin_channel` debe ser uno de: `web`, `app`, `marketplace`, `pos`, `call_center`, `whatsapp`
+- `origin_platform` debe ser consistente con el canal seleccionado
 
 ### Atribución
 
-- `type` debe ser uno de: `seller`, `agent`, `self_service`
-- `entity_id` debe estar presente y ser válido si `type` no es `self_service`
+- `attribution_type` debe ser uno de: `seller`, `agent`, `self_service`
+- `attribution_entity_id` debe estar presente si `attribution_type` no es `self_service`
 
 ### Fechas
 
 - `created_at` no puede ser posterior a `updated_at`
-- `transaction_date` debe ser una fecha válida
+- `order_date` debe ser anterior o igual a `transaction_date`
+- `_created_at` y `_updated_at` son timestamps de sincronización con Reten
 
-### Items
+### Items (Transaction Items)
 
-- Debe existir al menos un item
-- Los productos deben existir en el catálogo
-- Cantidades y precios deben ser positivos
-- El total debe corresponder a la suma de items
+- Los items son opcionales (cliente puede no informar items)
+- Si se informan items, `product_id` debe existir en el catálogo
+- `quantity` debe ser positivo
+- `pricing_amount` es requerido para cada item
 
-### Totales
+### Precios
 
-- Los totales deben ser consistentes con los items
-- Los descuentos deben ser válidos según las reglas de negocio
-- Los impuestos deben calcularse correctamente
+- `pricing_amount` es el campo obligatorio básico
+- Si se especifican otros campos de precio, deben ser consistentes
+- Los descuentos deben ser positivos cuando se apliquen
+
+## Atributos Personalizados
+
+**Importante:** El campo `attributes` **NO es enviado por el cliente**. Reten lo construye automáticamente durante el proceso de carga de datos, extrayendo todas las columnas adicionales que vengan en la base de datos o archivo CSV y que no estén definidas en el modelo estándar de transacciones.
+
+### **Cómo Funciona:**
+1. **Cliente envía** datos con columnas adicionales (ej: `campaign_id`, `priority_level`, `custom_field`)
+2. **Reten detecta** automáticamente las columnas no mapeadas al modelo
+3. **Reten construye** el campo `attributes` con estas columnas adicionales
+4. **Se almacena** como array de objetos con `key`, `value` y `type` inferido
+
+### **Casos de Uso Comunes:**
+- **Campos específicos del cliente**: Información particular de cada negocio
+- **Metadatos de integración**: Datos del sistema origen que no tienen equivalente en Reten
+- **Atributos de negocio**: Campos específicos de la industria o empresa
+- **Configuraciones personalizadas**: Parámetros únicos del cliente
+
+### **Formato del Campo (Construido por Reten):**
+```json
+"attributes": [
+  {
+    "key": "campaign_id",
+    "value": "SUMMER2024",
+    "type": "string"
+  },
+  {
+    "key": "priority_level",
+    "value": "5",
+    "type": "number"
+  },
+  {
+    "key": "custom_field",
+    "value": "valor_personalizado",
+    "type": "string"
+  }
+]
+```
+
+### **Tipos de Datos Soportados:**
+- `string`: Texto libre
+- `number`: Números enteros o decimales
+- `date`: Fechas en formato ISO 8601
+- `boolean`: Valores true/false
+
+### **Ventajas:**
+- **Flexibilidad total** para adaptarse a cualquier modelo de datos
+- **Extensibilidad** sin modificar el esquema principal
+- **Compatibilidad** con sistemas legacy o personalizados
+- **Escalabilidad** para futuras necesidades del negocio
+- **Procesamiento automático** sin intervención del cliente
 
 ## Ejemplos
 
-### Ejemplo Base (Transacción Completa)
+### Ejemplo Base (Transacción Completa) - Transaction
 
 ```json
 {
@@ -205,110 +333,108 @@ Las transacciones representan las compras realizadas por los clientes en el sist
   "order_id": "ORDER_001",
   "client_id": "CLIENT_123",
 
+  "transaction_type": "order",
   "status": "completed",
-  "amount": {
-    "value": 238.00,
-    "currency": "CLP"
-  },
+  "currency": "CLP",
 
-  "payments": [{
-    "method": "credit_card",
-    "provider": "transbank",
-    "reference": "1234567890",
-    "installments": 1,
-    "amount": 238.00,
-    "status": "paid",
-    "date": "2024-03-19T10:00:00Z",
-    "card": {
-      "type": "credit",
-      "brand": "visa",
-      "last_digits": "1234",
-      "holder_name": "Juan Pérez"
-    }
-  }],
+  "payment_method": "credit_card",
+  "payment_provider": "transbank",
+  "payment_reference": "1234567890",
+  "payment_installments": 1,
+  "payment_status": "paid",
+  "payment_date": "2024-03-19T10:00:00Z",
+  "payment_card_type": "credit",
+  "payment_card_brand": "visa",
+  "payment_card_last_digits": "1234",
+  "payment_card_holder_name": "Juan Pérez",
 
-  "dates": {
-    "order_date": "2024-03-19T09:45:00Z",     // Cliente crea la orden
-    "transaction_date": "2024-03-19T10:00:00Z", // Se procesa el pago
-    "approval_date": "2024-03-19T10:00:00Z"
-  },
+  "order_date": "2024-03-19T09:45:00Z",
+  "transaction_date": "2024-03-19T10:00:00Z",
+  "approval_date": "2024-03-19T10:00:00Z",
 
-  "origin": {
-    "channel": "web",
-    "platform": "website",
-    "attributes": []
-  },
-  "attribution": {
-    "type": "seller",
-    "entity_id": "SELLER_456",
-    "attributes": [
-      {
-        "key": "conversion_type",
-        "value": "assisted"
-      }
-    ]
-  },
+  "origin_channel": "web",
+  "origin_platform": "website",
+  "attribution_type": "seller",
+  "attribution_entity_id": "SELLER_456",
 
-  "items": [{
-    "product_id": "PROD_789",
-    "item_id": "ITEM_001",
-    "display_name": "Producto A",
-    "slug": "producto-a",
-    "category_id": "CAT_001",
-    "category_name": "Electrónicos",
-    "sku": "SKU123",
-    "brand": "Marca A",
-    "quantity": 2,
-    "unit_price": 100.00,
-    "total_price": 200.00,
-    "attributes": [],
-    "discount": null
-  }],
+  "pricing_amount": 238.00,
+  "pricing_net_amount": 200.00,
+  "pricing_final_amount": 238.00,
+  "pricing_discount_amount": 0,
+  "pricing_shipping_amount": 0,
+  "pricing_tax_amount": 38.00,
 
-  "pricing": {
-    "net_amount": 200.00,
-    "final_amount": 238.00,
-    "discount_amount": 0,
-    "shipping_amount": 0,
-    "tax_amount": 38.00
-  },
+  "shipping_name": "Juan Pérez",
+  "shipping_street": "Av. Principal",
+  "shipping_number": "123",
+  "shipping_city": "Santiago",
+  "shipping_commune": "Las Condes",
+  "shipping_region": "Metropolitana",
+  "shipping_lat": "-33.4513",
+  "shipping_long": "-70.5947",
 
-  "shipping_address": {
-    "name": "Juan Pérez",
-    "street": "Av. Principal",
-    "number": "123",
-    "dept_number": null,
-    "city": "Santiago",
-    "commune": "Las Condes",
-    "region": "Metropolitana",
-    "lat": "-33.4513",
-    "long": "-70.5947"
-  },
-  "billing_address": {
-    "name": "Juan Pérez",
-    "street": "Av. Principal",
-    "number": "123",
-    "dept_number": null,
-    "city": "Santiago",
-    "commune": "Las Condes",
-    "region": "Metropolitana",
-    "lat": "-33.4513",
-    "long": "-70.5947"
-  },
+  "billing_name": "Juan Pérez",
+  "billing_street": "Av. Principal",
+  "billing_number": "123",
+  "billing_city": "Santiago",
+  "billing_commune": "Las Condes",
+  "billing_region": "Metropolitana",
+  "billing_lat": "-33.4513",
+  "billing_long": "-70.5947",
 
-  "coupon_code": null,
   "notes": "",
-  "tags": [],
-  "attributes": [],
+  "tags": "",
+  "attributes": [
+    {
+      "key": "custom_attribute",
+      "value": "value1",
+      "type": "string"
+    }
+  ],
 
   "created_at": "2024-03-19T10:00:00Z",
-  "updated_at": "2024-03-19T10:00:00Z"
+  "updated_at": "2024-03-19T10:00:00Z",
+  "_created_at": "2024-03-19T10:00:00Z",
+  "_updated_at": "2024-03-19T10:00:00Z"
+}
+```
+
+### Ejemplo - Transaction Items
+
+```json
+{
+  "transaction_id": "TRX_001",
+  "product_id": "PROD_789",
+  "item_id": "ITEM_001",
+
+  "display_name": "Producto A",
+  "slug": "producto-a",
+  "category_id": "CAT_001",
+  "category_name": "Electrónicos",
+  "sku": "SKU123",
+  "brand": "Marca A",
+
+  "quantity": 2,
+  "pricing_amount": 200.00,
+  "pricing_net_amount": 200.00,
+  "pricing_final_amount": 200.00,
+  "pricing_discount_amount": 0,
+  "pricing_shipping_amount": 0,
+  "pricing_tax_amount": 0,
+
+  "attributes": [
+    {
+      "key": "custom_item_attribute",
+      "value": "value1",
+      "type": "string"
+    }
+  ]
 }
 ```
 
 ### Ejemplos de Casos Específicos
 
-#### Transacción con Descuento por Cupón
+#### Transacción con Descuento por Cupón - Transaction
 
 ```json
 {
@@ -316,401 +442,227 @@ Las transacciones representan las compras realizadas por los clientes en el sist
   "order_id": "ORDER_002",
   "client_id": "CLIENT_123",
 
+  "transaction_type": "order",
   "status": "completed",
-  "amount": {
-    "value": 95.20,
-    "currency": "CLP"
-  },
+  "currency": "CLP",
 
-  "payments": [{
-    "method": "cash",
-    "provider": "store",
-    "reference": "STORE_001",
-    "amount": 95.20,
-    "status": "paid",
-    "date": "2024-03-19T11:00:00Z"
-  }],
+  "payment_method": "cash",
+  "payment_provider": "store",
+  "payment_reference": "STORE_001",
+  "payment_status": "paid",
+  "payment_date": "2024-03-19T11:00:00Z",
 
-  "dates": {
-    "order_date": "2024-03-19T10:45:00Z",
-    "transaction_date": "2024-03-19T11:00:00Z",
-    "approval_date": "2024-03-19T11:00:00Z"
-  },
+  "order_date": "2024-03-19T10:45:00Z",
+  "transaction_date": "2024-03-19T11:00:00Z",
+  "approval_date": "2024-03-19T11:00:00Z",
 
-  "items": [{
-    "product_id": "PROD_789",
-    "item_id": "ITEM_002",
-    "display_name": "Producto A",
-    "slug": "producto-a",
-    "category_id": "CAT_001",
-    "category_name": "Electrónicos",
-    "sku": "SKU123",
-    "brand": "Marca A",
-    "quantity": 1,
-    "unit_price": 100.00,
-    "total_price": 100.00,
-    "discount": {
-      "coupon_id": "COUPON_001",
-      "amount": 20.00,
-      "type": "percentage"
-    }
-  }],
+  "origin_channel": "pos",
+  "origin_platform": "store",
+  "attribution_type": "seller",
+  "attribution_entity_id": "SELLER_789",
 
-  "pricing": {
-    "net_amount": 100.00,
-    "final_amount": 95.20,
-    "discount_amount": 20.00,
-    "shipping_amount": 0,
-    "tax_amount": 15.20
-  },
+  "pricing_amount": 95.20,
+  "pricing_net_amount": 100.00,
+  "pricing_final_amount": 95.20,
+  "pricing_discount_amount": 20.00,
+  "pricing_shipping_amount": 0,
+  "pricing_tax_amount": 15.20,
 
+  "coupon_id": "COUPON_001",
   "coupon_code": "SUMMER20",
-  "attributes": [],
+  "coupon_discount_value": 20.00,
+  "coupon_type": "percentage",
+
+  "attributes": [
+    {
+      "key": "custom_transaction_attribute",
+      "value": "value1",
+      "type": "string"
+    }
+  ],
 
   "created_at": "2024-03-19T11:00:00Z",
-  "updated_at": "2024-03-19T11:00:00Z"
+  "updated_at": "2024-03-19T11:00:00Z",
+  "_created_at": "2024-03-19T11:00:00Z",
+  "_updated_at": "2024-03-19T11:00:00Z"
 }
 ```
 
-#### Transacción con Múltiples Pagos
+#### Transacción con Descuento por Cupón - Transaction Items
 
 ```json
 {
-  "transaction_id": "TRX_003",
-  "order_id": "ORDER_003",
-  "client_id": "CLIENT_123",
+  "transaction_id": "TRX_002",
+  "product_id": "PROD_789",
+  "item_id": "ITEM_002",
 
-  "status": "completed",
-  "amount": {
-    "value": 297.50,
-    "currency": "CLP"
-  },
+  "display_name": "Producto A",
+  "slug": "producto-a",
+  "category_id": "CAT_001",
+  "category_name": "Electrónicos",
+  "sku": "SKU123",
+  "brand": "Marca A",
 
-  "payments": [
+  "quantity": 1,
+  "pricing_amount": 100.00,
+  "pricing_net_amount": 100.00,
+  "pricing_final_amount": 80.00,
+  "pricing_discount_amount": 20.00,
+  "pricing_shipping_amount": 0,
+  "pricing_tax_amount": 12.16,
+
+  "coupon_id": "COUPON_001",
+  "coupon_code": "SUMMER20",
+  "coupon_discount_value": 20.00,
+  "coupon_type": "percentage",
+
+  "attributes": [
     {
-      "method": "credit_card",
-      "provider": "transbank",
-      "reference": "1234567891",
-      "installments": 1,
-      "amount": 200.00,
-      "status": "paid",
-      "date": "2024-03-19T12:00:00Z",
-      "card": {
-        "type": "credit",
-        "brand": "visa",
-        "last_digits": "1234",
-        "holder_name": "Juan Pérez"
-      }
-    },
-    {
-      "method": "debit_card",
-      "provider": "transbank",
-      "reference": "1234567892",
-      "amount": 97.50,
-      "status": "paid",
-      "date": "2024-03-19T12:00:00Z",
-      "card": {
-        "type": "debit",
-        "brand": "maestro",
-        "last_digits": "5678",
-        "holder_name": "Juan Pérez"
-      }
+      "key": "custom_item_attribute",
+      "value": "value1",
+      "type": "string"
     }
-  ],
-
-  "dates": {
-    "order_date": "2024-03-19T11:45:00Z",
-    "transaction_date": "2024-03-19T12:00:00Z",
-    "approval_date": "2024-03-19T12:00:00Z"
-  },
-
-  "items": [
-    {
-      "product_id": "PROD_789",
-      "item_id": "ITEM_003",
-      "display_name": "Producto A",
-      "slug": "producto-a",
-      "category_id": "CAT_001",
-      "category_name": "Electrónicos",
-      "sku": "SKU123",
-      "brand": "Marca A",
-      "quantity": 2,
-      "unit_price": 100.00,
-      "total_price": 200.00
-    },
-    {
-      "product_id": "PROD_790",
-      "item_id": "ITEM_004",
-      "display_name": "Producto B",
-      "slug": "producto-b",
-      "category_id": "CAT_002",
-      "category_name": "Hogar",
-      "sku": "SKU456",
-      "brand": "Marca B",
-      "quantity": 1,
-      "unit_price": 50.00,
-      "total_price": 50.00
-    }
-  ],
-
-  "pricing": {
-    "net_amount": 250.00,
-    "final_amount": 297.50,
-    "discount_amount": 0,
-    "shipping_amount": 0,
-    "tax_amount": 47.50
-  },
-
-  "attributes": [],
-
-  "created_at": "2024-03-19T12:00:00Z",
-  "updated_at": "2024-03-19T12:00:00Z"
+  ]
 }
 ```
 
-#### Transacción Pendiente de Pago
 
-```json
-{
-  "transaction_id": "TRX_004",
-  "order_id": "ORDER_004",
-  "client_id": "CLIENT_123",
-
-  "status": "pending",
-  "amount": {
-    "value": 119.00,
-    "currency": "CLP"
-  },
-
-  "payments": [{
-    "method": "bank_transfer",
-    "provider": "banco_chile",
-    "reference": "TRANSFER_001",
-    "amount": 119.00,
-    "status": "pending",
-    "date": "2024-03-19T13:00:00Z"
-  }],
-
-  "dates": {
-    "order_date": "2024-03-19T12:45:00Z",
-    "transaction_date": "2024-03-19T13:00:00Z"
-  },
-
-  "items": [{
-    "product_id": "PROD_789",
-    "item_id": "ITEM_005",
-    "display_name": "Producto A",
-    "slug": "producto-a",
-    "category_id": "CAT_001",
-    "category_name": "Electrónicos",
-    "sku": "SKU123",
-    "brand": "Marca A",
-    "quantity": 1,
-    "unit_price": 100.00,
-    "total_price": 100.00
-  }],
-
-  "pricing": {
-    "net_amount": 100.00,
-    "final_amount": 119.00,
-    "discount_amount": 0,
-    "shipping_amount": 0,
-    "tax_amount": 19.00
-  },
-
-  "attributes": [],
-
-  "created_at": "2024-03-19T13:00:00Z",
-  "updated_at": "2024-03-19T13:00:00Z"
-}
-```
-
-#### Transacción de Autoservicio Web
-
-```json
-{
-  "transaction_id": "TRX_005",
-  "order_id": "ORDER_005",
-  "client_id": "CLIENT_123",
-
-  "status": "completed",
-  "amount": {
-    "value": 119.00,
-    "currency": "CLP"
-  },
-
-  "payments": [{
-    "method": "credit_card",
-    "provider": "transbank",
-    "reference": "1234567893",
-    "installments": 1,
-    "amount": 119.00,
-    "status": "paid",
-    "date": "2024-03-19T14:00:00Z",
-    "card": {
-      "type": "credit",
-      "brand": "mastercard",
-      "last_digits": "9012",
-      "holder_name": "Juan Pérez"
-    }
-  }],
-
-  "dates": {
-    "order_date": "2024-03-19T13:45:00Z",
-    "transaction_date": "2024-03-19T14:00:00Z",
-    "approval_date": "2024-03-19T14:00:00Z"
-  },
-
-  "origin": {
-    "channel": "web",
-    "platform": "website",
-    "attributes": []
-  },
-  "attribution": {
-    "type": "self_service",
-    "entity_id": null,
-    "attributes": []
-  },
-
-  "items": [{
-    "product_id": "PROD_789",
-    "item_id": "ITEM_006",
-    "display_name": "Producto A",
-    "slug": "producto-a",
-    "category_id": "CAT_001",
-    "category_name": "Electrónicos",
-    "sku": "SKU123",
-    "brand": "Marca A",
-    "quantity": 1,
-    "unit_price": 100.00,
-    "total_price": 100.00
-  }],
-
-  "pricing": {
-    "net_amount": 100.00,
-    "final_amount": 119.00,
-    "discount_amount": 0,
-    "shipping_amount": 0,
-    "tax_amount": 19.00
-  },
-
-  "attributes": [],
-
-  "created_at": "2024-03-19T14:00:00Z",
-  "updated_at": "2024-03-19T14:00:00Z"
-}
-```
-
-#### Transacción por Call Center
-
-```json
-{
-  "transaction_id": "TRX_006",
-  "order_id": "ORDER_006",
-  "client_id": "CLIENT_123",
-
-  "status": "completed",
-  "amount": {
-    "value": 119.00,
-    "currency": "CLP"
-  },
-
-  "payments": [{
-    "method": "credit_card",
-    "provider": "transbank",
-    "reference": "1234567894",
-    "installments": 1,
-    "amount": 119.00,
-    "status": "paid",
-    "date": "2024-03-19T15:00:00Z",
-    "card": {
-      "type": "credit",
-      "brand": "visa",
-      "last_digits": "3456",
-      "holder_name": "Juan Pérez"
-    }
-  }],
-
-  "dates": {
-    "order_date": "2024-03-19T14:45:00Z",
-    "transaction_date": "2024-03-19T15:00:00Z",
-    "approval_date": "2024-03-19T15:00:00Z"
-  },
-
-  "origin": {
-    "channel": "call_center",
-    "platform": "genesys",
-    "attributes": [
-      {
-        "key": "call_id",
-        "value": "CALL_123"
-      }
-    ]
-  },
-  "attribution": {
-    "type": "agent",
-    "entity_id": "AGENT_789",
-    "attributes": [
-      {
-        "key": "shift",
-        "value": "morning"
-      }
-    ]
-  },
-
-  "items": [{
-    "product_id": "PROD_789",
-    "item_id": "ITEM_007",
-    "display_name": "Producto A",
-    "slug": "producto-a",
-    "category_id": "CAT_001",
-    "category_name": "Electrónicos",
-    "sku": "SKU123",
-    "brand": "Marca A",
-    "quantity": 1,
-    "unit_price": 100.00,
-    "total_price": 100.00
-  }],
-
-  "pricing": {
-    "net_amount": 100.00,
-    "final_amount": 119.00,
-    "discount_amount": 0,
-    "shipping_amount": 0,
-    "tax_amount": 19.00
-  },
-
-  "attributes": [],
-
-  "created_at": "2024-03-19T15:00:00Z",
-  "updated_at": "2024-03-19T15:00:00Z"
-}
-```
 
 ## 🔄 Integración
 
 ### **Método por Archivo**
-Las transacciones se cargan en archivos CSV con las columnas correspondientes:
+
+#### Archivo de Transacciones
+Las transacciones se cargan en archivos CSV con todas las columnas:
 
 ```csv
-transaction_id,order_id,client_id,status,amount_value,amount_currency,created_at
-TRX_001,ORDER_001,CLIENT_123,completed,238.00,CLP,2024-03-19T10:00:00Z
-TRX_002,ORDER_002,CLIENT_124,pending,150.00,CLP,2024-03-19T11:00:00Z
+transaction_id,order_id,client_id,transaction_type,status,currency,payment_method,payment_provider,payment_reference,payment_installments,payment_status,payment_date,payment_card_type,payment_card_brand,payment_card_last_digits,payment_card_holder_name,order_date,transaction_date,approval_date,rejection_date,cancellation_date,origin_channel,origin_platform,attribution_type,attribution_entity_id,pricing_amount,pricing_net_amount,pricing_final_amount,pricing_discount_amount,pricing_shipping_amount,pricing_tax_amount,shipping_name,shipping_street,shipping_number,shipping_dept_number,shipping_city,shipping_commune,shipping_region,shipping_lat,shipping_long,billing_name,billing_street,billing_number,billing_dept_number,billing_city,billing_commune,billing_region,billing_lat,billing_long,coupon_id,coupon_code,coupon_discount_value,coupon_type,notes,tags,attributes,created_at,updated_at,_created_at,_updated_at
+TRX_001,ORDER_001,CLIENT_123,order,completed,CLP,credit_card,transbank,1234567890,1,paid,2024-03-19T10:00:00Z,credit,visa,1234,Juan Pérez,2024-03-19T09:45:00Z,2024-03-19T10:00:00Z,2024-03-19T10:00:00Z,,,,web,website,seller,SELLER_456,238.00,200.00,238.00,0,0,38.00,Juan Pérez,Av. Principal,123,,Santiago,Las Condes,Metropolitana,-33.4513,-70.5947,Juan Pérez,Av. Principal,123,,Santiago,Las Condes,Metropolitana,-33.4513,-70.5947,,,,,,,,,2024-03-19T10:00:00Z,2024-03-19T10:00:00Z,2024-03-19T10:00:00Z,2024-03-19T10:00:00Z
+TRX_002,ORDER_002,CLIENT_124,order,pending,CLP,bank_transfer,banco_chile,TRANSFER_001,,pending,2024-03-19T11:00:00Z,,,,,2024-03-19T10:45:00Z,2024-03-19T11:00:00Z,,,,,,,,150.00,,,,,,,,,,,,COUPON_001,SUMMER20,20.00,percentage,,,2024-03-19T11:00:00Z,2024-03-19T11:00:00Z,2024-03-19T11:00:00Z,2024-03-19T11:00:00Z
+```
+
+#### Archivo de Transaction Items
+Los items se cargan en un archivo separado:
+
+```csv
+transaction_id,product_id,item_id,display_name,slug,category_id,category_name,sku,gtin,brand,quantity,pricing_amount,pricing_net_amount,pricing_final_amount,pricing_discount_amount,pricing_shipping_amount,pricing_tax_amount,coupon_id,coupon_code,coupon_discount_value,coupon_type,attributes
+TRX_001,PROD_789,ITEM_001,Producto A,producto-a,CAT_001,Electrónicos,SKU123,,Marca A,2,200.00,200.00,200.00,0,0,0,,,,
+TRX_002,PROD_790,ITEM_002,Producto B,producto-b,CAT_002,Hogar,SKU456,,Marca B,1,100.00,100.00,80.00,20.00,0,12.16,COUPON_001,SUMMER20,20.00,percentage,
 ```
 
 ### **Método por Base de Datos**
-Las transacciones se consultan desde una tabla con la estructura correspondiente:
 
+#### Tabla de Transacciones
 ```sql
-SELECT 
-    transaction_id,
-    order_id,
-    client_id,
-    status,
-    amount_value,
-    amount_currency,
-    created_at
-FROM transactions 
-WHERE updated_at > '2024-01-15T00:00:00Z'
-ORDER BY created_at;
+CREATE TABLE transactions (
+    transaction_id VARCHAR(255) PRIMARY KEY,
+    order_id VARCHAR(255) NOT NULL,
+    client_id VARCHAR(255) NOT NULL,
+    transaction_type VARCHAR(50),
+    status VARCHAR(50) NOT NULL,
+    currency VARCHAR(10) NOT NULL,
+    payment_method VARCHAR(50),
+    payment_provider VARCHAR(100),
+    payment_reference VARCHAR(255),
+    payment_installments INTEGER,
+    payment_status VARCHAR(50),
+    payment_date TIMESTAMP,
+    payment_card_type VARCHAR(50),
+    payment_card_brand VARCHAR(50),
+    payment_card_last_digits VARCHAR(10),
+    payment_card_holder_name VARCHAR(255),
+    order_date TIMESTAMP NOT NULL,
+    transaction_date TIMESTAMP NOT NULL,
+    approval_date TIMESTAMP,
+    rejection_date TIMESTAMP,
+    cancellation_date TIMESTAMP,
+    origin_channel VARCHAR(50),
+    origin_platform VARCHAR(100),
+    attribution_type VARCHAR(50),
+    attribution_entity_id VARCHAR(255),
+    pricing_amount DECIMAL(15,2) NOT NULL,
+    pricing_net_amount DECIMAL(15,2),
+    pricing_final_amount DECIMAL(15,2),
+    pricing_discount_amount DECIMAL(15,2),
+    pricing_shipping_amount DECIMAL(15,2),
+    pricing_tax_amount DECIMAL(15,2),
+    shipping_name VARCHAR(255),
+    shipping_street VARCHAR(255),
+    shipping_number VARCHAR(50),
+    shipping_dept_number VARCHAR(50),
+    shipping_city VARCHAR(100),
+    shipping_commune VARCHAR(100),
+    shipping_region VARCHAR(100),
+    shipping_lat VARCHAR(20),
+    shipping_long VARCHAR(20),
+    billing_name VARCHAR(255),
+    billing_street VARCHAR(255),
+    billing_number VARCHAR(50),
+    billing_dept_number VARCHAR(50),
+    billing_city VARCHAR(100),
+    billing_commune VARCHAR(100),
+    billing_region VARCHAR(100),
+    billing_lat VARCHAR(20),
+    billing_long VARCHAR(20),
+    coupon_id VARCHAR(255),
+    coupon_code VARCHAR(100),
+    coupon_discount_value DECIMAL(15,2),
+    coupon_type VARCHAR(50),
+    notes TEXT,
+    tags VARCHAR(1000),
+    attributes JSON,
+    created_at TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP,
+    _created_at TIMESTAMP,
+    _updated_at TIMESTAMP,
+    INDEX idx_updated_at (updated_at),
+    INDEX idx_client_id (client_id),
+    INDEX idx_transaction_date (transaction_date)
+);
+```
+
+#### Tabla de Transaction Items
+```sql
+CREATE TABLE transaction_items (
+    transaction_id VARCHAR(255) NOT NULL,
+    product_id VARCHAR(255) NOT NULL,
+    item_id VARCHAR(255) NOT NULL,
+    display_name VARCHAR(255),
+    slug VARCHAR(255),
+    category_id VARCHAR(255),
+    category_name VARCHAR(255),
+    sku VARCHAR(100),
+    gtin VARCHAR(100),
+    brand VARCHAR(100),
+    quantity INTEGER NOT NULL,
+    pricing_amount DECIMAL(15,2) NOT NULL,
+    pricing_net_amount DECIMAL(15,2),
+    pricing_final_amount DECIMAL(15,2),
+    pricing_discount_amount DECIMAL(15,2),
+    pricing_shipping_amount DECIMAL(15,2),
+    pricing_tax_amount DECIMAL(15,2),
+    coupon_id VARCHAR(255),
+    coupon_code VARCHAR(100),
+    coupon_discount_value DECIMAL(15,2),
+    coupon_type VARCHAR(50),
+    attributes JSON,
+    PRIMARY KEY (transaction_id, item_id),
+    FOREIGN KEY (transaction_id) REFERENCES transactions(transaction_id),
+    INDEX idx_product_id (product_id),
+    INDEX idx_category_id (category_id)
+);
+```
+
+#### Consulta de Sincronización
+```sql
+-- Consultar transacciones modificadas desde la última sincronización
+SELECT * FROM transactions
+WHERE _updated_at > :last_sync_timestamp
+ORDER BY _updated_at ASC;
+
+-- Consultar items de transacciones modificadas
+SELECT ti.* FROM transaction_items ti
+JOIN transactions t ON ti.transaction_id = t.transaction_id
+WHERE t._updated_at > :last_sync_timestamp
+ORDER BY t._updated_at ASC, ti.item_id ASC;
 ```

@@ -41,6 +41,7 @@ El cliente debe crear tablas con la estructura especificada en la documentación
 
 ### Campos de Auditoría
 Todas las tablas deben incluir los campos de timestamp especificados en cada entidad:
+
 - `created_at`: Timestamp de creación
 - `updated_at`: Timestamp de última modificación
 

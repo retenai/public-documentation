@@ -2,32 +2,46 @@
 
 Las rutas en Reten definen cómo los vendedores visitan sus clientes asignados, permitiendo una planificación eficiente de tareas y visitas. Una ruta representa ya sea un patrón recurrente de visitas o fechas específicas programadas para visitar los clientes en la cartera del vendedor.
 
-## Modelo de Relaciones
+<div style="text-align: center;">
 
 ```mermaid
-
 erDiagram
     direction LR
     
-    Vendedor ||--o{ Ruta : tiene_asignada
-    Ruta ||--o{ Cliente : visita
+    %% Estilos personalizados para las entidades - bordes redondeados y solo relleno
+    classDef sellerClass fill:#e8f5e8,stroke:none,color:#000,rx:8,ry:8
+    classDef routeClass fill:#e3f2fd,stroke:none,color:#000,rx:8,ry:8
+    classDef clientClass fill:#fff3e0,stroke:none,color:#000,rx:8,ry:8
+    
+    Vendedor ||--o{ Ruta : "planifica"
+    Ruta ||--o{ Cliente : "programa visitas a"
 
     Vendedor {
-        string seller_id PK
-        string route_id FK
     }
 
     Ruta {
-        string route_id PK
-        string client_id FK
-        string pattern_type
-        string status
     }
 
     Cliente {
-        string client_id PK
     }
+
+    %% Aplicar estilos
+    class Vendedor sellerClass
+    class Ruta routeClass
+    class Cliente clientClass
 ```
+
+</div>
+
+La ruta actúa como un **planificador inteligente** que:
+
+- **Organiza las visitas** de un vendedor a sus clientes asignados
+- **Define patrones de frecuencia** (semanal, quincenal, mensual, personalizado)
+- **Programa fechas específicas** para visitas especiales o campañas
+- **Optimiza la logística** del trabajo en terreno
+- **Permite flexibilidad** entre patrones recurrentes y fechas específicas
+
+Un vendedor puede planificar múltiples rutas, y cada ruta puede programar visitas a diferentes clientes según patrones de frecuencia o fechas específicas.
 
 ## Estructura de Datos
 
