@@ -1,191 +1,102 @@
 # :material-checkbox-marked-circle: Tareas
 
-!!! warning "🚧 Work in Progress"
-    Esta sección está en desarrollo activo. La documentación de tareas se está construyendo y puede estar incompleta o sujeta a cambios.
+Las tareas en Reten representan los momentos de contacto planificados con los clientes. La API expone una única entidad `tasks` que maneja diferentes tipos de interacciones identificadas por campos como `channel_priority`, `reason` y `label`.
 
-Las tareas en Reten representan los momentos de contacto planificados con los clientes, diseñados para alcanzar objetivos específicos en el ciclo de vida del cliente: adquisición, retención, reactivación y digitalización. Cada tarea define cómo, cuándo y a través de qué canal se realizará la interacción con el cliente.
+## API de Tareas
 
-{% from '/includes/cards.md' import section_overview %}
+La API expone el endpoint `GET /api/v1/tasks/` que retorna una lista de tareas programadas según los parámetros de filtrado.
 
-{% set tasks = [
-    {
-        'icon': 'material-map-marker',
-        'title': 'Visitas',
-        'link': 'visit/README.md',
-        'description': 'Interacciones a realizar por vendedores de forma presencial'
-    },
-    {
-        'icon': 'material-phone',
-        'title': 'Llamadas',
-        'link': 'call/README.md',
-        'description': 'Contactos telefónicos a realizar por el call center'
-    }
-] %}
-
-{{ section_overview(tasks) }}
-
-## Características Comunes
-
-Todas las tareas comparten:
-
-- Identificación única y trazabilidad
-- Objetivo específico de negocio
-- Asignación a un responsable
-- Ventana temporal de ejecución
-- Métricas de éxito
-- Seguimiento de estado
-- Integración con canales de contacto
-
-## Propósito de Contacto
-
-!!! info "Adquisición"
-    - Prospección de nuevos clientes
-    - Presentación de productos/servicios
-    - Activación inicial
-    - Registro de datos
-
-!!! success "Retención"
-    - Seguimiento regular
-    - Atención a necesidades
-    - Venta cruzada/incrementada
-    - Resolución de problemas
-
-!!! warning "Reactivación"
-    - Recuperación de clientes inactivos
-    - Ofertas especiales
-    - Actualización de información
-    - Identificación de causas de abandono
-
-!!! tip "Digitalización"
-    - Adopción de herramientas digitales
-    - Capacitación en plataforma
-    - Activación de funcionalidades
-    - Mejora de engagement digital
-
-## Estados y Ciclo de Vida
-
-### Estados de Tarea
-
-- `pending`: Pendiente de inicio
-- `in_progress`: En ejecución
-- `completed`: Finalizada con éxito
-- `failed`: No completada
-- `cancelled`: Cancelada
-- `rescheduled`: Reprogramada
-
-## Estructura de Datos Base
-
-```json
-{
-  // Identificadores
-  "task_id": "string",         // Identificador único de la tarea (not null)
-  
-  // Información básica
-  "type": "string",           // Tipo de tarea (visit, call, message)
-  "objective": "string",      // Objetivo (acquisition, retention, reactivation, digitalization)
-  "priority": "number",       // Prioridad de la tarea (1-5)
-  
-  // Asignación
-  "assignee": {
-    "id": "string",          // ID del responsable
-    "type": "string",        // Tipo (seller, agent, system)
-    "name": "string"         // Nombre del responsable
-  },
-
-  // Cliente objetivo
-  "client": {
-    "id": "string",          // ID del cliente
-    "name": "string",        // Nombre del cliente
-    "segment": "string",     // Segmento del cliente
-    "contact_info": {        // Información de contacto
-      "channel": "string",   // Canal preferido
-      "value": "string"      // Valor del contacto
-    }
-  },
-
-  // Programación
-  "schedule": {
-    "start_date": "date",    // Fecha de inicio
-    "end_date": "date",      // Fecha límite
-    "duration": "number",    // Duración estimada (minutos)
-    "time_zone": "string"    // Zona horaria
-  },
-
-  // Configuración
-  "settings": {
-    "channel_config": {},    // Configuración específica del canal
-    "retry_policy": {},      // Política de reintentos
-    "success_criteria": {}   // Criterios de éxito
-  },
-
-  // Estado y resultados
-  "status": {
-    "current": "string",     // Estado actual
-    "history": [{           // Historial de estados
-      "status": "string",
-      "timestamp": "date",
-      "reason": "string"
-    }]
-  },
-  "results": {
-    "outcome": "string",     // Resultado final
-    "metrics": {},          // Métricas específicas
-    "notes": "string"       // Notas o comentarios
-  },
-
-  // Marcas temporales
-  "created_at": "timestamp", // Fecha de creación
-  "updated_at": "timestamp", // Última actualización
-}
+### Endpoint
+```http
+GET /api/v1/tasks/
 ```
 
-## Validaciones Principales
+### Parámetros de Consulta
+- `from_date`: Fecha desde (ISO 8601, opcional)
+- `to_date`: Fecha hasta (ISO 8601, opcional)
+- `channel_priority`: Prioridad del canal ("salesman", "callcenter", opcional)
 
-### Validaciones Generales
-- Identificadores únicos por tarea
-- Fechas válidas y coherentes
-- Asignaciones a usuarios activos
-- Clientes existentes y activos
+### Estructura de Respuesta
 
-### Validaciones por Tipo
-- Visitas: coordenadas y rutas válidas
-- Llamadas: números verificados
-- Mensajes: canales habilitados
+```json
+[
+  {
+    "id": "123456789",
+    "user_id": "123456789",
+    "date": "2024-01-15T10:30:00Z",
+    "suggested_execution_time": "2024-01-15T14:00:00Z",
+    "template_msg_id": "abc123",
+    "score": 85,
+    "label": "Cliente VIP",
+    "reason": "Seguimiento mensual",
+    "channel_priority": "salesman",
+    "channel_secondary": "whatsapp",
+    "created_at": "2024-01-10T09:00:00Z",
+    "updated_at": "2024-01-10T09:00:00Z"
+  }
+]
+```
 
-### Validaciones de Negocio
-- Capacidad del asignado
-- Horarios permitidos
-- Frecuencia de contacto
-- Permisos y consentimientos
+### Campos Principales
+- `id`: Identificador único de la tarea
+- `user_id`: ID del usuario objetivo
+- `channel_priority`: Canal principal ("salesman", "callcenter")
+- `channel_secondary`: Canal secundario ("whatsapp", "email", etc.)
+- `reason`: Motivo de la tarea
+- `score`: Puntaje/prioridad de la tarea
+- `suggested_execution_time`: Hora sugerida de ejecución
 
-## Integración con Otros Sistemas
+## Tipos de Tareas
 
-### Dependencias
-- Master Data (clientes, vendedores)
-- Settings (rutas, asignaciones)
-- Canales de comunicación
+La API maneja diferentes tipos de tareas identificadas principalmente por el campo `channel_priority`:
 
-### APIs y Webhooks
-- Creación y actualización
-- Notificaciones de estado
-- Resultados y métricas
-- Eventos de sistema
+### Visitas de Vendedor
+- `channel_priority`: "salesman"
+- `channel_secondary`: "whatsapp" o "email"
+- Descripción: Interacciones presenciales planificadas por vendedores
+- Propósito: Seguimiento de clientes, ventas, recolección de feedback
 
-## Consideraciones de Implementación
+### Llamadas de Call Center
+- `channel_priority`: "callcenter"
+- `channel_secondary`: "whatsapp" o "sms"
+- Descripción: Contactos telefónicos gestionados por el call center
+- Propósito: Atención al cliente, seguimiento, reactivación
 
-### Rendimiento
-- Indexación de búsquedas frecuentes
-- Caché de datos relacionados
-- Optimización de consultas
+## Estados de Tarea
 
-### Seguridad
-- Control de acceso por rol
-- Encriptación de datos sensibles
-- Auditoría de cambios
+Las tareas pueden tener diferentes estados identificados por el campo `reason` y otros indicadores:
 
-### Escalabilidad
-- Procesamiento asíncrono
-- Particionamiento de datos
-- Balanceo de carga
+- **Seguimiento mensual**: `reason: "Seguimiento mensual"`
+- **Cliente VIP**: `label: "Cliente VIP"`
+- **Reactivación**: Basado en score y tiempo desde último contacto
+- **Venta cruzada**: `reason: "Venta cruzada"`
 
-Para más detalles sobre cada tipo de tarea, consulta su documentación específica en los enlaces proporcionados.
+## Ejemplos de Uso
+
+### Consultar tareas de vendedores
+```bash
+curl -X GET "https://retenai-analytics-api-lgtxgindmq-tl.a.run.app/api/v1/tasks/?channel_priority=salesman" \
+  -H "X-API-Key: your_api_key"
+```
+
+### Filtrar por fecha
+```bash
+curl -X GET "https://retenai-analytics-api-lgtxgindmq-tl.a.run.app/api/v1/tasks/?from_date=2024-01-01T00:00:00Z&to_date=2024-01-31T23:59:59Z" \
+  -H "X-API-Key: your_api_key"
+```
+
+### Python
+```python
+import requests
+
+# Consultar tareas de call center
+response = requests.get(
+    'https://retenai-analytics-api-lgtxgindmq-tl.a.run.app/api/v1/tasks/',
+    headers={'X-API-Key': 'your_api_key'},
+    params={'channel_priority': 'callcenter'}
+)
+
+tasks = response.json()
+for task in tasks:
+    print(f"Tarea {task['id']} - Usuario {task['user_id']} - Razón: {task['reason']}")
+```

@@ -1,0 +1,22 @@
+docs: Update API REST documentation to match real implementation
+
+Complete rewrite of the API REST documentation to reflect the actual Reten Analytics API:
+
+## Key Changes:
+- Update authentication from OAuth 2.0 JWT to API Key based system
+- Change base URL to actual production endpoint
+- Remove unimplemented features (webhooks, complex polling)
+- Update endpoint parameters to match real API (from_date, to_date, channel_priority)
+- Correct response schema to match ScheduledTaskResponse structure
+- Simplify examples to focus on basic requests with Python and cURL
+- Remove verbose sections on configuration, monitoring, and debugging
+- Add references to other available endpoints (KPIs, messages, contacts)
+
+## Technical Details:
+- Updated from generic mock documentation to production-ready docs
+- Removed 300+ lines of verbose content for cleaner, focused documentation
+- All examples now use real API endpoints and parameters
+- Documentation now serves as immediate reference for developers
+
+## Files Modified:
+- docs/data-consumption/connection-methods/api-rest/README.md: Complete documentation rewrite
