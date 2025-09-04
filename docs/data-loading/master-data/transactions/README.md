@@ -82,12 +82,11 @@ Una transacción puede tener múltiples items. Indicar los items de una transacc
   "attribution_entity_id": "string",    // ID de la entidad atribuida (seller_id, agent_id)
 
   // Precios y totales (aplanados)
-  "pricing_amount": "number",           // Monto básico (requerido, puede ser neto o final)
-  "pricing_net_amount": "number",       // Monto neto (opcional)
-  "pricing_final_amount": "number",     // Monto final (opcional)
-  "pricing_discount_amount": "number",  // Monto total de descuentos (opcional)
+  "pricing_net_amount": "number",       // Monto neto base (not null - requerido)
+  "pricing_discount_amount": "number",  // Monto total de descuentos aplicados (opcional)
+  "pricing_tax_amount": "number",       // Monto de impuestos calculados (opcional)
   "pricing_shipping_amount": "number",  // Costo de envío (opcional)
-  "pricing_tax_amount": "number",       // Monto de impuestos (opcional)
+  "pricing_final_amount": "number",     // Monto final total (opcional)
 
   // Direcciones (aplanadas)
   "shipping_name": "string",            // Nombre del destinatario para envío
@@ -172,12 +171,11 @@ Una transacción puede tener múltiples items. Indicar los items de una transacc
 
   // Cantidad y precios
   "quantity": "number",             // Cantidad del producto (not null)
-  "pricing_amount": "number",       // Monto básico del item (requerido)
-  "pricing_net_amount": "number",   // Monto neto del item (opcional)
-  "pricing_final_amount": "number", // Monto final del item (opcional)
+  "pricing_net_amount": "number",   // Monto neto base del item (not null - requerido)
   "pricing_discount_amount": "number", // Monto de descuento del item (opcional)
-  "pricing_shipping_amount": "number", // Costo de envío del item (opcional)
   "pricing_tax_amount": "number",   // Monto de impuestos del item (opcional)
+  "pricing_shipping_amount": "number", // Costo de envío del item (opcional)
+  "pricing_final_amount": "number", // Monto final del item (opcional)
 
   // Cupones aplicados al item
   "coupon_id": "string",            // ID del cupón aplicado al item
@@ -203,6 +201,73 @@ Una transacción puede tener múltiples items. Indicar los items de una transacc
   "_updated_at": "timestamp"            // Fecha de última actualización del registro en Método de Conexión con Reten
 }
 ```
+
+## Campos de Pricing
+
+### :material-cart: Transacción
+
+Los campos de pricing siguen un orden lógico que refleja cómo se calcula el precio final de una transacción:
+
+| Campo                     | Requerido | Descripción                                               | Ejemplo  |
+| ------------------------- | --------- | --------------------------------------------------------- | -------- |
+| `pricing_net_amount`      | ✅ Sí      | Monto base neto antes de descuentos, impuestos o envío    | `100.00` |
+| `pricing_discount_amount` | ❌ No      | Total de descuentos aplicados al monto neto               | `20.00`  |
+| `pricing_tax_amount`      | ❌ No      | Impuestos calculados sobre el monto neto menos descuentos | `16.00`  |
+| `pricing_shipping_amount` | ❌ No      | Costo de envío de la transacción completa                 | `10.00`  |
+| `pricing_final_amount`    | ❌ No      | Monto total final que paga el cliente                     | `106.00` |
+
+#### Flujo de Cálculo Lógico:
+1. **Monto Neto Base** (`pricing_net_amount`): Es el precio base de los productos/servicios
+2. **Aplicar Descuentos** (`pricing_discount_amount`): Se restan del monto neto
+3. **Calcular Impuestos** (`pricing_tax_amount`): Se calculan sobre (neto - descuentos)
+4. **Agregar Envío** (`pricing_shipping_amount`): Costo adicional de entrega
+5. **Monto Final** (`pricing_final_amount`): Suma total que incluye todos los componentes
+
+#### Ejemplo de Cálculo:
+```
+Monto Neto: $100.00
+- Descuento: $20.00
+= Subtotal: $80.00
++ Impuestos (20%): $16.00
++ Envío: $10.00
+= Total Final: $106.00
+```
+
+### :material-package-variant: Items de Transacción
+
+Los campos de pricing para items individuales siguen la misma lógica pero aplicados a cada producto:
+
+| Campo                     | Requerido | Descripción                                                | Ejemplo |
+| ------------------------- | --------- | ---------------------------------------------------------- | ------- |
+| `pricing_net_amount`      | ✅ Sí      | Precio base neto del producto individual                   | `50.00` |
+| `pricing_discount_amount` | ❌ No      | Descuento aplicado específicamente a este item             | `10.00` |
+| `pricing_tax_amount`      | ❌ No      | Impuestos del producto (calculados sobre neto - descuento) | `8.00`  |
+| `pricing_shipping_amount` | ❌ No      | Costo de envío proporcional para este item                 | `2.00`  |
+| `pricing_final_amount`    | ❌ No      | Precio final del item individual                           | `50.00` |
+
+#### Consideraciones para Items:
+- Los montos de items **NO se suman automáticamente** para obtener los totales de transacción
+- El total de transacción se calcula por separado y puede incluir descuentos globales
+- Los impuestos de items pueden calcularse de forma individual o agregada
+- El envío puede distribuirse entre items o calcularse a nivel de transacción
+
+### Reglas Generales de Pricing
+
+#### Consistencia de Datos:
+- Si se informa `pricing_final_amount`, debe ser consistente con los demás campos
+- Los descuentos siempre deben ser valores positivos
+- Los montos pueden ser cero pero nunca negativos (excepto descuentos)
+
+#### Campos Opcionales:
+- **Enviar todos los campos que conozcas**: Mayor información = mejor análisis
+- **Mínimo requerido**: Solo `pricing_net_amount`
+- **Campos complementarios**: Ayudan a entender mejor la estructura de precios
+
+#### Manejo de Casos Especiales:
+- **Productos gratis**: `pricing_net_amount: 0`
+- **Descuentos 100%**: `pricing_discount_amount = pricing_net_amount`
+- **Sin impuestos**: `pricing_tax_amount: 0` o no enviar
+- **Envío gratuito**: `pricing_shipping_amount: 0` o no enviar
 
 ## Estados Válidos
 
@@ -265,11 +330,11 @@ Una transacción puede tener múltiples items. Indicar los items de una transacc
 - Los items son opcionales (cliente puede no informar items)
 - Si se informan items, `product_id` debe existir en el catálogo
 - `quantity` debe ser positivo
-- `pricing_amount` es requerido para cada item
+- `pricing_net_amount` es requerido para cada item
 
 ### Precios
 
-- `pricing_amount` es el campo obligatorio básico
+- `pricing_net_amount` es el campo obligatorio básico
 - Si se especifican otros campos de precio, deben ser consistentes
 - Los descuentos deben ser positivos cuando se apliquen
 
@@ -357,12 +422,11 @@ Una transacción puede tener múltiples items. Indicar los items de una transacc
   "attribution_type": "seller",
   "attribution_entity_id": "SELLER_456",
 
-  "pricing_amount": 238.00,
   "pricing_net_amount": 200.00,
-  "pricing_final_amount": 238.00,
   "pricing_discount_amount": 0,
-  "pricing_shipping_amount": 0,
   "pricing_tax_amount": 38.00,
+  "pricing_shipping_amount": 0,
+  "pricing_final_amount": 238.00,
 
   "shipping_name": "Juan Pérez",
   "shipping_street": "Av. Principal",
@@ -415,12 +479,11 @@ Una transacción puede tener múltiples items. Indicar los items de una transacc
   "brand": "Marca A",
 
   "quantity": 2,
-  "pricing_amount": 200.00,
   "pricing_net_amount": 200.00,
-  "pricing_final_amount": 200.00,
   "pricing_discount_amount": 0,
-  "pricing_shipping_amount": 0,
   "pricing_tax_amount": 0,
+  "pricing_shipping_amount": 0,
+  "pricing_final_amount": 200.00,
 
   "attributes": [
     {
@@ -461,12 +524,11 @@ Una transacción puede tener múltiples items. Indicar los items de una transacc
   "attribution_type": "seller",
   "attribution_entity_id": "SELLER_789",
 
-  "pricing_amount": 95.20,
   "pricing_net_amount": 100.00,
-  "pricing_final_amount": 95.20,
   "pricing_discount_amount": 20.00,
-  "pricing_shipping_amount": 0,
   "pricing_tax_amount": 15.20,
+  "pricing_shipping_amount": 0,
+  "pricing_final_amount": 95.20,
 
   "coupon_id": "COUPON_001",
   "coupon_code": "SUMMER20",
@@ -504,12 +566,11 @@ Una transacción puede tener múltiples items. Indicar los items de una transacc
   "brand": "Marca A",
 
   "quantity": 1,
-  "pricing_amount": 100.00,
   "pricing_net_amount": 100.00,
-  "pricing_final_amount": 80.00,
   "pricing_discount_amount": 20.00,
-  "pricing_shipping_amount": 0,
   "pricing_tax_amount": 12.16,
+  "pricing_shipping_amount": 0,
+  "pricing_final_amount": 80.00,
 
   "coupon_id": "COUPON_001",
   "coupon_code": "SUMMER20",
@@ -536,18 +597,18 @@ Una transacción puede tener múltiples items. Indicar los items de una transacc
 Las transacciones se cargan en archivos CSV con todas las columnas:
 
 ```csv
-transaction_id,order_id,user_id,transaction_type,status,currency,payment_method,payment_provider,payment_reference,payment_installments,payment_status,payment_date,payment_card_type,payment_card_brand,payment_card_last_digits,payment_card_holder_name,order_date,transaction_date,approval_date,rejection_date,cancellation_date,origin_channel,origin_platform,attribution_type,attribution_entity_id,pricing_amount,pricing_net_amount,pricing_final_amount,pricing_discount_amount,pricing_shipping_amount,pricing_tax_amount,shipping_name,shipping_street,shipping_number,shipping_dept_number,shipping_city,shipping_commune,shipping_region,shipping_lat,shipping_long,billing_name,billing_street,billing_number,billing_dept_number,billing_city,billing_commune,billing_region,billing_lat,billing_long,coupon_id,coupon_code,coupon_discount_value,coupon_type,notes,tags,attributes,created_at,updated_at,_created_at,_updated_at
-TRX_001,ORDER_001,CLIENT_123,order,completed,CLP,credit_card,transbank,1234567890,1,paid,2024-03-19T10:00:00Z,credit,visa,1234,Juan Pérez,2024-03-19T09:45:00Z,2024-03-19T10:00:00Z,2024-03-19T10:00:00Z,,,,web,website,seller,SELLER_456,238.00,200.00,238.00,0,0,38.00,Juan Pérez,Av. Principal,123,,Santiago,Las Condes,Metropolitana,-33.4513,-70.5947,Juan Pérez,Av. Principal,123,,Santiago,Las Condes,Metropolitana,-33.4513,-70.5947,,,,,,,,,2024-03-19T10:00:00Z,2024-03-19T10:00:00Z,2024-03-19T10:00:00Z,2024-03-19T10:00:00Z
-TRX_002,ORDER_002,CLIENT_124,order,pending,CLP,bank_transfer,banco_chile,TRANSFER_001,,pending,2024-03-19T11:00:00Z,,,,,2024-03-19T10:45:00Z,2024-03-19T11:00:00Z,,,,,,,,150.00,,,,,,,,,,,,COUPON_001,SUMMER20,20.00,percentage,,,2024-03-19T11:00:00Z,2024-03-19T11:00:00Z,2024-03-19T11:00:00Z,2024-03-19T11:00:00Z
+transaction_id,order_id,user_id,transaction_type,status,currency,payment_method,payment_provider,payment_reference,payment_installments,payment_status,payment_date,payment_card_type,payment_card_brand,payment_card_last_digits,payment_card_holder_name,order_date,transaction_date,approval_date,rejection_date,cancellation_date,origin_channel,origin_platform,attribution_type,attribution_entity_id,pricing_net_amount,pricing_discount_amount,pricing_tax_amount,pricing_shipping_amount,pricing_final_amount,shipping_name,shipping_street,shipping_number,shipping_dept_number,shipping_city,shipping_commune,shipping_region,shipping_lat,shipping_long,billing_name,billing_street,billing_number,billing_dept_number,billing_city,billing_commune,billing_region,billing_lat,billing_long,coupon_id,coupon_code,coupon_discount_value,coupon_type,notes,tags,attributes,created_at,updated_at,_created_at,_updated_at
+TRX_001,ORDER_001,CLIENT_123,order,completed,CLP,credit_card,transbank,1234567890,1,paid,2024-03-19T10:00:00Z,credit,visa,1234,Juan Pérez,2024-03-19T09:45:00Z,2024-03-19T10:00:00Z,2024-03-19T10:00:00Z,,,,web,website,seller,SELLER_456,200.00,0,38.00,0,238.00,Juan Pérez,Av. Principal,123,,Santiago,Las Condes,Metropolitana,-33.4513,-70.5947,Juan Pérez,Av. Principal,123,,Santiago,Las Condes,Metropolitana,-33.4513,-70.5947,,,,,,,,,2024-03-19T10:00:00Z,2024-03-19T10:00:00Z,2024-03-19T10:00:00Z,2024-03-19T10:00:00Z
+TRX_002,ORDER_002,CLIENT_124,order,pending,CLP,bank_transfer,banco_chile,TRANSFER_001,,pending,2024-03-19T11:00:00Z,,,,,2024-03-19T10:45:00Z,2024-03-19T11:00:00Z,,,,,,,,100.00,20.00,15.20,0,95.20,,,,,,,,,,,,COUPON_001,SUMMER20,20.00,percentage,,,2024-03-19T11:00:00Z,2024-03-19T11:00:00Z,2024-03-19T11:00:00Z,2024-03-19T11:00:00Z
 ```
 
 #### Archivo de Transaction Items
 Los items se cargan en un archivo separado:
 
 ```csv
-transaction_id,product_id,item_id,display_name,slug,category_id,category_name,sku,gtin,brand,quantity,pricing_amount,pricing_net_amount,pricing_final_amount,pricing_discount_amount,pricing_shipping_amount,pricing_tax_amount,coupon_id,coupon_code,coupon_discount_value,coupon_type,attributes
-TRX_001,PROD_789,ITEM_001,Producto A,producto-a,CAT_001,Electrónicos,SKU123,,Marca A,2,200.00,200.00,200.00,0,0,0,,,,
-TRX_002,PROD_790,ITEM_002,Producto B,producto-b,CAT_002,Hogar,SKU456,,Marca B,1,100.00,100.00,80.00,20.00,0,12.16,COUPON_001,SUMMER20,20.00,percentage,
+transaction_id,product_id,item_id,display_name,slug,category_id,category_name,sku,gtin,brand,quantity,pricing_net_amount,pricing_discount_amount,pricing_tax_amount,pricing_shipping_amount,pricing_final_amount,coupon_id,coupon_code,coupon_discount_value,coupon_type,attributes
+TRX_001,PROD_789,ITEM_001,Producto A,producto-a,CAT_001,Electrónicos,SKU123,,Marca A,2,200.00,0,0,0,200.00,,,,
+TRX_002,PROD_790,ITEM_002,Producto B,producto-b,CAT_002,Hogar,SKU456,,Marca B,1,100.00,20.00,12.16,0,80.00,COUPON_001,SUMMER20,20.00,percentage,
 ```
 
 ### **Método por Base de Datos**
@@ -580,12 +641,11 @@ CREATE TABLE transactions (
     origin_platform VARCHAR(100),
     attribution_type VARCHAR(50),
     attribution_entity_id VARCHAR(255),
-    pricing_amount DECIMAL(15,2) NOT NULL,
-    pricing_net_amount DECIMAL(15,2),
-    pricing_final_amount DECIMAL(15,2),
+    pricing_net_amount DECIMAL(15,2) NOT NULL,
     pricing_discount_amount DECIMAL(15,2),
-    pricing_shipping_amount DECIMAL(15,2),
     pricing_tax_amount DECIMAL(15,2),
+    pricing_shipping_amount DECIMAL(15,2),
+    pricing_final_amount DECIMAL(15,2),
     shipping_name VARCHAR(255),
     shipping_street VARCHAR(255),
     shipping_number VARCHAR(50),
@@ -635,12 +695,11 @@ CREATE TABLE transaction_items (
     gtin VARCHAR(100),
     brand VARCHAR(100),
     quantity INTEGER NOT NULL,
-    pricing_amount DECIMAL(15,2) NOT NULL,
-    pricing_net_amount DECIMAL(15,2),
-    pricing_final_amount DECIMAL(15,2),
+    pricing_net_amount DECIMAL(15,2) NOT NULL,
     pricing_discount_amount DECIMAL(15,2),
-    pricing_shipping_amount DECIMAL(15,2),
     pricing_tax_amount DECIMAL(15,2),
+    pricing_shipping_amount DECIMAL(15,2),
+    pricing_final_amount DECIMAL(15,2),
     coupon_id VARCHAR(255),
     coupon_code VARCHAR(100),
     coupon_discount_value DECIMAL(15,2),
