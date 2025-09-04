@@ -103,6 +103,7 @@ nav:
       - Resumen: data-consumption/connection-methods/README.md
       - API REST: data-consumption/connection-methods/api-rest/README.md
     - Tareas: data-consumption/tasks/README.md
+    - Estados de Usuario: data-consumption/user-states/README.md
 
 # Additional settings
 plugins:
