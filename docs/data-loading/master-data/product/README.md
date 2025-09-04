@@ -25,85 +25,33 @@ Los productos representan los artículos comercializados a través de la platafo
   // Categoría principal
   "category_id": "string",       // ID de la categoría principal
   "category_name": "string",     // Nombre de la categoría principal
-    
+
+  // Subcategoría (opcional)
+  "subcategory_id": "string",    // ID de la subcategoría
+  "subcategory_name": "string",  // Nombre de la subcategoría
+
   // Información de marca
   "brand": "string",       // Identificador de la marca
 
   // Tags para búsqueda y filtrado
-  "tags": ["string"],     // Lista de etiquetas para búsqueda y categorización adicional
+  "tags": "string",        // Etiquetas separadas por comas (tag1,tag2,tag3)
 
-  // Imágenes adicionales (opcional)
-  "images": [{
-    "url": "string",             // URL de la imagen
-    "description": "string",     // Descripción de la imagen
-    "type": "string",            // Tipo de imagen (producto, lifestyle, etc.)
-    "position": "number",        // Orden de visualización
-    "alt_text": "string"         // Texto alternativo para accesibilidad
-  }],
+  // Atributos personalizados - Cualquier columna no definida en el modelo se almacenará aquí
+  "attributes": [
+    {
+      "key": "string",        // Nombre del atributo personalizado
+      "value": "string",      // Valor del atributo
+      "type": "string"        // Tipo de dato: string, number, date, boolean
+    }
+  ],
 
-  // Categorías adicionales (opcional)
-  "categories": [{
-    "category_id": "string",     // Referencia al ID de la categoría
-    "category_name": "string",   // Nombre de la categoría
-    "is_primary": "boolean",     // Indica si es la categoría principal del producto
-    "attributes": [{            // Atributos específicos de la relación producto-categoría
-      "key": "string",
-      "value": "string",
-      "type": "string"
-    }]
-  }],
+  // Marcas temporales del sistema origen
+  "created_at": "timestamp",     // Fecha de creación en sistema cliente (not null)
+  "updated_at": "timestamp",     // Fecha de actualización en sistema cliente
 
-  // Características físicas
-  "physical": {
-    "weight": {
-      "value": "number",
-      "unit": "string"
-    },
-    "dimensions": {
-      "length": "number",
-      "width": "number",
-      "height": "number",
-      "unit": "string"
-    },
-    "color": ["string"],
-    "size": "string",
-    "materials": ["string"]
-  },
-
-  // Composición
-  "composition": {
-    "is_pack": "boolean",
-    "pack_details": {
-      "units_per_pack": "number",
-      "unit_type": "string",
-      "unit_size": "number",
-      "unit_measure": "string"
-    },
-    "is_combo": "boolean",
-    "combo_details": {
-      "combo_type": "string",
-      "components": [{
-        "sku": "string",
-        "product_id": "string",
-        "quantity": "number",
-        "is_required": "boolean",
-        "component_type": "string"
-      }],
-      "is_configurable": "boolean"
-    },
-    "display_unit": "string"
-  },
-
-  // Atributos personalizados
-  "attributes": [{
-    "key": "string",
-    "value": "string",
-    "type": "string"    // Tipo de valor (string, number, date, boolean)
-  }],
-
-  // Marcas temporales
-  "created_at": "timestamp",   // Fecha de creación (not null)
-  "updated_at": "timestamp"    // Última actualización (not null)
+  // Marcas temporales de sincronización con Reten
+  "_created_at": "timestamp",    // Fecha de creación del registro en Método de Conexión con Reten
+  "_updated_at": "timestamp"     // Fecha de última actualización del registro en Método de Conexión con Reten
 }
 ```
 
@@ -141,51 +89,82 @@ Los productos representan los artículos comercializados a través de la platafo
 | category_id   | string | Sí        | ID de la categoría principal     |
 | category_name | string | Sí        | Nombre de la categoría principal |
 
-### Imágenes Adicionales (Opcional)
+### Subcategoría
 
-| Campo       | Tipo   | Descripción                                |
-| ----------- | ------ | ------------------------------------------ |
-| url         | string | URL de la imagen                           |
-| description | string | Descripción de la imagen                   |
-| type        | string | Tipo de imagen (producto, lifestyle, etc.) |
-| position    | number | Orden de visualización                     |
-| alt_text    | string | Texto alternativo para accesibilidad       |
-
-**Nota:** Las imágenes principales (`main_image_url` y `thumbnail_url`) están en raíz. Este array es opcional para productos que requieran múltiples imágenes adicionales.
-
-### Categorías Adicionales (Opcional)
-
-| Campo         | Tipo    | Descripción                                             |
-| ------------- | ------- | ------------------------------------------------------- |
-| category_id   | string  | Referencia al ID de la categoría                        |
-| category_name | string  | Nombre de la categoría                                  |
-| is_primary    | boolean | Indica si es la categoría principal                     |
-| attributes    | array   | Atributos específicos de la relación producto-categoría |
-
-**Nota:** La categoría principal está en raíz (`category_id` y `category_name`). Este array es opcional para productos que requieran múltiples categorías.
+| Campo            | Tipo   | Requerido | Descripción               |
+| ---------------- | ------ | --------- | ------------------------- |
+| subcategory_id   | string | No        | ID de la subcategoría     |
+| subcategory_name | string | No        | Nombre de la subcategoría |
 
 ### Tags
 
-| Campo | Tipo     | Requerido | Descripción                                       |
-| ----- | -------- | --------- | ------------------------------------------------- |
-| tags  | string[] | No        | Lista de etiquetas para búsqueda y categorización |
+| Campo | Tipo   | Requerido | Descripción                                    |
+| ----- | ------ | --------- | ---------------------------------------------- |
+| tags  | string | No        | Etiquetas separadas por comas (tag1,tag2,tag3) |
 
-### Composición
+### Marcas Temporales
 
-**Pack:**
+| Campo      | Tipo      | Requerido | Descripción                             |
+| ---------- | --------- | --------- | --------------------------------------- |
+| created_at | timestamp | Sí        | Fecha de creación en sistema cliente    |
+| updated_at | timestamp | No        | Última actualización en sistema cliente |
 
-- `is_pack`: Indica si es un pack
-- `units_per_pack`: Cantidad de unidades por pack
-- `unit_type`: Tipo de unidad
-- `unit_size`: Tamaño de la unidad
-- `unit_measure`: Unidad de medida
+### Marcas Temporales de Sincronización
 
-**Combo:**
+| Campo       | Tipo      | Requerido | Descripción                                                                |
+| ----------- | --------- | --------- | -------------------------------------------------------------------------- |
+| _created_at | timestamp | Sí        | Fecha de creación del registro en Método de Conexión con Reten             |
+| _updated_at | timestamp | Sí        | Fecha de última actualización del registro en Método de Conexión con Reten |
 
-- `is_combo`: Indica si es un combo
-- `combo_type`: Tipo de combo
-- `is_configurable`: Permite configuración
-- `components`: Lista de productos que componen el combo
+## Atributos Personalizados
+
+**Importante:** El campo `attributes` **NO es enviado por el cliente**. Reten lo construye automáticamente durante el proceso de carga de datos, extrayendo todas las columnas adicionales que vengan en la base de datos o archivo CSV y que no estén definidas en el modelo estándar de productos.
+
+### **Cómo Funciona:**
+1. **Cliente envía** datos con columnas adicionales (ej: `supplier_id`, `warranty_period`, `custom_field`)
+2. **Reten detecta** automáticamente las columnas no mapeadas al modelo
+3. **Reten construye** el campo `attributes` con estas columnas adicionales
+4. **Se almacena** como array de objetos con `key`, `value` y `type` inferido
+
+### **Casos de Uso Comunes:**
+- **Campos específicos del producto**: Información particular de cada catálogo
+- **Metadatos de integración**: Datos del sistema origen que no tienen equivalente en Reten
+- **Atributos de negocio**: Campos específicos de la industria o empresa
+- **Configuraciones personalizadas**: Parámetros únicos del producto
+
+### **Formato del Campo (Construido por Reten):**
+```json
+"attributes": [
+  {
+    "key": "supplier_id",
+    "value": "SUP_001",
+    "type": "string"
+  },
+  {
+    "key": "warranty_period",
+    "value": "24",
+    "type": "number"
+  },
+  {
+    "key": "custom_field",
+    "value": "valor_personalizado",
+    "type": "string"
+  }
+]
+```
+
+### **Tipos de Datos Soportados:**
+- `string`: Texto libre
+- `number`: Números enteros o decimales
+- `date`: Fechas en formato ISO 8601
+- `boolean`: Valores true/false
+
+### **Ventajas:**
+- **Flexibilidad total** para adaptarse a cualquier modelo de datos
+- **Extensibilidad** sin modificar el esquema principal
+- **Compatibilidad** con sistemas legacy o personalizados
+- **Escalabilidad** para futuras necesidades del negocio
+- **Procesamiento automático** sin intervención del cliente
 
 ## Validaciones
 
@@ -208,33 +187,27 @@ Los productos representan los artículos comercializados a través de la platafo
 - `main_image_url` y `thumbnail_url` son requeridos
 - URLs deben ser válidas y accesibles
 
-### Imágenes Adicionales (Opcional)
-
-- Si se proporciona `images`, las URLs deben ser válidas y accesibles
-- Las posiciones deben ser únicas
-- Los tipos de imagen deben ser válidos
-
 ### Categoría Principal
 
 - `category_id` y `category_name` son requeridos
 - La categoría debe existir en el maestro de categorías
 
+### Subcategoría
+
+- Si se proporciona `subcategory_id`, debe existir en el maestro de subcategorías
+- Si se proporciona `subcategory_name`, debe corresponder con `subcategory_id`
+
 ### Validaciones de Negocio
 
-### Composición
+### Atributos
 
-- Si `is_pack` es true, `pack_details` debe estar completo
-- Si `is_combo` es true, `combo_details` debe estar completo
-- Componentes deben existir en el catálogo
-
-### Categorías Adicionales (Opcional)
-
-- Si se proporciona `categories`, las categorías deben existir en el maestro
-- Los atributos de categoría deben ser válidos
+- Las claves de atributos deben ser únicas por producto
+- Los valores deben corresponder al tipo esperado
+- El campo `attributes` es construido automáticamente por Reten
 
 ### Otros
 
-- Tags deben ser válidos
+- Tags deben ser válidos (formato separado por comas)
 - Marca debe existir en el maestro
 
 ## Ejemplos de Uso
@@ -253,21 +226,30 @@ Los productos representan los artículos comercializados a través de la platafo
   "thumbnail_url": "https://example.com/images/thumb.jpg",
   "category_id": "CAT_001",
   "category_name": "Pinturas",
+  "subcategory_id": "SUB_001",
+  "subcategory_name": "Látex",
   "brand": "BRD_001",
-  "tags": ["pintura", "latex", "interior", "premium"],
-  "attributes": [{
-    "key": "coverage",
-    "value": "12",
-    "type": "numeric"
-  }, {
-    "key": "finish",
-    "value": "matte",
-    "type": "string"
-  }]
+  "tags": "pintura,latex,interior,premium",
+  "attributes": [
+    {
+      "key": "coverage",
+      "value": "12",
+      "type": "number"
+    },
+    {
+      "key": "finish",
+      "value": "matte",
+      "type": "string"
+    }
+  ],
+  "created_at": "2024-01-15T10:00:00Z",
+  "updated_at": "2024-01-15T10:00:00Z",
+  "_created_at": "2024-01-15T10:00:00Z",
+  "_updated_at": "2024-01-15T10:00:00Z"
 }
 ```
 
-### Producto Pack
+### Producto con Atributos Personalizados
 
 ```json
 {
@@ -281,26 +263,41 @@ Los productos representan los artículos comercializados a través de la platafo
   "thumbnail_url": "https://example.com/images/pack-thumb.jpg",
   "category_id": "CAT_002",
   "category_name": "Packs de Pintura",
-  "composition": {
-    "is_pack": true,
-    "pack_details": {
-      "units_per_pack": 3,
-      "unit_type": "galón",
-      "unit_size": 1,
-      "unit_measure": "galón"
-    }
-  },
+  "subcategory_id": "SUB_002",
+  "subcategory_name": "Packs Especiales",
   "brand": "BRD_002",
-  "tags": ["pack", "pintura", "interior", "combo"],
-  "attributes": [{
-    "key": "color_family",
-    "value": "neutrals",
-    "type": "string"
-  }, {
-    "key": "recommended_use",
-    "value": "living_spaces",
-    "type": "string"
-  }]
+  "tags": "pack,pintura,interior,combo",
+  "attributes": [
+    {
+      "key": "supplier_id",
+      "value": "SUP_001",
+      "type": "string"
+    },
+    {
+      "key": "warranty_period",
+      "value": "24",
+      "type": "number"
+    },
+    {
+      "key": "color_family",
+      "value": "neutrals",
+      "type": "string"
+    },
+    {
+      "key": "recommended_use",
+      "value": "living_spaces",
+      "type": "string"
+    },
+    {
+      "key": "is_discontinued",
+      "value": "false",
+      "type": "boolean"
+    }
+  ],
+  "created_at": "2024-01-15T11:00:00Z",
+  "updated_at": "2024-01-15T11:00:00Z",
+  "_created_at": "2024-01-15T11:00:00Z",
+  "_updated_at": "2024-01-15T11:00:00Z"
 }
 ```
 ## 🔄 Integración
@@ -309,16 +306,16 @@ Los productos representan los artículos comercializados a través de la platafo
 Los productos se cargan en archivos CSV con las columnas correspondientes:
 
 ```csv
-product_id,sku,display_name,short_name,slug,short_description,main_image_url,thumbnail_url,category_id,category_name,brand,created_at
-PROD_001,SKU123,Pintura Látex Premium,Látex Premium,pintura-latex-premium,Pintura látex de alta calidad,https://example.com/images/main.jpg,https://example.com/images/thumb.jpg,CAT_001,Pinturas,BRD_001,2024-01-15T10:00:00Z
-PROD_002,PACK456,Pack Pintura Interior,Pack Pintura,pack-pintura-interior,Pack de pinturas para interiores,https://example.com/images/pack-main.jpg,https://example.com/images/pack-thumb.jpg,CAT_002,Packs de Pintura,BRD_002,2024-01-15T11:00:00Z
+product_id,sku,display_name,short_name,slug,short_description,main_image_url,thumbnail_url,category_id,category_name,subcategory_id,subcategory_name,brand,tags,attributes,created_at,updated_at,_created_at,_updated_at
+PROD_001,SKU123,Pintura Látex Premium,Látex Premium,pintura-latex-premium,Pintura látex de alta calidad,https://example.com/images/main.jpg,https://example.com/images/thumb.jpg,CAT_001,Pinturas,SUB_001,Látex,BRD_001,"pintura,latex,interior,premium","",2024-01-15T10:00:00Z,2024-01-15T10:00:00Z,2024-01-15T10:00:00Z,2024-01-15T10:00:00Z
+PROD_002,PACK456,Pack Pintura Interior,Pack Pintura,pack-pintura-interior,Pack de pinturas para interiores,https://example.com/images/pack-main.jpg,https://example.com/images/pack-thumb.jpg,CAT_002,Packs de Pintura,SUB_002,Packs Especiales,BRD_002,"pack,pintura,interior,combo","",2024-01-15T11:00:00Z,2024-01-15T11:00:00Z,2024-01-15T11:00:00Z,2024-01-15T11:00:00Z
 ```
 
 ### **Método por Base de Datos**
 Los productos se consultan desde una tabla con la estructura correspondiente:
 
 ```sql
-SELECT 
+SELECT
     product_id,
     sku,
     display_name,
@@ -329,9 +326,16 @@ SELECT
     thumbnail_url,
     category_id,
     category_name,
+    subcategory_id,
+    subcategory_name,
     brand,
-    created_at
-FROM products 
-WHERE updated_at > '2024-01-15T00:00:00Z'
-ORDER BY created_at;
+    tags,
+    attributes,
+    created_at,
+    updated_at,
+    _created_at,
+    _updated_at
+FROM products
+WHERE _updated_at > '2024-01-15T00:00:00Z'
+ORDER BY _updated_at ASC;
 ```

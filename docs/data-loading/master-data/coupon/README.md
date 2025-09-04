@@ -28,16 +28,18 @@ La estructura de cupones está diseñada para ser simple y flexible, con campos 
   "max_uses": "number",            // Número máximo de usos totales
   "uses_per_user": "number",       // Número máximo de usos por usuario
 
-  // === REGLAS COMPLEJAS (OPCIONALES) ===
-  "rules": {
-    "category_rules": "JSON",      // Reglas de categorías como JSON estructurado
-    "time_rules": "JSON",          // Reglas de horarios como JSON estructurado
-    "location_rules": "JSON",      // Reglas de ubicación como JSON estructurado
-    "product_rules": "JSON",       // Reglas de productos como JSON estructurado
-    "user_rules": "JSON",          // Reglas de usuarios como JSON estructurado
-    "order_rules": "JSON",         // Reglas de órdenes como JSON estructurado
-    "custom_rules": "JSON"         // Reglas personalizadas como JSON estructurado
-  }
+  // === ATRIBUTOS PERSONALIZADOS ===
+  "attributes": [
+    {
+      "key": "string",        // Nombre del atributo personalizado
+      "value": "string",      // Valor del atributo
+      "type": "string"        // Tipo de dato: string, number, date, boolean
+    }
+  ],
+
+  // === MARCAS TEMPORALES DE SINCRONIZACIÓN ===
+  "_created_at": "timestamp",    // Fecha de creación del registro en Método de Conexión con Reten
+  "_updated_at": "timestamp"     // Fecha de última actualización del registro en Método de Conexión con Reten
 }
 ```
 
@@ -58,7 +60,9 @@ Cupones básicos y funcionalidad esencial.
   "start_date": "2024-01-01T00:00:00Z",
   "end_date": "2024-12-31T23:59:59Z",
   "created_at": "2024-01-01T00:00:00Z",
-  "updated_at": "2024-01-01T00:00:00Z"
+  "updated_at": "2024-01-01T00:00:00Z",
+  "_created_at": "2024-01-01T00:00:00Z",
+  "_updated_at": "2024-01-01T00:00:00Z"
 }
 ```
 
@@ -81,13 +85,32 @@ Agregando campos adicionales según las necesidades del negocio.
   "description": "Envío gratis en pedidos superiores a $30.000",
   "minimum_purchase": 30000,
   "max_uses": 1000,
-  "uses_per_user": 1
+  "uses_per_user": 1,
+  "attributes": [
+    {
+      "key": "campaign_id",
+      "value": "FREESHIP2024",
+      "type": "string"
+    },
+    {
+      "key": "target_audience",
+      "value": "all_customers",
+      "type": "string"
+    },
+    {
+      "key": "redemption_channel",
+      "value": "online_only",
+      "type": "string"
+    }
+  ],
+  "_created_at": "2024-01-01T00:00:00Z",
+  "_updated_at": "2024-01-01T00:00:00Z"
 }
 ```
 
-### 🔴 Implementación con Reglas Complejas
+### 🔴 Implementación con Atributos Personalizados Avanzados
 
-Para cupones empresariales con reglas sofisticadas y múltiples restricciones.
+Para cupones empresariales con atributos personalizados extensos y metadata rica.
 
 ```json
 {
@@ -105,25 +128,55 @@ Para cupones empresariales con reglas sofisticadas y múltiples restricciones.
   "minimum_purchase": 50000,
   "max_uses": 500,
   "uses_per_user": 2,
-  "rules": {
-    "category_rules": {
-      "included_categories": ["ELECTRONICS", "HOME"],
-      "excluded_categories": ["FOOD"]
+  "attributes": [
+    {
+      "key": "campaign_id",
+      "value": "PREMIUM_Q1_2024",
+      "type": "string"
     },
-    "time_rules": {
-      "days": ["MONDAY", "TUESDAY", "WEDNESDAY"],
-      "start_time": "09:00",
-      "end_time": "18:00"
+    {
+      "key": "target_audience",
+      "value": "premium_customers",
+      "type": "string"
     },
-    "location_rules": {
-      "territories": ["SANTIAGO", "VALPARAISO"],
-      "excluded_territories": ["PUNTA_ARENAS"]
+    {
+      "key": "customer_segments",
+      "value": "VIP,GOLD",
+      "type": "string"
     },
-    "user_rules": {
-      "customer_types": ["PREMIUM", "VIP"],
-      "min_purchase_history": 100000
+    {
+      "key": "redemption_channel",
+      "value": "all_channels",
+      "type": "string"
+    },
+    {
+      "key": "marketing_budget",
+      "value": "50000",
+      "type": "number"
+    },
+    {
+      "key": "expected_roi",
+      "value": "3.5",
+      "type": "number"
+    },
+    {
+      "key": "is_seasonal",
+      "value": "false",
+      "type": "boolean"
+    },
+    {
+      "key": "campaign_start_date",
+      "value": "2024-01-15",
+      "type": "date"
+    },
+    {
+      "key": "campaign_end_date",
+      "value": "2024-03-31",
+      "type": "date"
     }
-  }
+  ],
+  "_created_at": "2024-01-01T00:00:00Z",
+  "_updated_at": "2024-01-01T00:00:00Z"
 }
 ```
 
@@ -136,148 +189,55 @@ Los tipos de beneficio disponibles son:
 - `free_shipping`: Envío gratis
 - `fixed_price`: Precio fijo especial
 
-## Estructura de Reglas
+## Atributos Personalizados
 
-Las reglas se implementan como objetos JSON estructurados para mantener consistencia y permitir validaciones robustas.
+**Importante:** El campo `attributes` **NO es enviado por el cliente**. Reten lo construye automáticamente durante el proceso de carga de datos, extrayendo todas las columnas adicionales que vengan en la base de datos o archivo CSV y que no estén definidas en el modelo estándar de cupones.
 
-### Ejemplo de Reglas JSON
+### **Cómo Funciona:**
+1. **Cliente envía** datos con columnas adicionales (ej: `campaign_id`, `target_audience`, `redemption_channel`)
+2. **Reten detecta** automáticamente las columnas no mapeadas al modelo
+3. **Reten construye** el campo `attributes` con estas columnas adicionales
+4. **Se almacena** como array de objetos con `key`, `value` y `type` inferido
 
+### **Casos de Uso Comunes:**
+- **Campos específicos de campaña**: Información particular de cada promoción
+- **Metadatos de integración**: Datos del sistema origen que no tienen equivalente en Reten
+- **Atributos de negocio**: Campos específicos de la estrategia de marketing
+- **Configuraciones personalizadas**: Parámetros únicos de cada cupón
+
+### **Formato del Campo (Construido por Reten):**
 ```json
-{
-  "category_rules": {
-    "included_categories": ["ELECTRONICS", "HOME"],
-    "excluded_categories": ["FOOD"],
-    "min_category_value": 10000
+"attributes": [
+  {
+    "key": "campaign_id",
+    "value": "SUMMER2024",
+    "type": "string"
   },
-  "time_rules": {
-    "days": ["MONDAY", "TUESDAY", "WEDNESDAY"],
-    "start_time": "09:00",
-    "end_time": "18:00"
+  {
+    "key": "target_audience",
+    "value": "new_customers",
+    "type": "string"
   },
-  "location_rules": {
-    "territories": ["SANTIAGO", "VALPARAISO"],
-    "excluded_territories": ["PUNTA_ARENAS"]
+  {
+    "key": "redemption_channel",
+    "value": "online_only",
+    "type": "string"
   }
-}
+]
 ```
 
-## Formato de Reglas
+### **Tipos de Datos Soportados:**
+- `string`: Texto libre
+- `number`: Números enteros o decimales
+- `date`: Fechas en formato ISO 8601
+- `boolean`: Valores true/false
 
-Cada tipo de regla se almacena como un campo de tipo `string` o `JSON` en la base de datos, lo que permite una estructura flexible y consultas eficientes:
-
-### Reglas de Categoría
-
-```json
-{
-  "included_categories": ["category_1", "category_2"],
-  "excluded_categories": ["category_3"]
-}
-```
-
-### Reglas de Tiempo
-
-```json
-{
-  "days": ["MONDAY", "TUESDAY"],
-  "start_time": "09:00",
-  "end_time": "18:00"
-}
-```
-
-### Reglas de Ubicación
-
-```json
-{
-  "territories": ["SANTIAGO", "VALPARAISO"],
-  "excluded_territories": ["PUNTA_ARENAS"]
-}
-```
-
-### Reglas de Producto
-
-```json
-{
-  "included_products": ["SKU1", "SKU2"],
-  "excluded_products": ["SKU3"],
-  "min_quantity": 2
-}
-```
-
-### Reglas de Combo
-
-```json
-{
-  "required_combinations": [{
-    "products": ["SKU1", "SKU2"],
-    "quantity": 1
-  }]
-}
-```
-
-### Reglas de Usuario
-
-```json
-{
-  "customer_types": ["NEW", "PREMIUM"],
-  "excluded_users": ["USER1", "USER2"]
-}
-```
-
-### Reglas de Orden
-
-```json
-{
-  "min_items": 2,
-  "payment_methods": ["CREDIT_CARD", "DEBIT_CARD"]
-}
-```
-
-### Ejemplo de Uso en SQL
-
-```sql
--- Crear tabla con campos JSON
-CREATE TABLE cupones (
-  id STRING,
-  code STRING,
-  rules STRUCT<
-    category_rules JSON,
-    time_rules JSON,
-    location_rules JSON,
-    product_rules JSON,
-    combo_rules JSON,
-    user_rules JSON,
-    order_rules JSON,
-    custom_rules JSON
-  >
-);
-
--- Insertar un cupón con reglas
-INSERT INTO cupones (id, code, rules)
-VALUES (
-  'COUPON1',
-  'WELCOME20',
-  STRUCT(
-    JSON '{"included_categories": ["ELECTRONICS"]}',
-    JSON '{"days": ["MONDAY", "TUESDAY"]}',
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL
-  )
-);
-
--- Consultar cupones por categoría
-SELECT id, code
-FROM cupones
-WHERE JSON_VALUE(rules.category_rules, '$.included_categories[0]') = 'ELECTRONICS';
-
--- Actualizar reglas de tiempo
-UPDATE cupones
-SET rules.time_rules = JSON '{"days": ["MONDAY", "TUESDAY", "WEDNESDAY"]}'
-WHERE id = 'COUPON1';
-```
+### **Ventajas:**
+- **Flexibilidad total** para adaptarse a cualquier modelo de datos
+- **Extensibilidad** sin modificar el esquema principal
+- **Compatibilidad** con sistemas legacy o personalizados
+- **Escalabilidad** para futuras necesidades del negocio
+- **Procesamiento automático** sin intervención del cliente
 
 ## Campos Detallados
 
@@ -309,6 +269,19 @@ WHERE id = 'COUPON1';
 | type             | string | Tipo de beneficio                |
 | discount_value   | number | Valor del descuento              |
 | minimum_purchase | number | Monto mínimo de compra requerido |
+
+### Atributos Personalizados
+
+| Campo      | Tipo  | Requerido | Descripción                       |
+| ---------- | ----- | --------- | --------------------------------- |
+| attributes | array | No        | Lista de atributos personalizados |
+
+### Marcas Temporales de Sincronización
+
+| Campo       | Tipo      | Requerido | Descripción                                                                |
+| ----------- | --------- | --------- | -------------------------------------------------------------------------- |
+| _created_at | timestamp | Sí        | Fecha de creación del registro en Método de Conexión con Reten             |
+| _updated_at | timestamp | Sí        | Fecha de última actualización del registro en Método de Conexión con Reten |
 
 **Tipos de Beneficio:**
 
@@ -349,31 +322,18 @@ WHERE id = 'COUPON1';
 #### Compra Mínima
 - `minimum_purchase` debe ser mayor a cero si está presente
 
-### Validaciones de Reglas JSON
+### Validaciones de Atributos Personalizados
 
 #### Estructura General
-- Las reglas JSON deben tener estructura válida
-- Los campos requeridos dentro de cada regla deben estar presentes
-- Los valores de las reglas deben ser del tipo correcto
+- Las claves de atributos deben ser únicas por cupón
+- Los valores deben corresponder al tipo esperado
+- El campo `attributes` es construido automáticamente por Reten
 
-#### Validaciones Específicas por Tipo de Regla
-
-##### Reglas de Categoría
-- `included_categories` y `excluded_categories` deben ser arrays de strings
-- No puede haber categorías en ambos arrays simultáneamente
-
-##### Reglas de Tiempo
-- `days` debe contener días válidos de la semana
-- `start_time` y `end_time` deben estar en formato HH:MM
-- `start_time` debe ser anterior a `end_time`
-
-##### Reglas de Ubicación
-- `territories` y `excluded_territories` deben ser arrays de strings
-- No puede haber territorios en ambos arrays simultáneamente
-
-##### Reglas de Usuario
-- `customer_types` debe ser un array de strings válidos
-- `min_purchase_history` debe ser un número positivo
+#### Tipos de Datos
+- `string`: Texto libre sin restricciones de longitud
+- `number`: Números enteros o decimales válidos
+- `date`: Fechas en formato ISO 8601 válido
+- `boolean`: Valores true/false únicamente
 
 ## Compatibilidad con Implementaciones Existentes
 
@@ -404,9 +364,15 @@ Los campos adicionales son completamente opcionales y se pueden implementar seg�
   "uses_per_user": 1,
   "created_at": "2024-03-01T00:00:00Z",
   "updated_at": "2024-03-01T00:00:00Z",
-  "rules": {
-    "category_rules": "new_customers"
-  }
+  "attributes": [
+    {
+      "key": "target_audience",
+      "value": "new_customers",
+      "type": "string"
+    }
+  ],
+  "_created_at": "2024-03-01T00:00:00Z",
+  "_updated_at": "2024-03-01T00:00:00Z"
 }
 ```
 
@@ -428,9 +394,15 @@ Los campos adicionales son completamente opcionales y se pueden implementar seg�
   "uses_per_user": 1,
   "created_at": "2024-01-01T00:00:00Z",
   "updated_at": "2024-01-01T00:00:00Z",
-  "rules": {
-    "location_rules": "first_purchase"
-  }
+  "attributes": [
+    {
+      "key": "redemption_type",
+      "value": "first_purchase",
+      "type": "string"
+    }
+  ],
+  "_created_at": "2024-01-01T00:00:00Z",
+  "_updated_at": "2024-01-01T00:00:00Z"
 }
 ```
 
@@ -452,15 +424,30 @@ Los campos adicionales son completamente opcionales y se pueden implementar seg�
   "uses_per_user": 2,
   "created_at": "2024-01-01T00:00:00Z",
   "updated_at": "2024-01-01T00:00:00Z",
-  "rules": {
-    "product_rules": {
-      "included_products": ["PAINT_PREMIUM_001", "PAINT_PREMIUM_002"],
-      "min_quantity": 1
+  "attributes": [
+    {
+      "key": "included_products",
+      "value": "PAINT_PREMIUM_001,PAINT_PREMIUM_002",
+      "type": "string"
     },
-    "category_rules": {
-      "included_categories": ["PAINT", "DECORATION"]
+    {
+      "key": "min_quantity",
+      "value": "1",
+      "type": "number"
+    },
+    {
+      "key": "included_categories",
+      "value": "PAINT,DECORATION",
+      "type": "string"
+    },
+    {
+      "key": "product_line",
+      "value": "premium_paint",
+      "type": "string"
     }
-  }
+  ],
+  "_created_at": "2024-01-01T00:00:00Z",
+  "_updated_at": "2024-01-01T00:00:00Z"
 }
 ```
 
@@ -470,22 +457,34 @@ Los campos adicionales son completamente opcionales y se pueden implementar seg�
 Los cupones se cargan en archivos CSV con las columnas correspondientes:
 
 ```csv
-coupon_id,code,display_name,description,created_at
-COUPON1,WELCOME20,Descuento de Bienvenida,20% de descuento en primera compra,2024-01-15T10:00:00Z
-COUPON2,SUMMER15,Descuento de Verano,15% de descuento en productos de verano,2024-01-15T11:00:00Z
+coupon_id,code,display_name,description,type,discount_value,is_active,start_date,end_date,minimum_purchase,max_uses,uses_per_user,attributes,created_at,updated_at,_created_at,_updated_at
+COUPON1,WELCOME20,Descuento de Bienvenida,20% de descuento en primera compra,percentage,20,true,2024-01-01T00:00:00Z,2024-12-31T23:59:59Z,,1000,1,"",2024-01-15T10:00:00Z,2024-01-15T10:00:00Z,2024-01-15T10:00:00Z,2024-01-15T10:00:00Z
+COUPON2,SUMMER15,Descuento de Verano,15% de descuento en productos de verano,percentage,15,true,2024-06-01T00:00:00Z,2024-08-31T23:59:59Z,50000,500,2,"",2024-01-15T11:00:00Z,2024-01-15T11:00:00Z,2024-01-15T11:00:00Z,2024-01-15T11:00:00Z
 ```
 
 ### **Método por Base de Datos**
 Los cupones se consultan desde una tabla con la estructura correspondiente:
 
 ```sql
-SELECT 
+SELECT
     coupon_id,
     code,
     display_name,
     description,
-    created_at
-FROM coupons 
-WHERE updated_at > '2024-01-15T00:00:00Z'
-ORDER BY created_at;
+    type,
+    discount_value,
+    is_active,
+    start_date,
+    end_date,
+    minimum_purchase,
+    max_uses,
+    uses_per_user,
+    attributes,
+    created_at,
+    updated_at,
+    _created_at,
+    _updated_at
+FROM coupons
+WHERE _updated_at > '2024-01-15T00:00:00Z'
+ORDER BY _updated_at ASC;
 ```
