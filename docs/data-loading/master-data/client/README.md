@@ -38,57 +38,18 @@ Los clientes son los establecimientos, negocios o personas que interactúan con 
   "created_at": "timestamp",     // Fecha de creación en sistema cliente (not null)
   "updated_at": "timestamp",     // Fecha de última actualización en sistema cliente
 
-  // Información de contacto estructurada (opcional)
-  "contacts": [{
-    "email": "string",           // Correo electrónico
-    "phone": "string",           // Número telefónico
-    "type": "string",            // primary, secondary, billing, etc.
-    "personal_info": {           // Información personal del contacto
-      "first_name": "string",    // Nombre
-      "last_name": "string",     // Apellido
-      "country": "string",       // País de residencia
-      "date_of_birth": "timestamp", // Fecha de nacimiento
-      "role": "string"           // Rol en la organización (CEO, gerente, dueño, etc.)
+  // Atributos personalizados - Cualquier columna no definida en el modelo se almacenará aquí
+  "attributes": [
+    {
+      "key": "string",        // Nombre del atributo personalizado
+      "value": "string",      // Valor del atributo
+      "type": "string"        // Tipo de dato: string, number, date, boolean
     }
-  }],
+  ],
 
-  // Direcciones adicionales (opcional)
-  "addresses": [{
-    "type": "string",           // shipping, billing, warehouse, etc.
-    "name": "string",           // Nombre de la dirección
-    "street": "string",         // Calle
-    "commune": "string",        // Comuna
-    "city": "string",          // Ciudad
-    "region": "string",        // Región
-    "number": "string",        // Número
-    "dept_number": "string",   // Número de departamento/oficina
-    "lat": "string",          // Latitud
-    "long": "string",         // Longitud
-    "is_default": "boolean"   // Indica si es la dirección principal
-  }],
-
-  // Atributos personalizados
-  "attributes": [{
-    "key": "string",
-    "value": "string",
-    "type": "string"    // Tipo de valor (string, number, date, boolean)
-  }],
-
-  // Grupos y clasificaciones
-  "groups": [{
-    "group_type": "string",
-    "attributes": [{
-      "key": "string",
-      "value": "string",
-      "type": "string"    // Tipo de valor (string, number, date, boolean)
-    }]
-  }],
-
-  // IDs adicionales
-  "miscellaneous_id": [{
-    "platform": "string",      // Plataforma relacionada
-    "misc_id": "string"       // ID en esa plataforma
-  }]
+  // Marcas temporales de sincronización con Reten
+  "_created_at": "timestamp",           // Fecha de creación del registro en Método de Conexión con Reten
+  "_updated_at": "timestamp"            // Fecha de última actualización del registro en Método de Conexión con Reten
 }
 ```
 
@@ -140,104 +101,55 @@ Los clientes son los establecimientos, negocios o personas que interactúan con 
 | created_at | timestamp | Sí        | Fecha de creación en sistema cliente    |
 | updated_at | timestamp | No        | Última actualización en sistema cliente |
 
-### Contactos (Opcional)
+## Atributos Personalizados
 
-Los contactos se manejan como un array opcional para permitir múltiples personas relacionadas con el cliente. Normalmente se usa cuando el cliente es un comercio o empresa con varias personas como punto de contacto. Para clientes que son personas naturales, este campo puede omitirse ya que la información principal está en los campos `email` y `phone` de raíz.
+**Importante:** El campo `attributes` **NO es enviado por el cliente**. Reten lo construye automáticamente durante el proceso de carga de datos, extrayendo todas las columnas adicionales que vengan en la base de datos o archivo CSV y que no estén definidas en el modelo estándar de clientes.
 
-| Campo         | Tipo   | Descripción                               |
-| ------------- | ------ | ----------------------------------------- |
-| email         | string | Dirección de correo electrónico           |
-| phone         | string | Número telefónico                         |
-| type          | string | Tipo de contacto (primary, billing, etc.) |
-| personal_info | object | Información personal del contacto         |
+### **Cómo Funciona:**
+1. **Cliente envía** datos con columnas adicionales (ej: `segment_id`, `credit_score`, `business_type`)
+2. **Reten detecta** automáticamente las columnas no mapeadas al modelo
+3. **Reten construye** el campo `attributes` con estas columnas adicionales
+4. **Se almacena** como array de objetos con `key`, `value` y `type` inferido
 
-**Información Personal del Contacto:**
+### **Casos de Uso Comunes:**
+- **Campos específicos del cliente**: Información particular de cada negocio
+- **Metadatos de integración**: Datos del sistema origen que no tienen equivalente en Reten
+- **Atributos de negocio**: Campos específicos de la industria o empresa
+- **Configuraciones personalizadas**: Parámetros únicos del cliente
 
-| Campo         | Tipo      | Descripción            |
-| ------------- | --------- | ---------------------- |
-| first_name    | string    | Nombre del contacto    |
-| last_name     | string    | Apellido del contacto  |
-| country       | string    | País de residencia     |
-| date_of_birth | timestamp | Fecha de nacimiento    |
-| role          | string    | Rol en la organización |
-
-**Tipos de Contacto Válidos:**
-
-- `primary`: Contacto principal (requerido)
-- `billing`: Contacto de facturación
-- `technical`: Contacto técnico
-- `marketing`: Contacto de marketing
-- `support`: Contacto de soporte
-
-**Roles Comunes:**
-
-- `owner`: Dueño o propietario
-- `ceo`: Director ejecutivo
-- `manager`: Gerente
-- `administrator`: Administrador
-- `employee`: Empleado
-- `representative`: Representante legal
-
-### Direcciones Adicionales (Opcional)
-
-Las direcciones adicionales se manejan como un array opcional para permitir múltiples ubicaciones. Normalmente se usa para negocios con varias sucursales o direcciones de atención, oficina y facturación separadas. Para clientes simples, la información principal está en los campos de dirección de raíz.
-
-| Campo       | Tipo    | Descripción                         |
-| ----------- | ------- | ----------------------------------- |
-| type        | string  | Tipo de dirección                   |
-| name        | string  | Nombre identificativo               |
-| street      | string  | Nombre de la calle                  |
-| number      | string  | Número exterior                     |
-| dept_number | string  | Número interior/departamento        |
-| commune     | string  | Comuna o municipio                  |
-| city        | string  | Ciudad                              |
-| region      | string  | Región o estado                     |
-| lat         | string  | Latitud                             |
-| long        | string  | Longitud                            |
-| is_default  | boolean | Indica si es la dirección principal |
-
-**Tipos de Dirección Válidos:**
-
-- `billing`: Dirección de facturación
-- `shipping`: Dirección de envío
-- `warehouse`: Almacén o bodega
-- `office`: Oficina
-- `store`: Tienda física
-
-### Grupos y Clasificaciones
-
-Los grupos permiten categorizar y segmentar clientes:
-
+### **Formato del Campo (Construido por Reten):**
 ```json
-{
-  "groups": [{
-    "group_type": "channel",
-    "attributes": [{
-      "key": "category",
-      "value": "retail"
-    }, {
-      "key": "sub_category",
-      "value": "convenience_store"
-    }]
-  }, {
-    "group_type": "segment",
-    "attributes": [{
-      "key": "size",
-      "value": "medium"
-    }, {
-      "key": "potential",
-      "value": "high"
-    }]
-  }]
-}
+"attributes": [
+  {
+    "key": "segment_id",
+    "value": "SEG_001",
+    "type": "string"
+  },
+  {
+    "key": "credit_score",
+    "value": "850",
+    "type": "number"
+  },
+  {
+    "key": "business_type",
+    "value": "retail",
+    "type": "string"
+  }
+]
 ```
 
-**Tipos de Grupo Comunes:**
+### **Tipos de Datos Soportados:**
+- `string`: Texto libre
+- `number`: Números enteros o decimales
+- `date`: Fechas en formato ISO 8601
+- `boolean`: Valores true/false
 
-- `channel`: Canal de ventas
-- `segment`: Segmentación de mercado
-- `territory`: División territorial
-- `portfolio`: Portafolio de productos
+### **Ventajas:**
+- **Flexibilidad total** para adaptarse a cualquier modelo de datos
+- **Extensibilidad** sin modificar el esquema principal
+- **Compatibilidad** con sistemas legacy o personalizados
+- **Escalabilidad** para futuras necesidades del negocio
+- **Procesamiento automático** sin intervención del cliente
 
 ## Validaciones
 
@@ -259,23 +171,10 @@ Los grupos permiten categorizar y segmentar clientes:
 - Los emails deben tener formato válido
 - Los teléfonos deben tener formato válido según el país
 
-### Contactos (Opcional)
-
-- Si se proporciona `contacts`, debe existir al menos un contacto de tipo `primary`
-- Los emails deben ser únicos dentro del array de contactos
-- Los emails deben tener formato válido
-- Los teléfonos deben tener formato válido según el país
-
 ### Dirección Principal
 
 - Al menos uno de los campos de dirección debe estar presente (`address` o combinación de campos desglosados)
 - Si se usan campos desglosados, `address_city` es recomendado para ubicación básica
-
-### Direcciones Adicionales (Opcional)
-
-- Si se proporciona `addresses`, debe existir al menos una dirección marcada como `is_default: true`
-- Las coordenadas geográficas deben ser válidas si se proporcionan
-- Los tipos de dirección deben ser valores predefinidos
 
 ### Validaciones de Negocio
 
@@ -283,17 +182,12 @@ Los grupos permiten categorizar y segmentar clientes:
 
 - `setup_at` solo se establece cuando se completan todos los campos requeridos
 - La configuración requiere al menos `email`, `phone` y un campo de dirección válido
-- Los campos `contacts` y `addresses` son opcionales y no afectan la configuración inicial
-
-### Grupos
-
-- Los `group_type` deben corresponder a tipos predefinidos
-- Los atributos deben ser válidos para el tipo de grupo
 
 ### Atributos
 
 - Las claves de atributos deben ser únicas por cliente
 - Los valores deben corresponder al tipo esperado
+- El campo `attributes` es construido automáticamente por Reten
 
 ## Ejemplos de Uso
 
@@ -301,22 +195,32 @@ Los grupos permiten categorizar y segmentar clientes:
 
 ```json
 {
-  "client_id": "COM_001",
+  "client_id": "CLI_001",
   "name": "José Pérez",
   "email": "jose.perez@email.com",
   "phone": "+56912345678",
   "country": "CL",
   "address": "Los Alerces 123, Santiago, Región Metropolitana",
   "signup_at": "2024-03-19T10:00:00Z",
-  "created_at": "2024-03-19T10:00:00Z"
+  "created_at": "2024-03-19T10:00:00Z",
+  "updated_at": "2024-03-19T10:00:00Z",
+  "attributes": [
+    {
+      "key": "customer_type",
+      "value": "individual",
+      "type": "string"
+    }
+  ],
+  "_created_at": "2024-03-19T10:00:00Z",
+  "_updated_at": "2024-03-19T10:00:00Z"
 }
 ```
 
-### Cliente Empresa con Múltiples Contactos
+### Cliente Empresa
 
 ```json
 {
-  "client_id": "COM_002",
+  "client_id": "CLI_002",
   "name": "Supermercados El Sol",
   "email": "gerencia@elsol.cl",
   "phone": "+56922334455",
@@ -329,80 +233,72 @@ Los grupos permiten categorizar y segmentar clientes:
   "signup_at": "2024-01-15T09:00:00Z",
   "setup_at": "2024-01-20T16:00:00Z",
   "created_at": "2024-01-15T09:00:00Z",
-  "contacts": [{
-    "type": "primary",
-    "email": "gerencia@elsol.cl",
-    "phone": "+56922334455",
-    "personal_info": {
-      "first_name": "María",
-      "last_name": "González",
-      "country": "CL",
-      "role": "ceo"
+  "updated_at": "2024-01-20T16:00:00Z",
+  "attributes": [
+    {
+      "key": "business_type",
+      "value": "retail",
+      "type": "string"
+    },
+    {
+      "key": "segment_id",
+      "value": "SEG_001",
+      "type": "string"
+    },
+    {
+      "key": "credit_score",
+      "value": "850",
+      "type": "number"
     }
-  }, {
-    "type": "billing",
-    "email": "finanzas@elsol.cl",
-    "phone": "+56922334456",
-    "personal_info": {
-      "first_name": "Juan",
-      "last_name": "Silva",
-      "country": "CL",
-      "role": "administrator"
-    }
-  }, {
-    "type": "technical",
-    "email": "sistemas@elsol.cl",
-    "phone": "+56922334457",
-    "personal_info": {
-      "first_name": "Pedro",
-      "last_name": "Rojas",
-      "country": "CL",
-      "role": "manager"
-    }
-  }],
-  "addresses": [{
-    "type": "warehouse",
-    "name": "Bodega Central",
-    "street": "Camino Industrial",
-    "number": "567",
-    "city": "Maipú",
-    "region": "Metropolitana",
-    "is_default": false
-  }]
+  ],
+  "_created_at": "2024-01-15T09:00:00Z",
+  "_updated_at": "2024-01-20T16:00:00Z"
 }
 ```
 
-### Cliente con Clasificaciones Complejas
+### Cliente con Atributos Personalizados
 
 ```json
 {
-  "client_id": "COM_003",
+  "client_id": "CLI_003",
   "name": "Distribuidora Mayor",
-  "groups": [{
-    "group_type": "channel",
-    "attributes": [{
-      "key": "category",
-      "value": "wholesale"
-    }]
-  }, {
-    "group_type": "segment",
-    "attributes": [{
-      "key": "size",
-      "value": "large"
-    }, {
-      "key": "credit_score",
-      "value": "A+"
-    }]
-  }, {
-    "group_type": "territory",
-    "attributes": [{
+  "email": "contacto@distribuidora.cl",
+  "phone": "+56933445566",
+  "country": "CL",
+  "address": "Camino Industrial 567, Maipú, Región Metropolitana",
+  "signup_at": "2024-02-10T08:00:00Z",
+  "setup_at": "2024-02-15T14:00:00Z",
+  "created_at": "2024-02-10T08:00:00Z",
+  "updated_at": "2024-02-15T14:00:00Z",
+  "attributes": [
+    {
       "key": "zone",
-      "value": "north"
-    }, {
-      "key": "manager",
-      "value": "MANAGER_001"
-    }]
-  }]
+      "value": "north",
+      "type": "string"
+    },
+    {
+      "key": "manager_id",
+      "value": "MANAGER_001",
+      "type": "string"
+    },
+    {
+      "key": "loyalty_level",
+      "value": "gold",
+      "type": "string"
+    },
+    {
+      "key": "last_purchase_date",
+      "value": "2024-03-15",
+      "type": "date"
+    },
+    {
+      "key": "is_active",
+      "value": "true",
+      "type": "boolean"
+    }
+  ],
+  "_created_at": "2024-02-10T08:00:00Z",
+  "_updated_at": "2024-02-15T14:00:00Z"
 }
 ```
 
@@ -412,16 +308,16 @@ Los grupos permiten categorizar y segmentar clientes:
 Los clientes se cargan en archivos CSV con las columnas correspondientes:
 
 ```csv
-client_id,name,email,phone,country,address,signup_at,setup_at,created_at
-CLI_001,Restaurante La Pasta,contacto@lapasta.cl,+56911223344,CL,"Los Alerces 123, Santiago, Región Metropolitana",2024-03-19T10:00:00Z,,2024-03-19T10:00:00Z
-COM_002,Supermercados El Sol,gerencia@elsol.cl,+56922334455,CL,Av. Providencia 1234,2024-01-15T09:00:00Z,2024-01-20T16:00:00Z,2024-01-15T09:00:00Z
+client_id,name,email,phone,country,address,signup_at,setup_at,created_at,updated_at,attributes,_created_at,_updated_at
+CLI_001,Restaurante La Pasta,contacto@lapasta.cl,+56911223344,CL,"Los Alerces 123, Santiago, Región Metropolitana",2024-03-19T10:00:00Z,,2024-03-19T10:00:00Z,2024-03-19T10:00:00Z,"",2024-03-19T10:00:00Z,2024-03-19T10:00:00Z
+CLI_002,Supermercados El Sol,gerencia@elsol.cl,+56922334455,CL,Av. Providencia 1234,2024-01-15T09:00:00Z,2024-01-20T16:00:00Z,2024-01-15T09:00:00Z,2024-01-20T16:00:00Z,"",2024-01-15T09:00:00Z,2024-01-20T16:00:00Z
 ```
 
 ### **Método por Base de Datos**
 Los clientes se consultan desde una tabla con la estructura correspondiente:
 
 ```sql
-SELECT 
+SELECT
     client_id,
     name,
     email,
@@ -430,8 +326,12 @@ SELECT
     address,
     signup_at,
     setup_at,
-    created_at
-FROM clients 
-WHERE updated_at > '2024-01-15T00:00:00Z'
-ORDER BY created_at;
+    created_at,
+    updated_at,
+    attributes,
+    _created_at,
+    _updated_at
+FROM clients
+WHERE _updated_at > '2024-01-15T00:00:00Z'
+ORDER BY _updated_at ASC;
 ```
