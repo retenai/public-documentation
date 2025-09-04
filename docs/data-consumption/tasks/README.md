@@ -214,25 +214,8 @@ Los campos `channel_priority` y `channel_secondary` permiten definir una estrate
 
 ### **Método por API REST**
 
-#### Endpoint de Consulta
-```http
-GET /api/v1/tasks/
-```
-
-#### Parámetros de Consulta
-- `from_date`: Fecha desde (`YYYY-MM-DDTHH:mm:ssZ`)
-- `to_date`: Fecha hasta (`YYYY-MM-DDTHH:mm:ssZ`)
-- `channel_priority`: Filtrar por canal ("salesman", "callcenter")
-
-#### Ejemplo de Request
-```bash
-curl -X GET "https://retenai-analytics-api-lgtxgindmq-tl.a.run.app/api/v1/tasks/?from_date=2024-01-01T00:00:00Z&channel_priority=salesman" \
-  -H "X-API-Key: your_api_key"
-```
-
-### **Método por API REST**
-
-Las tareas se consumen únicamente a través de la API REST de Reten. Los clientes **NO tienen acceso directo** a la base de datos.
+!!! info "📖 Documentación Completa de Integración"
+    Para ejemplos detallados de implementación en Python, configuración de autenticación y estrategias avanzadas de consumo, consulta la documentación completa de la **[API REST](../connection-methods/api-rest/README.md)**.
 
 #### Endpoint Principal
 ```http
@@ -250,15 +233,3 @@ curl -X GET "https://retenai-analytics-api-lgtxgindmq-tl.a.run.app/api/v1/tasks/
   -H "X-API-Key: your_api_key"
 ```
 
-### 📚 **Documentación Completa de API**
-
-Para ejemplos detallados de implementación en Python, consultas avanzadas y manejo de autenticación, consulta la documentación completa de la API REST:
-
-**[📖 Documentación API REST - Consumo de Tareas](../connection-methods/api-rest/README.md)**
-
-Esta documentación incluye:
-- Configuración completa de autenticación
-- Ejemplos de integración en Python
-- Manejo de errores y rate limiting
-- Estrategias de sincronización incremental
-- Casos de uso avanzados

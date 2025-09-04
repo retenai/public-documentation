@@ -102,10 +102,7 @@ nav:
     - Métodos de Conexión:
       - Resumen: data-consumption/connection-methods/README.md
       - API REST: data-consumption/connection-methods/api-rest/README.md
-    - Tareas:
-      - Resumen: data-consumption/tasks/README.md
-      - Visitas: data-consumption/tasks/visit/README.md
-      - Llamadas: data-consumption/tasks/call/README.md
+    - Tareas: data-consumption/tasks/README.md
 
 # Additional settings
 plugins:
