@@ -30,25 +30,23 @@ Los vendedores son los usuarios del CPG (Consumer Packaged Goods) que interactú
   // Fechas relevantes (opcional)
   "hire_date": "timestamp",      // Fecha de contratación
   "termination_date": "timestamp", // Fecha de término si aplica
-  
-  // Información de contacto estructurada (opcional)
-  "contacts": [{
-    "email": "string",           // Email corporativo o personal
-    "phone": "string",           // Número telefónico
-    "type": "string",            // Tipo de contacto (work, personal)
-    "is_primary": "boolean"      // Indica si es el contacto principal
-  }],
 
-  // Atributos personalizados
-  "attributes": [{
-    "key": "string",
-    "value": "string",
-    "type": "string"    // Tipo de valor (string, number, date, boolean)
-  }],
+  // Atributos personalizados - Cualquier columna no definida en el modelo se almacenará aquí
+  "attributes": [
+    {
+      "key": "string",        // Nombre del atributo personalizado
+      "value": "string",      // Valor del atributo
+      "type": "string"        // Tipo de dato: string, number, date, boolean
+    }
+  ],
 
-  // Marcas temporales
+  // Marcas temporales del sistema origen
   "created_at": "timestamp",     // Fecha de creación en sistema cliente (not null)
-  "updated_at": "timestamp"      // Fecha de última actualización en sistema cliente
+  "updated_at": "timestamp",     // Fecha de actualización en sistema cliente
+
+  // Marcas temporales de sincronización con Reten
+  "_created_at": "timestamp",    // Fecha de creación del registro en Método de Conexión con Reten
+  "_updated_at": "timestamp"     // Fecha de última actualización del registro en Método de Conexión con Reten
 }
 ```
 
@@ -98,12 +96,76 @@ Los vendedores son los usuarios del CPG (Consumer Packaged Goods) que interactú
 | hire_date        | timestamp | No        | Fecha de contratación      |
 | termination_date | timestamp | No        | Fecha de término si aplica |
 
+### Marcas Temporales
+
+| Campo      | Tipo      | Requerido | Descripción                             |
+| ---------- | --------- | --------- | --------------------------------------- |
+| created_at | timestamp | Sí        | Fecha de creación en sistema cliente    |
+| updated_at | timestamp | No        | Última actualización en sistema cliente |
+
+### Marcas Temporales de Sincronización
+
+| Campo       | Tipo      | Requerido | Descripción                                                                |
+| ----------- | --------- | --------- | -------------------------------------------------------------------------- |
+| _created_at | timestamp | Sí        | Fecha de creación del registro en Método de Conexión con Reten             |
+| _updated_at | timestamp | Sí        | Fecha de última actualización del registro en Método de Conexión con Reten |
+
 **Estados Válidos del Vendedor:**
 
 - `active`: Vendedor activo
 - `inactive`: Vendedor inactivo temporalmente
 - `suspended`: Cuenta suspendida
 - `terminated`: Relación terminada
+
+## Atributos Personalizados
+
+**Importante:** El campo `attributes` **NO es enviado por el cliente**. Reten lo construye automáticamente durante el proceso de carga de datos, extrayendo todas las columnas adicionales que vengan en la base de datos o archivo CSV y que no estén definidas en el modelo estándar de vendedores.
+
+### **Cómo Funciona:**
+1. **Cliente envía** datos con columnas adicionales (ej: `territory_code`, `performance_rating`, `training_completed`)
+2. **Reten detecta** automáticamente las columnas no mapeadas al modelo
+3. **Reten construye** el campo `attributes` con estas columnas adicionales
+4. **Se almacena** como array de objetos con `key`, `value` y `type` inferido
+
+### **Casos de Uso Comunes:**
+- **Campos específicos del vendedor**: Información particular de cada CPG
+- **Metadatos de integración**: Datos del sistema origen que no tienen equivalente en Reten
+- **Atributos de negocio**: Campos específicos del canal de venta o empresa
+- **Configuraciones personalizadas**: Parámetros únicos del vendedor
+
+### **Formato del Campo (Construido por Reten):**
+```json
+"attributes": [
+  {
+    "key": "territory_code",
+    "value": "TER_001",
+    "type": "string"
+  },
+  {
+    "key": "performance_rating",
+    "value": "4.5",
+    "type": "number"
+  },
+  {
+    "key": "training_completed",
+    "value": "true",
+    "type": "boolean"
+  }
+]
+```
+
+### **Tipos de Datos Soportados:**
+- `string`: Texto libre
+- `number`: Números enteros o decimales
+- `date`: Fechas en formato ISO 8601
+- `boolean`: Valores true/false
+
+### **Ventajas:**
+- **Flexibilidad total** para adaptarse a cualquier modelo de datos
+- **Extensibilidad** sin modificar el esquema principal
+- **Compatibilidad** con sistemas legacy o personalizados
+- **Escalabilidad** para futuras necesidades del negocio
+- **Procesamiento automático** sin intervención del cliente
 
 ## Validaciones
 
@@ -141,6 +203,12 @@ Los vendedores son los usuarios del CPG (Consumer Packaged Goods) que interactú
 - Si se proporciona `termination_date`, debe ser posterior a `hire_date`
 - Las fechas deben estar en formato ISO 8601
 
+#### Atributos
+
+- Las claves de atributos deben ser únicas por vendedor
+- Los valores deben corresponder al tipo esperado
+- El campo `attributes` es construido automáticamente por Reten
+
 ## Ejemplos de Uso
 
 ### Vendedor Básico
@@ -155,7 +223,9 @@ Los vendedores son los usuarios del CPG (Consumer Packaged Goods) que interactú
   "phone": "+56912345678",
   "channel": "salesman",
   "created_at": "2024-01-01T00:00:00Z",
-  "updated_at": "2024-01-01T00:00:00Z"
+  "updated_at": "2024-01-01T00:00:00Z",
+  "_created_at": "2024-01-01T00:00:00Z",
+  "_updated_at": "2024-01-01T00:00:00Z"
 }
 ```
 
@@ -175,7 +245,9 @@ Los vendedores son los usuarios del CPG (Consumer Packaged Goods) que interactú
   "location_ids": ["LOC_001", "LOC_002", "LOC_003"],
   "supervisor_ids": ["SELLER_005"],
   "created_at": "2024-01-01T00:00:00Z",
-  "updated_at": "2024-01-01T00:00:00Z"
+  "updated_at": "2024-01-01T00:00:00Z",
+  "_created_at": "2024-01-01T00:00:00Z",
+  "_updated_at": "2024-01-01T00:00:00Z"
 }
 ```
 
@@ -195,23 +267,37 @@ Los vendedores son los usuarios del CPG (Consumer Packaged Goods) que interactú
   "location_ids": ["LOC_004"],
   "supervisor_ids": ["SELLER_002"],
   "hire_date": "2024-02-01T00:00:00Z",
-  "contacts": [{
-    "email": "carlos.rodriguez@cpg.com",
-    "phone": "+56911223344",
-    "type": "work",
-    "is_primary": true
-  }],
-  "attributes": [{
-    "key": "specialty",
-    "value": "new_business",
-    "type": "string"
-  }, {
-    "key": "certification_level",
-    "value": "advanced",
-    "type": "string"
-  }],
+  "attributes": [
+    {
+      "key": "specialty",
+      "value": "new_business",
+      "type": "string"
+    },
+    {
+      "key": "certification_level",
+      "value": "advanced",
+      "type": "string"
+    },
+    {
+      "key": "territory_code",
+      "value": "TER_001",
+      "type": "string"
+    },
+    {
+      "key": "performance_rating",
+      "value": "4.5",
+      "type": "number"
+    },
+    {
+      "key": "training_completed",
+      "value": "true",
+      "type": "boolean"
+    }
+  ],
   "created_at": "2024-02-01T00:00:00Z",
-  "updated_at": "2024-02-01T00:00:00Z"
+  "updated_at": "2024-02-01T00:00:00Z",
+  "_created_at": "2024-02-01T00:00:00Z",
+  "_updated_at": "2024-02-01T00:00:00Z"
 }
 ```
 
@@ -229,7 +315,9 @@ Los vendedores son los usuarios del CPG (Consumer Packaged Goods) que interactú
   "location_ids": ["LOC_005", "LOC_006"],
   "hire_date": "2024-03-01T00:00:00Z",
   "created_at": "2024-03-01T00:00:00Z",
-  "updated_at": "2024-03-01T00:00:00Z"
+  "updated_at": "2024-03-01T00:00:00Z",
+  "_created_at": "2024-03-01T00:00:00Z",
+  "_updated_at": "2024-03-01T00:00:00Z"
 }
 ```
 
@@ -239,16 +327,16 @@ Los vendedores son los usuarios del CPG (Consumer Packaged Goods) que interactú
 Los vendedores se cargan en archivos CSV con las columnas correspondientes:
 
 ```csv
-seller_id,route_id,full_name,status,email,phone,channel,created_at
-SELLER_001,R001,Juan Pérez,active,juan.perez@cpg.com,+56912345678,salesman,2024-01-01T00:00:00Z
-SELLER_002,V123,María González,active,maria.gonzalez@cpg.com,+56987654321,supervisor,2024-01-01T00:00:00Z
+seller_id,route_id,full_name,status,email,phone,channel,attributes,created_at,updated_at,_created_at,_updated_at
+SELLER_001,R001,Juan Pérez,active,juan.perez@cpg.com,+56912345678,salesman,"",2024-01-01T00:00:00Z,2024-01-01T00:00:00Z,2024-01-01T00:00:00Z,2024-01-01T00:00:00Z
+SELLER_002,V123,María González,active,maria.gonzalez@cpg.com,+56987654321,supervisor,"",2024-01-01T00:00:00Z,2024-01-01T00:00:00Z,2024-01-01T00:00:00Z,2024-01-01T00:00:00Z
 ```
 
 ### **Método por Base de Datos**
 Los vendedores se consultan desde una tabla con la estructura correspondiente:
 
 ```sql
-SELECT 
+SELECT
     seller_id,
     route_id,
     full_name,
@@ -256,8 +344,12 @@ SELECT
     email,
     phone,
     channel,
-    created_at
-FROM sellers 
-WHERE updated_at > '2024-01-15T00:00:00Z'
-ORDER BY created_at;
+    attributes,
+    created_at,
+    updated_at,
+    _created_at,
+    _updated_at
+FROM sellers
+WHERE _updated_at > '2024-01-15T00:00:00Z'
+ORDER BY _updated_at ASC;
 ```
