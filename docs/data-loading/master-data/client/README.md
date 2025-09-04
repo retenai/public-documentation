@@ -78,8 +78,8 @@ Los clientes son los establecimientos, negocios o personas que interactúan con 
 
 | Campo       | Tipo   | Requerido | Descripción                                                                 |
 | ----------- | ------ | --------- | --------------------------------------------------------------------------- |
-| channel     | string | No        | Canal del cliente (ej: "ferretero", "retail", "mayorista", "b2b", "b2c")   |
-| subchannel  | string | No        | Subcanal/categorización interna (ej: "premium", "estandar", "nuevo", "vip") |
+| channel     | string | No        | Canal del cliente (ej: "ferretero", "retail", "mayorista", "b2b", "b2c")    |
+| subchannel  | string | No        | Subcanal/categorización interna (ej: "oro", "plata", "bronce", "nuevo") |
 | category    | string | No        | Categoría principal (ej: "empresa", "persona", "tienda", "restaurante")     |
 | subcategory | string | No        | Subcategoría (ej: "pequeña", "mediana", "grande", "familiar")               |
 
@@ -220,7 +220,7 @@ Los clientes son los establecimientos, negocios o personas que interactúan con 
   "client_id": "CLI_001",
   "name": "José Pérez",
   "channel": "b2c",
-  "subchannel": "premium",
+  "subchannel": "oro",
   "category": "persona",
   "subcategory": "familiar",
   "email": "jose.perez@email.com",
@@ -249,7 +249,7 @@ Los clientes son los establecimientos, negocios o personas que interactúan con 
   "client_id": "CLI_002",
   "name": "Supermercados El Sol",
   "channel": "retail",
-  "subchannel": "estandar",
+  "subchannel": "plata",
   "category": "empresa",
   "subcategory": "mediana",
   "email": "gerencia@elsol.cl",
@@ -293,7 +293,7 @@ Los clientes son los establecimientos, negocios o personas que interactúan con 
   "client_id": "CLI_003",
   "name": "Distribuidora Mayor",
   "channel": "mayorista",
-  "subchannel": "vip",
+  "subchannel": "oro",
   "category": "empresa",
   "subcategory": "grande",
   "email": "contacto@distribuidora.cl",
@@ -343,8 +343,8 @@ Los clientes se cargan en archivos CSV con las columnas correspondientes:
 
 ```csv
 client_id,name,channel,subchannel,category,subcategory,email,phone,country,address,signup_at,setup_at,created_at,updated_at,attributes,_created_at,_updated_at
-CLI_001,Restaurante La Pasta,retail,premium,empresa,pequeña,contacto@lapasta.cl,+56911223344,CL,"Los Alerces 123, Santiago, Región Metropolitana",2024-03-19T10:00:00Z,,2024-03-19T10:00:00Z,2024-03-19T10:00:00Z,"",2024-03-19T10:00:00Z,2024-03-19T10:00:00Z
-CLI_002,Supermercados El Sol,retail,estandar,empresa,mediana,gerencia@elsol.cl,+56922334455,CL,Av. Providencia 1234,2024-01-15T09:00:00Z,2024-01-20T16:00:00Z,2024-01-15T09:00:00Z,2024-01-20T16:00:00Z,"",2024-01-15T09:00:00Z,2024-01-20T16:00:00Z
+CLI_001,Restaurante La Pasta,b2c,oro,empresa,pequeña,contacto@lapasta.cl,+56911223344,CL,"Los Alerces 123, Santiago, Región Metropolitana",2024-03-19T10:00:00Z,,2024-03-19T10:00:00Z,2024-03-19T10:00:00Z,"",2024-03-19T10:00:00Z,2024-03-19T10:00:00Z
+CLI_002,Supermercados El Sol,retail,plata,empresa,mediana,gerencia@elsol.cl,+56922334455,CL,Av. Providencia 1234,2024-01-15T09:00:00Z,2024-01-20T16:00:00Z,2024-01-15T09:00:00Z,2024-01-20T16:00:00Z,"",2024-01-15T09:00:00Z,2024-01-20T16:00:00Z
 ```
 
 ### **Método por Base de Datos**
