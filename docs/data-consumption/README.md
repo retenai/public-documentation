@@ -24,16 +24,22 @@ Para consumir datos desde Reten, dispones de un método de conexión unificado:
 
 ## :material-format-list-bulleted-type: Tipos de Datos
 
-{% set tasks = [
+{% set data_types = [
     {
         'icon': 'material-checkbox-marked-circle',
         'title': 'Tareas',
         'link': './tasks/README.md',
         'description': 'Sistema de tareas, seguimiento y gestión de actividades.'
+    },
+    {
+        'icon': 'material-account-group',
+        'title': 'Estados de Usuario',
+        'link': './user-states/README.md',
+        'description': 'Clasificación y segmentación de usuarios según su engagement y comportamiento.'
     }
 ] %}
 
-{{ section_overview(tasks) }}
+{{ section_overview(data_types) }}
 
 ## :material-step-forward-2: Flujo de Implementación
 
@@ -44,15 +50,16 @@ Para implementar el consumo de datos en Reten, sigue estos pasos:
     - Configura tokens de acceso seguros
     - Establece permisos y scopes necesarios
 
-!!! note "2. Implementa el Consumo de Tareas"
-    - Configura endpoints para consultar tareas
-    - Implementa polling para sincronización periódica
-    - Establece filtros para obtener tareas específicas
+!!! note "2. Implementa el Consumo de Datos"
+    - Configura endpoints para consultar tareas y estados de usuario
+    - Implementa polling para sincronización periódica de ambos tipos de datos
+    - Establece filtros para obtener tareas específicas y segmentar usuarios por estado
 
 !!! note "3. Procesa y Utiliza los Datos"
-    - Integra las tareas en tu sistema de gestión
-    - Implementa flujos de trabajo para las actividades
-    - Configura notificaciones y alertas
+    - Integra las tareas en tu sistema de gestión y CRM
+    - Utiliza los estados de usuario para segmentación y personalización
+    - Implementa flujos de trabajo para las actividades basados en el estado del usuario
+    - Configura notificaciones y alertas según el engagement del usuario
 
 !!! note "4. Monitorea y Optimiza"
     - Revisa logs de consumo regularmente

@@ -76,6 +76,59 @@ curl -X GET "https://retenai-analytics-api-lgtxgindmq-tl.a.run.app/api/v1/tasks/
 !!! info "Documentación Interactiva"
     Para consultar la documentación completa del endpoint GET /api/v1/tasks, visita: [https://retenai-analytics-api-lgtxgindmq-tl.a.run.app/docs#/tasks/get_task_api_v1_tasks__get](https://retenai-analytics-api-lgtxgindmq-tl.a.run.app/docs#/tasks/get_task_api_v1_tasks__get)
 
+### **Consulta de Estados de Usuario**
+
+#### **Listar Estados de Usuario**
+```http
+GET /api/v1/kpis/users-states
+```
+
+**Parámetros de Query:**
+
+- `page`: Número de página (por defecto: 1)
+- `limit`: Número de elementos por página (por defecto: 100)
+- `kpi_value`: Filtrar por valor del KPI (opcional)
+- `date`: Filtrar por fecha (YYYY-MM-DD, opcional)
+- `user_id`: Filtrar por ID de usuario (opcional)
+
+**Ejemplo de Request:**
+```bash
+curl -X GET "https://retenai-analytics-api-lgtxgindmq-tl.a.run.app/api/v1/kpis/users-states?page=1&limit=50&date=2024-01-15" \
+  -H "X-API-Key: your_api_key"
+```
+
+**Ejemplo de Respuesta:**
+```json
+{
+  "page": 1,
+  "limit": 50,
+  "total": 1000,
+  "next_page": 2,
+  "previous_page": null,
+  "data": [
+    {
+      "user_id": "user_123",
+      "kpi_name": "user_state",
+      "kpi_value": "core",
+      "date": "2024-01-15",
+      "segment_name": "engagement_level",
+      "segment_value": "high"
+    },
+    {
+      "user_id": "user_456",
+      "kpi_name": "user_state",
+      "kpi_value": "churned",
+      "date": "2024-01-15",
+      "segment_name": "engagement_level",
+      "segment_value": "low"
+    }
+  ]
+}
+```
+
+!!! info "Documentación Interactiva"
+    Para consultar la documentación completa del endpoint GET /api/v1/kpis/users-states, visita: [https://retenai-analytics-api-lgtxgindmq-tl.a.run.app/docs#/kpis/get_kpis_users_states_api_v1_kpis_users_states_get](https://retenai-analytics-api-lgtxgindmq-tl.a.run.app/docs#/kpis/get_kpis_users_states_api_v1_kpis_users_states_get)
+
 ## 🔧 Ejemplos de Uso
 
 ### **Python**
@@ -98,6 +151,20 @@ tasks_filtradas = response.json()
 params = {'channel_priority': 'salesman'}
 response = requests.get(f'{API_BASE_URL}/api/v1/tasks/', headers={'X-API-Key': API_KEY}, params=params)
 tasks_salesman = response.json()
+
+# Consultar estados de usuario
+response = requests.get(f'{API_BASE_URL}/api/v1/kpis/users-states', headers={'X-API-Key': API_KEY})
+user_states = response.json()
+
+# Consultar estados de usuario por fecha
+params = {'date': '2024-01-15', 'limit': 100}
+response = requests.get(f'{API_BASE_URL}/api/v1/kpis/users-states', headers={'X-API-Key': API_KEY}, params=params)
+user_states_filtrados = response.json()
+
+# Consultar estados de usuario específico
+params = {'user_id': 'user_123'}
+response = requests.get(f'{API_BASE_URL}/api/v1/kpis/users-states', headers={'X-API-Key': API_KEY}, params=params)
+user_states_especifico = response.json()
 ```
 
 ### **cURL**
@@ -112,6 +179,18 @@ curl -X GET "https://retenai-analytics-api-lgtxgindmq-tl.a.run.app/api/v1/tasks/
 
 # Consultar tareas por canal de prioridad
 curl -X GET "https://retenai-analytics-api-lgtxgindmq-tl.a.run.app/api/v1/tasks/?channel_priority=salesman" \
+  -H "X-API-Key: your_api_key"
+
+# Consultar estados de usuario
+curl -X GET "https://retenai-analytics-api-lgtxgindmq-tl.a.run.app/api/v1/kpis/users-states" \
+  -H "X-API-Key: your_api_key"
+
+# Consultar estados de usuario por fecha
+curl -X GET "https://retenai-analytics-api-lgtxgindmq-tl.a.run.app/api/v1/kpis/users-states?date=2024-01-15&limit=100" \
+  -H "X-API-Key: your_api_key"
+
+# Consultar estados de usuario específico
+curl -X GET "https://retenai-analytics-api-lgtxgindmq-tl.a.run.app/api/v1/kpis/users-states?user_id=user_123" \
   -H "X-API-Key: your_api_key"
 ```
 
