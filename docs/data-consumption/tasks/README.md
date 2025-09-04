@@ -13,8 +13,6 @@ Las tareas representan los momentos de contacto planificados con los clientes en
   // Información temporal
   "date": "timestamp",                 // Fecha programada para la tarea (not null)
   "suggested_execution_time": "timestamp", // Hora sugerida de ejecución (not null)
-  "created_at": "timestamp",           // Fecha de creación (not null)
-  "updated_at": "timestamp",           // Última actualización
 
   // Información del canal y prioridad
   "channel_priority": "string",        // Canal principal: "salesman", "callcenter" (not null)
@@ -26,14 +24,8 @@ Las tareas representan los momentos de contacto planificados con los clientes en
   "label": "string",                   // Etiqueta descriptiva
   "reason": "string",                  // Motivo específico de la tarea
 
-  // Atributos personalizados - Cualquier campo adicional se almacenará aquí
-  "attributes": [
-    {
-      "key": "string",        // Nombre del atributo personalizado
-      "value": "string",      // Valor del atributo
-      "type": "string"        // Tipo de dato: string, number, date, boolean
-    }
-  ],
+  "created_at": "timestamp",           // Fecha de creación (not null)
+  "updated_at": "timestamp",           // Última actualización
 
   // Marcas temporales de sincronización con Reten
   "_created_at": "timestamp",           // Fecha de creación del registro en Reten
@@ -75,53 +67,6 @@ Las tareas representan los momentos de contacto planificados con los clientes en
 | label           | string | No        | Etiqueta descriptiva          |
 | reason          | string | No        | Motivo específico de la tarea |
 
-## Atributos Personalizados
-
-**Importante:** El campo `attributes` **NO es enviado por el cliente**. Reten lo construye automáticamente durante el proceso de carga de datos, extrayendo todas las columnas adicionales que vengan de la API de analytics y que no estén definidas en el modelo estándar de tareas.
-
-### **Cómo Funciona:**
-1. **API retorna** datos con campos adicionales (ej: `custom_field`, `priority_level`, `campaign_id`)
-2. **Reten detecta** automáticamente las propiedades no mapeadas al modelo
-3. **Reten construye** el campo `attributes` con estas propiedades adicionales
-4. **Se almacena** como array de objetos con `key`, `value` y `type` inferido
-
-### **Casos de Uso Comunes:**
-- **Campos específicos del negocio**: Información particular de cada tipo de tarea
-- **Metadatos de integración**: Datos específicos de la API de analytics
-- **Configuraciones personalizadas**: Parámetros únicos por tipo de tarea
-
-### **Formato del Campo (Construido por Reten):**
-```json
-"attributes": [
-  {
-    "key": "campaign_id",
-    "value": "SUMMER2024",
-    "type": "string"
-  },
-  {
-    "key": "priority_level",
-    "value": "5",
-    "type": "number"
-  },
-  {
-    "key": "custom_field",
-    "value": "valor_personalizado",
-    "type": "string"
-  }
-]
-```
-
-### **Tipos de Datos Soportados:**
-- `string`: Texto libre
-- `number`: Números enteros o decimales
-- `date`: Fechas en formato ISO 8601
-- `boolean`: Valores true/false
-
-### **Ventajas:**
-- **Flexibilidad total** para adaptarse a diferentes tipos de tareas
-- **Extensibilidad** sin modificar el esquema principal
-- **Procesamiento automático** sin intervención del cliente
-
 ## Validaciones
 
 ### Validaciones Generales
@@ -162,18 +107,6 @@ Las tareas representan los momentos de contacto planificados con los clientes en
   "reason": "Seguimiento mensual",
   "created_at": "2024-01-10T09:00:00Z",
   "updated_at": "2024-01-10T09:00:00Z",
-  "attributes": [
-    {
-      "key": "visit_type",
-      "value": "follow_up",
-      "type": "string"
-    },
-    {
-      "key": "expected_duration",
-      "value": "30",
-      "type": "number"
-    }
-  ],
   "_created_at": "2024-01-10T09:00:00Z",
   "_updated_at": "2024-01-10T09:00:00Z"
 }
@@ -195,24 +128,12 @@ Las tareas representan los momentos de contacto planificados con los clientes en
   "reason": "Reactivación",
   "created_at": "2024-01-11T08:30:00Z",
   "updated_at": "2024-01-11T08:30:00Z",
-  "attributes": [
-    {
-      "key": "call_priority",
-      "value": "high",
-      "type": "string"
-    },
-    {
-      "key": "max_attempts",
-      "value": "3",
-      "type": "number"
-    }
-  ],
   "_created_at": "2024-01-11T08:30:00Z",
   "_updated_at": "2024-01-11T08:30:00Z"
 }
 ```
 
-### Tarea con Atributos Personalizados
+### Tarea de Alta Prioridad
 
 ```json
 {
@@ -228,28 +149,6 @@ Las tareas representan los momentos de contacto planificados con los clientes en
   "reason": "Venta cruzada",
   "created_at": "2024-01-12T10:15:00Z",
   "updated_at": "2024-01-12T10:15:00Z",
-  "attributes": [
-    {
-      "key": "campaign_id",
-      "value": "SUMMER2024",
-      "type": "string"
-    },
-    {
-      "key": "priority_level",
-      "value": "5",
-      "type": "number"
-    },
-    {
-      "key": "custom_field",
-      "value": "valor_personalizado",
-      "type": "string"
-    },
-    {
-      "key": "is_urgent",
-      "value": "true",
-      "type": "boolean"
-    }
-  ],
   "_created_at": "2024-01-12T10:15:00Z",
   "_updated_at": "2024-01-12T10:15:00Z"
 }
@@ -289,7 +188,6 @@ SELECT
     score,
     label,
     reason,
-    attributes,
     created_at,
     updated_at,
     _created_at,
