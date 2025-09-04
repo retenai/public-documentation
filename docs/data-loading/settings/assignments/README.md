@@ -1,6 +1,6 @@
 # :material-account-multiple: Asignaciones
 
-Las asignaciones en Reten definen la relación entre vendedores y los clientes que tienen a su cargo. Esta entidad permite gestionar qué vendedor es responsable de cada cliente, facilitando la organización del trabajo en terreno y el seguimiento de las relaciones comerciales.
+Las asignaciones en Reten definen la relación entre vendedores y los usuarios que tienen a su cargo. Esta entidad permite gestionar qué vendedor es responsable de cada usuario, facilitando la organización del trabajo en terreno y el seguimiento de las relaciones comerciales.
 
 <div style="text-align: center;">
 
@@ -11,10 +11,10 @@ erDiagram
     %% Estilos personalizados para las entidades - bordes redondeados y solo relleno
     classDef sellerClass fill:#e8f5e8,stroke:none,color:#000,rx:8,ry:8
     classDef assignmentClass fill:#fce4ec,stroke:none,color:#000,rx:8,ry:8
-    classDef clientClass fill:#fff3e0,stroke:none,color:#000,rx:8,ry:8
+    classDef userClass fill:#fff3e0,stroke:none,color:#000,rx:8,ry:8
 
     Vendedor ||--o{ Asignacion : "es responsable de"
-    Asignacion }o--|| Cliente : "es gestionado por"
+    Asignacion }o--|| Usuario : "es gestionado por"
 
     Asignacion {
     }
@@ -22,26 +22,26 @@ erDiagram
     Vendedor {
     }
 
-    Cliente {
+    Usuario {
     }
 
     %% Aplicar estilos
     class Asignacion assignmentClass
     class Vendedor sellerClass
-    class Cliente clientClass
+    class Usuario userClass
 ```
 
 </div>
 
 La asignación actúa como un **conector inteligente** que:
 
-- **Define la responsabilidad** de un vendedor sobre un cliente específico
+- **Define la responsabilidad** de un vendedor sobre un usuario específico
 - **Establece el tipo de relación** (principal, secundaria, temporal)
 - **Controla el estado** de la relación comercial
-- **Permite la gestión** de múltiples vendedores por cliente
-- **Facilita la transferencia** de clientes entre vendedores
+- **Permite la gestión** de múltiples vendedores por usuario
+- **Facilita la transferencia** de usuarios entre vendedores
 
-Un vendedor puede tener múltiples asignaciones de clientes, y un cliente puede ser gestionado por diferentes vendedores según el tipo de asignación.
+Un vendedor puede tener múltiples asignaciones de usuarios, y un usuario puede ser gestionado por diferentes vendedores según el tipo de asignación.
 
 ## Estructura de Datos
 
@@ -50,7 +50,7 @@ Un vendedor puede tener múltiples asignaciones de clientes, y un cliente puede 
   // Identificadores
   "assignment_id": "string",      // Identificador único de la asignación (not null)
   "seller_id": "string",         // Identificador del vendedor (not null)
-  "client_id": "string",          // Identificador del cliente (not null)
+  "user_id": "string",          // Identificador del usuario (not null)
   
   // Información básica
   "description": "string",       // Descripción de la asignación
@@ -80,7 +80,7 @@ Un vendedor puede tener múltiples asignaciones de clientes, y un cliente puede 
 | ------------- | ------ | --------- | ---------------------------- |
 | assignment_id | string | Sí        | Identificador único en Reten |
 | seller_id     | string | Sí        | Identificador del vendedor   |
-| client_id     | string | Sí        | Identificador del cliente    |
+| user_id       | string | Sí        | Identificador del usuario    |
 
 ### Información Básica
 
@@ -90,7 +90,7 @@ Un vendedor puede tener múltiples asignaciones de clientes, y un cliente puede 
 | type        | string | Sí        | Tipo de asignación    |
 
 **Tipos de Asignación:**
-- `primary`: Vendedor principal del cliente
+- `primary`: Vendedor principal del usuario
 - `secondary`: Vendedor secundario o de apoyo
 - `temporary`: Asignación temporal o de reemplazo
 
@@ -110,16 +110,16 @@ Un vendedor puede tener múltiples asignaciones de clientes, y un cliente puede 
 #### Identificadores
 - `assignment_id` debe ser único en todo el sistema
 - `seller_id` debe corresponder a un vendedor existente y activo
-- `client_id` debe corresponder a un cliente existente y activo
+- `user_id` debe corresponder a un usuario existente y activo
 
 #### Tipos y Estados
 - `type` debe ser uno de los tipos válidos
-- Un cliente debe tener al menos un vendedor con tipo "primary"
+- Un usuario debe tener al menos un vendedor con tipo "primary"
 
 ### Validaciones de Negocio
 
-- Un cliente no puede tener más de un vendedor con tipo "primary" activo
-- Un vendedor no puede tener asignaciones superpuestas para el mismo cliente
+- Un usuario no puede tener más de un vendedor con tipo "primary" activo
+- Un vendedor no puede tener asignaciones superpuestas para el mismo usuario
 
 ## Ejemplos de Uso
 
@@ -129,7 +129,7 @@ Un vendedor puede tener múltiples asignaciones de clientes, y un cliente puede 
 {
   "assignment_id": "ASG_001",
   "seller_id": "SLR_001",
-  "client_id": "CLT_001",
+  "user_id": "CLT_001",
   "description": "Asignación Principal Zona Norte",
   "type": "primary",
   "created_at": "2024-03-19T10:00:00Z",
@@ -145,7 +145,7 @@ Un vendedor puede tener múltiples asignaciones de clientes, y un cliente puede 
 {
   "assignment_id": "ASG_002",
   "seller_id": "SLR_002",
-  "client_id": "CLT_001",
+  "user_id": "CLT_001",
   "description": "Reemplazo temporal por período de vacaciones del vendedor principal",
   "type": "temporary",
   "created_at": "2024-01-10T10:00:00Z",

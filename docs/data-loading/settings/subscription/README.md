@@ -14,15 +14,15 @@ erDiagram
     classDef clientClass fill:#fff3e0,stroke:none,color:#000,rx:8,ry:8
     classDef subscriptionClass fill:#e8f4fd,stroke:none,color:#000,rx:8,ry:8
 
-    Cliente ||--o{ Suscripcion : tiene
+    Usuario ||--o{ Suscripcion : tiene
     Suscripcion {
     }
-    Cliente {
+    Usuario {
     }
 
     %% Aplicar estilos
     class Suscripcion subscriptionClass
-    class Cliente clientClass
+    class Usuario clientClass
 ```
 
 </div>
@@ -33,7 +33,7 @@ erDiagram
 {
   // Identificadores
   "subscription_id": "string",    // Identificador único de la suscripción (not null)
-  "client_id": "string",           // Identificador del cliente (not null)
+  "user_id": "string",           // Identificador del usuario (not null)
 
   // Información del canal
   "channel": {
@@ -108,7 +108,7 @@ Los tipos de canal disponibles son:
 | Campo           | Tipo   | Requerido | Descripción         |
 | --------------- | ------ | --------- | ------------------- |
 | subscription_id | string | Sí        | Identificador único |
-| client_id       | string | Sí        | ID del cliente      |
+| user_id         | string | Sí        | ID del usuario      |
 
 ### Canal
 
@@ -126,7 +126,7 @@ Los tipos de canal disponibles son:
 #### Identificadores
 
 - `subscription_id` debe ser único
-- `client_id` debe corresponder a un cliente existente
+- `user_id` debe corresponder a un usuario existente
 - `identifier` debe ser válido según el tipo de canal
 
 #### Canal
@@ -161,7 +161,7 @@ Los tipos de canal disponibles son:
 ```json
 {
   "subscription_id": "SUB_001",
-  "client_id": "USER_001",
+  "user_id": "USER_001",
   "channel": {
     "type": "email",
     "identifier": "usuario@ejemplo.com",
@@ -193,7 +193,7 @@ Los tipos de canal disponibles son:
 ```json
 {
   "subscription_id": "SUB_002",
-  "client_id": "USER_001",
+  "user_id": "USER_001",
   "channel": {
     "type": "whatsapp",
     "identifier": "+56912345678",

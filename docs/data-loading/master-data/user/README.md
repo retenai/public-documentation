@@ -1,29 +1,29 @@
-# :material-store: Clientes
+# :material-store: Usuarios
 
-Los clientes son los establecimientos, negocios o personas que interactúan con la plataforma Reten. Esta entidad almacena toda la información relevante sobre los clientes.
+Los usuarios son los establecimientos, negocios o personas que interactúan con la plataforma Reten. Esta entidad almacena toda la información relevante sobre los usuarios.
 
 ## Estructura de Datos
 
 ```json
 {
   // Identificadores
-  "client_id": "string",           // Identificador principal (not null)
+  "user_id": "string",           // Identificador principal (not null)
 
   // Información básica
-  "name": "string",              // Nombre del cliente
+  "name": "string",              // Nombre del usuario
 
   // Clasificación y categorización
-  "channel": "string",           // Canal del cliente (ej: "ferretero", "retail", "mayorista", "b2b", "b2c")
+  "channel": "string",           // Canal del usuario (ej: "ferretero", "retail", "mayorista", "b2b", "b2c")
   "subchannel": "string",        // Subcanal específico (ej: "construccion", "industrial", "tienda", "online")
-  "category": "string",          // Nivel de cliente (ej: "oro", "plata", "bronce")
+  "category": "string",          // Nivel de usuario (ej: "oro", "plata", "bronce")
   "subcategory": "string",       // Prioridad (ej: "prioritario", "normal", "bajo")
 
   // Información de contacto directa
-  "email": "string",             // Email principal del cliente
-  "phone": "string",             // Teléfono principal del cliente
+  "email": "string",             // Email principal del usuario
+  "phone": "string",             // Teléfono principal del usuario
   
   // Ubicación
-  "country": "string",           // País del cliente
+  "country": "string",           // País del usuario
   
   // Dirección principal (opcional)
   "address": "string",           // Dirección completa como string
@@ -41,8 +41,8 @@ Los clientes son los establecimientos, negocios o personas que interactúan con 
   "setup_at": "timestamp",       // Fecha de configuración final
   
   // Marcas temporales
-  "created_at": "timestamp",     // Fecha de creación en sistema cliente (not null)
-  "updated_at": "timestamp",     // Fecha de última actualización en sistema cliente
+  "created_at": "timestamp",     // Fecha de creación en sistema usuario (not null)
+  "updated_at": "timestamp",     // Fecha de última actualización en sistema usuario
 
   // Atributos personalizados - Cualquier columna no definida en el modelo se almacenará aquí
   "attributes": [
@@ -63,32 +63,32 @@ Los clientes son los establecimientos, negocios o personas que interactúan con 
 
 ### Identificadores
 
-| Campo     | Tipo   | Requerido | Descripción                  |
-| --------- | ------ | --------- | ---------------------------- |
-| client_id | string | Sí        | Identificador único en Reten |
+| Campo   | Tipo   | Requerido | Descripción                  |
+| ------- | ------ | --------- | ---------------------------- |
+| user_id | string | Sí        | Identificador único en Reten |
 
 ### Información Básica
 
 | Campo   | Tipo   | Requerido | Descripción                 |
 | ------- | ------ | --------- | --------------------------- |
-| name    | string | Sí        | Nombre del cliente          |
-| country | string | No        | País donde opera el cliente |
+| name    | string | Sí        | Nombre del usuario          |
+| country | string | No        | País donde opera el usuario |
 
 ### Clasificación y Categorización
 
 | Campo       | Tipo   | Requerido | Descripción                                                                |
 | ----------- | ------ | --------- | -------------------------------------------------------------------------- |
-| channel     | string | No        | Canal del cliente (ej: "ferretero", "retail", "mayorista", "b2b", "b2c")   |
+| channel     | string | No        | Canal del usuario (ej: "ferretero", "retail", "mayorista", "b2b", "b2c")   |
 | subchannel  | string | No        | Subcanal específico (ej: "construccion", "industrial", "tienda", "online") |
-| category    | string | No        | Categoría de cliente (ej: "oro", "plata", "bronce")                        |
-| subcategory | string | No        | Subcategoría de cliente (ej: "prioritario", "normal", "bajo")              |
+| category    | string | No        | Categoría de usuario (ej: "oro", "plata", "bronce")                        |
+| subcategory | string | No        | Subcategoría de usuario (ej: "prioritario", "normal", "bajo")              |
 
 ### Información de Contacto Directa
 
 | Campo | Tipo   | Requerido | Descripción                    |
 | ----- | ------ | --------- | ------------------------------ |
-| email | string | Sí        | Email principal del cliente    |
-| phone | string | Sí        | Teléfono principal del cliente |
+| email | string | Sí        | Email principal del usuario    |
+| phone | string | Sí        | Teléfono principal del usuario |
 
 ### Dirección Principal
 
@@ -113,24 +113,24 @@ Los clientes son los establecimientos, negocios o personas que interactúan con 
 
 | Campo      | Tipo      | Requerido | Descripción                             |
 | ---------- | --------- | --------- | --------------------------------------- |
-| created_at | timestamp | Sí        | Fecha de creación en sistema cliente    |
-| updated_at | timestamp | No        | Última actualización en sistema cliente |
+| created_at | timestamp | Sí        | Fecha de creación en sistema usuario    |
+| updated_at | timestamp | No        | Última actualización en sistema usuario |
 
 ## Atributos Personalizados
 
-**Importante:** El campo `attributes` **NO es enviado por el cliente**. Reten lo construye automáticamente durante el proceso de carga de datos, extrayendo todas las columnas adicionales que vengan en la base de datos o archivo CSV y que no estén definidas en el modelo estándar de clientes.
+**Importante:** El campo `attributes` **NO es enviado por el usuario**. Reten lo construye automáticamente durante el proceso de carga de datos, extrayendo todas las columnas adicionales que vengan en la base de datos o archivo CSV y que no estén definidas en el modelo estándar de usuarios.
 
 ### **Cómo Funciona:**
-1. **Cliente envía** datos con columnas adicionales (ej: `segment_id`, `credit_score`, `business_type`)
+1. **Usuario envía** datos con columnas adicionales (ej: `segment_id`, `credit_score`, `business_type`)
 2. **Reten detecta** automáticamente las columnas no mapeadas al modelo
 3. **Reten construye** el campo `attributes` con estas columnas adicionales
 4. **Se almacena** como array de objetos con `key`, `value` y `type` inferido
 
 ### **Casos de Uso Comunes:**
-- **Campos específicos del cliente**: Información particular de cada negocio
+- **Campos específicos del usuario**: Información particular de cada negocio
 - **Metadatos de integración**: Datos del sistema origen que no tienen equivalente en Reten
 - **Atributos de negocio**: Campos específicos de la industria o empresa
-- **Configuraciones personalizadas**: Parámetros únicos del cliente
+- **Configuraciones personalizadas**: Parámetros únicos del usuario
 
 ### **Formato del Campo (Construido por Reten):**
 ```json
@@ -164,7 +164,7 @@ Los clientes son los establecimientos, negocios o personas que interactúan con 
 - **Extensibilidad** sin modificar el esquema principal
 - **Compatibilidad** con sistemas legacy o personalizados
 - **Escalabilidad** para futuras necesidades del negocio
-- **Procesamiento automático** sin intervención del cliente
+- **Procesamiento automático** sin intervención del usuario
 
 ## Validaciones
 
@@ -172,7 +172,7 @@ Los clientes son los establecimientos, negocios o personas que interactúan con 
 
 ### Identificadores
 
-- `client_id` debe ser único en todo el sistema
+- `user_id` debe ser único en todo el sistema
 
 ### Fechas
 
@@ -207,17 +207,17 @@ Los clientes son los establecimientos, negocios o personas que interactúan con 
 
 ### Atributos
 
-- Las claves de atributos deben ser únicas por cliente
+- Las claves de atributos deben ser únicas por usuario
 - Los valores deben corresponder al tipo esperado
 - El campo `attributes` es construido automáticamente por Reten
 
 ## Ejemplos de Uso
 
-### Cliente Persona Natural
+### Usuario Persona Natural
 
 ```json
 {
-  "client_id": "CLI_001",
+  "user_id": "CLI_001",
   "name": "José Pérez",
   "channel": "b2c",
   "subchannel": "online",
@@ -242,11 +242,11 @@ Los clientes son los establecimientos, negocios o personas que interactúan con 
 }
 ```
 
-### Cliente Empresa
+### Usuario Empresa
 
 ```json
 {
-  "client_id": "CLI_002",
+  "user_id": "CLI_002",
   "name": "Supermercados El Sol",
   "channel": "retail",
   "subchannel": "tienda",
@@ -286,11 +286,11 @@ Los clientes son los establecimientos, negocios o personas que interactúan con 
 }
 ```
 
-### Cliente con Atributos Personalizados
+### Usuario con Atributos Personalizados
 
 ```json
 {
-  "client_id": "CLI_003",
+  "user_id": "CLI_003",
   "name": "Distribuidora Mayor",
   "channel": "mayorista",
   "subchannel": "industrial",
@@ -339,20 +339,20 @@ Los clientes son los establecimientos, negocios o personas que interactúan con 
 ## 🔄 Integración
 
 ### **Método por Archivo**
-Los clientes se cargan en archivos CSV con las columnas correspondientes:
+Los usuarios se cargan en archivos CSV con las columnas correspondientes:
 
 ```csv
-client_id,name,channel,subchannel,category,subcategory,email,phone,country,address,signup_at,setup_at,created_at,updated_at,attributes,_created_at,_updated_at
+user_id,name,channel,subchannel,category,subcategory,email,phone,country,address,signup_at,setup_at,created_at,updated_at,attributes,_created_at,_updated_at
 CLI_001,Restaurante La Pasta,b2c,online,oro,prioritario,contacto@lapasta.cl,+56911223344,CL,"Los Alerces 123, Santiago, Región Metropolitana",2024-03-19T10:00:00Z,,2024-03-19T10:00:00Z,2024-03-19T10:00:00Z,"",2024-03-19T10:00:00Z,2024-03-19T10:00:00Z
 CLI_002,Supermercados El Sol,retail,tienda,plata,normal,gerencia@elsol.cl,+56922334455,CL,Av. Providencia 1234,2024-01-15T09:00:00Z,2024-01-20T16:00:00Z,2024-01-15T09:00:00Z,2024-01-20T16:00:00Z,"",2024-01-15T09:00:00Z,2024-01-20T16:00:00Z
 ```
 
 ### **Método por Base de Datos**
-Los clientes se consultan desde una tabla con la estructura correspondiente:
+Los usuarios se consultan desde una tabla con la estructura correspondiente:
 
 ```sql
 SELECT
-    client_id,
+    user_id,
     name,
     channel,
     subchannel,
@@ -369,7 +369,7 @@ SELECT
     attributes,
     _created_at,
     _updated_at
-FROM clients
+FROM users
 WHERE _updated_at > '2024-01-15T00:00:00Z'
 ORDER BY _updated_at ASC;
 ```

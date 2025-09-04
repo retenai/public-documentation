@@ -7,15 +7,15 @@ Los datos maestros representan la información fundamental y de referencia en el
 {% set master_data = [
     {
         'icon': 'material-account-group',
-        'title': 'Clientes',
-        'link': 'client/README.md',
-        'description': 'Información de clientes, contactos y direcciones.'
+        'title': 'Usuarios',
+        'link': 'user/README.md',
+        'description': 'Información de usuarios, contactos y direcciones.'
     },
     {
         'icon': 'material-cart',
         'title': 'Transacciones',
         'link': 'transactions/README.md',
-        'description': 'Compras realizadas por los clientes'
+        'description': 'Compras realizadas por los usuarios'
     },
     {
         'icon': 'material-package',

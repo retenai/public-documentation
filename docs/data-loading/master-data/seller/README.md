@@ -82,7 +82,7 @@ Los vendedores son los usuarios del CPG (Consumer Packaged Goods) que interactú
 - **`salesman`**: Vendedor tradicional que vende productos
 - **`callcenter`**: Vendedor por teléfono
 - **`supervisor`**: Supervisor de vendedores
-- **`activator`**: Activador que enrola clientes nuevos
+- **`activator`**: Activador que enrola usuarios nuevos
 
 ### Ubicaciones y Supervisión
 

@@ -25,7 +25,7 @@ Este método de integración funciona mediante:
 
 El cliente debe crear tablas con la estructura especificada en la documentación de cada entidad:
 
-- **Clientes**: Ver estructura en [Datos Maestros > Clientes](../../master-data/client/README.md)
+- **Usuarios**: Ver estructura en [Datos Maestros > Usuarios](../../master-data/user/README.md)
 - **Productos**: Ver estructura en [Datos Maestros > Productos](../../master-data/product/README.md)
 - **Vendedores**: Ver estructura en [Datos Maestros > Vendedores](../../master-data/seller/README.md)
 - **Transacciones**: Ver estructura en [Datos Maestros > Transacciones](../../master-data/transactions/README.md)
@@ -45,12 +45,12 @@ Todas las tablas deben incluir los campos de timestamp especificados en cada ent
 - `created_at`: Timestamp de creación
 - `updated_at`: Timestamp de última modificación
 
-### Ejemplo: Tabla de Clientes
+### Ejemplo: Tabla de Usuarios
 
 #### CREATE TABLE
 ```sql
-CREATE TABLE clients (
-    id VARCHAR(255) PRIMARY KEY,
+CREATE TABLE users (
+    user_id VARCHAR(255) PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255),
     phone VARCHAR(50),
@@ -64,8 +64,8 @@ CREATE TABLE clients (
 
 #### Consulta de Sincronización
 ```sql
--- Consultar solo clientes modificados desde la última sincronización
-SELECT * FROM clients 
+-- Consultar solo usuarios modificados desde la última sincronización
+SELECT * FROM users 
 WHERE updated_at > :last_sync_timestamp
 ORDER BY updated_at ASC;
 ```

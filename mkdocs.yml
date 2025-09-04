@@ -87,7 +87,7 @@ nav:
       - Base de Datos: data-loading/connection-methods/database/README.md
     - Datos Maestros:
       - Resumen: data-loading/master-data/README.md
-      - Clientes: data-loading/master-data/client/README.md
+      - Usuarios: data-loading/master-data/user/README.md
       - Productos: data-loading/master-data/product/README.md
       - Vendedores: data-loading/master-data/seller/README.md
       - Cupones: data-loading/master-data/coupon/README.md
