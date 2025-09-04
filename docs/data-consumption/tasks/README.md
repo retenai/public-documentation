@@ -7,7 +7,7 @@ Las tareas representan los momentos de contacto planificados con los clientes en
 ```json
 {
   // Identificadores (requeridos)
-  "id": "string",                      // Identificador único de la tarea (not null)
+  "task_id": "string",                 // Identificador único de la tarea (not null)
   "user_id": "string",                 // ID del usuario objetivo (not null)
 
   // Información temporal
@@ -45,35 +45,35 @@ Las tareas representan los momentos de contacto planificados con los clientes en
 
 ### Identificadores
 
-| Campo   | Tipo   | Requerido | Descripción                      |
-| ------- | ------ | --------- | -------------------------------- |
-| id      | string | Sí        | Identificador único de la tarea  |
-| user_id | string | Sí        | ID del usuario objetivo          |
+| Campo   | Tipo   | Requerido | Descripción                     |
+| ------- | ------ | --------- | ------------------------------- |
+| task_id | string | Sí        | Identificador único de la tarea |
+| user_id | string | Sí        | ID del usuario objetivo         |
 
 ### Información Temporal
 
-| Campo                   | Tipo      | Requerido | Descripción                           |
-| ----------------------- | --------- | --------- | ------------------------------------- |
-| date                    | timestamp | Sí        | Fecha programada para la tarea        |
-| suggested_execution_time| timestamp | Sí        | Hora sugerida de ejecución            |
-| created_at              | timestamp | Sí        | Fecha de creación en el sistema       |
-| updated_at              | timestamp | No        | Última actualización                  |
+| Campo                    | Tipo      | Requerido | Descripción                     |
+| ------------------------ | --------- | --------- | ------------------------------- |
+| date                     | timestamp | Sí        | Fecha programada para la tarea  |
+| suggested_execution_time | timestamp | Sí        | Hora sugerida de ejecución      |
+| created_at               | timestamp | Sí        | Fecha de creación en el sistema |
+| updated_at               | timestamp | No        | Última actualización            |
 
 ### Información del Canal
 
-| Campo             | Tipo   | Requerido | Descripción                              |
-| ----------------- | ------ | --------- | ---------------------------------------- |
-| channel_priority  | string | Sí        | Canal principal: "salesman", "callcenter"|
-| channel_secondary | string | No        | Canal secundario: "whatsapp", "email", "sms"|
+| Campo             | Tipo   | Requerido | Descripción                                  |
+| ----------------- | ------ | --------- | -------------------------------------------- |
+| channel_priority  | string | Sí        | Canal principal: "salesman", "callcenter"    |
+| channel_secondary | string | No        | Canal secundario: "whatsapp", "email", "sms" |
 
 ### Información de Negocio
 
-| Campo            | Tipo   | Requerido | Descripción                              |
-| ---------------- | ------ | --------- | ---------------------------------------- |
-| template_msg_id  | string | No        | ID de plantilla de mensaje               |
-| score            | number | No        | Puntaje/prioridad de la tarea            |
-| label            | string | No        | Etiqueta descriptiva                     |
-| reason           | string | No        | Motivo específico de la tarea            |
+| Campo           | Tipo   | Requerido | Descripción                   |
+| --------------- | ------ | --------- | ----------------------------- |
+| template_msg_id | string | No        | ID de plantilla de mensaje    |
+| score           | number | No        | Puntaje/prioridad de la tarea |
+| label           | string | No        | Etiqueta descriptiva          |
+| reason          | string | No        | Motivo específico de la tarea |
 
 ## Atributos Personalizados
 
@@ -127,7 +127,7 @@ Las tareas representan los momentos de contacto planificados con los clientes en
 ### Validaciones Generales
 
 #### Identificadores
-- `id` debe ser único en todo el sistema
+- `task_id` debe ser único en todo el sistema
 - `user_id` debe corresponder a un usuario existente
 
 #### Fechas
@@ -150,7 +150,7 @@ Las tareas representan los momentos de contacto planificados con los clientes en
 
 ```json
 {
-  "id": "task_001",
+  "task_id": "task_001",
   "user_id": "user_123",
   "date": "2024-01-15T10:30:00Z",
   "suggested_execution_time": "2024-01-15T14:00:00Z",
@@ -183,7 +183,7 @@ Las tareas representan los momentos de contacto planificados con los clientes en
 
 ```json
 {
-  "id": "task_002",
+  "task_id": "task_002",
   "user_id": "user_456",
   "date": "2024-01-16T09:00:00Z",
   "suggested_execution_time": "2024-01-16T11:30:00Z",
@@ -216,7 +216,7 @@ Las tareas representan los momentos de contacto planificados con los clientes en
 
 ```json
 {
-  "id": "task_003",
+  "task_id": "task_003",
   "user_id": "user_789",
   "date": "2024-01-17T15:00:00Z",
   "suggested_execution_time": "2024-01-17T16:00:00Z",
@@ -280,7 +280,7 @@ curl -X GET "https://retenai-analytics-api-lgtxgindmq-tl.a.run.app/api/v1/tasks/
 #### Consulta Básica
 ```sql
 SELECT
-    id,
+    task_id,
     user_id,
     date,
     suggested_execution_time,
