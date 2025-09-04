@@ -11,7 +11,13 @@ Los clientes son los establecimientos, negocios o personas que interactúan con 
 
   // Información básica
   "name": "string",              // Nombre del cliente
-  
+
+  // Clasificación y categorización
+  "channel": "string",           // Canal del cliente (ej: "ferretero", "retail", "mayorista")
+  "subchannel": "string",        // Subcanal/categorización interna (ej: "premium", "estandar", "nuevo")
+  "category": "string",          // Categoría principal
+  "subcategory": "string",       // Subcategoría
+
   // Información de contacto directa
   "email": "string",             // Email principal del cliente
   "phone": "string",             // Teléfono principal del cliente
@@ -67,6 +73,15 @@ Los clientes son los establecimientos, negocios o personas que interactúan con 
 | ------- | ------ | --------- | --------------------------- |
 | name    | string | Sí        | Nombre del cliente          |
 | country | string | No        | País donde opera el cliente |
+
+### Clasificación y Categorización
+
+| Campo       | Tipo   | Requerido | Descripción                                                                 |
+| ----------- | ------ | --------- | --------------------------------------------------------------------------- |
+| channel     | string | No        | Canal del cliente (ej: "ferretero", "retail", "mayorista", "b2b", "b2c")   |
+| subchannel  | string | No        | Subcanal/categorización interna (ej: "premium", "estandar", "nuevo", "vip") |
+| category    | string | No        | Categoría principal (ej: "empresa", "persona", "tienda", "restaurante")     |
+| subcategory | string | No        | Subcategoría (ej: "pequeña", "mediana", "grande", "familiar")               |
 
 ### Información de Contacto Directa
 
@@ -176,6 +191,13 @@ Los clientes son los establecimientos, negocios o personas que interactúan con 
 - Al menos uno de los campos de dirección debe estar presente (`address` o combinación de campos desglosados)
 - Si se usan campos desglosados, `address_city` es recomendado para ubicación básica
 
+### Clasificación y Categorización
+
+- Los campos `channel`, `subchannel`, `category` y `subcategory` son opcionales pero recomendados para análisis
+- Si se proporciona `subchannel`, se recomienda tener también `channel` para consistencia
+- Si se proporciona `subcategory`, se recomienda tener también `category` para jerarquía lógica
+- Los valores deben ser descriptivos y consistentes para análisis posterior
+
 ### Validaciones de Negocio
 
 ### Configuración Inicial
@@ -197,6 +219,10 @@ Los clientes son los establecimientos, negocios o personas que interactúan con 
 {
   "client_id": "CLI_001",
   "name": "José Pérez",
+  "channel": "b2c",
+  "subchannel": "premium",
+  "category": "persona",
+  "subcategory": "familiar",
   "email": "jose.perez@email.com",
   "phone": "+56912345678",
   "country": "CL",
@@ -222,6 +248,10 @@ Los clientes son los establecimientos, negocios o personas que interactúan con 
 {
   "client_id": "CLI_002",
   "name": "Supermercados El Sol",
+  "channel": "retail",
+  "subchannel": "estandar",
+  "category": "empresa",
+  "subcategory": "mediana",
   "email": "gerencia@elsol.cl",
   "phone": "+56922334455",
   "country": "CL",
@@ -262,6 +292,10 @@ Los clientes son los establecimientos, negocios o personas que interactúan con 
 {
   "client_id": "CLI_003",
   "name": "Distribuidora Mayor",
+  "channel": "mayorista",
+  "subchannel": "vip",
+  "category": "empresa",
+  "subcategory": "grande",
   "email": "contacto@distribuidora.cl",
   "phone": "+56933445566",
   "country": "CL",
@@ -308,9 +342,9 @@ Los clientes son los establecimientos, negocios o personas que interactúan con 
 Los clientes se cargan en archivos CSV con las columnas correspondientes:
 
 ```csv
-client_id,name,email,phone,country,address,signup_at,setup_at,created_at,updated_at,attributes,_created_at,_updated_at
-CLI_001,Restaurante La Pasta,contacto@lapasta.cl,+56911223344,CL,"Los Alerces 123, Santiago, Región Metropolitana",2024-03-19T10:00:00Z,,2024-03-19T10:00:00Z,2024-03-19T10:00:00Z,"",2024-03-19T10:00:00Z,2024-03-19T10:00:00Z
-CLI_002,Supermercados El Sol,gerencia@elsol.cl,+56922334455,CL,Av. Providencia 1234,2024-01-15T09:00:00Z,2024-01-20T16:00:00Z,2024-01-15T09:00:00Z,2024-01-20T16:00:00Z,"",2024-01-15T09:00:00Z,2024-01-20T16:00:00Z
+client_id,name,channel,subchannel,category,subcategory,email,phone,country,address,signup_at,setup_at,created_at,updated_at,attributes,_created_at,_updated_at
+CLI_001,Restaurante La Pasta,retail,premium,empresa,pequeña,contacto@lapasta.cl,+56911223344,CL,"Los Alerces 123, Santiago, Región Metropolitana",2024-03-19T10:00:00Z,,2024-03-19T10:00:00Z,2024-03-19T10:00:00Z,"",2024-03-19T10:00:00Z,2024-03-19T10:00:00Z
+CLI_002,Supermercados El Sol,retail,estandar,empresa,mediana,gerencia@elsol.cl,+56922334455,CL,Av. Providencia 1234,2024-01-15T09:00:00Z,2024-01-20T16:00:00Z,2024-01-15T09:00:00Z,2024-01-20T16:00:00Z,"",2024-01-15T09:00:00Z,2024-01-20T16:00:00Z
 ```
 
 ### **Método por Base de Datos**
@@ -320,6 +354,10 @@ Los clientes se consultan desde una tabla con la estructura correspondiente:
 SELECT
     client_id,
     name,
+    channel,
+    subchannel,
+    category,
+    subcategory,
     email,
     phone,
     country,
