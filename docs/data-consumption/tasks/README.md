@@ -66,6 +66,7 @@ Los campos `channel_priority` y `channel_secondary` permiten definir una estrate
 - **`channel_secondary`**: Define un canal alternativo en caso de que el canal prioritario no esté disponible o falle
 
 **Ejemplos de estrategias:**
+
 - `channel_priority: "salesman"`, `channel_secondary: "whatsapp"` → Intentar visita primero, WhatsApp como respaldo
 - `channel_priority: "callcenter"`, `channel_secondary: "email"` → Intentar llamada primero, email como respaldo
 - `channel_priority: "whatsapp"`, `channel_secondary: "sms"` → Intentar WhatsApp primero, SMS como respaldo
@@ -213,101 +214,22 @@ Los campos `channel_priority` y `channel_secondary` permiten definir una estrate
 
 ### **Método por API REST**
 
-#### Endpoint de Consulta
+!!! info "📖 Documentación Completa de Integración"
+    Para ejemplos detallados de implementación en Python, configuración de autenticación y estrategias avanzadas de consumo, consulta la documentación completa de la **[API REST](../connection-methods/api-rest/README.md)**.
+
+#### Endpoint Principal
 ```http
 GET /api/v1/tasks/
 ```
 
-#### Parámetros de Consulta
-- `from_date`: Fecha desde (YYYY-MM-DDTHH:mm:ssZ)
-- `to_date`: Fecha hasta (YYYY-MM-DDTHH:mm:ssZ)
-- `channel_priority`: Filtrar por canal ("salesman", "callcenter")
+#### Parámetros Disponibles
+- `from_date`: Fecha desde (ISO 8601)
+- `to_date`: Fecha hasta (ISO 8601)
+- `channel_priority`: Filtrar por canal ("salesman", "callcenter", etc.)
 
-#### Ejemplo de Request
+#### Ejemplo de Consulta
 ```bash
-curl -X GET "https://retenai-analytics-api-lgtxgindmq-tl.a.run.app/api/v1/tasks/?from_date=2024-01-01T00:00:00Z&channel_priority=salesman" \
+curl -X GET "https://retenai-analytics-api-lgtxgindmq-tl.a.run.app/api/v1/tasks/?channel_priority=salesman" \
   -H "X-API-Key: your_api_key"
 ```
 
-### **Método por Base de Datos**
-
-#### Consulta Básica
-```sql
-SELECT
-    task_id,
-    user_id,
-    date,
-    suggested_execution_time,
-    channel_priority,
-    channel_secondary,
-    score,
-    label,
-    reason,
-    created_at,
-    updated_at,
-    _created_at,
-    _updated_at
-FROM tasks
-WHERE _updated_at > '2024-01-01T00:00:00Z'
-ORDER BY _updated_at ASC;
-```
-
-#### Consulta por Tipo de Tarea
-```sql
--- Tareas de vendedores
-SELECT * FROM tasks
-WHERE channel_priority = 'salesman'
-AND _updated_at > '2024-01-01T00:00:00Z';
-
--- Tareas de call center
-SELECT * FROM tasks
-WHERE channel_priority = 'callcenter'
-AND _updated_at > '2024-01-01T00:00:00Z';
-```
-
-### **Sincronización Incremental**
-
-```sql
--- Obtener solo tareas actualizadas desde la última sincronización
-SELECT * FROM tasks
-WHERE _updated_at > :last_sync_timestamp
-ORDER BY _updated_at ASC;
-```
-
-### **Python para Integración**
-
-```python
-import requests
-from datetime import datetime, timedelta
-
-class RetenTasksClient:
-    def __init__(self, api_key):
-        self.base_url = "https://retenai-analytics-api-lgtxgindmq-tl.a.run.app"
-        self.api_key = api_key
-
-    def get_tasks(self, from_date=None, to_date=None, channel_priority=None):
-        headers = {'X-API-Key': self.api_key}
-        params = {}
-
-        if from_date:
-            params['from_date'] = from_date
-        if to_date:
-            params['to_date'] = to_date
-        if channel_priority:
-            params['channel_priority'] = channel_priority
-
-        response = requests.get(f'{self.base_url}/api/v1/tasks/', headers=headers, params=params)
-        return response.json()
-
-# Uso
-client = RetenTasksClient("your_api_key")
-
-# Obtener todas las tareas de hoy
-today = datetime.now().strftime('%Y-%m-%dT%H:%M:%SZ')
-yesterday = (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%dT%H:%M:%SZ')
-
-tasks = client.get_tasks(from_date=yesterday, to_date=today)
-
-# Obtener solo tareas de vendedores
-salesman_tasks = client.get_tasks(channel_priority='salesman')
-```
