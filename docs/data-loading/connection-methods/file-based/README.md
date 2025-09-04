@@ -26,7 +26,7 @@ Este método de integración funciona mediante:
 **Formato de timestamp**: `YYYYMMDD_HHMMSS` (año, mes, día, hora, minuto, segundo)
 
 **Ejemplos**:
-- `clients_20241201_143022.csv`
+- `users_20241201_143022.csv`
 - `products_20241201_143025.csv`
 - `assignments_20241201_143030.csv`
 - `routes_20241201_143032.csv`
@@ -44,7 +44,7 @@ Reten proporciona un bucket compartido para cada cliente:
 ### Estructura de Carpetas
 ```
 reten-integration-{client_id}/
-├── clients/
+├── users/
 ├── products/
 ├── sellers/
 ├── transactions/
@@ -57,7 +57,7 @@ reten-integration-{client_id}/
 Los archivos CSV deben contener las columnas especificadas en la documentación de cada entidad:
 
 ### Datos Maestros
-- **Clientes**: Ver estructura en [Datos Maestros > Clientes](../../master-data/client/README.md)
+- **Usuarios**: Ver estructura en [Datos Maestros > Usuarios](../../master-data/user/README.md)
 - **Productos**: Ver estructura en [Datos Maestros > Productos](../../master-data/product/README.md)
 - **Vendedores**: Ver estructura en [Datos Maestros > Vendedores](../../master-data/seller/README.md)
 - **Transacciones**: Ver estructura en [Datos Maestros > Transacciones](../../master-data/transactions/README.md)

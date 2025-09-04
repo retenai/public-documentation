@@ -34,15 +34,15 @@ Los datos maestros representan la información fundamental de tu negocio:
 {% set master_data = [
     {
         'icon': 'material-account-group',
-        'title': 'Clientes',
-        'link': './master-data/client/README.md',
-        'description': 'Información de clientes, contactos y direcciones.'
+        'title': 'Usuarios',
+        'link': './master-data/user/README.md',
+        'description': 'Información de usuarios, contactos y direcciones.'
     },
     {
         'icon': 'material-cart',
         'title': 'Transacciones',
         'link': './master-data/transactions/README.md',
-        'description': 'Compras realizadas por los clientes'
+        'description': 'Compras realizadas por los usuarios'
     },
     {
         'icon': 'material-package',
@@ -81,13 +81,13 @@ Las configuraciones definen cómo funciona tu negocio en Reten:
         'icon': 'material-account-multiple',
         'title': 'Asignaciones',
         'link': './settings/assignments/README.md',
-        'description': 'Relaciones entre vendedores y clientes'
+        'description': 'Relaciones entre vendedores y usuarios'
     },
     {
         'icon': 'material-map-marker-path',
         'title': 'Rutas',
         'link': './settings/routes/README.md',
-        'description': 'Programación de visitas a clientes'
+        'description': 'Programación de visitas a usuarios'
     }
 ] %}
 
@@ -103,11 +103,11 @@ Para implementar la carga de datos en Reten, sigue estos pasos:
 
 !!! note "2. Prepara tus Datos Maestros"
     - Define tus [Productos](../master-data/product/README.md)
-    - Registra tus [Clientes](../master-data/client/README.md)
+    - Registra tus [Usuarios](../master-data/user/README.md)
     - Informa tus [Vendedores](../master-data/seller/README.md) en caso de tener fuerza de venta
 
 !!! note "3. Configura tu Sistema"
-    - Define las [Asignaciones](../settings/assignments/README.md) entre vendedores y clientes
+    - Define las [Asignaciones](../settings/assignments/README.md) entre vendedores y usuarios
     - Configura las [Rutas](../settings/routes/README.md) de visita
 
 !!! note "4. Implementa la Sincronización"

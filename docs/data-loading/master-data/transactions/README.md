@@ -1,6 +1,6 @@
 # :material-cart: Transacciones
 
-Las transacciones representan las compras realizadas por los clientes en el sistema. Esta entidad se divide en dos estructuras relacionadas para optimizar el procesamiento y almacenamiento de datos.
+Las transacciones representan las compras realizadas por los usuarios en el sistema. Esta entidad se divide en dos estructuras relacionadas para optimizar el procesamiento y almacenamiento de datos.
 
 ## Entidades Relacionadas
 
@@ -61,7 +61,7 @@ Una transacción puede tener múltiples items. Indicar los items de una transacc
   // Identificadores (requeridos)
   "transaction_id": "string",           // Identificador único interno (not null)
   "order_id": "string",                 // Identificador de la orden asociada (not null)
-  "client_id": "string",                // Identificador del cliente (not null)
+  "user_id": "string",                  // Identificador del usuario (not null)
 
   // Información básica
   "transaction_type": "string",         // Tipo: order, invoice, credit_note, debit_note
@@ -241,7 +241,7 @@ Una transacción puede tener múltiples items. Indicar los items de una transacc
 ### Identificadores
 
 - `transaction_id` debe ser único en todo el sistema
-- `client_id` debe corresponder a un cliente existente
+- `user_id` debe corresponder a un usuario existente
 - `attribution_entity_id` debe existir si `attribution_type` no es `self_service`
 
 ### Origen
@@ -331,7 +331,7 @@ Una transacción puede tener múltiples items. Indicar los items de una transacc
 {
   "transaction_id": "TRX_001",
   "order_id": "ORDER_001",
-  "client_id": "CLIENT_123",
+  "user_id": "CLIENT_123",
 
   "transaction_type": "order",
   "status": "completed",
@@ -440,7 +440,7 @@ Una transacción puede tener múltiples items. Indicar los items de una transacc
 {
   "transaction_id": "TRX_002",
   "order_id": "ORDER_002",
-  "client_id": "CLIENT_123",
+  "user_id": "CLIENT_123",
 
   "transaction_type": "order",
   "status": "completed",
@@ -536,7 +536,7 @@ Una transacción puede tener múltiples items. Indicar los items de una transacc
 Las transacciones se cargan en archivos CSV con todas las columnas:
 
 ```csv
-transaction_id,order_id,client_id,transaction_type,status,currency,payment_method,payment_provider,payment_reference,payment_installments,payment_status,payment_date,payment_card_type,payment_card_brand,payment_card_last_digits,payment_card_holder_name,order_date,transaction_date,approval_date,rejection_date,cancellation_date,origin_channel,origin_platform,attribution_type,attribution_entity_id,pricing_amount,pricing_net_amount,pricing_final_amount,pricing_discount_amount,pricing_shipping_amount,pricing_tax_amount,shipping_name,shipping_street,shipping_number,shipping_dept_number,shipping_city,shipping_commune,shipping_region,shipping_lat,shipping_long,billing_name,billing_street,billing_number,billing_dept_number,billing_city,billing_commune,billing_region,billing_lat,billing_long,coupon_id,coupon_code,coupon_discount_value,coupon_type,notes,tags,attributes,created_at,updated_at,_created_at,_updated_at
+transaction_id,order_id,user_id,transaction_type,status,currency,payment_method,payment_provider,payment_reference,payment_installments,payment_status,payment_date,payment_card_type,payment_card_brand,payment_card_last_digits,payment_card_holder_name,order_date,transaction_date,approval_date,rejection_date,cancellation_date,origin_channel,origin_platform,attribution_type,attribution_entity_id,pricing_amount,pricing_net_amount,pricing_final_amount,pricing_discount_amount,pricing_shipping_amount,pricing_tax_amount,shipping_name,shipping_street,shipping_number,shipping_dept_number,shipping_city,shipping_commune,shipping_region,shipping_lat,shipping_long,billing_name,billing_street,billing_number,billing_dept_number,billing_city,billing_commune,billing_region,billing_lat,billing_long,coupon_id,coupon_code,coupon_discount_value,coupon_type,notes,tags,attributes,created_at,updated_at,_created_at,_updated_at
 TRX_001,ORDER_001,CLIENT_123,order,completed,CLP,credit_card,transbank,1234567890,1,paid,2024-03-19T10:00:00Z,credit,visa,1234,Juan Pérez,2024-03-19T09:45:00Z,2024-03-19T10:00:00Z,2024-03-19T10:00:00Z,,,,web,website,seller,SELLER_456,238.00,200.00,238.00,0,0,38.00,Juan Pérez,Av. Principal,123,,Santiago,Las Condes,Metropolitana,-33.4513,-70.5947,Juan Pérez,Av. Principal,123,,Santiago,Las Condes,Metropolitana,-33.4513,-70.5947,,,,,,,,,2024-03-19T10:00:00Z,2024-03-19T10:00:00Z,2024-03-19T10:00:00Z,2024-03-19T10:00:00Z
 TRX_002,ORDER_002,CLIENT_124,order,pending,CLP,bank_transfer,banco_chile,TRANSFER_001,,pending,2024-03-19T11:00:00Z,,,,,2024-03-19T10:45:00Z,2024-03-19T11:00:00Z,,,,,,,,150.00,,,,,,,,,,,,COUPON_001,SUMMER20,20.00,percentage,,,2024-03-19T11:00:00Z,2024-03-19T11:00:00Z,2024-03-19T11:00:00Z,2024-03-19T11:00:00Z
 ```
@@ -557,7 +557,7 @@ TRX_002,PROD_790,ITEM_002,Producto B,producto-b,CAT_002,Hogar,SKU456,,Marca B,1,
 CREATE TABLE transactions (
     transaction_id VARCHAR(255) PRIMARY KEY,
     order_id VARCHAR(255) NOT NULL,
-    client_id VARCHAR(255) NOT NULL,
+    user_id VARCHAR(255) NOT NULL,
     transaction_type VARCHAR(50),
     status VARCHAR(50) NOT NULL,
     currency VARCHAR(10) NOT NULL,
@@ -616,7 +616,7 @@ CREATE TABLE transactions (
     _created_at TIMESTAMP,
     _updated_at TIMESTAMP,
     INDEX idx_updated_at (updated_at),
-    INDEX idx_client_id (client_id),
+    INDEX idx_user_id (user_id),
     INDEX idx_transaction_date (transaction_date)
 );
 ```

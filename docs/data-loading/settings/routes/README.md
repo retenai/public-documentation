@@ -1,6 +1,6 @@
 # :material-map-marker-path: Rutas
 
-Las rutas en Reten definen cómo los vendedores visitan sus clientes asignados, permitiendo una planificación eficiente de tareas y visitas. Una ruta representa ya sea un patrón recurrente de visitas o fechas específicas programadas para visitar los clientes en la cartera del vendedor.
+Las rutas en Reten definen cómo los vendedores visitan sus usuarios asignados, permitiendo una planificación eficiente de tareas y visitas. Una ruta representa ya sea un patrón recurrente de visitas o fechas específicas programadas para visitar los usuarios en la cartera del vendedor.
 
 <div style="text-align: center;">
 
@@ -14,7 +14,7 @@ erDiagram
     classDef clientClass fill:#fff3e0,stroke:none,color:#000,rx:8,ry:8
     
     Vendedor ||--o{ Ruta : "planifica"
-    Ruta ||--o{ Cliente : "programa visitas a"
+    Ruta ||--o{ Usuario : "programa visitas a"
 
     Vendedor {
     }
@@ -22,26 +22,26 @@ erDiagram
     Ruta {
     }
 
-    Cliente {
+    Usuario {
     }
 
     %% Aplicar estilos
     class Vendedor sellerClass
     class Ruta routeClass
-    class Cliente clientClass
+    class Usuario clientClass
 ```
 
 </div>
 
 La ruta actúa como un **planificador inteligente** que:
 
-- **Organiza las visitas** de un vendedor a sus clientes asignados
+- **Organiza las visitas** de un vendedor a sus usuarios asignados
 - **Define patrones de frecuencia** (semanal, quincenal, mensual, personalizado)
 - **Programa fechas específicas** para visitas especiales o campañas
 - **Optimiza la logística** del trabajo en terreno
 - **Permite flexibilidad** entre patrones recurrentes y fechas específicas
 
-Un vendedor puede planificar múltiples rutas, y cada ruta puede programar visitas a diferentes clientes según patrones de frecuencia o fechas específicas.
+Un vendedor puede planificar múltiples rutas, y cada ruta puede programar visitas a diferentes usuarios según patrones de frecuencia o fechas específicas.
 
 ## Estructura de Datos
 
@@ -49,7 +49,7 @@ Un vendedor puede planificar múltiples rutas, y cada ruta puede programar visit
 {
   // Identificadores
   "route_id": "string",         // Identificador principal de la ruta (not null)
-  "client_id": "string",        // Identificador del cliente a visitar (not null)
+  "user_id": "string",        // Identificador del usuario a visitar (not null)
   
   // Información básica
   "description": "string",      // Descripción de la ruta
@@ -85,10 +85,10 @@ Un vendedor puede planificar múltiples rutas, y cada ruta puede programar visit
 
 ### Identificadores
 
-| Campo     | Tipo   | Requerido | Descripción                         |
-| --------- | ------ | --------- | ----------------------------------- |
-| route_id  | string | Sí        | Identificador único en Reten        |
-| client_id | string | Sí        | Identificador del cliente a visitar |
+| Campo    | Tipo   | Requerido | Descripción                         |
+| -------- | ------ | --------- | ----------------------------------- |
+| route_id | string | Sí        | Identificador único en Reten        |
+| user_id  | string | Sí        | Identificador del usuario a visitar |
 
 ### Información Básica
 
@@ -131,7 +131,7 @@ Un vendedor puede planificar múltiples rutas, y cada ruta puede programar visit
 
 #### Identificadores
 - `route_id` debe ser único en todo el sistema
-- `client_id` debe corresponder a un cliente existente y asignado al vendedor
+- `user_id` debe corresponder a un usuario existente y asignado al vendedor
 
 #### Fechas
 - `created_at` no puede ser posterior a `updated_at`
@@ -145,8 +145,8 @@ Un vendedor puede planificar múltiples rutas, y cada ruta puede programar visit
 
 ### Validaciones de Negocio
 
-- Un vendedor no puede tener visitas programadas simultáneas en diferentes clientes
-- El cliente debe pertenecer a la cartera del vendedor
+- Un vendedor no puede tener visitas programadas simultáneas en diferentes usuarios
+- El usuario debe pertenecer a la cartera del vendedor
 - Los patrones recurrentes no pueden tener intervalos menores a 1 día
 
 ## Ejemplos de Uso
@@ -157,10 +157,10 @@ Un vendedor puede planificar múltiples rutas, y cada ruta puede programar visit
 {
   // Identificadores
   "route_id": "RTE_001",
-  "client_id": "CLT_001",
+  "user_id": "CLT_001",
   
   // Información básica
-  "description": "Visita semanal cliente principal zona norte",
+  "description": "Visita semanal usuario principal zona norte",
   
   // Configuración de la ruta
   "pattern_type": "recurring",
@@ -188,10 +188,10 @@ Un vendedor puede planificar múltiples rutas, y cada ruta puede programar visit
 {
   // Identificadores
   "route_id": "RTE_003",
-  "client_id": "CLT_003",
+  "user_id": "CLT_003",
   
   // Información básica
-  "description": "Visita quincenal cliente secundario",
+  "description": "Visita quincenal usuario secundario",
   
   // Configuración de la ruta
   "pattern_type": "recurring",
@@ -220,7 +220,7 @@ Un vendedor puede planificar múltiples rutas, y cada ruta puede programar visit
 {
   // Identificadores
   "route_id": "RTE_004",
-  "client_id": "CLT_004",
+  "user_id": "CLT_004",
   
   // Información básica
   "description": "Visita en días específicos del mes",
@@ -256,7 +256,7 @@ Un vendedor puede planificar múltiples rutas, y cada ruta puede programar visit
 {
   // Identificadores
   "route_id": "RTE_002",
-  "client_id": "CLT_002",
+  "user_id": "CLT_002",
   
   // Información básica
   "description": "Visita especial campaña navideña",
