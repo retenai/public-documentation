@@ -104,6 +104,14 @@ nav:
       - API REST: data-consumption/connection-methods/api-rest/README.md
     - Tareas: data-consumption/tasks/README.md
     - Estados de Usuario: data-consumption/user-states/README.md
+  - Comunicación:
+    - Resumen: communication-channels/README.md
+    - Configuración de Canales: communication-channels/channel-provider-configuration/README.md
+    - Canales:
+      - Notificaciones Push: communication-channels/push/README.md
+      - Correos Electrónicos: communication-channels/email/README.md
+      - WhatsApp: communication-channels/whatsapp/README.md
+      - SMS: communication-channels/sms/README.md
 
 # Additional settings
 plugins:

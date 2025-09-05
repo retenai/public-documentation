@@ -22,6 +22,7 @@ Los usuarios son los establecimientos, negocios o personas que interactúan con 
   // Información de contacto directa
   "email": "string",             // Email principal del usuario
   "phone": "string",             // Teléfono principal del usuario
+  "push_token": "string",        // Identificador único para notificaciones push (Firebase token, etc.)
   
   // Ubicación
   "country": "string",           // País del usuario
@@ -87,10 +88,11 @@ Los usuarios son los establecimientos, negocios o personas que interactúan con 
 
 ### Información de Contacto Directa
 
-| Campo | Tipo   | Requerido | Descripción                    |
-| ----- | ------ | --------- | ------------------------------ |
-| email | string | Sí        | Email principal del usuario    |
-| phone | string | Sí        | Teléfono principal del usuario |
+| Campo      | Tipo   | Requerido | Descripción                                                         |
+| ---------- | ------ | --------- | ------------------------------------------------------------------- |
+| email      | string | Sí        | Email principal del usuario                                         |
+| phone      | string | Sí        | Teléfono principal del usuario                                      |
+| push_token | string | No        | Identificador único para notificaciones push (Firebase token, etc.) |
 
 ### Dirección Principal
 
@@ -228,6 +230,7 @@ Los usuarios son los establecimientos, negocios o personas que interactúan con 
   "subcategory": "prioritario",
   "email": "jose.perez@email.com",
   "phone": "+56912345678",
+  "push_token": "fcm_token_abc123",
   "country": "CL",
   "address": "Los Alerces 123, Santiago, Región Metropolitana",
   "signup_at": "2024-03-19T10:00:00Z",
@@ -258,6 +261,7 @@ Los usuarios son los establecimientos, negocios o personas que interactúan con 
   "subcategory": "normal",
   "email": "gerencia@elsol.cl",
   "phone": "+56922334455",
+  "push_token": "fcm_business_xyz789",
   "country": "CL",
   "address_street": "Av. Providencia",
   "address_number": "1234",
@@ -303,6 +307,7 @@ Los usuarios son los establecimientos, negocios o personas que interactúan con 
   "subcategory": "prioritario",
   "email": "contacto@distribuidora.cl",
   "phone": "+56933445566",
+  "push_token": "fcm_enterprise_def456",
   "country": "CL",
   "address": "Camino Industrial 567, Maipú, Región Metropolitana",
   "signup_at": "2024-02-10T08:00:00Z",
@@ -347,9 +352,9 @@ Los usuarios son los establecimientos, negocios o personas que interactúan con 
 Los usuarios se cargan en archivos CSV con las columnas correspondientes:
 
 ```csv
-user_id,miscellaneous_id,name,channel,subchannel,category,subcategory,email,phone,country,address,signup_at,setup_at,created_at,updated_at,attributes,_created_at,_updated_at
-CLI_001,EXT_001,Restaurante La Pasta,b2c,online,oro,prioritario,contacto@lapasta.cl,+56911223344,CL,"Los Alerces 123, Santiago, Región Metropolitana",2024-03-19T10:00:00Z,,2024-03-19T10:00:00Z,2024-03-19T10:00:00Z,"",2024-03-19T10:00:00Z,2024-03-19T10:00:00Z
-CLI_002,ERP_456,Supermercados El Sol,retail,tienda,plata,normal,gerencia@elsol.cl,+56922334455,CL,Av. Providencia 1234,2024-01-15T09:00:00Z,2024-01-20T16:00:00Z,2024-01-15T09:00:00Z,2024-01-20T16:00:00Z,"",2024-01-15T09:00:00Z,2024-01-20T16:00:00Z
+user_id,miscellaneous_id,name,channel,subchannel,category,subcategory,email,phone,push_token,country,address,signup_at,setup_at,created_at,updated_at,attributes,_created_at,_updated_at
+CLI_001,EXT_001,Restaurante La Pasta,b2c,online,oro,prioritario,contacto@lapasta.cl,+56911223344,fcm_restaurant_abc123,CL,"Los Alerces 123, Santiago, Región Metropolitana",2024-03-19T10:00:00Z,,2024-03-19T10:00:00Z,2024-03-19T10:00:00Z,"",2024-03-19T10:00:00Z,2024-03-19T10:00:00Z
+CLI_002,ERP_456,Supermercados El Sol,retail,tienda,plata,normal,gerencia@elsol.cl,+56922334455,fcm_business_xyz789,CL,Av. Providencia 1234,2024-01-15T09:00:00Z,2024-01-20T16:00:00Z,2024-01-15T09:00:00Z,2024-01-20T16:00:00Z,"",2024-01-15T09:00:00Z,2024-01-20T16:00:00Z
 ```
 
 ### **Método por Base de Datos**
@@ -366,6 +371,7 @@ SELECT
     subcategory,
     email,
     phone,
+    push_token,
     country,
     address,
     signup_at,
