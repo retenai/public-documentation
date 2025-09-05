@@ -8,6 +8,7 @@ Los usuarios son los establecimientos, negocios o personas que interactúan con 
 {
   // Identificadores
   "user_id": "string",           // Identificador principal (not null)
+  "miscellaneous_id": "string",  // ID externo adicional del usuario (opcional)
 
   // Información básica
   "name": "string",              // Nombre del usuario
@@ -63,9 +64,10 @@ Los usuarios son los establecimientos, negocios o personas que interactúan con 
 
 ### Identificadores
 
-| Campo   | Tipo   | Requerido | Descripción                  |
-| ------- | ------ | --------- | ---------------------------- |
-| user_id | string | Sí        | Identificador único en Reten |
+| Campo            | Tipo   | Requerido | Descripción                      |
+| ---------------- | ------ | --------- | -------------------------------- |
+| user_id          | string | Sí        | Identificador único en Reten     |
+| miscellaneous_id | string | No        | ID externo adicional del usuario |
 
 ### Información Básica
 
@@ -218,6 +220,7 @@ Los usuarios son los establecimientos, negocios o personas que interactúan con 
 ```json
 {
   "user_id": "CLI_001",
+  "miscellaneous_id": "EXT_001",
   "name": "José Pérez",
   "channel": "b2c",
   "subchannel": "online",
@@ -247,6 +250,7 @@ Los usuarios son los establecimientos, negocios o personas que interactúan con 
 ```json
 {
   "user_id": "CLI_002",
+  "miscellaneous_id": "ERP_456",
   "name": "Supermercados El Sol",
   "channel": "retail",
   "subchannel": "tienda",
@@ -291,6 +295,7 @@ Los usuarios son los establecimientos, negocios o personas que interactúan con 
 ```json
 {
   "user_id": "CLI_003",
+  "miscellaneous_id": "CRM_789",
   "name": "Distribuidora Mayor",
   "channel": "mayorista",
   "subchannel": "industrial",
@@ -342,9 +347,9 @@ Los usuarios son los establecimientos, negocios o personas que interactúan con 
 Los usuarios se cargan en archivos CSV con las columnas correspondientes:
 
 ```csv
-user_id,name,channel,subchannel,category,subcategory,email,phone,country,address,signup_at,setup_at,created_at,updated_at,attributes,_created_at,_updated_at
-CLI_001,Restaurante La Pasta,b2c,online,oro,prioritario,contacto@lapasta.cl,+56911223344,CL,"Los Alerces 123, Santiago, Región Metropolitana",2024-03-19T10:00:00Z,,2024-03-19T10:00:00Z,2024-03-19T10:00:00Z,"",2024-03-19T10:00:00Z,2024-03-19T10:00:00Z
-CLI_002,Supermercados El Sol,retail,tienda,plata,normal,gerencia@elsol.cl,+56922334455,CL,Av. Providencia 1234,2024-01-15T09:00:00Z,2024-01-20T16:00:00Z,2024-01-15T09:00:00Z,2024-01-20T16:00:00Z,"",2024-01-15T09:00:00Z,2024-01-20T16:00:00Z
+user_id,miscellaneous_id,name,channel,subchannel,category,subcategory,email,phone,country,address,signup_at,setup_at,created_at,updated_at,attributes,_created_at,_updated_at
+CLI_001,EXT_001,Restaurante La Pasta,b2c,online,oro,prioritario,contacto@lapasta.cl,+56911223344,CL,"Los Alerces 123, Santiago, Región Metropolitana",2024-03-19T10:00:00Z,,2024-03-19T10:00:00Z,2024-03-19T10:00:00Z,"",2024-03-19T10:00:00Z,2024-03-19T10:00:00Z
+CLI_002,ERP_456,Supermercados El Sol,retail,tienda,plata,normal,gerencia@elsol.cl,+56922334455,CL,Av. Providencia 1234,2024-01-15T09:00:00Z,2024-01-20T16:00:00Z,2024-01-15T09:00:00Z,2024-01-20T16:00:00Z,"",2024-01-15T09:00:00Z,2024-01-20T16:00:00Z
 ```
 
 ### **Método por Base de Datos**
@@ -353,6 +358,7 @@ Los usuarios se consultan desde una tabla con la estructura correspondiente:
 ```sql
 SELECT
     user_id,
+    miscellaneous_id,
     name,
     channel,
     subchannel,
