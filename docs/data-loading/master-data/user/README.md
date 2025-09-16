@@ -12,6 +12,7 @@ Los usuarios son los establecimientos, negocios o personas que interactúan con 
 
   // Información básica
   "name": "string",              // Nombre del usuario
+  "is_active": "boolean",        // Indica si el cliente está activo para realizar compras (de user_properties)
 
   // Clasificación y categorización
   "channel": "string",           // Canal del usuario (ej: "ferretero", "retail", "mayorista", "b2b", "b2c")
@@ -40,7 +41,7 @@ Los usuarios son los establecimientos, negocios o personas que interactúan con 
   
   // Fechas relevantes
   "signup_at": "timestamp",      // Fecha de registro (not null)
-  "setup_at": "timestamp",       // Fecha de configuración final
+  "setup_at": "timestamp",       // Fecha desde que el cliente está habilitado para realizar pedidos (alta en sistema)
   
   // Marcas temporales
   "created_at": "timestamp",     // Fecha de creación en sistema usuario (not null)
@@ -72,10 +73,11 @@ Los usuarios son los establecimientos, negocios o personas que interactúan con 
 
 ### Información Básica
 
-| Campo   | Tipo   | Requerido | Descripción                 |
-| ------- | ------ | --------- | --------------------------- |
-| name    | string | Sí        | Nombre del usuario          |
-| country | string | No        | País donde opera el usuario |
+| Campo     | Tipo    | Requerido | Descripción                                                         |
+| --------- | ------- | --------- | ------------------------------------------------------------------- |
+| name      | string  | Sí        | Nombre del usuario                                                  |
+| is_active | boolean | No        | Indica si el cliente está activo para realizar compras (de user_properties) |
+| country   | string  | No        | País donde opera el usuario                                         |
 
 ### Clasificación y Categorización
 
@@ -111,7 +113,7 @@ Los usuarios son los establecimientos, negocios o personas que interactúan con 
 | Campo     | Tipo      | Requerido | Descripción                  |
 | --------- | --------- | --------- | ---------------------------- |
 | signup_at | timestamp | Sí        | Fecha de registro inicial    |
-| setup_at  | timestamp | No        | Fecha de configuración final |
+| setup_at  | timestamp | No        | Fecha desde que el cliente está habilitado para realizar pedidos (alta en sistema) |
 
 ### Marcas Temporales
 
@@ -181,7 +183,7 @@ Los usuarios son los establecimientos, negocios o personas que interactúan con 
 ### Fechas
 
 - `created_at` no puede ser posterior a `updated_at`
-- `signup_at` no puede ser posterior a `setup_at`
+- `signup_at` no puede ser posterior a `setup_at` (la habilitación para pedidos no puede ser anterior al registro)
 - Todas las fechas deben ser válidas y en formato ISO 8601
 
 ### Información de Contacto
@@ -206,7 +208,7 @@ Los usuarios son los establecimientos, negocios o personas que interactúan con 
 
 ### Configuración Inicial
 
-- `setup_at` solo se establece cuando se completan todos los campos requeridos
+- `setup_at` solo se establece cuando el cliente está completamente habilitado para realizar pedidos
 - La configuración requiere al menos `email`, `phone` y un campo de dirección válido
 
 ### Atributos
@@ -224,6 +226,7 @@ Los usuarios son los establecimientos, negocios o personas que interactúan con 
   "user_id": "CLI_001",
   "miscellaneous_id": "EXT_001",
   "name": "José Pérez",
+  "is_active": true,
   "channel": "b2c",
   "subchannel": "online",
   "category": "oro",
@@ -255,6 +258,7 @@ Los usuarios son los establecimientos, negocios o personas que interactúan con 
   "user_id": "CLI_002",
   "miscellaneous_id": "ERP_456",
   "name": "Supermercados El Sol",
+  "is_active": true,
   "channel": "retail",
   "subchannel": "tienda",
   "category": "plata",
@@ -301,6 +305,7 @@ Los usuarios son los establecimientos, negocios o personas que interactúan con 
   "user_id": "CLI_003",
   "miscellaneous_id": "CRM_789",
   "name": "Distribuidora Mayor",
+  "is_active": false,
   "channel": "mayorista",
   "subchannel": "industrial",
   "category": "oro",
@@ -334,11 +339,6 @@ Los usuarios son los establecimientos, negocios o personas que interactúan con 
       "key": "last_purchase_date",
       "value": "2024-03-15",
       "type": "date"
-    },
-    {
-      "key": "is_active",
-      "value": "true",
-      "type": "boolean"
     }
   ],
   "_created_at": "2024-02-10T08:00:00Z",
@@ -352,9 +352,9 @@ Los usuarios son los establecimientos, negocios o personas que interactúan con 
 Los usuarios se cargan en archivos CSV con las columnas correspondientes:
 
 ```csv
-user_id,miscellaneous_id,name,channel,subchannel,category,subcategory,email,phone,push_token,country,address,signup_at,setup_at,created_at,updated_at,attributes,_created_at,_updated_at
-CLI_001,EXT_001,Restaurante La Pasta,b2c,online,oro,prioritario,contacto@lapasta.cl,+56911223344,fcm_restaurant_abc123,CL,"Los Alerces 123, Santiago, Región Metropolitana",2024-03-19T10:00:00Z,,2024-03-19T10:00:00Z,2024-03-19T10:00:00Z,"",2024-03-19T10:00:00Z,2024-03-19T10:00:00Z
-CLI_002,ERP_456,Supermercados El Sol,retail,tienda,plata,normal,gerencia@elsol.cl,+56922334455,fcm_business_xyz789,CL,Av. Providencia 1234,2024-01-15T09:00:00Z,2024-01-20T16:00:00Z,2024-01-15T09:00:00Z,2024-01-20T16:00:00Z,"",2024-01-15T09:00:00Z,2024-01-20T16:00:00Z
+user_id,miscellaneous_id,name,is_active,channel,subchannel,category,subcategory,email,phone,push_token,country,address,signup_at,setup_at,created_at,updated_at,attributes,_created_at,_updated_at
+CLI_001,EXT_001,Restaurante La Pasta,true,b2c,online,oro,prioritario,contacto@lapasta.cl,+56911223344,fcm_restaurant_abc123,CL,"Los Alerces 123, Santiago, Región Metropolitana",2024-03-19T10:00:00Z,,2024-03-19T10:00:00Z,2024-03-19T10:00:00Z,"",2024-03-19T10:00:00Z,2024-03-19T10:00:00Z
+CLI_002,ERP_456,Supermercados El Sol,true,retail,tienda,plata,normal,gerencia@elsol.cl,+56922334455,fcm_business_xyz789,CL,Av. Providencia 1234,2024-01-15T09:00:00Z,2024-01-20T16:00:00Z,2024-01-15T09:00:00Z,2024-01-20T16:00:00Z,"",2024-01-15T09:00:00Z,2024-01-20T16:00:00Z
 ```
 
 ### **Método por Base de Datos**
@@ -365,6 +365,7 @@ SELECT
     user_id,
     miscellaneous_id,
     name,
+    is_active,
     channel,
     subchannel,
     category,
