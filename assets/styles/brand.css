@@ -1,0 +1,105 @@
+:root {
+    /* Brand Colors */
+    --reten-primary: #651FFF;
+    --reten-white: #FFFFFF;
+    --reten-dark: #1A1B26;
+
+    /* Gradients */
+    --reten-gradient: linear-gradient(135deg, #651FFF 0%, #8B31FF 100%);
+
+    /* Typography */
+    --reten-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+    /* Spacing */
+    --reten-spacing-xs: 0.25rem;
+    --reten-spacing-sm: 0.5rem;
+    --reten-spacing-md: 1rem;
+    --reten-spacing-lg: 1.5rem;
+    --reten-spacing-xl: 2rem;
+
+    /* Border Radius */
+    --reten-radius-sm: 4px;
+    --reten-radius-md: 8px;
+    --reten-radius-lg: 12px;
+
+    /* Shadows */
+    --reten-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --reten-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --reten-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* Base Styles */
+body {
+    font-family: var(--reten-font-family);
+    color: var(--reten-dark);
+    line-height: 1.5;
+}
+
+/* Links */
+a {
+    color: var(--reten-primary);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Buttons */
+.reten-button {
+    background: var(--reten-gradient);
+    color: var(--reten-white);
+    border: none;
+    border-radius: var(--reten-radius-md);
+    padding: var(--reten-spacing-sm) var(--reten-spacing-md);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.reten-button:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--reten-shadow-md);
+}
+
+/* Headers */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+/* Code Blocks */
+code {
+    background: rgba(101, 31, 255, 0.1);
+    padding: var(--reten-spacing-xs) var(--reten-spacing-sm);
+    border-radius: var(--reten-radius-sm);
+    font-family: 'Fira Code', monospace;
+}
+
+pre {
+    background: var(--reten-dark);
+    color: var(--reten-white);
+    padding: var(--reten-spacing-md);
+    border-radius: var(--reten-radius-md);
+    overflow-x: auto;
+}
+
+/* Navigation */
+.reten-nav {
+    background: var(--reten-white);
+    box-shadow: var(--reten-shadow-sm);
+    padding: var(--reten-spacing-md);
+}
+
+/* Cards */
+.reten-card {
+    background: var(--reten-white);
+    border-radius: var(--reten-radius-lg);
+    padding: var(--reten-spacing-lg);
+    box-shadow: var(--reten-shadow-md);
+}
